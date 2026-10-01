@@ -30,13 +30,14 @@ def local_preview(html):
     head = (f'<title>ace360 services</title>\n'
             f'<link rel="stylesheet" href="{a}css/fonts.css">\n<link rel="stylesheet" href="{a}css/main.css">')
     scripts = ''.join(f'<script src="{a}vendor/{l}"></script>\n' for l in LIBS)
-    scripts += f'<script>window.ACE360_PREVIEW = true;</script>\n<script src="{a}js/hero3d.js"></script>\n<script src="{a}js/main.js"></script>'
+    scripts += f'<script>window.ACE360_PREVIEW = true;</script>\n<script src="{a}js/film.js"></script>\n<script src="{a}js/main.js"></script>'
     return html.replace('<!--wp_head-->', head).replace('<!--wp_footer-->', scripts)
 
 def artifact(html):
     body = re.search(r'<body[^>]*>(.*)</body>', html, re.S).group(1)
     body = body.replace('<!--wp_footer-->', '')
     out = ['<title>ace360 services</title>',
+           "<script>document.documentElement.classList.add('js');</script>",
            '<meta name="description" content="Animated studio website for ace360 services, web development for Dutch brands.">',
            '<link rel="preconnect" href="https://fonts.googleapis.com">',
            '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
@@ -45,7 +46,7 @@ def artifact(html):
            body]
     out += [f'<script src="{u}"></script>' for u in CDN]
     out.append('<script>window.ACE360_PREVIEW = true;</script>')
-    out.append('<script>\n' + read('assets/js/hero3d.js') + '\n</script>')
+    out.append('<script>\n' + read('assets/js/film.js') + '\n</script>')
     out.append('<script>\n' + read('assets/js/main.js') + '\n</script>')
     return '\n'.join(out)
 

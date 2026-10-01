@@ -6,17 +6,17 @@
  */
 
 ?><!doctype html>
-<html <?php language_attributes(); ?>>
+<html <?php language_attributes(); ?> class="no-js">
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
 <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 <a class="skip-link" href="#main"><?php esc_html_e( 'Skip to content', 'ace360' ); ?></a>
 <div class="scroll-progress" aria-hidden="true"><span></span></div>
-<div class="cursor" aria-hidden="true"><span class="cursor-dot"></span><span class="cursor-ring"></span></div>
 
 <header class="site-header" id="top" data-header>
 	<div class="header-inner">
@@ -48,7 +48,7 @@
 			?>
 		</nav>
 
-		<a class="btn btn-small magnetic" href="<?php echo esc_url( is_front_page() ? '#contact' : home_url( '/#contact' ) ); ?>">
+		<a class="nav-cta" href="<?php echo esc_url( is_front_page() ? '#contact' : home_url( '/#contact' ) ); ?>">
 			<span><?php echo esc_html( ace360_mod( 'cta_label' ) ); ?></span>
 		</a>
 

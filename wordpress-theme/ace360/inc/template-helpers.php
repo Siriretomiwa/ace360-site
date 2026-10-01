@@ -77,26 +77,83 @@ function ace360_wordmark() {
 }
 
 /**
- * Example projects shown until real Projects are published.
+ * The five build steps, shown as one chapter each.
+ */
+function ace360_steps() {
+	return array(
+		array(
+			'word'   => __( 'Listen', 'ace360' ),
+			'nl'     => 'Kennismaken',
+			'time'   => __( 'Week 1', 'ace360' ),
+			'text'   => __( 'Thirty minutes about your brand, your customers and what the site has to achieve. You get a sitemap and a fixed quote within a week.', 'ace360' ),
+			'screen' => 'wire',
+		),
+		array(
+			'word'   => __( 'Design', 'ace360' ),
+			'nl'     => 'Ontwerpen',
+			'time'   => __( 'Weeks 2–3', 'ace360' ),
+			'text'   => __( 'A clickable design of the key pages, with the motion designed in from the start. You approve it before we write a line of code.', 'ace360' ),
+			'screen' => 'design',
+		),
+		array(
+			'word'   => __( 'Build', 'ace360' ),
+			'nl'     => 'Bouwen',
+			'time'   => __( 'Weeks 4–7', 'ace360' ),
+			'text'   => __( 'Layer by layer on a staging site you can follow. Payments, translations and integrations are tested with real orders.', 'ace360' ),
+			'screen' => 'wire',
+		),
+		array(
+			'word'   => __( 'Launch', 'ace360' ),
+			'nl'     => 'Lanceren',
+			'time'   => __( 'Week 8', 'ace360' ),
+			'text'   => __( 'Redirects, speed and accessibility checks, then go-live. Your team gets a short training on editing every page.', 'ace360' ),
+			'screen' => 'live',
+		),
+		array(
+			'word'   => __( 'Grow', 'ace360' ),
+			'nl'     => 'Groeien',
+			'time'   => __( 'Ongoing', 'ace360' ),
+			'text'   => __( 'Updates, backups and a monthly report on speed, search and sales, with concrete proposals for what to improve next.', 'ace360' ),
+			'screen' => 'chart',
+		),
+	);
+}
+
+/**
+ * Dutch-market features, cycled in the sticky "Built for the Netherlands" chapter.
+ */
+function ace360_market() {
+	return array(
+		array( 'ideal', __( 'iDEAL checkout', 'ace360' ), __( 'iDEAL, Bancontact and Klarna through Mollie. The payment methods Dutch and Belgian customers expect, in a checkout that takes one screen.', 'ace360' ) ),
+		array( 'postcode', __( 'Postcode autofill', 'ace360' ), __( 'Postcode plus house number fills in street and city. Fewer typos, fewer parcels returned to sender.', 'ace360' ) ),
+		array( 'avg', __( 'AVG-proof', 'ace360' ), __( 'A cookie banner that actually blocks trackers until visitors agree. Fonts and scripts come from your own server.', 'ace360' ) ),
+		array( 'access', __( 'Accessible', 'ace360' ), __( 'Built to WCAG 2.2 AA for the European Accessibility Act: keyboard navigation, contrast and screen-reader labels.', 'ace360' ) ),
+		array( 'lang', __( 'Nederlands & English', 'ace360' ), __( 'Both languages with proper hreflang, so each version ranks in search on its own.', 'ace360' ) ),
+		array( 'ship', __( 'PostNL, DHL, Sendcloud', 'ace360' ), __( 'Shipping labels and track-and-trace emails straight from your WooCommerce orders.', 'ace360' ) ),
+	);
+}
+
+/**
+ * Example projects, cycled in the sticky "Work" chapter until real Projects exist.
  */
 function ace360_example_projects() {
 	return array(
 		array(
 			'type'    => __( 'Webshop', 'ace360' ),
 			'title'   => __( 'Specialty coffee roaster', 'ace360' ),
-			'text'    => __( 'WooCommerce subscriptions, iDEAL via Mollie, PostNL label printing.', 'ace360' ),
+			'text'    => __( 'WooCommerce subscriptions, iDEAL via Mollie and PostNL label printing.', 'ace360' ),
 			'variant' => 'roast',
 		),
 		array(
 			'type'    => __( 'Portfolio', 'ace360' ),
 			'title'   => __( 'Architecture studio', 'ace360' ),
-			'text'    => __( 'Scroll-driven 3D model viewer, bilingual case studies.', 'ace360' ),
+			'text'    => __( 'A scroll-driven 3D model viewer with bilingual case studies.', 'ace360' ),
 			'variant' => 'grid',
 		),
 		array(
 			'type'    => __( 'Booking site', 'ace360' ),
 			'title'   => __( 'City bike rental', 'ace360' ),
-			'text'    => __( 'Live availability, postcode autofill, Dutch and English checkout.', 'ace360' ),
+			'text'    => __( 'Live availability, postcode autofill and a Dutch and English checkout.', 'ace360' ),
 			'variant' => 'wheel',
 		),
 		array(
@@ -106,23 +163,4 @@ function ace360_example_projects() {
 			'variant' => 'drape',
 		),
 	);
-}
-
-/**
- * Small inline icons for the Dutch-market grid. Paths are simple geometry.
- *
- * @param string $name Icon name.
- * @return string SVG markup.
- */
-function ace360_tile_icon( $name ) {
-	$icons = array(
-		'pay'     => '<rect x="6" y="11" width="36" height="26" rx="4"/><path d="M6 19h36"/><path d="M13 29h8"/>',
-		'pin'     => '<path d="M24 42s14-12.5 14-23a14 14 0 0 0-28 0c0 10.5 14 23 14 23z"/><circle cx="24" cy="19" r="5"/>',
-		'shield'  => '<path d="M24 5l15 6v11c0 10-6.5 17-15 21-8.5-4-15-11-15-21V11z"/><path d="M17 24l5 5 9-10"/>',
-		'access'  => '<circle cx="24" cy="10" r="4"/><path d="M10 17l14 3 14-3"/><path d="M24 20v9l-7 13"/><path d="M24 29l7 13"/>',
-		'lang'    => '<path d="M6 10h20"/><path d="M16 6v4"/><path d="M22 10c-2 9-8 15-14 18"/><path d="M11 16c3 5 7 9 12 11"/><path d="M27 42l8-20 8 20"/><path d="M30 35h10"/>',
-		'ship'    => '<path d="M5 14h24v18H5z"/><path d="M29 20h8l6 7v5H29z"/><circle cx="13" cy="35" r="4"/><circle cx="35" cy="35" r="4"/>',
-	);
-	$path = isset( $icons[ $name ] ) ? $icons[ $name ] : '';
-	return '<svg class="tile-icon" viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' . $path . '</svg>';
 }

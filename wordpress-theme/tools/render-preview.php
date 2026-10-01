@@ -37,7 +37,7 @@ function get_footer() { global $theme; include $theme . '/footer.php'; }
 function get_template_part( $slug ) { global $theme; include $theme . '/' . $slug . '.php'; }
 function ace360_fallback_menu() {
 	echo '<ul class="menu">';
-	foreach ( array( '#services' => 'Services', '#work' => 'Work', '#process' => 'Process', '#nl' => 'Dutch market' ) as $h => $l ) {
+	foreach ( array( '#process' => 'Process', '#services' => 'Services', '#nl' => 'Netherlands', '#work' => 'Work' ) as $h => $l ) {
 		printf( '<li><a href="%s">%s</a></li>', esc_url( $h ), esc_html( $l ) );
 	}
 	echo '</ul>';
@@ -46,6 +46,7 @@ class WP_Query {
 	public function __construct( $a ) {}
 	public function have_posts() { return false; }
 }
+function wp_reset_postdata() {}
 
 require $theme . '/inc/template-helpers.php';
 include $theme . '/front-page.php';
