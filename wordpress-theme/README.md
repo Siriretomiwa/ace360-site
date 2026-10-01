@@ -1,33 +1,35 @@
-# ace360 WordPress theme
+# Ace 360 Services: WordPress theme
 
-Cinematic, scroll-driven 3D studio theme for **ace360 services**, a web development studio for Dutch brands.
+Bilingual (English / Dutch) WordPress theme for **Ace 360 Services**: websites, online stores and maintenance for businesses in the Netherlands and abroad.
 
-- `dist/ace360-theme.zip` – install this in WordPress (Appearance → Themes → Add New → Upload Theme).
-- `preview/index.html` – static preview of the front page, rendered from the theme's own templates.
-- `ace360/` – theme source.
-- `tools/` – `build.py` rebuilds the preview and the zip (`python3 tools/build.py`); `render-preview.php` renders the front page outside WordPress.
+- `dist/ace360-theme.zip`: install this in WordPress (Appearance → Themes → Add New → Upload Theme).
+- `preview/index.html`: static preview of the front page, rendered from the theme's own templates.
+- `../docs/`: the same preview as a static site for GitHub Pages.
+- `ace360/`: theme source.
+- `tools/build.py`: rebuilds the preview, the Pages copy and the zip (`python3 tools/build.py`, `python3 tools/build.py pages ../docs`).
 
 ## What's in it
 
 | Area | Implementation |
 | --- | --- |
-| 3D film | The front page is one continuous three.js scene fixed behind the page (`assets/js/film.js`). Each chapter (`<section data-k>`) is a camera keyframe; scrolling blends between them. The scene: a floating browser window inside a ring of Delft tiles, a phone, the page's layers pulling apart in the Build step, and drifting dust. |
-| Screen states | The browser window's screen is drawn on a canvas and flips to a new state per chapter (`data-screen`): a slow old site, wireframe, design, finished site, growth chart, iDEAL checkout, postcode autofill, cookie banner, accessibility checks, NL/EN, shipping label, and each project. Projects with a featured image show that image. |
-| Sticky chapters | "Built for the Netherlands" (fades to a light scene) and "Work" stay pinned while their items cycle with scroll; the diamond dots jump to an item. |
-| Motion | GSAP + ScrollTrigger reveals, stretching accent word in headlines (Archivo's width axis), Lenis smooth scrolling, scroll progress bar. |
-| Accessibility | Skip link, visible focus, semantic sections, `prefers-reduced-motion` turns off smooth scroll and animation. Every chapter's text is in the HTML and readable with JavaScript or WebGL off. |
-| Privacy (AVG) | Fonts and scripts are bundled in the theme. The site makes no third-party requests. |
-| Performance | All scripts deferred; three.js only loads on the front page; no image or model files (everything is drawn in code); pixel ratio capped at 1.5; rendering pauses in background tabs. |
+| Look | White and soft grey (#FFFFFF / #F8F9FA), off-black text (#111111), monochrome cards with subtle borders and shadows, Inter (self-hosted). |
+| 3D model | One three.js scene fixed behind the front page (`assets/js/film.js`): a white architectural model of a Dutch canal-house street. Each section is a camera keyframe and scrolling blends between them. Through the five process steps the centre house gets built: plot, wireframe drawing, ghost massing, construction under scaffolding, then glass in and a flag on the gable at launch. No image or model files; everything is drawn in code. |
+| English and Dutch | Every text is in the HTML in both languages (`inc/content.php`). The EN/NL switch in the header shows one. First visit: Dutch for Dutch-language browsers, English for everyone else; the choice is remembered. Link straight to a language with `?lang=nl` or `?lang=en`. The contact form tells you which language the visitor used. |
+| International clients | Copy says "Netherlands and abroad", hours show CET, a FAQ covers remote work in English, quotes in euros and EU VAT reverse charge. |
+| Price estimator | Visitors pick a project type and extras and see a price range, build time and optional care plan. "Ask for a fixed quote" carries the selection into the contact form and the email you receive. |
+| Contact | Call (tel: link), WhatsApp click-to-chat, email, hours, coverage, and a form that emails you via `wp_mail()`. Floating "Call now" button on phones. |
+| Accessibility | Skip link, visible focus, real `<details>` FAQ, `prefers-reduced-motion` turns off smooth scroll and animation. All text is readable with JavaScript or WebGL off. |
+| Privacy (AVG) | Fonts and scripts are bundled in the theme; the site makes no third-party requests. |
 
 ## After installing
 
-1. **Logo** – Appearance → Customize → Site Identity → Logo. Until a logo is uploaded the header shows the built-in "ace360" wordmark.
-2. **Texts and business details** – Appearance → Customize → ace360. Headlines use one line per row; wrap a word in `*asterisks*` for the stretching accent. Add your KvK number and BTW-id there; they appear in the footer.
-3. **Contact form** – sends to the email set in the Customizer via `wp_mail()`. Install an SMTP plugin (e.g. WP Mail SMTP) so mail is delivered reliably.
-4. **Projects** – Dashboard → Projects → Add project. Give each one a featured image, an excerpt and a "Project type". Published projects replace the example projects in the Work chapter, and each featured image appears on the 3D screen. Order them with the "Order" field.
-5. **Menus** – Appearance → Menus. Assign "Primary menu" and "Footer menu". Without menus, both fall back to links to the front-page sections (`#process`, `#services`, `#nl`, `#work`).
-6. **Front page** – the theme's `front-page.php` is used automatically. If Settings → Reading is set to a static page, that page is still rendered with the animated layout.
+1. **Logo**: Appearance → Customize → Site Identity → Logo. Until you upload one, the header shows the built-in "Ace 360 Services" wordmark.
+2. **Business details**: Appearance → Customize → *ace360 business details*: phone, WhatsApp number, email (receives the form), opening hours in both languages, KvK number (shown in the footer) and BTW-id.
+3. **Copy and prices**: all page text, in English and Dutch, is in `ace360/inc/content.php`. Estimator prices are in `ace360_estimator()` in the same file (or override them with the `ace360_estimator` filter from a child theme or plugin).
+4. **Email delivery**: install an SMTP plugin (e.g. WP Mail SMTP) so the contact form's mail is delivered reliably.
+5. **Projects**: Dashboard → Projects → Add project, with an excerpt, a "Project type" and optionally a featured image. Published projects replace the three default ones (Hesed Impact Ministries, SIDWALK, Crea8or) in the Work section. Order them with the "Order" field.
+6. **Menus**: optional. Without a Primary menu, the header links to `#diensten`, `#werkwijze`, `#werk` and `#vragen` in both languages.
 
 ## Credits
 
-three.js (MIT), GSAP 3.12.5 (GreenSock standard license, free for websites), Lenis (MIT), Archivo and Hanken Grotesk (SIL Open Font License).
+three.js (MIT), GSAP 3.12.5 (GreenSock standard license, free for websites), Lenis (MIT), Inter (SIL Open Font License).

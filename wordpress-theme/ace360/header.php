@@ -1,6 +1,6 @@
 <?php
 /**
- * Site header.
+ * Site header: wordmark, section links, EN/NL switch, phone and call button.
  *
  * @package ace360
  */
@@ -10,12 +10,23 @@
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
+<script>
+/* Pick the language before first paint: ?lang= → saved choice → browser language. */
+(function (d) {
+	var l = null;
+	try { l = new URLSearchParams(location.search).get('lang'); } catch (e) {}
+	if (l !== 'nl' && l !== 'en') { try { l = localStorage.getItem('ace360-lang'); } catch (e) {} }
+	if (l !== 'nl' && l !== 'en') { l = /^nl\b/i.test(navigator.language || '') ? 'nl' : 'en'; }
+	d.setAttribute('data-lang', l);
+	d.setAttribute('lang', l);
+	d.className = d.className.replace('no-js', 'js');
+})(document.documentElement);
+</script>
 <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
-<a class="skip-link" href="#main"><?php esc_html_e( 'Skip to content', 'ace360' ); ?></a>
+<a class="skip-link" href="#main"><?php ace360_e( ace360_pair( 'Skip to content', 'Naar de inhoud' ) ); ?></a>
 <div class="scroll-progress" aria-hidden="true"><span></span></div>
 
 <header class="site-header" id="top" data-header>
@@ -23,8 +34,7 @@
 		<a class="brand" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home" aria-label="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
 			<?php
 			if ( has_custom_logo() ) {
-				$logo_id = get_theme_mod( 'custom_logo' );
-				echo wp_get_attachment_image( $logo_id, 'full', false, array( 'class' => 'custom-logo', 'alt' => get_bloginfo( 'name' ) ) );
+				echo wp_get_attachment_image( get_theme_mod( 'custom_logo' ), 'full', false, array( 'class' => 'custom-logo', 'alt' => get_bloginfo( 'name' ) ) );
 			} else {
 				echo ace360_wordmark(); // phpcs:ignore WordPress.Security.EscapeOutput -- static markup.
 			}
@@ -46,15 +56,20 @@
 				ace360_fallback_menu();
 			}
 			?>
+			<a class="nav-phone" href="<?php echo esc_url( ace360_tel() ); ?>"><?php echo esc_html( ace360_mod( 'phone' ) ); ?></a>
 		</nav>
 
-		<a class="nav-cta" href="<?php echo esc_url( is_front_page() ? '#contact' : home_url( '/#contact' ) ); ?>">
-			<span><?php echo esc_html( ace360_mod( 'cta_label' ) ); ?></span>
-		</a>
+		<div class="lang-switch" role="group" aria-label="Language / Taal">
+			<button type="button" data-set-lang="en" aria-pressed="true">EN</button>
+			<button type="button" data-set-lang="nl" aria-pressed="false">NL</button>
+		</div>
+
+		<a class="btn btn-small" href="<?php echo esc_url( ace360_tel() ); ?>"><?php ace360_e( ace360_pair( 'Call now', 'Bel nu' ) ); ?></a>
 
 		<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
-			<span class="screen-reader-text"><?php esc_html_e( 'Menu', 'ace360' ); ?></span>
+			<span class="screen-reader-text">Menu</span>
 			<span class="nav-toggle-bars" aria-hidden="true"></span>
 		</button>
 	</div>
 </header>
+<a class="btn fab-call" href="<?php echo esc_url( ace360_tel() ); ?>"><?php ace360_e( ace360_pair( 'Call now', 'Bel nu' ) ); ?></a>

@@ -1,13 +1,16 @@
 <?php
 /**
- * Front page: a scroll-driven 3D film. One fixed WebGL stage sits behind every
- * chapter; each chapter's data-k names the camera pose, data-screen names what
- * the floating browser window shows. Everything reads fine without WebGL.
+ * Front page. A fixed three.js stage (a white architectural model of a Dutch
+ * canal-house street) sits behind the chapters; each chapter's data-k is a
+ * camera keyframe, and the centre house is built along with the process steps.
+ * All copy is in the HTML in English and Dutch and reads fine without WebGL.
  *
  * @package ace360
  */
 
 get_header();
+
+$ace360_hero = ace360_hero();
 
 $ace360_projects = new WP_Query(
 	array(
@@ -25,126 +28,183 @@ if ( $ace360_projects->have_posts() ) {
 	while ( $ace360_projects->have_posts() ) {
 		$ace360_projects->the_post();
 		$ace360_work[] = array(
-			'type'    => get_post_meta( get_the_ID(), 'ace360_project_type', true ),
-			'title'   => get_the_title(),
-			'text'    => wp_strip_all_tags( get_the_excerpt() ),
-			'variant' => 'grid',
-			'image'   => get_the_post_thumbnail_url( get_the_ID(), 'large' ),
-			'url'     => get_permalink(),
+			'title' => get_the_title(),
+			'type'  => get_post_meta( get_the_ID(), 'ace360_project_type', true ),
+			'text'  => wp_strip_all_tags( get_the_excerpt() ),
+			'url'   => get_permalink(),
+			'image' => get_the_post_thumbnail_url( get_the_ID(), 'large' ),
 		);
 	}
 	wp_reset_postdata();
 }
-$ace360_is_example = empty( $ace360_work );
-if ( $ace360_is_example ) {
-	$ace360_work = ace360_example_projects();
+if ( empty( $ace360_work ) ) {
+	$ace360_work = ace360_work();
 }
-$ace360_market = ace360_market();
+$ace360_est = ace360_estimator();
+$ace360_est_js = array(
+	'types'  => array_map(
+		function ( $t ) {
+			return array( 'id' => $t['id'], 'min' => $t['min'], 'max' => $t['max'], 'weeks' => $t['weeks'], 'en' => $t['label']['en'], 'nl' => $t['label']['nl'] );
+		},
+		$ace360_est['types']
+	),
+	'extras' => array_map(
+		function ( $t ) {
+			return array( 'id' => $t['id'], 'min' => $t['min'], 'max' => $t['max'], 'weeks' => $t['weeks'], 'en' => $t['label']['en'], 'nl' => $t['label']['nl'] );
+		},
+		$ace360_est['extras']
+	),
+	'care'   => $ace360_est['care'],
+);
 ?>
-<div class="bg" id="bg-night" aria-hidden="true"></div>
-<div class="bg" id="bg-light" aria-hidden="true"></div>
+<div class="bg" aria-hidden="true"></div>
 <canvas id="stage" aria-hidden="true"></canvas>
 
 <main id="main" class="film">
 
-	<section class="ch hero" data-k="hero" data-screen="live">
+	<section class="ch hero" data-k="hero">
 		<div class="wrap">
 			<div class="copy">
-				<p class="kicker"><span class="tile-dot" aria-hidden="true"></span><?php echo esc_html( ace360_mod( 'hero_eyebrow' ) ); ?></p>
-				<h1 class="hero-title" data-split><?php echo ace360_headline( ace360_mod( 'hero_title' ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped in helper. ?></h1>
-				<p class="body"><?php echo esc_html( ace360_mod( 'hero_text' ) ); ?></p>
+				<p class="kicker"><?php ace360_e( $ace360_hero['kicker'] ); ?></p>
+				<h1 class="hero-title"><?php ace360_e( $ace360_hero['title'] ); ?></h1>
+				<p class="body"><?php ace360_e( $ace360_hero['text'] ); ?></p>
 				<div class="actions">
-					<a class="btn" href="#contact"><?php echo esc_html( ace360_mod( 'cta_label' ) ); ?></a>
-					<a class="link" href="#why"><?php esc_html_e( 'Watch how we build', 'ace360' ); ?> &darr;</a>
+					<a class="btn" href="<?php echo esc_url( ace360_tel() ); ?>"><?php ace360_e( $ace360_hero['call'] ); ?> <span aria-hidden="true">→</span></a>
+					<a class="btn btn-ghost" href="#werkwijze"><?php ace360_e( $ace360_hero['how'] ); ?></a>
 				</div>
-			</div>
-		</div>
-		<p class="scroll-cue" aria-hidden="true"><span></span><?php esc_html_e( 'Scroll', 'ace360' ); ?></p>
-	</section>
-
-	<section class="ch" id="why" data-k="why" data-screen="loading">
-		<div class="wrap">
-			<div class="copy">
-				<p class="kicker"><?php esc_html_e( 'The problem', 'ace360' ); ?></p>
-				<h2><?php esc_html_e( 'Most sites are slow, generic and hard to change.', 'ace360' ); ?></h2>
-				<ul class="lines">
-					<li><?php esc_html_e( 'Six seconds before anything appears on a phone', 'ace360' ); ?></li>
-					<li><?php esc_html_e( 'No iDEAL, so Dutch carts get abandoned', 'ace360' ); ?></li>
-					<li><?php esc_html_e( 'A template that looks like everyone else', 'ace360' ); ?></li>
-					<li><?php esc_html_e( 'Nobody on the team dares to edit it', 'ace360' ); ?></li>
+				<ul class="checks">
+					<?php foreach ( $ace360_hero['bullets'] as $ace360_b ) : ?>
+						<li><?php ace360_e( $ace360_b ); ?></li>
+					<?php endforeach; ?>
 				</ul>
 			</div>
 		</div>
 	</section>
 
-	<section class="ch right" id="believe" data-k="believe" data-screen="live">
+	<section class="ch right" id="diensten" data-k="services">
 		<div class="wrap">
-			<div class="copy">
-				<p class="kicker"><?php esc_html_e( 'What we believe', 'ace360' ); ?></p>
-				<p class="q"><?php esc_html_e( 'Your website is the hardest-working employee your brand has. It should look the part.', 'ace360' ); ?></p>
-				<ol class="rules">
-					<li><span><b><?php esc_html_e( 'Fast first.', 'ace360' ); ?></b> <?php esc_html_e( 'Every effect earns its weight in kilobytes.', 'ace360' ); ?></span></li>
-					<li><span><b><?php esc_html_e( 'Dutch by design.', 'ace360' ); ?></b> <?php esc_html_e( 'iDEAL, postcodes, AVG and two languages from day one.', 'ace360' ); ?></span></li>
-					<li><span><b><?php esc_html_e( 'Yours to edit.', 'ace360' ); ?></b> <?php esc_html_e( 'Your team changes any page without calling us.', 'ace360' ); ?></span></li>
-					<li><span><b><?php esc_html_e( 'Motion with a reason.', 'ace360' ); ?></b> <?php esc_html_e( '3D where it explains, stillness where it doesn’t.', 'ace360' ); ?></span></li>
+			<div class="copy copy-wide">
+				<p class="kicker"><?php ace360_e( ace360_pair( 'Services', 'Diensten' ) ); ?></p>
+				<h2><?php ace360_e( ace360_pair( 'Four things, done properly', 'Vier dingen, goed gedaan' ) ); ?></h2>
+				<p class="body"><?php ace360_e( ace360_pair( 'Not a list of thirty services where five of them actually work. This is what I build and maintain.', 'Geen lijst met dertig diensten waarvan er vijf echt werken. Dit is wat ik bouw en onderhoud.' ) ); ?></p>
+				<ol class="services">
+					<?php foreach ( ace360_services() as $ace360_i => $ace360_s ) : ?>
+						<li class="card">
+							<div class="card-top">
+								<span class="num tabular"><?php echo esc_html( sprintf( '%02d', $ace360_i + 1 ) ); ?></span>
+								<span class="price tabular"><?php ace360_e( $ace360_s['price'] ); ?></span>
+							</div>
+							<h3><?php ace360_e( $ace360_s['title'] ); ?></h3>
+							<p><?php ace360_e( $ace360_s['text'] ); ?></p>
+						</li>
+					<?php endforeach; ?>
 				</ol>
 			</div>
 		</div>
 	</section>
 
-	<section class="ch" id="process" data-k="process" data-screen="wire">
+	<section class="ch" id="prijs" data-k="estimate">
 		<div class="wrap">
-			<div class="copy">
-				<p class="kicker"><?php esc_html_e( 'How we build', 'ace360' ); ?></p>
-				<h2><?php esc_html_e( 'Five steps. Eight weeks.', 'ace360' ); ?></h2>
-				<p class="body"><?php esc_html_e( 'The typical timeline for a brand website. Stores and 3D work take a little longer, and we tell you that up front.', 'ace360' ); ?></p>
+			<div class="copy copy-wide">
+				<p class="kicker"><?php ace360_e( ace360_pair( 'Price estimator', 'Prijsindicatie' ) ); ?></p>
+				<h2><?php ace360_e( ace360_pair( 'What would yours cost?', 'Wat kost die van jou?' ) ); ?></h2>
+				<p class="body"><?php ace360_e( ace360_pair( 'Pick what you need. You see the same range I would give you on the phone.', 'Kies wat je nodig hebt. Je ziet dezelfde bandbreedte die ik je aan de telefoon zou geven.' ) ); ?></p>
+
+				<form class="card estimator" data-estimator="<?php echo esc_attr( wp_json_encode( $ace360_est_js ) ); ?>" onsubmit="return false">
+					<fieldset>
+						<legend><?php ace360_e( ace360_pair( 'What are we building?', 'Wat gaan we bouwen?' ) ); ?></legend>
+						<div class="opts">
+							<?php foreach ( $ace360_est['types'] as $ace360_i => $ace360_t ) : ?>
+								<label class="opt">
+									<input type="radio" name="est_type" id="est_type_<?php echo esc_attr( $ace360_t['id'] ); ?>" value="<?php echo esc_attr( $ace360_t['id'] ); ?>"<?php echo 1 === $ace360_i ? ' checked' : ''; ?>>
+									<span><?php ace360_e( $ace360_t['label'] ); ?></span>
+								</label>
+							<?php endforeach; ?>
+						</div>
+					</fieldset>
+					<fieldset>
+						<legend><?php ace360_e( ace360_pair( 'Extras', 'Extra’s' ) ); ?></legend>
+						<div class="opts">
+							<?php foreach ( $ace360_est['extras'] as $ace360_x ) : ?>
+								<label class="opt">
+									<input type="checkbox" name="est_extra" id="est_extra_<?php echo esc_attr( $ace360_x['id'] ); ?>" value="<?php echo esc_attr( $ace360_x['id'] ); ?>">
+									<span><?php ace360_e( $ace360_x['label'] ); ?></span>
+								</label>
+							<?php endforeach; ?>
+						</div>
+					</fieldset>
+					<label class="switch">
+						<input type="checkbox" name="est_care" id="est_care">
+						<span class="switch-ui" aria-hidden="true"></span>
+						<span><?php ace360_e( ace360_pair( 'Add maintenance and care', 'Onderhoud toevoegen' ) ); ?> <span class="muted tabular">+ € <?php echo esc_html( $ace360_est['care'] ); ?>/<?php ace360_e( ace360_pair( 'month', 'maand' ) ); ?></span></span>
+					</label>
+					<div class="est-result" aria-live="polite">
+						<p class="est-range tabular" data-est-range>€ 1,200 – 2,400</p>
+						<p class="est-meta" data-est-meta><?php ace360_e( ace360_pair( 'Launch in about 3 weeks · excl. VAT', 'Live in ongeveer 3 weken · excl. btw' ) ); ?></p>
+						<button class="btn" type="button" data-est-send><?php ace360_e( ace360_pair( 'Ask for a fixed quote', 'Vraag een vaste offerte' ) ); ?> <span aria-hidden="true">→</span></button>
+					</div>
+					<p class="small"><?php ace360_e( ace360_pair( 'An indication, not a quote. Your fixed quote follows within 2 days.', 'Een indicatie, geen offerte. Je vaste offerte volgt binnen 2 dagen.' ) ); ?></p>
+				</form>
 			</div>
 		</div>
 	</section>
 
-	<?php foreach ( ace360_steps() as $ace360_i => $ace360_step ) : ?>
-		<section class="ch step" data-k="<?php echo esc_attr( 's' . ( $ace360_i + 1 ) ); ?>" data-screen="<?php echo esc_attr( $ace360_step['screen'] ); ?>">
+	<section class="ch right" id="werkwijze" data-k="process">
+		<div class="wrap">
+			<div class="copy">
+				<p class="kicker"><?php ace360_e( ace360_pair( 'Process', 'Werkwijze' ) ); ?></p>
+				<h2><?php ace360_e( ace360_pair( 'Five steps, and you always know which one you are on', 'Vijf stappen, en je weet altijd bij welke je bent' ) ); ?></h2>
+				<p class="body"><?php ace360_e( ace360_pair( 'Most projects run late because nobody agreed what finished means. That is why the schedule is written into the quote.', 'De meeste projecten lopen uit omdat niemand heeft afgesproken wat ‘af’ betekent. Daarom staat de planning in de offerte.' ) ); ?></p>
+				<ol class="step-index">
+					<?php foreach ( ace360_process() as $ace360_i => $ace360_p ) : ?>
+						<li><span class="tabular"><?php echo esc_html( sprintf( '%02d', $ace360_i + 1 ) ); ?></span> <?php ace360_e( $ace360_p[0] ); ?></li>
+					<?php endforeach; ?>
+				</ol>
+			</div>
+		</div>
+	</section>
+
+	<?php foreach ( ace360_process() as $ace360_i => $ace360_p ) : ?>
+		<section class="ch step<?php echo 1 === $ace360_i % 2 ? ' right' : ''; ?>" data-k="<?php echo esc_attr( 's' . ( $ace360_i + 1 ) ); ?>">
 			<div class="wrap">
 				<div class="copy">
-					<p class="kicker tabular"><b><?php echo esc_html( sprintf( '%02d', $ace360_i + 1 ) ); ?></b> / 05 · <span lang="nl"><?php echo esc_html( $ace360_step['nl'] ); ?></span> · <?php echo esc_html( $ace360_step['time'] ); ?></p>
-					<h2 class="step-word"><?php echo esc_html( $ace360_step['word'] ); ?></h2>
-					<p class="body"><?php echo esc_html( $ace360_step['text'] ); ?></p>
+					<p class="kicker"><span class="tabular"><?php echo esc_html( sprintf( '%02d', $ace360_i + 1 ) ); ?> / 05</span> · <?php ace360_e( $ace360_p[1] ); ?></p>
+					<h2 class="step-title"><?php ace360_e( $ace360_p[0] ); ?></h2>
+					<p class="body"><?php ace360_e( $ace360_p[2] ); ?></p>
+					<div class="progress" aria-hidden="true"><i style="--p:<?php echo esc_attr( ( $ace360_i + 1 ) / 5 ); ?>"></i></div>
 				</div>
 			</div>
 		</section>
 	<?php endforeach; ?>
 
-	<section class="ch right" id="services" data-k="services" data-screen="live">
-		<div class="wrap">
-			<div class="copy">
-				<p class="kicker"><?php esc_html_e( 'What we make', 'ace360' ); ?></p>
-				<h2><?php esc_html_e( 'Four things, done properly.', 'ace360' ); ?></h2>
-				<ul class="services">
-					<li><b><?php esc_html_e( 'Brand websites', 'ace360' ); ?></b><span><?php esc_html_e( 'Custom WordPress, editable in the block editor.', 'ace360' ); ?></span></li>
-					<li><b><?php esc_html_e( 'Online stores', 'ace360' ); ?></b><span><?php esc_html_e( 'WooCommerce with Mollie, Sendcloud and PostNL.', 'ace360' ); ?></span></li>
-					<li><b><?php esc_html_e( '3D & motion', 'ace360' ); ?></b><span><?php esc_html_e( 'Three.js and GSAP scenes like the one behind this text.', 'ace360' ); ?></span></li>
-					<li><b><?php esc_html_e( 'Care & growth', 'ace360' ); ?></b><span><?php esc_html_e( 'EU hosting, updates and monthly reports.', 'ace360' ); ?></span></li>
-				</ul>
-			</div>
-		</div>
-	</section>
-
-	<section class="ch tall tone-l" id="nl" data-k="market" data-tone="light" data-items="<?php echo esc_attr( count( $ace360_market ) ); ?>" style="--items:<?php echo esc_attr( count( $ace360_market ) ); ?>">
+	<section class="ch tall right" id="werk" data-k="work" data-items="<?php echo esc_attr( count( $ace360_work ) ); ?>" style="--items:<?php echo esc_attr( count( $ace360_work ) ); ?>">
 		<div class="sticky">
 			<div class="wrap">
 				<div class="copy">
-					<p class="kicker"><?php esc_html_e( 'Built for the Netherlands', 'ace360' ); ?> · <span class="tabular" data-count>1 / <?php echo esc_html( count( $ace360_market ) ); ?></span></p>
+					<p class="kicker"><?php ace360_e( ace360_pair( 'Work', 'Werk' ) ); ?> · <span class="tabular" data-count>1 / <?php echo esc_html( count( $ace360_work ) ); ?></span></p>
+					<h2><?php ace360_e( ace360_pair( 'Recently built', 'Recent opgeleverd' ) ); ?></h2>
+					<p class="body"><?php ace360_e( ace360_pair( 'A few of the projects that went live lately.', 'Een paar projecten die onlangs live gingen.' ) ); ?></p>
 					<ol class="items">
-						<?php foreach ( $ace360_market as $ace360_m_i => $ace360_m ) : ?>
-							<li class="item<?php echo 0 === $ace360_m_i ? ' is-on' : ''; ?>" data-screen="<?php echo esc_attr( 'nl-' . $ace360_m[0] ); ?>">
-								<h2><?php echo esc_html( $ace360_m[1] ); ?></h2>
-								<p class="body"><?php echo esc_html( $ace360_m[2] ); ?></p>
+						<?php foreach ( $ace360_work as $ace360_i => $ace360_w ) : ?>
+							<li class="item card<?php echo 0 === $ace360_i ? ' is-on' : ''; ?>">
+								<?php if ( ! empty( $ace360_w['image'] ) ) : ?>
+									<img src="<?php echo esc_url( $ace360_w['image'] ); ?>" alt="" loading="lazy">
+								<?php endif; ?>
+								<p class="small"><?php ace360_e( $ace360_w['type'] ); ?></p>
+								<h3>
+									<?php if ( ! empty( $ace360_w['url'] ) ) : ?>
+										<a href="<?php echo esc_url( $ace360_w['url'] ); ?>"><?php echo esc_html( $ace360_w['title'] ); ?></a>
+									<?php else : ?>
+										<?php echo esc_html( $ace360_w['title'] ); ?>
+									<?php endif; ?>
+								</h3>
+								<p><?php ace360_e( $ace360_w['text'] ); ?></p>
 							</li>
 						<?php endforeach; ?>
 					</ol>
-					<div class="dots" role="group" aria-label="<?php esc_attr_e( 'Features', 'ace360' ); ?>">
-						<?php foreach ( $ace360_market as $ace360_m_i => $ace360_m ) : ?>
-							<button type="button" data-go="<?php echo esc_attr( $ace360_m_i ); ?>" aria-label="<?php echo esc_attr( $ace360_m[1] ); ?>"<?php echo 0 === $ace360_m_i ? ' class="on"' : ''; ?>></button>
+					<div class="dots" role="group" aria-label="<?php esc_attr_e( 'Projects', 'ace360' ); ?>">
+						<?php foreach ( $ace360_work as $ace360_i => $ace360_w ) : ?>
+							<button type="button" data-go="<?php echo esc_attr( $ace360_i ); ?>" aria-label="<?php echo esc_attr( $ace360_w['title'] ); ?>"<?php echo 0 === $ace360_i ? ' class="on"' : ''; ?>></button>
 						<?php endforeach; ?>
 					</div>
 				</div>
@@ -152,43 +212,19 @@ $ace360_market = ace360_market();
 		</div>
 	</section>
 
-	<section class="ch tall right" id="work" data-k="work" data-items="<?php echo esc_attr( count( $ace360_work ) ); ?>" style="--items:<?php echo esc_attr( count( $ace360_work ) ); ?>">
-		<div class="sticky">
-			<div class="wrap">
-				<div class="copy">
-					<p class="kicker"><?php echo esc_html( $ace360_is_example ? __( 'Example projects', 'ace360' ) : __( 'Work', 'ace360' ) ); ?> · <span class="tabular" data-count>1 / <?php echo esc_html( count( $ace360_work ) ); ?></span></p>
-					<ol class="items">
-						<?php foreach ( $ace360_work as $ace360_w_i => $ace360_w ) : ?>
-							<li class="item<?php echo 0 === $ace360_w_i ? ' is-on' : ''; ?>" data-screen="<?php echo esc_attr( 'work-' . $ace360_w['variant'] ); ?>" data-title="<?php echo esc_attr( $ace360_w['title'] ); ?>"<?php echo ! empty( $ace360_w['image'] ) ? ' data-image="' . esc_url( $ace360_w['image'] ) . '"' : ''; ?>>
-								<?php if ( $ace360_w['type'] ) : ?>
-									<p class="small"><?php echo esc_html( $ace360_w['type'] ); ?></p>
-								<?php endif; ?>
-								<h2>
-									<?php if ( ! empty( $ace360_w['url'] ) ) : ?>
-										<a href="<?php echo esc_url( $ace360_w['url'] ); ?>"><?php echo esc_html( $ace360_w['title'] ); ?></a>
-									<?php else : ?>
-										<?php echo esc_html( $ace360_w['title'] ); ?>
-									<?php endif; ?>
-								</h2>
-								<p class="body"><?php echo esc_html( $ace360_w['text'] ); ?></p>
-							</li>
-						<?php endforeach; ?>
-					</ol>
-					<div class="bar" aria-hidden="true"><i data-bar></i></div>
-					<?php if ( $ace360_is_example ) : ?>
-						<p class="small"><?php esc_html_e( 'Examples of what we build. Add your own under Projects in the dashboard.', 'ace360' ); ?></p>
-					<?php endif; ?>
-				</div>
+	<section class="band" id="vragen" data-k="faq">
+		<div class="wrap band-grid">
+			<div class="band-head">
+				<p class="kicker"><?php ace360_e( ace360_pair( 'Questions', 'Vragen' ) ); ?></p>
+				<h2><?php ace360_e( ace360_pair( 'What people ask first', 'Wat mensen als eerste vragen' ) ); ?></h2>
 			</div>
-		</div>
-	</section>
-
-	<section class="ch" id="care" data-k="care" data-screen="live">
-		<div class="wrap">
-			<div class="copy">
-				<p class="kicker"><?php esc_html_e( 'After launch', 'ace360' ); ?></p>
-				<h2><?php esc_html_e( 'We stay.', 'ace360' ); ?></h2>
-				<p class="body"><?php esc_html_e( 'Managed hosting in EU data centres, updates and daily backups. Every month a short report on speed, search rankings and sales, with what we would improve next.', 'ace360' ); ?></p>
+			<div class="faq">
+				<?php foreach ( ace360_faq() as $ace360_i => $ace360_q ) : ?>
+					<details<?php echo 0 === $ace360_i ? ' open' : ''; ?>>
+						<summary><?php ace360_e( $ace360_q[0] ); ?></summary>
+						<p><?php ace360_e( $ace360_q[1] ); ?></p>
+					</details>
+				<?php endforeach; ?>
 			</div>
 		</div>
 	</section>

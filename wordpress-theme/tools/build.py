@@ -27,21 +27,23 @@ CDN = [
 
 def local_preview(html):
     a = '../ace360/assets/'
-    head = (f'<title>ace360 services</title>\n'
-            f'<link rel="stylesheet" href="{a}css/fonts.css">\n<link rel="stylesheet" href="{a}css/main.css">')
+    head = (f'<title>Ace 360 Services</title>\n'
+            f'<link rel="stylesheet" href="{a}css/fonts.css">\n<link rel="stylesheet" href="{a}css/main.css">\n<meta name="description" content="Ace 360 Services: websites, online stores and maintenance for businesses in the Netherlands and abroad. Fixed price, fixed launch date.">')
     scripts = ''.join(f'<script src="{a}vendor/{l}"></script>\n' for l in LIBS)
     scripts += f'<script>window.ACE360_PREVIEW = true;</script>\n<script src="{a}js/film.js"></script>\n<script src="{a}js/main.js"></script>'
     return html.replace('<!--wp_head-->', head).replace('<!--wp_footer-->', scripts)
 
 def artifact(html):
     body = re.search(r'<body[^>]*>(.*)</body>', html, re.S).group(1)
+    head_script = re.search(r'<head>.*?(<script>.*?</script>)', html, re.S).group(1)
     body = body.replace('<!--wp_footer-->', '')
-    out = ['<title>ace360 services</title>',
+    out = ['<title>Ace 360 Services</title>',
+           head_script,
            "<script>document.documentElement.classList.add('js');</script>",
-           '<meta name="description" content="Animated studio website for ace360 services, web development for Dutch brands.">',
+           '<meta name="description" content="Ace 360 Services: websites, online stores and maintenance for businesses in the Netherlands and abroad. Fixed price, fixed launch date.">',
            '<link rel="preconnect" href="https://fonts.googleapis.com">',
            '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
-           '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Hanken+Grotesk:wght@300..800&display=swap">',
+           '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap">',
            '<style>\n' + read('assets/css/main.css') + '\n</style>',
            body]
     out += [f'<script src="{u}"></script>' for u in CDN]
@@ -49,6 +51,16 @@ def artifact(html):
     out.append('<script>\n' + read('assets/js/film.js') + '\n</script>')
     out.append('<script>\n' + read('assets/js/main.js') + '\n</script>')
     return '\n'.join(out)
+
+def pages(html, out):
+    """Static copy of the front page for GitHub Pages (or any static host)."""
+    import shutil
+    if os.path.isdir(out):
+        shutil.rmtree(out)
+    shutil.copytree(os.path.join(THEME, 'assets'), os.path.join(out, 'assets'))
+    page = local_preview(html).replace('../ace360/assets/', 'assets/')
+    open(os.path.join(out, 'index.html'), 'w', encoding='utf-8').write(page)
+    open(os.path.join(out, '.nojekyll'), 'w').close()
 
 def make_zip(path):
     os.makedirs(os.path.dirname(path), exist_ok=True)
@@ -63,6 +75,9 @@ def make_zip(path):
 
 if __name__ == '__main__':
     html = render()
+    if len(sys.argv) > 2 and sys.argv[1] == 'pages':
+        pages(html, sys.argv[2])
+        sys.exit(0)
     if len(sys.argv) > 2 and sys.argv[1] == 'artifact':
         open(sys.argv[2], 'w', encoding='utf-8').write(artifact(html))
         sys.exit(0)

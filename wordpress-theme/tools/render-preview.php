@@ -18,7 +18,7 @@ function esc_url( $s ) { return htmlspecialchars( (string) $s, ENT_QUOTES, 'UTF-
 function get_theme_mod( $k, $d = false ) { return $d; }
 function home_url( $p = '' ) { return $p; }
 function admin_url( $p = '' ) { return '#'; }
-function get_bloginfo( $k = '' ) { return 'ace360 services'; }
+function get_bloginfo( $k = '' ) { return 'Ace 360 Services'; }
 function bloginfo( $k = '' ) { echo 'charset' === $k ? 'UTF-8' : 'ace360 services'; }
 function language_attributes() { echo 'lang="en"'; }
 function body_class() { echo 'class="home"'; }
@@ -35,10 +35,13 @@ function gmdate_stub() {}
 function get_header() { global $theme; include $theme . '/header.php'; }
 function get_footer() { global $theme; include $theme . '/footer.php'; }
 function get_template_part( $slug ) { global $theme; include $theme . '/' . $slug . '.php'; }
+function apply_filters( $t, $v ) { return $v; }
+function wp_json_encode( $v ) { return json_encode( $v ); }
+function wp_get_attachment_image() { return ''; }
 function ace360_fallback_menu() {
 	echo '<ul class="menu">';
-	foreach ( array( '#process' => 'Process', '#services' => 'Services', '#nl' => 'Netherlands', '#work' => 'Work' ) as $h => $l ) {
-		printf( '<li><a href="%s">%s</a></li>', esc_url( $h ), esc_html( $l ) );
+	foreach ( array( '#diensten' => ace360_pair( 'Services', 'Diensten' ), '#werkwijze' => ace360_pair( 'Process', 'Werkwijze' ), '#werk' => ace360_pair( 'Work', 'Werk' ), '#vragen' => ace360_pair( 'Questions', 'Vragen' ) ) as $h => $l ) {
+		printf( '<li><a href="%s">%s</a></li>', esc_url( $h ), ace360_t( $l ) );
 	}
 	echo '</ul>';
 }
@@ -49,4 +52,5 @@ class WP_Query {
 function wp_reset_postdata() {}
 
 require $theme . '/inc/template-helpers.php';
+require $theme . '/inc/content.php';
 include $theme . '/front-page.php';

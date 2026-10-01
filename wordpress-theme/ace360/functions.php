@@ -9,9 +9,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'ACE360_VERSION', '2.0.0' );
+define( 'ACE360_VERSION', '3.0.0' );
 
 require get_template_directory() . '/inc/template-helpers.php';
+require get_template_directory() . '/inc/content.php';
 require get_template_directory() . '/inc/customizer.php';
 
 /**
@@ -92,7 +93,7 @@ add_filter( 'script_loader_tag', 'ace360_defer_scripts', 10, 2 );
 function ace360_preload_fonts() {
 	printf(
 		'<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n",
-		esc_url( get_template_directory_uri() . '/assets/fonts/archivo-latin-standard-normal.woff2' )
+		esc_url( get_template_directory_uri() . '/assets/fonts/inter-latin-wght-normal.woff2' )
 	);
 }
 add_action( 'wp_head', 'ace360_preload_fonts', 1 );
@@ -203,31 +204,37 @@ function ace360_handle_contact() {
 		exit;
 	}
 
-	$name    = isset( $_POST['ace360_name'] ) ? sanitize_text_field( wp_unslash( $_POST['ace360_name'] ) ) : '';
-	$company = isset( $_POST['ace360_company'] ) ? sanitize_text_field( wp_unslash( $_POST['ace360_company'] ) ) : '';
-	$email   = isset( $_POST['ace360_email'] ) ? sanitize_email( wp_unslash( $_POST['ace360_email'] ) ) : '';
-	$budget  = isset( $_POST['ace360_budget'] ) ? sanitize_text_field( wp_unslash( $_POST['ace360_budget'] ) ) : '';
-	$message = isset( $_POST['ace360_message'] ) ? sanitize_textarea_field( wp_unslash( $_POST['ace360_message'] ) ) : '';
+	$name     = isset( $_POST['ace360_name'] ) ? sanitize_text_field( wp_unslash( $_POST['ace360_name'] ) ) : '';
+	$company  = isset( $_POST['ace360_company'] ) ? sanitize_text_field( wp_unslash( $_POST['ace360_company'] ) ) : '';
+	$email    = isset( $_POST['ace360_email'] ) ? sanitize_email( wp_unslash( $_POST['ace360_email'] ) ) : '';
+	$need     = isset( $_POST['ace360_need'] ) ? sanitize_text_field( wp_unslash( $_POST['ace360_need'] ) ) : '';
+	$estimate = isset( $_POST['ace360_estimate'] ) ? sanitize_text_field( wp_unslash( $_POST['ace360_estimate'] ) ) : '';
+	$lang     = isset( $_POST['ace360_lang'] ) ? sanitize_key( wp_unslash( $_POST['ace360_lang'] ) ) : '';
+	$message  = isset( $_POST['ace360_message'] ) ? sanitize_textarea_field( wp_unslash( $_POST['ace360_message'] ) ) : '';
 
 	if ( '' === $name || ! is_email( $email ) || '' === $message ) {
 		wp_safe_redirect( add_query_arg( 'ace360_sent', 'invalid', $back ) . '#contact' );
 		exit;
 	}
 
-	$to      = ace360_mod( 'contact_email' );
+	$to      = ace360_mod( 'email' );
 	$to      = is_email( $to ) ? $to : get_option( 'admin_email' );
 	/* translators: %s: sender name */
 	$subject = sprintf( __( 'New project enquiry from %s', 'ace360' ), $name );
 	$body    = sprintf(
-		"%s: %s\n%s: %s\n%s: %s\n%s: %s\n\n%s",
+		"%s: %s\n%s: %s\n%s: %s\n%s: %s\n%s: %s\n%s: %s\n\n%s",
 		__( 'Name', 'ace360' ),
 		$name,
 		__( 'Company', 'ace360' ),
 		$company,
 		__( 'Email', 'ace360' ),
 		$email,
-		__( 'Budget', 'ace360' ),
-		$budget,
+		__( 'Needs', 'ace360' ),
+		$need,
+		__( 'Estimate', 'ace360' ),
+		$estimate,
+		__( 'Language', 'ace360' ),
+		'nl' === $lang ? 'Nederlands' : 'English',
 		$message
 	);
 	$headers = array( 'Reply-To: ' . $name . ' <' . $email . '>' );
@@ -246,14 +253,14 @@ add_action( 'admin_post_ace360_contact', 'ace360_handle_contact' );
 function ace360_fallback_menu() {
 	$base  = is_front_page() ? '' : home_url( '/' );
 	$items = array(
-		'#process'  => __( 'Process', 'ace360' ),
-		'#services' => __( 'Services', 'ace360' ),
-		'#nl'       => __( 'Netherlands', 'ace360' ),
-		'#work'     => __( 'Work', 'ace360' ),
+		'#diensten'  => ace360_pair( 'Services', 'Diensten' ),
+		'#werkwijze' => ace360_pair( 'Process', 'Werkwijze' ),
+		'#werk'      => ace360_pair( 'Work', 'Werk' ),
+		'#vragen'    => ace360_pair( 'Questions', 'Vragen' ),
 	);
 	echo '<ul class="menu">';
 	foreach ( $items as $hash => $label ) {
-		printf( '<li><a href="%s">%s</a></li>', esc_url( $base . $hash ), esc_html( $label ) );
+		printf( '<li><a href="%s">%s</a></li>', esc_url( $base . $hash ), ace360_t( $label ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped in ace360_t().
 	}
 	echo '</ul>';
 }
