@@ -1,3 +1,5 @@
 *.wav
 night-routine/build/
+blocky-ella/build/
+node_modules/
 __pycache__/
