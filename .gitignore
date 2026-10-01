@@ -1,1 +1,3 @@
 *.wav
+night-routine/build/
+__pycache__/
