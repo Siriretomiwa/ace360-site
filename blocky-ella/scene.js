@@ -4,7 +4,11 @@
 import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 
-const W = 1920, H = 1080;
+// URL params: ?w=1080&h=1920 for vertical Shorts, &shot=film|chorus|lights picks the camera/animation.
+const P = new URLSearchParams(location.search);
+const W = Number(P.get('w') || 1920), H = Number(P.get('h') || 1080);
+const SHOT = P.get('shot') || 'film';
+const VERTICAL = H > W;
 const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
 renderer.setSize(W, H);
 renderer.setPixelRatio(1);
@@ -17,7 +21,7 @@ document.body.appendChild(renderer.domElement);
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x141634);
-const camera = new THREE.PerspectiveCamera(42, W / H, 0.1, 200);
+const camera = new THREE.PerspectiveCamera(VERTICAL ? 66 : 42, W / H, 0.1, 200);
 
 // ---------- helpers ----------
 const C = {
@@ -194,7 +198,7 @@ box(2.4, 2.4, 0.22, mat(0xffffff, { map: canvasTex(128, 128, (g) => {
   g.fillStyle = '#5b4bb0'; g.fillRect(0, 0, 128, 128); drawStar(g, 64, 64, 46, '#ffd84a'); }) }), 9, 9.5, -8.5);
 
 // ---------- blocky Ella ----------
-const ella = new THREE.Group(); scene.add(ella);
+const ella = new THREE.Group(); ella.rotation.order = 'YXZ'; scene.add(ella);
 const body = new THREE.Group(); ella.add(body);
 const pjM = mat(0xffffff, { map: pjTex([1, 1], false) });
 const pjFront = mat(0xffffff, { map: pjTex([1, 1], true) });
@@ -241,7 +245,7 @@ for (let i = -2; i <= 2; i++) box(0.12, 0.08, 0.5, hairM, i * 0.26, 1.58, 0.35, 
 });
 
 // ---------- lights ----------
-scene.add(new THREE.HemisphereLight(0x8c90ff, 0x2a1f4a, 1.1));
+const hemi = new THREE.HemisphereLight(0x8c90ff, 0x2a1f4a, 1.1); scene.add(hemi);
 const moonLight = new THREE.DirectionalLight(0xc4ccff, 1.6);
 moonLight.position.set(-8, 16, -20); moonLight.target.position.set(-2, 0, 0); scene.add(moonLight, moonLight.target);
 moonLight.castShadow = true; moonLight.shadow.mapSize.set(1024, 1024);
@@ -249,12 +253,64 @@ Object.assign(moonLight.shadow.camera, { left: -16, right: 16, top: 16, bottom: 
 moonLight.shadow.bias = -0.0008;
 const fill = new THREE.DirectionalLight(0xffe2c8, 0.9); fill.position.set(4, 10, 18); scene.add(fill);
 
+// ---------- bedtime props (used by the 'lights' shot) ----------
+// curtains: bunched at the sides when open, meeting in the middle when closed
+const curtainM = mat(0xf4a6c8, { roughness: 0.95 });
+box(7.6, 0.25, 0.25, frameM, -3, 10.7, -8.35);
+const curtains = [-1, 1].map((side) => {
+  const c = box(1, 7.2, 0.25, curtainM, 0, 7, -8.3);
+  c.userData.side = side;
+  return c;
+});
+function setCurtains(k) { // 0 open, 1 closed
+  curtains.forEach((c) => {
+    const w = lerp(1, 3.5, k);
+    const outer = -3 + c.userData.side * 3.7;
+    c.scale.x = w;
+    c.position.x = outer - c.userData.side * w / 2;
+  });
+}
+// star-light projected on the wall above the bed
+const starTex = canvasTex(64, 64, (g) => drawStar(g, 32, 32, 30, '#ffe7a0'));
+const wallStars = [];
+for (let i = 0; i < 22; i++) {
+  const sz = 0.35 + ((i * 29) % 7) * 0.08;
+  const st = new THREE.Mesh(new THREE.PlaneGeometry(sz, sz), new THREE.MeshBasicMaterial({ map: starTex, transparent: true, opacity: 0 }));
+  st.position.set(3 + ((i * 41) % 110) / 10, 5.5 + ((i * 67) % 80) / 10, -8.55);
+  st.userData.phase = i * 0.9; scene.add(st); wallStars.push(st);
+}
+// blanket that pulls up over Ella in bed
+const cover = new THREE.Group(); cover.position.set(8.5, 3.68, 1.3); scene.add(cover);
+const coverBox = box(5.2, 0.3, 6.0, mat(0xffffff, { map: pjTex([2, 3]) }), 0, 0, -3.2, cover);
+cover.visible = false;
+// floating Zzz
+const zTex = canvasTex(128, 128, (g) => { g.font = 'bold 110px sans-serif'; g.textAlign = 'center';
+  g.fillStyle = '#ffe38a'; g.strokeStyle = '#3a1c66'; g.lineWidth = 10; g.strokeText('Z', 64, 104); g.fillText('Z', 64, 104); });
+const zs = [0, 1, 2].map(() => { const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: zTex, transparent: true, opacity: 0 }));
+  scene.add(sp); return sp; });
+
 // ---------- timeline ----------
 const BPM = 72, SWAY = 2 * 60 / BPM;
 const START = [0, 0, 1.5], WINDOW = [-3, 0, -6.3];
 const angWalk = Math.atan2(WINDOW[0] - START[0], WINDOW[2] - START[2]);
 
+function camFrom(keys, t) {
+  let i = 0; while (i < keys.length - 2 && t > keys[i + 1][0]) i++;
+  const [t0, p0, l0] = keys[i], [t1, p1, l1] = keys[i + 1];
+  const k = smooth(t0, t1, t);
+  camera.position.copy(lerpV(p0, p1, k));
+  camera.lookAt(lerpV(l0, l1, k));
+}
+
+const CHORUS_CAM = [ // vertical Short: Ella full-length with the moonlit window above her
+  [13.3, [-3, 5.4, 6.2], [-3, 5.6, -7]],
+  [17, [-3, 5.3, 5.8], [-3, 5.5, -7]],
+  [19.5, [-2.8, 4.9, 4.4], [-3, 5, -7]],
+  [40, [-2.6, 4.8, 3.8], [-3, 5, -7]],
+];
+
 function camAt(t) {
+  if (SHOT === 'chorus') return camFrom(CHORUS_CAM, t);
   const keys = [ // [time, position, target]
     [0, [0, 8, 24], [0, 3.5, -2]],
     [7, [3, 6.5, 14], [-1, 3.5, -3]],
@@ -263,11 +319,7 @@ function camAt(t) {
     [19, [-1, 5.6, 2.2], [-3, 4.4, -6.3]],
     [40, [-0.2, 5.4, 0.8], [-3, 4.6, -6.3]],
   ];
-  let i = 0; while (i < keys.length - 2 && t > keys[i + 1][0]) i++;
-  const [t0, p0, l0] = keys[i], [t1, p1, l1] = keys[i + 1];
-  const k = smooth(t0, t1, t);
-  camera.position.copy(lerpV(p0, p1, k));
-  camera.lookAt(lerpV(l0, l1, k));
+  camFrom(keys, t);
 }
 
 function poseAt(t) {
@@ -331,14 +383,94 @@ function poseAt(t) {
   faceMat.map = blink ? faceClosed : faceOpen;
 }
 
+
+// ---------- 'lights' shot: Big light off, the night-light's on ... (song time 226.667-253.333) ----------
+const LIGHTS_T0 = 226.667;
+const LIGHTS_CAM = [ // [local time, position, target]
+  [0, [6.6, 6, 11], [5.4, 4.2, -1]],
+  [6.7, [6, 6.4, 10], [5.8, 4, -2]],
+  [10.5, [3.2, 8.8, 6.2], [7.6, 3.6, -3.5]],
+  [14, [3.4, 10.2, 3.2], [8.4, 3.8, -4.2]],
+  [20, [4.2, 11, 1], [8.6, 5, -5.6]],
+  [26.7, [6.4, 7.4, -2.6], [8.5, 3.6, -5.8]],
+];
+const STAND = [4.8, 0, 2], BEDSIDE = [5.4, 0, -2.6], IN_BED = [8.5, 3.25, -1.2];
+
+function lightsAt(t) {
+  const u = t - LIGHTS_T0; // local time in the shot
+  body.position.set(0, 0, 0); body.rotation.set(0, 0, 0);
+  legs.forEach((l) => l.rotation.set(0, 0, 0));
+  arms.forEach((a) => a.rotation.set(0, 0, 0));
+  neck.rotation.set(0, 0, 0);
+  torso.scale.set(1, 1 + 0.01 * Math.sin(u * 2.2), 1);
+  let blink = (u % 3.7) < 0.14;
+
+  // big light goes off, night-light comes on
+  const off = smooth(1.4, 2.4, u);
+  hemi.intensity = lerp(2.3, 1.0, off);
+  fill.intensity = lerp(1.9, 0.75, off);
+  nightLight.intensity = lerp(4, 34, smooth(1.9, 3, u));
+  nl.material.emissiveIntensity = lerp(0.2, 1.6, smooth(1.9, 3, u));
+  setCurtains(smooth(6.9, 9.6, u));
+
+  // standing: look up as the light clicks off, then a happy little sway
+  ella.position.set(...STAND); ella.rotation.set(0, 0.25, 0);
+  if (u < 7) {
+    neck.rotation.x = -0.35 * smooth(0.6, 1.3, u) * (1 - smooth(2.6, 3.4, u));
+    const k = smooth(2.4, 3, u) * (1 - smooth(5.8, 6.6, u));
+    const ph = u / SWAY * 2 * Math.PI;
+    body.rotation.z = 0.07 * Math.sin(ph) * k;
+    arms[0].rotation.z = -0.5 * k; arms[1].rotation.z = 0.5 * k;
+  }
+  // walk to the bed
+  const walkK = smooth(7, 10, u);
+  if (u >= 7) {
+    ella.position.copy(lerpV(STAND, BEDSIDE, walkK));
+    const ang = Math.atan2(BEDSIDE[0] - STAND[0], BEDSIDE[2] - STAND[2]);
+    ella.rotation.y = lerp(0.25, ang, smooth(7, 7.6, u));
+    const walking = smooth(7, 7.4, u) * (1 - smooth(9.6, 10, u));
+    const s = Math.sin(u * 2 * Math.PI * 1.5);
+    legs[0].rotation.x = 0.6 * s * walking; legs[1].rotation.x = -0.6 * s * walking;
+    arms[0].rotation.x = -0.5 * s * walking; arms[1].rotation.x = 0.5 * s * walking;
+    body.position.y = 0.08 * Math.abs(s) * walking;
+  }
+  // hop up, turn round and lie back with her head on the pillow
+  if (u >= 10) {
+    const k = smooth(10, 12.4, u);
+    const hop = Math.sin(Math.PI * smooth(10, 11.4, u)) * 1.2;
+    ella.position.copy(lerpV(BEDSIDE, IN_BED, k)); ella.position.y += hop;
+    ella.rotation.y = lerp(Math.atan2(BEDSIDE[0] - STAND[0], BEDSIDE[2] - STAND[2]), 0, smooth(10.2, 11.8, u));
+    ella.rotation.x = lerp(0, -Math.PI / 2, smooth(11, 12.4, u));
+  }
+  // blanket pulls up to her chin
+  cover.visible = u > 12;
+  coverBox.scale.z = Math.max(0.02, smooth(12.2, 14, u));
+  coverBox.position.z = -3.0 * coverBox.scale.z;
+  teddy.position.set(1.9, 3.1, -1.6); teddy.rotation.y = -0.9; // tucked beside her, away from the camera
+  // star-light on the wall
+  wallStars.forEach((st) => { st.material.opacity = smooth(13.6, 16, u) * (0.6 + 0.4 * Math.sin(u * 1.1 + st.userData.phase)); });
+  if (u > 14 && u < 21) neck.rotation.y = 0.25 * Math.sin((u - 14) * 0.5); // looks around at the stars
+  // hush now: sleepy, then asleep
+  if (u > 20.2) blink = true;
+  zs.forEach((sp, i) => {
+    const age = u - 21.5 - i * 1.2;
+    const life = age > 0 ? (age % 3.6) / 3.6 : 0;
+    sp.material.opacity = age > 0 ? Math.sin(Math.PI * life) * 0.9 : 0;
+    sp.position.set(8.5 + 0.6 + life * 1.2, 5.6 + life * 2.6, -6.2);
+    sp.scale.setScalar(0.5 + life * 0.5);
+  });
+  faceMat.map = blink ? faceClosed : faceOpen;
+  camFrom(LIGHTS_CAM, u);
+}
+
 window.renderAt = (t) => {
-  poseAt(t);
-  camAt(t);
+  if (SHOT === 'lights') lightsAt(t);
+  else { poseAt(t); camAt(t); setCurtains(0); }
   // keep the moon framed in the upper-right pane from whatever angle the camera is at
   const aim = new THREE.Vector3(-1.6, 8.2, -9).sub(camera.position);
   moon.position.copy(camera.position).addScaledVector(aim, (-44 - camera.position.z) / aim.z);
   twinkles.forEach((s) => { s.material.opacity = 0.55 + 0.45 * Math.sin(t * 1.3 + s.userData.phase); });
-  nl.material.emissiveIntensity = 1.5 + 0.1 * Math.sin(t * 0.8);
+  if (SHOT !== 'lights') nl.material.emissiveIntensity = 1.5 + 0.1 * Math.sin(t * 0.8);
   renderer.render(scene, camera);
 };
 window.sceneReady = true;
