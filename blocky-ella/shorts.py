@@ -26,8 +26,8 @@ WrapStyle: 0
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
 Style: Hook,Fredoka One,104,&H005CE4FF,&H005CE4FF,&H00661C3A,&H90000000,0,0,0,0,100,100,1,0,1,9,4,8,90,90,400,1
-Style: Verse,Fredoka One,82,&H00FFFFFF,&H00FFFFFF,&H00661C3A,&H90000000,0,0,0,0,100,100,1,0,1,7,3,2,90,90,560,1
-Style: Chorus,Fredoka One,82,&H005CE4FF,&H005CE4FF,&H00661C3A,&H90000000,0,0,0,0,100,100,1,0,1,7,3,2,90,90,560,1
+Style: Verse,Fredoka One,82,&H00FFFFFF,&H00FFFFFF,&H00661C3A,&H90000000,0,0,0,0,100,100,1,0,1,7,3,2,90,90,420,1
+Style: Chorus,Fredoka One,82,&H005CE4FF,&H005CE4FF,&H00661C3A,&H90000000,0,0,0,0,100,100,1,0,1,7,3,2,90,90,420,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
