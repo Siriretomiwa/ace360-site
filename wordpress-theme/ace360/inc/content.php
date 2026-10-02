@@ -110,6 +110,32 @@ function ace360_process() {
 }
 
 /**
+ * "Sound familiar?": what a business owner says about their current website.
+ * The 3D laptop shows an outdated site while this chapter is on screen.
+ */
+function ace360_pains() {
+	return array(
+		ace360_pair( 'It looks dated, and on a phone it falls apart.', 'Hij ziet er gedateerd uit en op een telefoon valt hij uit elkaar.' ),
+		ace360_pair( 'People visit, but nobody calls, books or buys.', 'Er komen bezoekers, maar niemand belt, boekt of koopt.' ),
+		ace360_pair( 'Changing one price means emailing someone and waiting a week.', 'Eén prijs aanpassen betekent iemand mailen en een week wachten.' ),
+		ace360_pair( 'Google shows your competitors first.', 'Google laat eerst je concurrenten zien.' ),
+	);
+}
+
+/**
+ * "After launch": what changes once the new site is live. Each line answers
+ * the matching pain above; the 3D phone fills with notifications.
+ */
+function ace360_outcomes() {
+	return array(
+		array( ace360_pair( 'Looks right everywhere', 'Klopt overal' ), ace360_pair( 'Fast and sharp on every phone, tablet and laptop.', 'Snel en scherp op elke telefoon, tablet en laptop.' ) ),
+		array( ace360_pair( 'Turns visits into customers', 'Maakt van bezoekers klanten' ), ace360_pair( 'Enquiries, bookings and iDEAL payments land on your phone, even at 23:00.', 'Aanvragen, boekingen en iDEAL-betalingen komen binnen op je telefoon, ook om 23:00.' ) ),
+		array( ace360_pair( 'Yours to change', 'Zelf aan te passen' ), ace360_pair( 'Prices, photos and opening hours, updated by you in a minute.', 'Prijzen, foto’s en openingstijden pas je zelf aan in een minuut.' ) ),
+		array( ace360_pair( 'Found on Google', 'Gevonden op Google' ), ace360_pair( 'Built so search engines understand what you sell and where, in Dutch and English.', 'Zo gebouwd dat zoekmachines snappen wat je verkoopt en waar, in het Nederlands en Engels.' ) ),
+	);
+}
+
+/**
  * Sectors used to filter the "All work" grid.
  */
 function ace360_sectors() {

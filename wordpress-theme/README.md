@@ -10,11 +10,13 @@ Bilingual (English / Dutch) WordPress theme for **Ace 360 Services**: websites, 
 
 ## What's on the front page
 
-The whole front page plays like one film. A 3D scene (`assets/js/film.js`, three.js) sits fixed behind every section: a laptop and phone on a white desk, website cards, a printed quote, soft shadows and Dutch orange light. Each section has its own camera position, and as you scroll the camera glides between them while the props change with the story. The scene steps aside to the opposite side from the text, follows the mouse, pauses in background tabs, is simplified on phones and holds still with reduced motion.
+The whole front page plays like one film. A 3D scene (`assets/js/film.js`, three.js) sits fixed behind every section: a laptop and phone on a white desk, a coffee mug with rising steam, an open notebook with a client's brief, website cards, a printed quote, studio reflections and Dutch orange light. Each section has its own camera position, and as you scroll the camera glides between them while the props change with the story. Every time the laptop changes page, an orange scan line "rebuilds" the screen. Hover over the laptop, phone, mug, notebook, sticky notes or notifications and a hint appears; click and the page jumps to the matching section (or calls you, for the phone). The scene steps aside to the opposite side from the text, pauses in background tabs, is simplified on phones and holds still with reduced motion.
 
 | Section | Copy | What the 3D scene does |
 | --- | --- | --- |
 | Hero | Headline, "Price my website", "Call now" | Wide shot of the desk; the laptop shows the Ace 360 site |
+| Sound familiar? (`#herkenbaar`) | Four things owners say about their current site | The laptop shows a dated, "Not secure" website and the phone a squashed, unreadable version; sticky notes on the screen list the complaints |
+| After launch (`#resultaat`) | What changes once the new site is live | The screen is rebuilt into the owner's dashboard, the sticky notes get crossed off, and order, booking, WhatsApp, enquiry and review notifications pop out of the buzzing phone |
 | Services (`#diensten`) | Four services with prices; "Estimate" opens the self-quote with that type selected | Website cards fly out and circle the laptop |
 | Self-quote (`#prijs`) | Project type, pages, design, extras, rush, maintenance, optional 21% VAT; live price range, timeline and breakdown; "Send this as an enquiry" fills the contact form | The cards gather into a pile and a printed quote rises next to the laptop, **updating live with the visitor's choices** |
 | Process (`#werkwijze`) + 5 steps | The five steps, one per screen | Top-down shot as the lid closes, then: first call (the phone lifts up with the call on screen), fixed quote (quote lands on the desk), design (lid opens on the design), build (the site splits into its layers), launch (cards circle the live site) |

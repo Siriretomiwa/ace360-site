@@ -394,7 +394,7 @@
     if (!h.children.length) return;
     gsap.from(h.children, { y: 24, opacity: 0, duration: 0.85, ease: 'power3.out', stagger: 0.07, scrollTrigger: { trigger: h, start: 'top 85%', once: true } });
   });
-  ScrollTrigger.batch('.svc li, .step-index li, .faq details, .wcard, .contact-form, .direct, .quote-opts, .quote-result, .demo', {
+  ScrollTrigger.batch('.svc li, .step-index li, .pains li, .outcomes li, .faq details, .wcard, .contact-form, .direct, .quote-opts, .quote-result, .demo', {
     start: 'top 90%',
     once: true,
     onEnter: function (els) { gsap.from(els, { y: 30, opacity: 0, duration: 0.85, ease: 'power3.out', stagger: 0.08 }); }

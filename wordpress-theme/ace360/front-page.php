@@ -90,6 +90,40 @@ $ace360_screens = array( 'call', 'quote', 'design', 'build', 'live' );
 		<p class="scroll-cue" aria-hidden="true"><span></span><?php ace360_e( ace360_pair( 'Scroll', 'Scroll' ) ); ?></p>
 	</section>
 
+	<!-- 1b · Sound familiar? The laptop shows the site the visitor has now -->
+	<section class="ch right pain-ch" id="herkenbaar" data-k="pain" data-screen="old">
+		<div class="wrap">
+			<div class="copy">
+				<p class="kicker"><?php ace360_e( ace360_pair( 'Sound familiar?', 'Herkenbaar?' ) ); ?></p>
+				<h2><?php echo ace360_hl( ace360_pair( 'Your website should be *working* for you', 'Je website hoort voor je te *werken*' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></h2>
+				<ul class="pains">
+					<?php foreach ( ace360_pains() as $ace360_p ) : ?>
+						<li><span class="x" aria-hidden="true"></span><?php ace360_e( $ace360_p ); ?></li>
+					<?php endforeach; ?>
+				</ul>
+				<p class="lede"><?php ace360_e( ace360_pair( 'Most of the businesses I work with started here. Keep scrolling.', 'De meeste bedrijven waarmee ik werk begonnen hier. Scroll verder.' ) ); ?></p>
+			</div>
+		</div>
+	</section>
+
+	<!-- 1c · After launch: the new site goes live and the phone starts buzzing -->
+	<section class="ch fix-ch" id="resultaat" data-k="fix" data-screen="results">
+		<div class="wrap">
+			<div class="copy">
+				<p class="kicker"><?php ace360_e( ace360_pair( 'After launch', 'Na de lancering' ) ); ?></p>
+				<h2><?php echo ace360_hl( ace360_pair( 'Then your phone starts *buzzing*', 'Dan gaat je telefoon *trillen*' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></h2>
+				<ol class="outcomes">
+					<?php foreach ( ace360_outcomes() as $ace360_i => $ace360_o ) : ?>
+						<li><span class="tick" aria-hidden="true"></span><b><?php ace360_e( $ace360_o[0] ); ?></b><span><?php ace360_e( $ace360_o[1] ); ?></span></li>
+					<?php endforeach; ?>
+				</ol>
+				<div class="actions">
+					<a class="btn btn-orange" href="#prijs"><?php ace360_e( ace360_pair( 'What would mine cost?', 'Wat kost de mijne?' ) ); ?> <span aria-hidden="true">→</span></a>
+				</div>
+			</div>
+		</div>
+	</section>
+
 	<!-- 2 · Services -->
 	<section class="ch right" id="diensten" data-k="services" data-screen="ace">
 		<div class="wrap">
