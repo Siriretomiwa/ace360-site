@@ -247,6 +247,137 @@
   };
   P.kinds.forEach(function (k) { SCREENS['work-' + k] = P.screen(k); });
 
+  /* ---------- hero: a landing page at work ----------
+   * An 11-second loop played on the laptop while the hero is on screen:
+   * found in search → lands on the page → pre-orders → pays with iDEAL →
+   * the owner gets the order at 23:14. It uses one of the sample sites
+   * (Bakkerij Korrel) and its product photos. */
+  var STORY_T = 11, storyClock = 0, storyAcc = 0;
+  var landC = mk(SW, SH);
+  function paintLanding() { P.screen('korrel')(landC.getContext('2d'), SW, SH, 'Bakkerij Korrel'); }
+  paintLanding();
+  P.onPhotos(paintLanding);
+  function ez(x) { x = x < 0 ? 0 : x > 1 ? 1 : x; return x * x * (3 - 2 * x); }
+  function seg(t, a, b) { return ez((t - a) / (b - a)); }
+  function lerp(a, b, k) { return a + (b - a) * k; }
+  function pointer(g, x, y, clickAge) {
+    if (clickAge >= 0 && clickAge < 0.5) {
+      g.beginPath(); g.arc(x, y, 8 + clickAge * 60, 0, Math.PI * 2);
+      g.strokeStyle = 'rgba(255,106,0,' + (1 - clickAge * 2) + ')'; g.lineWidth = 4; g.stroke();
+    }
+    g.save(); g.translate(x, y); var sc = clickAge >= 0 && clickAge < 0.15 ? 0.88 : 1; g.scale(sc, sc);
+    g.beginPath(); g.moveTo(0, 0); g.lineTo(0, 26); g.lineTo(7, 20); g.lineTo(12, 31); g.lineTo(17, 29); g.lineTo(12, 18); g.lineTo(21, 18); g.closePath();
+    g.fillStyle = '#111111'; g.fill(); g.strokeStyle = '#ffffff'; g.lineWidth = 2; g.stroke(); g.restore();
+  }
+  function storyFrame(g, w, h, tt) {
+    var t = tt % STORY_T, cx, cy, click = -1;
+    g.clearRect(0, 0, w, h);
+    if (t < 2.5) {
+      // 1 · searched for, found first
+      g.fillStyle = '#ffffff'; g.fillRect(0, 0, w, h);
+      var top = chrome(g, w, 'search · bakery utrecht pre-order', false);
+      var q = P.L('bakery utrecht pre-order', 'bakker utrecht bestellen'), n = Math.round(seg(t, 0.15, 1.1) * q.length);
+      box(g, 120, top + 34, 620, 50, 25, '#f1f3f4');
+      g.beginPath(); g.arc(150, top + 59, 9, 0, Math.PI * 2); g.strokeStyle = '#5d6168'; g.lineWidth = 2.5; g.stroke(); g.beginPath(); g.moveTo(157, top + 66); g.lineTo(164, top + 73); g.stroke();
+      txt(g, q.slice(0, n), 176, top + 67, 22, INK, 500);
+      if (t < 1.3 && Math.floor(t * 3) % 2 === 0) { g.font = '500 22px ' + SANS; g.fillStyle = INK; g.fillRect(178 + g.measureText(q.slice(0, n)).width, top + 47, 2, 24); }
+      var rv = seg(t, 1.2, 1.5);
+      g.globalAlpha = rv;
+      txt(g, 'About 1,240 results (0.31 seconds)', 120, top + 120, 13, MUTED, 500);
+      var hover = t > 1.95;
+      [['Bakkerij Korrel · Fresh bread, ready at 7:30', 'bakkerijkorrel.nl', 'Order today, pick up tomorrow from 07:30. Sourdough, croissants and cakes. ★ 4.8 (312 reviews)'],
+       ['Bakeries in Utrecht · the city guide', 'utrecht-guide.nl › food', 'Twelve neighbourhood bakeries worth crossing town for, from Lombok to Oudwijk.'],
+       ['Where to buy sourdough in Utrecht (2026)', 'foodblog.nl › utrecht', 'We tasted 9 loaves. Here are the ones that made the cut.']].forEach(function (r, i) {
+        var y = top + 160 + i * 110;
+        if (i === 0) { box(g, 104, y - 26, 680, 100, 12, hover ? '#fff3eb' : '#ffffff'); circle(g, 132, y - 2, 12, '#c8742c'); txt(g, 'K', 132, y + 3, 13, '#ffffff', 800, SANS, 'center'); }
+        txt(g, r[1], i === 0 ? 152 : 120, y + 2, 13, '#3c6e47', 500);
+        txt(g, r[0], 120, y + 30, 23, i === 0 && hover ? '#c94f00' : '#1d4ed8', 600);
+        if (i === 0 && hover) { g.fillStyle = '#c94f00'; g.font = '600 23px ' + SANS; g.fillRect(120, y + 34, g.measureText(r[0]).width, 2); }
+        txt(g, r[2].length > 78 ? r[2].slice(0, 76) + '…' : r[2], 120, y + 58, 15, '#4a4d52', 400);
+      });
+      g.globalAlpha = 1;
+      var m = seg(t, 1.4, 2.1); cx = lerp(860, 330, m); cy = lerp(560, top + 190, m); click = t - 2.2;
+    } else if (t < 8.0) {
+      // 2 · the landing page, then 3 · checkout
+      g.drawImage(landC, 0, 0);
+      if (t < 2.8) { g.fillStyle = 'rgba(255,255,255,' + (1 - seg(t, 2.5, 2.8)) + ')'; g.fillRect(0, 0, w, h); }
+      var live = Math.round(19 + seg(t, 2.6, 4.5) * 4);
+      box(g, w - 210, 56 + 40, 170, 30, 15, 'rgba(17,17,17,0.82)'); circle(g, w - 192, 111, 5, '#2bd17e'); txt(g, P.L(live + ' people browsing', live + ' mensen kijken nu'), w - 180, 116, 13, '#ffffff', 600);
+      if (t < 5.0) { var m2 = seg(t, 2.9, 4.4); cx = lerp(500, 110, m2); cy = lerp(420, 344, m2); click = t - 4.55; }
+      else {
+        var o = seg(t, 5.0, 5.35);
+        g.fillStyle = 'rgba(17,17,17,' + 0.45 * o + ')'; g.fillRect(0, 0, w, h);
+        var px = w / 2 - 270, py = lerp(140, 76, o), pw = 540;
+        g.globalAlpha = o;
+        g.save(); g.shadowColor = 'rgba(0,0,0,0.25)'; g.shadowBlur = 30; box(g, px, py, pw, 470, 18, '#ffffff'); g.restore();
+        txt(g, 'Your order', px + 32, py + 50, 24, INK, 750); txt(g, 'Pickup tomorrow · 07:30', px + pw - 32, py + 50, 14, MUTED, 500, SANS, 'right');
+        [['korrel-1', 'Sourdough loaf', '€4.50'], ['korrel-2', 'Butter croissants (4)', '€6.80'], ['korrel-3', 'Dutch apple pie', '€18.50']].forEach(function (it, i) {
+          var y = py + 78 + i * 64; g.fillStyle = LINE; g.fillRect(px + 32, y - 6, pw - 64, 1);
+          if (!P.photo(g, it[0], px + 32, y + 4, 48, 48, 10)) box(g, px + 32, y + 4, 48, 48, 10, '#f1d9b8');
+          txt(g, it[1], px + 96, y + 34, 17, INK, 550); txt(g, it[2], px + pw - 32, y + 34, 17, INK, 650, SANS, 'right');
+        });
+        g.fillStyle = INK; g.fillRect(px + 32, py + 276, pw - 64, 2);
+        txt(g, 'Total', px + 32, py + 310, 19, INK, 700); txt(g, '€29.80', px + pw - 32, py + 310, 22, INK, 800, SANS, 'right');
+        [['iDEAL', '#cc0066'], ['Card', '#3b82f6'], ['Apple Pay', '#111111']].forEach(function (pm, i) {
+          var x = px + 32 + i * 162, on = i === 0;
+          box(g, x, py + 330, 150, 44, 10, on ? '#fdf0f6' : '#ffffff'); stroke(g, x, py + 330, 150, 44, 10, on ? '#cc0066' : LINE, on ? 2.5 : 1.5);
+          circle(g, x + 22, py + 352, 8, pm[1]); txt(g, pm[0], x + 38, py + 358, 15, INK, 600);
+        });
+        var paid = t > 7.25, busy = t > 6.95 && !paid;
+        box(g, px + 32, py + 392, pw - 64, 52, 26, paid ? '#1a8f4e' : OR);
+        if (busy) { for (var k = 0; k < 8; k++) { var a = k / 8 * Math.PI * 2 + t * 8; circle(g, w / 2 + Math.cos(a) * 11, py + 418 + Math.sin(a) * 11, 2.6, 'rgba(17,17,17,' + (0.2 + k * 0.1) + ')'); } }
+        else txt(g, paid ? 'Paid ✓' : 'Pay €29.80 with iDEAL', w / 2, py + 425, 18, paid ? '#ffffff' : INK, 750, SANS, 'center');
+        g.globalAlpha = 1;
+        var m3 = seg(t, 5.6, 6.7); cx = lerp(110, w / 2 + 60, m3); cy = lerp(344, py + 418, m3); click = t - 6.85;
+      }
+    } else {
+      // 4 · the owner's side: order in, while they slept
+      g.drawImage(landC, 0, 0);
+      g.fillStyle = 'rgba(17,17,17,0.5)'; g.fillRect(0, 0, w, h);
+      var o2 = seg(t, 8.0, 8.35), px2 = w / 2 - 230, py2 = 120;
+      g.globalAlpha = o2;
+      g.save(); g.shadowColor = 'rgba(0,0,0,0.25)'; g.shadowBlur = 30; box(g, px2, py2, 460, 300, 18, '#ffffff'); g.restore();
+      circle(g, w / 2, py2 + 78, 38, '#1a8f4e');
+      g.strokeStyle = '#ffffff'; g.lineWidth = 7; g.lineCap = 'round'; g.lineJoin = 'round';
+      var ck = seg(t, 8.2, 8.6); g.beginPath(); g.moveTo(w / 2 - 16, py2 + 78); g.lineTo(w / 2 - 4, py2 + 90); if (ck > 0.5) g.lineTo(w / 2 - 4 + 22 * (ck - 0.5) * 2, py2 + 90 - 26 * (ck - 0.5) * 2); g.stroke(); g.lineCap = 'butt';
+      txt(g, 'Order confirmed', w / 2, py2 + 160, 28, INK, 750, SANS, 'center');
+      txt(g, 'Order #1043 · €29.80 · paid with iDEAL', w / 2, py2 + 196, 16, MUTED, 500, SANS, 'center');
+      txt(g, 'Pick up tomorrow from 07:30', w / 2, py2 + 236, 18, '#c8742c', 650, SANS, 'center');
+      g.globalAlpha = 1;
+      // the owner's notification
+      var n2 = seg(t, 8.5, 8.9), nx = lerp(w + 20, w - 380, n2);
+      box(g, nx, 64, 360, 76, 16, 'rgba(17,17,17,0.92)'); box(g, nx + 16, 82, 40, 40, 10, OR); txt(g, '€', nx + 36, 110, 22, INK, 800, SANS, 'center');
+      txt(g, 'New order #1043 · €29.80', nx + 70, 98, 16, '#ffffff', 700); txt(g, 'Bakkerij Korrel · iDEAL · now', nx + 70, 122, 13, '#9aa0aa', 500);
+      // counters tick up
+      var flip = t > 8.9;
+      box(g, 40, h - 120, 214, 76, 14, '#ffffff'); txt(g, 'Orders today', 60, h - 90, 13, MUTED, 600); txt(g, flip ? '13' : '12', 60, h - 58, 26, INK, 800); if (flip) txt(g, '+1', 110, h - 58, 15, '#1a8f4e', 700);
+      box(g, 268, h - 120, 214, 76, 14, '#ffffff'); txt(g, 'Revenue today', 288, h - 90, 13, MUTED, 600); txt(g, flip ? '€372.30' : '€342.50', 288, h - 58, 26, INK, 800);
+      var cap = seg(t, 9.0, 9.4);
+      g.globalAlpha = cap; box(g, w - 560, h - 100, 520, 58, 29, OR); txt(g, '23:14 · your website took this order while you slept', w - 300, h - 64, 17, INK, 750, SANS, 'center'); g.globalAlpha = 1;
+      if (t > 10.5) { g.fillStyle = 'rgba(255,255,255,' + seg(t, 10.5, 11) + ')'; g.fillRect(0, 0, w, h); }
+    }
+    if (cx != null) pointer(g, cx, cy, click);
+  }
+  // the story is drawn full-size off screen, then a moving crop zooms in on the action
+  var storyC = mk(SW, SH), storyG = storyC.getContext('2d');
+  var ZOOM = [[0, 70, 30, 820], [2.3, 70, 30, 820], [2.75, 0, 40, 780], [4.8, 0, 90, 700], [5.3, 120, 56, 810], [7.6, 135, 64, 790], [8.1, 0, 0, 1024], [11, 0, 0, 1024]];
+  function storyCompose(g, tt) {
+    var t = tt % STORY_T, i = 0;
+    while (i < ZOOM.length - 2 && t > ZOOM[i + 1][0]) i++;
+    var a = ZOOM[i], b = ZOOM[i + 1], k = ez((t - a[0]) / Math.max(0.001, b[0] - a[0]));
+    var rw = lerp(a[3], b[3], k), rh = rw * SH / SW, rx = lerp(a[1], b[1], k), ry = lerp(a[2], b[2], k);
+    storyFrame(storyG, SW, SH, tt);
+    g.clearRect(0, 0, SW, SH);
+    g.drawImage(storyC, rx, ry, rw, rh, 0, 0, SW, SH);
+  }
+  SCREENS.story = function (g) { storyCompose(g, reduce ? 9.6 : storyClock); };
+  // stills from the same story for the "-baar" words: found in search, paid with iDEAL
+  SCREENS.search = function (g) { storyCompose(g, 2.2); };
+  SCREENS.checkout = function (g) { storyCompose(g, 7.45); };
+  // "Build a homepage": the sample business and mood the visitor picked
+  var tryState = { key: 'korrel', mood: 'warm' };
+  SCREENS.try = function (g, w, h) { g.clearRect(0, 0, w, h); P.screenMood(tryState.key, tryState.mood, g, w, h); };
+
   /* ---------- phone screens (360 × 740) ---------- */
   function paintPhone(g, w, h, key, title) {
     var dark = key === 'call' || key === 'blank' || key === 'build' || key === 'work-sidwalk';
@@ -260,6 +391,7 @@
       circle(g, 100, h - 130, 38, '#e5484d'); circle(g, w - 100, h - 130, 38, '#2bd17e');
       return;
     }
+    if (key === 'try') { P.phoneMood(tryState.key, tryState.mood, g, w, h); box(g, w / 2 - 52, 14, 104, 26, 13, '#000'); return; }
     if (key === 'old') {
       g.fillStyle = '#efe9d2'; g.fillRect(0, 44, w, h);
       g.save(); g.translate(0, 70); g.scale(w / SW, w / SW); SCREENS.old(g, SW, SH); g.restore();
@@ -508,24 +640,29 @@
   }
 
   // open notebook: the client's brief on the left page, a wireframe sketch on the right
-  var bookC = mk(1024, 700), bk = bookC.getContext('2d'), HAND = 'italic 500 30px Georgia, "Times New Roman", serif';
+  var bookC = mk(1024, 700), bk = bookC.getContext('2d'), HAND = 'italic 500 30px Georgia, "Times New Roman", serif', bookTex = null;
+  function paintBook() {
   bk.fillStyle = '#fbfaf6'; bk.fillRect(0, 0, 1024, 700);
   bk.fillStyle = 'rgba(80,120,200,0.18)'; for (var ly = 90; ly < 700; ly += 44) { bk.fillRect(30, ly, 452, 2); bk.fillRect(542, ly, 452, 2); }
   bk.fillStyle = 'rgba(214,69,69,0.35)'; bk.fillRect(78, 0, 2, 700);
   var grad = bk.createLinearGradient(452, 0, 572, 0); grad.addColorStop(0, 'rgba(0,0,0,0)'); grad.addColorStop(0.5, 'rgba(0,0,0,0.12)'); grad.addColorStop(1, 'rgba(0,0,0,0)'); bk.fillStyle = grad; bk.fillRect(452, 0, 120, 700);
-  bk.font = 'italic 700 38px Georgia, serif'; bk.fillStyle = '#1d2b4f'; bk.fillText('New website!', 96, 76);
-  ['• online bookings', '• iDEAL payments', '• Dutch + English', '• works on phones', '• I can edit it myself', '• budget ± €2k?'].forEach(function (l, i) { bk.font = HAND; bk.fillStyle = '#24315e'; bk.fillText(l, 96, 128 + i * 44); });
+  bk.font = 'italic 700 38px Georgia, serif'; bk.fillStyle = '#1d2b4f'; bk.fillText(P.L('New website!', 'Nieuwe website!'), 96, 76);
+  (P.isNL() ? ['• online boekingen', '• iDEAL-betalingen', '• Nederlands + Engels', '• werkt op mobiel', '• zelf aanpassen', '• budget ± €2k?'] : ['• online bookings', '• iDEAL payments', '• Dutch + English', '• works on phones', '• I can edit it myself', '• budget ± €2k?']).forEach(function (l, i) { bk.font = HAND; bk.fillStyle = '#24315e'; bk.fillText(l, 96, 128 + i * 44); });
   bk.strokeStyle = OR; bk.lineWidth = 4; bk.beginPath(); bk.ellipse(250, 340, 160, 30, -0.03, 0, Math.PI * 2); bk.stroke();
   bk.strokeStyle = '#24315e'; bk.lineWidth = 3; bk.lineJoin = 'round';
   bk.strokeRect(580, 70, 380, 520); bk.strokeRect(600, 92, 120, 30); bk.strokeRect(840, 92, 100, 30);
   bk.strokeRect(600, 150, 340, 150); bk.beginPath(); bk.moveTo(600, 150); bk.lineTo(940, 300); bk.moveTo(940, 150); bk.lineTo(600, 300); bk.stroke();
   [0, 1, 2].forEach(function (i) { bk.strokeRect(600 + i * 118, 330, 104, 130); });
   bk.fillStyle = 'rgba(255,106,0,0.85)'; bk.fillRect(600, 490, 170, 44);
-  bk.font = 'italic 600 26px Georgia, serif'; bk.fillStyle = '#ffffff'; bk.fillText('Book now', 624, 520);
+  bk.font = 'italic 600 26px Georgia, serif'; bk.fillStyle = '#ffffff'; bk.fillText(P.L('Book now', 'Boek nu'), 624, 520);
+    if (bookTex) bookTex.needsUpdate = true;
+  }
+  paintBook();
   var notebook = new THREE.Group();
   var cover = new THREE.Mesh(new THREE.BoxGeometry(1.62, 0.03, 1.12), new THREE.MeshStandardMaterial({ color: col('#1d2433'), roughness: 0.7 }));
   cover.position.y = 0.015; cover.castShadow = true; cover.receiveShadow = true; notebook.add(cover);
-  var pages = new THREE.Mesh(new THREE.PlaneGeometry(1.56, 1.06), new THREE.MeshStandardMaterial({ map: toTex(bookC), roughness: 0.92 }));
+  bookTex = toTex(bookC);
+  var pages = new THREE.Mesh(new THREE.PlaneGeometry(1.56, 1.06), new THREE.MeshStandardMaterial({ map: bookTex, roughness: 0.92 }));
   pages.rotation.x = -Math.PI / 2; pages.position.y = 0.032; pages.receiveShadow = true; notebook.add(pages);
   var pen = new THREE.Group();
   var penBody = new THREE.Mesh(new THREE.CylinderGeometry(0.022, 0.022, 0.9, 16), orangeMat); penBody.rotation.z = Math.PI / 2; pen.add(penBody);
@@ -571,11 +708,39 @@
   pool.rotation.x = -Math.PI / 2; pool.position.set(L_AIM.x - 0.3, 0.004, L_AIM.z - 0.4);
   scene.add(pool);
 
+
+  /* ---------- "Build a homepage": the screen comes apart in four strips and rebuilds ---------- */
+  var STRIPS = 4, stripH = screen.geometry.parameters.height / STRIPS, stripW = screen.geometry.parameters.width;
+  var strips = [];
+  for (var si3 = 0; si3 < STRIPS; si3++) {
+    var sc3 = mk(1024, 160), sm3 = new THREE.Mesh(new THREE.PlaneGeometry(stripW, stripH), new THREE.MeshBasicMaterial({ map: toTex(sc3), toneMapped: false, transparent: true, side: THREE.DoubleSide }));
+    sm3.userData = { c: sc3, y0: screen.position.y + stripW * SH / SW / 2 - stripH / 2 - si3 * stripH, i: si3 };
+    sm3.visible = false; sm3.castShadow = true; lidG.add(sm3); strips.push(sm3);
+  }
+  function sliceInto(src) { strips.forEach(function (m, i) { var g = m.userData.c.getContext('2d'); g.clearRect(0, 0, 1024, 160); g.drawImage(src, 0, i * 160, 1024, 160, 0, 0, 1024, 160); m.material.map.needsUpdate = true; }); }
+  var tryFx = { v: 0 }, tryC = mk(SW, SH);
+  function rebuild(key, mood) {
+    var go = function () { tryState.key = key; tryState.mood = mood; if (current.indexOf('try|') === 0) paintScreen('try'); };
+    if (!window.gsap || reduce || current.indexOf('try|') !== 0) { go(); return; }
+    window.gsap.killTweensOf(tryFx);
+    sliceInto(screenC);
+    window.gsap.timeline()
+      .to(tryFx, { v: 1, duration: 0.7, ease: 'power2.in' })
+      .add(function () {
+        tryState.key = key; tryState.mood = mood;
+        var g = tryC.getContext('2d'); SCREENS.try(g, SW, SH); sliceInto(tryC);
+        sg.clearRect(0, 0, SW, SH); sg.drawImage(tryC, 0, 0); screenTex.needsUpdate = true;
+        paintPhoneNow('try'); buzz = 1;
+      })
+      .to(tryFx, { v: 0, duration: 1.1, ease: 'power3.out' });
+  }
+  document.addEventListener('ace360:try', function (e) { var d = e.detail || {}; rebuild(d.key || tryState.key, d.mood || tryState.mood); });
+
   /* ---------- sticky notes on the laptop: what the client is fed up with ---------- */
   var STICKY = [
-    { c: '#ffe066', lines: ['Looks old', 'on phones'], p: [-1.05, LIDH + 0.08, 0.05], r: 0.1 },
-    { c: '#ffc078', lines: ['Nobody', 'books online'], p: [0.75, LIDH + 0.1, 0.05], r: -0.08 },
-    { c: '#d0ebff', lines: ['New price =', 'wait a week'], p: [LW / 2 + 0.12, 1.45, 0.05], r: -0.06 }
+    { c: '#ffe066', lines: ['Looks old', 'on phones'], nl: ['Oud op', 'je mobiel'], p: [-1.05, LIDH + 0.08, 0.05], r: 0.1 },
+    { c: '#ffc078', lines: ['Nobody', 'books online'], nl: ['Niemand', 'boekt online'], p: [0.75, LIDH + 0.1, 0.05], r: -0.08 },
+    { c: '#d0ebff', lines: ['New price =', 'wait a week'], nl: ['Nieuwe prijs =', 'week wachten'], p: [LW / 2 + 0.12, 1.45, 0.05], r: -0.06 }
   ];
   var stickyGeo = new THREE.PlaneGeometry(0.5, 0.5);
   var stickies = STICKY.map(function (n) {
@@ -590,7 +755,7 @@
     var g = m.userData.c.getContext('2d'), n = m.userData.n;
     g.fillStyle = n.c; g.fillRect(0, 0, 256, 256);
     var sh = g.createLinearGradient(0, 0, 0, 256); sh.addColorStop(0, 'rgba(0,0,0,0.08)'); sh.addColorStop(0.25, 'rgba(0,0,0,0)'); g.fillStyle = sh; g.fillRect(0, 0, 256, 256);
-    n.lines.forEach(function (l, i) { g.font = 'italic 600 34px Georgia, serif'; g.fillStyle = '#2b2b2b'; g.fillText(l, 22, 104 + i * 46); });
+    (P.isNL() ? n.nl : n.lines).forEach(function (l, i) { g.font = 'italic 600 ' + (P.isNL() ? 30 : 34) + 'px Georgia, serif'; g.fillStyle = '#2b2b2b'; g.fillText(l, 22, 104 + i * 46); });
     if (solved) {
       g.strokeStyle = 'rgba(17,17,17,0.75)'; g.lineWidth = 5; g.beginPath(); g.moveTo(16, 96); g.lineTo(236, 148); g.stroke();
       circle(g, 206, 52, 30, OR); g.strokeStyle = '#ffffff'; g.lineWidth = 7; g.lineCap = 'round'; g.lineJoin = 'round';
@@ -658,11 +823,12 @@
   scene.add(dust);
 
   /* ---------- keyframes ---------- */
-  var BASE = { cx: -3.2, cy: 2.5, cz: 6.4, tx: 0.2, ty: 0.95, tz: -0.4, side: 1, lid: 1, fly: 0, gather: 0, paper: 0, lay: 0, phone: 0, nophone: 0, explode: 0, glow: 0.7, orbit: 0, dust: 0.5, keyI: 1.3, hemiI: 0.6, notes: 0, solved: 0, notify: 0, steam: 1, phoneL: 0 };
+  var BASE = { cx: -3.2, cy: 2.5, cz: 6.4, tx: 0.2, ty: 0.95, tz: -0.4, side: 1, lid: 1, fly: 0, gather: 0, paper: 0, lay: 0, phone: 0, nophone: 0, explode: 0, glow: 0.7, orbit: 0, dust: 0.5, keyI: 1.3, hemiI: 0.6, notes: 0, solved: 0, notify: 0, steam: 1, phoneL: 0, spin: 0, props: 1 };
   var SEQ = [
     ['hero', {}],
-    ['pain', { side: -1, cx: -1.1, cy: 2.3, cz: 6.6, tx: -0.7, ty: 1.15, tz: -0.1, notes: 1, phone: 1, phoneL: 1, glow: 0.3, dust: 0.3, keyI: 1.1 }],
+    ['pain', { props: 1, side: -1, cx: -0.4, cy: 2.3, cz: 6.9, tx: 0.35, ty: 1.15, tz: -0.1, notes: 1, phone: 1, phoneL: 1, glow: 0.3, dust: 0.3, keyI: 1.1 }],
     ['fix', { side: 1, cx: 3.4, cy: 2.4, cz: 6.4, tx: 1.1, ty: 1.2, tz: 0.1, phoneL: 0, notes: 1, solved: 1, phone: 1, notify: 1, glow: 1.25, dust: 0.6, keyI: 1.3 }],
+    ['try', { side: 1, cx: 2.6, cy: 1.9, cz: 5.3, tx: 0.55, ty: 1.15, tz: -0.4, notes: 0, solved: 0, notify: 0, phone: 1, phoneL: 0, glow: 1.25, dust: 0.5, props: 1 }],
     ['services', { side: -1, cx: 3.9, cy: 3.4, cz: 6.6, tx: -0.3, ty: 1.2, tz: -0.2, fly: 1, orbit: 1, notes: 0, notify: 0, phone: 0, glow: 0.7, dust: 0.5 }],
     ['quote', { side: 1, cx: 4.6, cy: 2.8, cz: 5.6, tx: 1.9, ty: 1.0, tz: 0.1, fly: 1, gather: 1, paper: 1, orbit: 0, nophone: 1 }],
     ['process', { side: -1, cx: 0.6, cy: 6.6, cz: 5.6, tx: 0, ty: 0.2, tz: 0, lid: 0, gather: 1, paper: 0, glow: 0, dust: 0.35, nophone: 1 }],
@@ -788,8 +954,8 @@
       apply(null);
     }
   }
-  paintScreen('ace');
-  current = 'ace||';
+  paintScreen('story');
+  current = 'story||';
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(function () {
       var p = current.split('|'); current = ''; setScreen(p[0], p[1], p[2]);
@@ -798,12 +964,22 @@
       notes.forEach(function (m) { m.material.map.dispose(); m.material.map = paintNote(NOTES[m.userData.i]); m.material.needsUpdate = true; });
     });
   }
+  // the language switch repaints every Ace screen, the notes, notifications and notebook
+  document.addEventListener('ace360:lang', function () {
+    paintLanding(); paintBook();
+    stickies.forEach(function (m) { paintSticky(m, !!m.userData.solved); });
+    notes.forEach(function (m) { m.material.map.dispose(); m.material.map = paintNote(NOTES[m.userData.i]); m.material.needsUpdate = true; });
+    var p = current.split('|');
+    if (!p[1]) { window.gsap && window.gsap.killTweensOf(wipe); wipe.v = 1; paintScreen(p[0], p[2]); }
+  });
   // product photos arrive after page load: repaint whatever is on the laptop and phone now
   P.onPhotos(function () {
     var p = current.split('|');
     if (!p[1]) { window.gsap && window.gsap.killTweensOf(wipe); wipe.v = 1; paintScreen(p[0], p[2]); }
   });
-  window.ACE360_FILM = { setScreen: setScreen, measure: measure };
+  window.ACE360_FILM = { setScreen: setScreen, measure: measure, storyAt: function (canvas, t) { storyCompose(canvas.getContext('2d'), t); },
+    // freeze the rebuild at a point (0–1) for checking: ACE360_FILM.tryAt(0.6)
+    tryAt: function (v) { if (window.gsap) window.gsap.killTweensOf(tryFx); sliceInto(screenC); tryFx.v = v; } };
 
   /* ---------- day / night ---------- */
   var night = { v: root.getAttribute('data-theme') === 'night' ? 1 : 0 }, lastNight = -1;
@@ -823,10 +999,9 @@
     fill.intensity = 0.3 * (1 - nt * 0.7);
     envMats.forEach(function (m) { m.envMapIntensity = m.userData.env * (1 - nt * 0.8); });
     cards.forEach(function (c) { c.material.emissiveIntensity = 0.06 + nt * 0.32; });
-    lampLight.intensity = nt * 3.2;
+    // lamp light and its pool are set every frame (they also follow the props fade)
     shadeInMat.emissiveIntensity = nt * 1.4;
     bulbMat.color.setRGB(1, 0.96 - (1 - nt) * 0.1, 0.9 - (1 - nt) * 0.2);
-    pool.material.opacity = nt;
     floor.material.opacity = 0.13 + nt * 0.3;
     dustMat.color.copy(DUST_DAY).lerp(DUST_NIGHT, nt);
     dustMat.size = 0.035 + nt * 0.03;
@@ -931,17 +1106,35 @@
     }
     camera.position.set(cx + ptr.sx * 0.5, S.cy - ptr.sy * 0.3 + (1 - iv) * 1.2, cz + (1 - iv) * 2.5);
     target.set(S.tx, S.ty, S.tz);
+    // on phones the centred "-baar" shots pull back so the whole laptop and the word fit
+    if (mobile) { var pull = 1 + 0.55 * (1 - Math.min(1, Math.abs(S.side))); camera.position.sub(target).multiplyScalar(pull).add(target); }
     camera.lookAt(target);
     if (W >= 800) camera.setViewOffset(W, H, -W * 0.2 * S.side, 0, W, H);
-    else camera.setViewOffset(W, H, 0, H * 0.24, W, H);
+    else camera.setViewOffset(W, H, 0, H * (0.24 * Math.min(1, Math.abs(S.side)) + 0.06 * (1 - Math.min(1, Math.abs(S.side)))), W, H);
     camera.updateMatrixWorld();
     hoverTest();
 
     // laptop lid opens on load and per chapter
     var lid = sm(c01(S.lid)) * sm(c01(iv * 1.4 - 0.2));
     lidG.rotation.x = 1.52 * (1 - lid) - 0.3 * lid;
-    screenMat.color.setScalar(Math.max(0.03, bright.v * (0.25 + 0.75 * lid)));
+    screenMat.color.setScalar(Math.max(0.03, bright.v * (0.25 + 0.75 * lid) * (1 - sm(c01(tryFx.v * 1.4)) * 0.9)));
     laptop.position.y = hv.laptop * 0.05;
+    laptop.rotation.y = S.spin;
+
+    // the hero story plays on the laptop while it is the current screen
+    if (current.indexOf('story|') === 0 && wipe.v >= 1 && lid > 0.3 && !reduce) {
+      storyClock += dt; storyAcc += dt;
+      if (storyAcc > (mobile ? 1 / 20 : 1 / 30)) { storyAcc = 0; storyCompose(sg, storyClock); screenTex.needsUpdate = true; }
+    }
+
+    // "Build a homepage" strips
+    var tf = tryFx.v;
+    strips.forEach(function (m, i) {
+      var k = sm(c01(tf * 1.25 - (STRIPS - 1 - i) * 0.08));
+      m.visible = tf > 0.002;
+      m.position.set((i % 2 ? 1 : -1) * k * 0.3, m.userData.y0 + (1.5 - i) * k * 0.32, 0.04 + k * (0.55 + (3 - i) * 0.28));
+      m.rotation.set(-k * 0.25, (i % 2 ? -1 : 1) * k * 0.3, (i % 2 ? 1 : -1) * k * 0.06);
+    });
 
     // exploded page layers
     var ex = sm(c01(S.explode));
@@ -1005,13 +1198,17 @@
     });
 
     // mug, steam and notebook
+    // the desk props step aside when the laptop takes centre stage
+    var pr = sm(c01(S.props));
+    [mug, notebook, lamp].forEach(function (o, i) { var k = sm(c01(pr * 1.3 - i * 0.12)); o.scale.setScalar(Math.max(0.001, k)); o.visible = k > 0.01; });
+    lampLight.intensity = night.v * 3.2 * pr; pool.material.opacity = night.v * pr;
     mug.position.y = hv.mug * 0.08;
     notebook.position.y = hv.notebook * 0.05;
     steam.forEach(function (sp) {
       var u = sp.userData, life = ((reduce ? 0.5 : t * 0.2) + u.o) % 1;
       sp.position.set(mug.position.x + Math.sin(t * 0.9 + u.s) * 0.08 * (0.2 + life), mug.position.y + 0.5 + life * 1.15, mug.position.z + Math.cos(t * 0.7 + u.s) * 0.06 * (0.2 + life));
       var ss = 0.16 + life * 0.55; sp.scale.set(ss, ss, 1);
-      sp.material.opacity = Math.sin(life * Math.PI) * 0.42 * S.steam;
+      sp.material.opacity = Math.sin(life * Math.PI) * 0.42 * S.steam * pr;
     });
 
     // sticky notes: pop onto the lid, get ticked off once the new site is live

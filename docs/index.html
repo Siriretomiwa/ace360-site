@@ -4,20 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <script>
-/* Pick the language and day/night theme before first paint. Language: ?lang= → saved choice → browser language. */
+/* Pick the language and day/night theme before first paint. Language: ?lang= → saved choice → Dutch. */
 (function (d) {
 	var l = null;
 	try { l = new URLSearchParams(location.search).get('lang'); } catch (e) {}
 	if (l !== 'nl' && l !== 'en') { try { l = localStorage.getItem('ace360-lang'); } catch (e) {} }
-	if (l !== 'nl' && l !== 'en') { l = /^nl\b/i.test(navigator.language || '') ? 'nl' : 'en'; }
+	if (l !== 'nl' && l !== 'en') { l = 'nl'; }
 	d.setAttribute('data-lang', l);
 	d.setAttribute('lang', l);
 	d.className = d.className.replace('no-js', 'js');
-	/* Day or night: ?theme= → saved choice → day. */
+	/* Evening (night) first, like a lamp-lit desk; ?theme=day or the switch for daylight. */
 	var t = null;
 	try { t = new URLSearchParams(location.search).get('theme'); } catch (e) {}
 	if (t !== 'night' && t !== 'day') { try { t = localStorage.getItem('ace360-theme'); } catch (e) {} }
-	d.setAttribute('data-theme', t === 'night' ? 'night' : 'day');
+	d.setAttribute('data-theme', t === 'day' ? 'day' : 'night');
 })(document.documentElement);
 </script>
 <title>Ace 360 Services</title>
@@ -39,8 +39,8 @@
 		</nav>
 
 		<div class="lang-switch" role="group" aria-label="Language / Taal">
-			<button type="button" data-set-lang="en" aria-pressed="true">EN</button>
-			<button type="button" data-set-lang="nl" aria-pressed="false">NL</button>
+			<button type="button" data-set-lang="nl" aria-pressed="true">NL</button>
+			<button type="button" data-set-lang="en" aria-pressed="false">EN</button>
 		</div>
 
 		<button class="theme-switch" type="button" data-theme-toggle aria-pressed="false">
@@ -64,7 +64,7 @@
 <main id="main" class="site-main film">
 
 	<!-- 1 · Hero -->
-	<section class="ch hero" data-k="hero" data-screen="ace">
+	<section class="ch hero" data-k="hero" data-screen="story">
 		<div class="wrap">
 			<div class="copy">
 				<p class="kicker"><span class="nl-flag" aria-hidden="true"></span><span data-l="en" lang="en">Web design and digital growth · Netherlands &amp; worldwide</span><span data-l="nl" lang="nl">Webdesign en digitale groei · Nederland &amp; wereldwijd</span></p>
@@ -121,8 +121,46 @@
 		</div>
 	</section>
 
+	<!-- 1d · Try it: pick a business and a mood, the site on the laptop rebuilds itself -->
+		<section class="ch try-ch" id="probeer" data-k="try" data-screen="try">
+		<div class="wrap">
+			<div class="copy" data-try>
+				<p class="kicker"><span data-l="en" lang="en">Try it now</span><span data-l="nl" lang="nl">Probeer het nu</span></p>
+				<h2><span data-l="en" lang="en">Build a homepage in <em class="hl">one</em> tap</span><span data-l="nl" lang="nl">Bouw een homepage in <em class="hl">één</em> tik</span></h2>
+				<p class="lede"><span data-l="en" lang="en">Pick a business and a mood. Watch the site on the laptop take itself apart and rebuild, then see what a site like that costs.</span><span data-l="nl" lang="nl">Kies een bedrijf en een sfeer. Zie de site op de laptop uit elkaar vallen en opnieuw opbouwen, en zie wat zo’n site kost.</span></p>
+				<fieldset class="try-set">
+					<legend class="mono"><span data-l="en" lang="en">Which business?</span><span data-l="nl" lang="nl">Welk bedrijf?</span></legend>
+					<div class="chips">
+																				<label class="chip"><input type="radio" name="try_sector" value="korrel" data-quote="{&quot;lo&quot;:2900,&quot;hi&quot;:3600,&quot;w0&quot;:4,&quot;w1&quot;:6,&quot;type&quot;:&quot;store&quot;,&quot;extras&quot;:[]}" checked><span><span data-l="en" lang="en">Bakery</span><span data-l="nl" lang="nl">Bakkerij</span></span></label>
+																				<label class="chip"><input type="radio" name="try_sector" value="noor" data-quote="{&quot;lo&quot;:1700,&quot;hi&quot;:2300,&quot;w0&quot;:3,&quot;w1&quot;:4,&quot;type&quot;:&quot;website&quot;,&quot;extras&quot;:[&quot;booking&quot;]}"><span><span data-l="en" lang="en">Hair salon</span><span data-l="nl" lang="nl">Kapsalon</span></span></label>
+																				<label class="chip"><input type="radio" name="try_sector" value="zout" data-quote="{&quot;lo&quot;:1700,&quot;hi&quot;:2300,&quot;w0&quot;:3,&quot;w1&quot;:4,&quot;type&quot;:&quot;website&quot;,&quot;extras&quot;:[&quot;booking&quot;]}"><span>Restaurant</span></label>
+																				<label class="chip"><input type="radio" name="try_sector" value="molen" data-quote="{&quot;lo&quot;:3200,&quot;hi&quot;:4050,&quot;w0&quot;:4,&quot;w1&quot;:6,&quot;type&quot;:&quot;store&quot;,&quot;extras&quot;:[&quot;products&quot;]}"><span><span data-l="en" lang="en">Online store</span><span data-l="nl" lang="nl">Webshop</span></span></label>
+																				<label class="chip"><input type="radio" name="try_sector" value="voedselbrug" data-quote="{&quot;lo&quot;:1700,&quot;hi&quot;:2300,&quot;w0&quot;:3,&quot;w1&quot;:4,&quot;type&quot;:&quot;website&quot;,&quot;extras&quot;:[&quot;booking&quot;]}"><span><span data-l="en" lang="en">Charity</span><span data-l="nl" lang="nl">Goed doel</span></span></label>
+																				<label class="chip"><input type="radio" name="try_sector" value="adem" data-quote="{&quot;lo&quot;:1700,&quot;hi&quot;:2300,&quot;w0&quot;:3,&quot;w1&quot;:4,&quot;type&quot;:&quot;website&quot;,&quot;extras&quot;:[&quot;booking&quot;]}"><span>Studio</span></label>
+											</div>
+				</fieldset>
+				<fieldset class="try-set">
+					<legend class="mono"><span data-l="en" lang="en">Which mood?</span><span data-l="nl" lang="nl">Welke sfeer?</span></legend>
+					<div class="chips">
+													<label class="chip" title="Licht, veel ruimte, zachte kleur."><input type="radio" name="try_mood" value="calm"><span><span data-l="en" lang="en">Calm</span><span data-l="nl" lang="nl">Rustig</span></span></label>
+													<label class="chip" title="De merkkleuren, zoals de eigenaar ze kiest."><input type="radio" name="try_mood" value="warm" checked><span>Warm</span></label>
+													<label class="chip" title="Donker, veel contrast, één harde kleur."><input type="radio" name="try_mood" value="bold"><span><span data-l="en" lang="en">Bold</span><span data-l="nl" lang="nl">Gedurfd</span></span></label>
+											</div>
+				</fieldset>
+				<div class="try-out" aria-live="polite">
+					<p class="try-price"><span class="mono"><span data-l="en" lang="en">A site like this</span><span data-l="nl" lang="nl">Zo’n site</span></span> <b data-try-price>—</b></p>
+					<p class="try-date mono" data-try-date></p>
+				</div>
+				<div class="actions">
+					<button type="button" class="btn btn-orange" data-try-build><span data-l="en" lang="en">Build it again</span><span data-l="nl" lang="nl">Bouw opnieuw</span> <span aria-hidden="true">↻</span></button>
+					<a class="btn btn-line" href="#prijs" data-try-use><span data-l="en" lang="en">Price mine like this</span><span data-l="nl" lang="nl">Bereken de mijne zo</span></a>
+				</div>
+			</div>
+		</div>
+	</section>
+
 	<!-- 2 · Services -->
-	<section class="ch right" id="diensten" data-k="services" data-screen="ace">
+	<section class="ch right" id="diensten" data-k="services" data-screen="live">
 		<div class="wrap">
 			<div class="copy">
 				<p class="kicker"><span data-l="en" lang="en">Services</span><span data-l="nl" lang="nl">Diensten</span></p>
@@ -159,7 +197,7 @@
 	</section>
 
 	<!-- 3 · Self-quote -->
-	<section class="ch quote-ch" id="prijs" data-k="quote" data-screen="ace">
+	<section class="ch quote-ch" id="prijs" data-k="quote" data-screen="quote">
 		<div class="wrap">
 			<div class="copy copy-quote">
 				<p class="kicker"><span data-l="en" lang="en">Self-quote</span><span data-l="nl" lang="nl">Zelf berekenen</span></p>
