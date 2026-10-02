@@ -152,8 +152,28 @@
     txt(g, c.badge, x + size * 2.1, y + size * 1.7, size, '#111111', 600);
   }
 
+  /* moods for "Build a homepage": the same site, re-styled */
+  function hexMix(a, b, k) {
+    var p = function (h) { h = h.replace('#', ''); return [0, 2, 4].map(function (i) { return parseInt(h.substr(i, 2), 16); }); };
+    var x = p(a), y = p(b); return '#' + x.map(function (v, i) { return ('0' + Math.round(v + (y[i] - v) * k).toString(16)).slice(-2); }).join('');
+  }
+  function moodify(c, mood) {
+    if (!mood || mood === 'warm') return c;
+    var m = Object.assign({}, c);
+    if (mood === 'calm') {
+      m.bg = '#f7f5f1'; m.ink = '#2a2a2a'; m.muted = '#7b7975'; m.dark = false; m.panel = null; m.serif = true;
+      m.accent = hexMix(c.accent, '#9aa39a', 0.55); m.onAccent = '#ffffff';
+      m.art = [hexMix(c.art[0], '#eef0ec', 0.6), hexMix(c.art[1], '#c9cfc6', 0.5)];
+    } else if (mood === 'bold') {
+      m.bg = '#0f0f10'; m.ink = '#f5f2ec'; m.muted = '#a5a29c'; m.dark = true; m.panel = 'rgba(255,255,255,0.07)'; m.serif = false;
+      m.accent = '#ff5a1f'; m.onAccent = '#0f0f10';
+      m.art = ['#2a1a12', '#ff5a1f'];
+    }
+    return m;
+  }
+  var MOOD = null;
   function tplScreen(c, g, w, h) {
-    c = loc(c);
+    c = moodify(loc(c), MOOD);
     g.fillStyle = c.bg; g.fillRect(0, 0, w, h);
     var t = chrome(g, w, c.url, c.dark), F = c.serif ? SERIF : SANS, HW = c.serif ? 400 : 750;
     var panel = c.panel || '#ffffff', line = c.dark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.08)';
@@ -213,7 +233,7 @@
   }
 
   function tplPhone(c, g, w, h) {
-    c = loc(c);
+    c = moodify(loc(c), MOOD);
     var F = c.serif ? SERIF : SANS, HW = c.serif ? 400 : 750;
     g.fillStyle = c.bg; g.fillRect(0, 50, w, h);
     txt(g, c.brand, 24, 96, 22, c.ink, c.serif ? 500 : 800, F);
@@ -387,6 +407,9 @@
     onPhotos: onPhotos,
     photo: photo,
     screen: workScreen,
+    // paint a sample site in a mood (calm / warm / bold)
+    screenMood: function (kind, mood, g, w, h) { MOOD = mood; try { workScreen(kind)(g, w, h); } finally { MOOD = null; } },
+    phoneMood: function (kind, mood, g, w, h) { MOOD = mood; try { phoneWork(g, w, h, kind); } finally { MOOD = null; } },
     phone: phoneWork,
     // Paint a project's desktop screen into any canvas, scaled to fit.
     paint: function (canvas, kind, title) {

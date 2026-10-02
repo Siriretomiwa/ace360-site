@@ -109,19 +109,6 @@ function ace360_process() {
 	);
 }
 
-/**
- * "-baar": four things a website has to be. Each word slides behind the 3D
- * laptop, which turns to show it. Dutch plays on "betaalbaar" (payable and
- * affordable). [ en word, en stem, nl word, nl stem, en line, nl line, screen ]
- */
-function ace360_baar() {
-	return array(
-		array( 'VISIBLE', 'VIS', 'ZICHTBAAR', 'ZICHT', 'Sharp on every screen, from a 27-inch monitor to a phone with a cracked screen.', 'Scherp op elk scherm, van een 27-inch monitor tot een telefoon met een barst.', 'work-zout' ),
-		array( 'FINDABLE', 'FIND', 'VINDBAAR', 'VIND', 'Built so Google understands what you sell and where, in Dutch and English.', 'Zo gebouwd dat Google snapt wat je verkoopt en waar, in het Nederlands en Engels.', 'search' ),
-		array( 'BOOKABLE', 'BOOK', 'BOEKBAAR', 'BOEK', 'Customers pick a time at 23:00 without having to call you.', 'Klanten kiezen om 23:00 zelf een tijd, zonder jou te hoeven bellen.', 'work-noor' ),
-		array( 'PAYABLE', 'PAY', 'BETAALBAAR', 'BETAAL', 'iDEAL, cards and Apple Pay, paid straight to your account. Affordable too: the price is right on this page.', 'iDEAL, kaart en Apple Pay, direct op je rekening. En betaalbaar: de prijs staat gewoon op deze site.', 'checkout' ),
-	);
-}
 
 /**
  * "Sound familiar?": what a business owner says about their current website.
@@ -584,5 +571,93 @@ function ace360_estimator_js() {
 		'rush'   => $c['rush'],
 		'care'   => $c['care'],
 		'vat'    => $c['vat'],
+	);
+}
+
+/**
+ * What a site like a portfolio project would cost, straight from the price
+ * model: [ type, extras ] → [ lo, hi, weeks_lo, weeks_hi ] (excl. VAT).
+ *
+ * @param string $mockup Project key from ace360_work().
+ * @return array|null Null when the project is beyond the self-quote (custom platforms).
+ */
+function ace360_work_quote( $mockup ) {
+	$map = array(
+		'hesed'       => array( 'website', array( 'booking' ) ),
+		'sidwalk'     => array( 'store', array( 'brand', 'images' ) ),
+		'prkiosk'     => array( 'store', array( 'copy' ) ),
+		'shop4likes'  => array( 'store', array() ),
+		'ngo'         => array( 'website', array( 'copy' ) ),
+		'skincare'    => array( 'store', array( 'products' ) ),
+		'korrel'      => array( 'store', array() ),
+		'noor'        => array( 'website', array( 'booking' ) ),
+		'spaak'       => array( 'website', array( 'booking' ) ),
+		'zout'        => array( 'website', array( 'booking' ) ),
+		'adem'        => array( 'website', array( 'booking' ) ),
+		'gracht'      => array( 'website', array( 'booking', 'lang' ) ),
+		'molen'       => array( 'store', array( 'products' ) ),
+		'voedselbrug' => array( 'website', array( 'booking' ) ),
+		'youthrise'   => array( 'website', array( 'booking' ) ),
+		'ebene'       => array( 'store', array( 'products', 'lang' ) ),
+		'glow'        => array( 'website', array( 'booking' ) ),
+		'jollof'      => array( 'store', array( 'lang' ) ),
+		'lens'        => array( 'website', array( 'booking', 'images' ) ),
+	);
+	if ( ! isset( $map[ $mockup ] ) ) {
+		return null;
+	}
+	$c    = ace360_estimator();
+	$type = null;
+	foreach ( $c['types'] as $t ) {
+		if ( $t['id'] === $map[ $mockup ][0] ) {
+			$type = $t;
+		}
+	}
+	if ( ! $type ) {
+		return null;
+	}
+	$lo = $type['base'][0];
+	$hi = $type['base'][1];
+	$w0 = $type['weeks'][0];
+	$w1 = $type['weeks'][1];
+	foreach ( $c['extras'] as $x ) {
+		if ( in_array( $x['id'], $map[ $mockup ][1], true ) ) {
+			$lo += $x['price'][0];
+			$hi += $x['price'][1];
+			if ( 'brand' === $x['id'] ) {
+				++$w0;
+				++$w1;
+			}
+		}
+	}
+	return array(
+		'lo'     => $lo,
+		'hi'     => $hi,
+		'w0'     => $w0,
+		'w1'     => $w1,
+		'type'   => $type['id'],
+		'extras' => $map[ $mockup ][1],
+	);
+}
+
+/**
+ * "Build your homepage": the businesses and moods a visitor can try.
+ * Each business is one of the sample sites (assets/js/screens.js).
+ */
+function ace360_try() {
+	return array(
+		'sectors' => array(
+			array( 'korrel', ace360_pair( 'Bakery', 'Bakkerij' ) ),
+			array( 'noor', ace360_pair( 'Hair salon', 'Kapsalon' ) ),
+			array( 'zout', ace360_pair( 'Restaurant', 'Restaurant' ) ),
+			array( 'molen', ace360_pair( 'Online store', 'Webshop' ) ),
+			array( 'voedselbrug', ace360_pair( 'Charity', 'Goed doel' ) ),
+			array( 'adem', ace360_pair( 'Studio', 'Studio' ) ),
+		),
+		'moods'   => array(
+			array( 'calm', ace360_pair( 'Calm', 'Rustig' ), ace360_pair( 'Light, lots of air, soft colour.', 'Licht, veel ruimte, zachte kleur.' ) ),
+			array( 'warm', ace360_pair( 'Warm', 'Warm' ), ace360_pair( 'The brand colours, as the owner would pick them.', 'De merkkleuren, zoals de eigenaar ze kiest.' ) ),
+			array( 'bold', ace360_pair( 'Bold', 'Gedurfd' ), ace360_pair( 'Dark, high contrast, one loud colour.', 'Donker, veel contrast, één harde kleur.' ) ),
+		),
 	);
 }

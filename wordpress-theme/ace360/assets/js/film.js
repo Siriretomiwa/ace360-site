@@ -374,6 +374,9 @@
   // stills from the same story for the "-baar" words: found in search, paid with iDEAL
   SCREENS.search = function (g) { storyCompose(g, 2.2); };
   SCREENS.checkout = function (g) { storyCompose(g, 7.45); };
+  // "Build a homepage": the sample business and mood the visitor picked
+  var tryState = { key: 'korrel', mood: 'warm' };
+  SCREENS.try = function (g, w, h) { g.clearRect(0, 0, w, h); P.screenMood(tryState.key, tryState.mood, g, w, h); };
 
   /* ---------- phone screens (360 × 740) ---------- */
   function paintPhone(g, w, h, key, title) {
@@ -388,6 +391,7 @@
       circle(g, 100, h - 130, 38, '#e5484d'); circle(g, w - 100, h - 130, 38, '#2bd17e');
       return;
     }
+    if (key === 'try') { P.phoneMood(tryState.key, tryState.mood, g, w, h); box(g, w / 2 - 52, 14, 104, 26, 13, '#000'); return; }
     if (key === 'old') {
       g.fillStyle = '#efe9d2'; g.fillRect(0, 44, w, h);
       g.save(); g.translate(0, 70); g.scale(w / SW, w / SW); SCREENS.old(g, SW, SH); g.restore();
@@ -705,26 +709,32 @@
   scene.add(pool);
 
 
-  /* ---------- halo: a ring of light around the laptop, a beam from above and orbiting pixels ---------- */
-  var halo = new THREE.Group(); halo.position.set(0, 1.15, -0.3); scene.add(halo);
-  var TILT = -0.32;
-  var ringMat = new THREE.MeshBasicMaterial({ color: col(OR), transparent: true, opacity: 0, toneMapped: false, depthWrite: false });
-  var ring = new THREE.Mesh(new THREE.TorusGeometry(2.75, 0.013, 12, 240), ringMat); ring.rotation.x = Math.PI / 2 + TILT; halo.add(ring);
-  var glowMat = new THREE.MeshBasicMaterial({ color: col('#ff9a4a'), transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false });
-  var ringGlow = new THREE.Mesh(new THREE.TorusGeometry(2.75, 0.085, 12, 240), glowMat); ringGlow.rotation.copy(ring.rotation); halo.add(ringGlow);
-  var beamC = mk(64, 256), bmg = beamC.getContext('2d'), bgr = bmg.createLinearGradient(0, 0, 0, 256);
-  bgr.addColorStop(0, 'rgba(255,214,170,0.9)'); bgr.addColorStop(0.55, 'rgba(255,180,120,0.25)'); bgr.addColorStop(1, 'rgba(255,170,110,0)');
-  bmg.fillStyle = bgr; bmg.fillRect(0, 0, 64, 256);
-  var beamMat = new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(beamC), transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide, toneMapped: false });
-  var beam = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 2.3, 7.5, 48, 1, true), beamMat); beam.position.y = 3.9; halo.add(beam);
-  var debrisG = new THREE.Group(); debrisG.rotation.x = TILT; halo.add(debrisG);
-  var debrisMats = [new THREE.MeshStandardMaterial({ color: col('#ffffff'), roughness: 0.4 }), new THREE.MeshStandardMaterial({ color: col(OR), roughness: 0.35, emissive: col('#ff6a00'), emissiveIntensity: 0.2 }), new THREE.MeshStandardMaterial({ color: col('#1c1d21'), roughness: 0.3, metalness: 0.4 })];
-  var debris = [], dr = (function () { var sd = 77; return function () { sd = (sd * 16807) % 2147483647; return (sd - 1) / 2147483646; }; })();
-  for (var di2 = 0; di2 < (mobile ? 26 : 44); di2++) {
-    var sz = 0.025 + dr() * 0.06, dm = new THREE.Mesh(new THREE.BoxGeometry(sz, sz, sz), debrisMats[di2 % 5 === 0 ? 1 : di2 % 9 === 0 ? 2 : 0]);
-    dm.userData = { a: dr() * Math.PI * 2, r: 2.35 + dr() * 1.35, y: (dr() - 0.5) * 0.35, sp: 0.03 + dr() * 0.05, rot: dr() * 3 };
-    dm.castShadow = true; debrisG.add(dm); debris.push(dm);
+  /* ---------- "Build a homepage": the screen comes apart in four strips and rebuilds ---------- */
+  var STRIPS = 4, stripH = screen.geometry.parameters.height / STRIPS, stripW = screen.geometry.parameters.width;
+  var strips = [];
+  for (var si3 = 0; si3 < STRIPS; si3++) {
+    var sc3 = mk(1024, 160), sm3 = new THREE.Mesh(new THREE.PlaneGeometry(stripW, stripH), new THREE.MeshBasicMaterial({ map: toTex(sc3), toneMapped: false, transparent: true, side: THREE.DoubleSide }));
+    sm3.userData = { c: sc3, y0: screen.position.y + stripW * SH / SW / 2 - stripH / 2 - si3 * stripH, i: si3 };
+    sm3.visible = false; sm3.castShadow = true; lidG.add(sm3); strips.push(sm3);
   }
+  function sliceInto(src) { strips.forEach(function (m, i) { var g = m.userData.c.getContext('2d'); g.clearRect(0, 0, 1024, 160); g.drawImage(src, 0, i * 160, 1024, 160, 0, 0, 1024, 160); m.material.map.needsUpdate = true; }); }
+  var tryFx = { v: 0 }, tryC = mk(SW, SH);
+  function rebuild(key, mood) {
+    var go = function () { tryState.key = key; tryState.mood = mood; if (current.indexOf('try|') === 0) paintScreen('try'); };
+    if (!window.gsap || reduce || current.indexOf('try|') !== 0) { go(); return; }
+    window.gsap.killTweensOf(tryFx);
+    sliceInto(screenC);
+    window.gsap.timeline()
+      .to(tryFx, { v: 1, duration: 0.7, ease: 'power2.in' })
+      .add(function () {
+        tryState.key = key; tryState.mood = mood;
+        var g = tryC.getContext('2d'); SCREENS.try(g, SW, SH); sliceInto(tryC);
+        sg.clearRect(0, 0, SW, SH); sg.drawImage(tryC, 0, 0); screenTex.needsUpdate = true;
+        paintPhoneNow('try'); buzz = 1;
+      })
+      .to(tryFx, { v: 0, duration: 1.1, ease: 'power3.out' });
+  }
+  document.addEventListener('ace360:try', function (e) { var d = e.detail || {}; rebuild(d.key || tryState.key, d.mood || tryState.mood); });
 
   /* ---------- sticky notes on the laptop: what the client is fed up with ---------- */
   var STICKY = [
@@ -813,15 +823,12 @@
   scene.add(dust);
 
   /* ---------- keyframes ---------- */
-  var BASE = { cx: -3.2, cy: 2.5, cz: 6.4, tx: 0.2, ty: 0.95, tz: -0.4, side: 1, lid: 1, fly: 0, gather: 0, paper: 0, lay: 0, phone: 0, nophone: 0, explode: 0, glow: 0.7, orbit: 0, dust: 0.5, keyI: 1.3, hemiI: 0.6, notes: 0, solved: 0, notify: 0, steam: 1, phoneL: 0, spin: 0, halo: 0, props: 1 };
+  var BASE = { cx: -3.2, cy: 2.5, cz: 6.4, tx: 0.2, ty: 0.95, tz: -0.4, side: 1, lid: 1, fly: 0, gather: 0, paper: 0, lay: 0, phone: 0, nophone: 0, explode: 0, glow: 0.7, orbit: 0, dust: 0.5, keyI: 1.3, hemiI: 0.6, notes: 0, solved: 0, notify: 0, steam: 1, phoneL: 0, spin: 0, props: 1 };
   var SEQ = [
-    ['hero', { halo: 0.55 }],
-    ['baar1', { props: 0, side: 0, cx: 0.0, cy: 2.0, cz: 7.6, tx: 0, ty: 1.15, tz: -0.3, phone: 1, spin: 0, halo: 1, glow: 1, dust: 0.5 }],
-    ['baar2', { props: 0, side: 0, cx: -0.4, cy: 2.3, cz: 7.2, tx: 0, ty: 1.1, tz: -0.3, phone: 0, spin: Math.PI * 2, halo: 1 }],
-    ['baar3', { props: 0, side: 0, cx: 0.4, cy: 1.8, cz: 7.4, tx: 0, ty: 1.15, tz: -0.3, phone: 0, spin: Math.PI * 2 + 0.0001, halo: 1 }],
-    ['baar4', { props: 0, side: 0, cx: 0.0, cy: 2.1, cz: 7.0, tx: 0, ty: 1.1, tz: -0.3, phone: 0, spin: Math.PI * 4, halo: 1, glow: 1.2 }],
-    ['pain', { halo: 0, props: 1, side: -1, cx: -1.1, cy: 2.3, cz: 6.6, tx: -0.7, ty: 1.15, tz: -0.1, notes: 1, phone: 1, phoneL: 1, glow: 0.3, dust: 0.3, keyI: 1.1 }],
+    ['hero', {}],
+    ['pain', { props: 1, side: -1, cx: -0.4, cy: 2.3, cz: 6.9, tx: 0.35, ty: 1.15, tz: -0.1, notes: 1, phone: 1, phoneL: 1, glow: 0.3, dust: 0.3, keyI: 1.1 }],
     ['fix', { side: 1, cx: 3.4, cy: 2.4, cz: 6.4, tx: 1.1, ty: 1.2, tz: 0.1, phoneL: 0, notes: 1, solved: 1, phone: 1, notify: 1, glow: 1.25, dust: 0.6, keyI: 1.3 }],
+    ['try', { side: 1, cx: 2.6, cy: 1.9, cz: 5.3, tx: 0.55, ty: 1.15, tz: -0.4, notes: 0, solved: 0, notify: 0, phone: 1, phoneL: 0, glow: 1.25, dust: 0.5, props: 1 }],
     ['services', { side: -1, cx: 3.9, cy: 3.4, cz: 6.6, tx: -0.3, ty: 1.2, tz: -0.2, fly: 1, orbit: 1, notes: 0, notify: 0, phone: 0, glow: 0.7, dust: 0.5 }],
     ['quote', { side: 1, cx: 4.6, cy: 2.8, cz: 5.6, tx: 1.9, ty: 1.0, tz: 0.1, fly: 1, gather: 1, paper: 1, orbit: 0, nophone: 1 }],
     ['process', { side: -1, cx: 0.6, cy: 6.6, cz: 5.6, tx: 0, ty: 0.2, tz: 0, lid: 0, gather: 1, paper: 0, glow: 0, dust: 0.35, nophone: 1 }],
@@ -970,7 +977,9 @@
     var p = current.split('|');
     if (!p[1]) { window.gsap && window.gsap.killTweensOf(wipe); wipe.v = 1; paintScreen(p[0], p[2]); }
   });
-  window.ACE360_FILM = { setScreen: setScreen, measure: measure, storyAt: function (canvas, t) { storyCompose(canvas.getContext('2d'), t); } };
+  window.ACE360_FILM = { setScreen: setScreen, measure: measure, storyAt: function (canvas, t) { storyCompose(canvas.getContext('2d'), t); },
+    // freeze the rebuild at a point (0–1) for checking: ACE360_FILM.tryAt(0.6)
+    tryAt: function (v) { if (window.gsap) window.gsap.killTweensOf(tryFx); sliceInto(screenC); tryFx.v = v; } };
 
   /* ---------- day / night ---------- */
   var night = { v: root.getAttribute('data-theme') === 'night' ? 1 : 0 }, lastNight = -1;
@@ -1108,7 +1117,7 @@
     // laptop lid opens on load and per chapter
     var lid = sm(c01(S.lid)) * sm(c01(iv * 1.4 - 0.2));
     lidG.rotation.x = 1.52 * (1 - lid) - 0.3 * lid;
-    screenMat.color.setScalar(Math.max(0.03, bright.v * (0.25 + 0.75 * lid)));
+    screenMat.color.setScalar(Math.max(0.03, bright.v * (0.25 + 0.75 * lid) * (1 - sm(c01(tryFx.v * 1.4)) * 0.9)));
     laptop.position.y = hv.laptop * 0.05;
     laptop.rotation.y = S.spin;
 
@@ -1117,6 +1126,15 @@
       storyClock += dt; storyAcc += dt;
       if (storyAcc > (mobile ? 1 / 20 : 1 / 30)) { storyAcc = 0; storyCompose(sg, storyClock); screenTex.needsUpdate = true; }
     }
+
+    // "Build a homepage" strips
+    var tf = tryFx.v;
+    strips.forEach(function (m, i) {
+      var k = sm(c01(tf * 1.25 - (STRIPS - 1 - i) * 0.08));
+      m.visible = tf > 0.002;
+      m.position.set((i % 2 ? 1 : -1) * k * 0.3, m.userData.y0 + (1.5 - i) * k * 0.32, 0.04 + k * (0.55 + (3 - i) * 0.28));
+      m.rotation.set(-k * 0.25, (i % 2 ? -1 : 1) * k * 0.3, (i % 2 ? 1 : -1) * k * 0.06);
+    });
 
     // exploded page layers
     var ex = sm(c01(S.explode));
@@ -1178,23 +1196,6 @@
       c.scale.setScalar(sc);
       c.visible = sc > 0.01;
     });
-
-    // halo, beam and orbiting pixels
-    var hl = c01(S.halo), ntH = night.v;
-    halo.visible = hl > 0.01;
-    if (halo.visible) {
-      ringMat.opacity = hl * 0.85;
-      glowMat.opacity = hl * (0.1 + ntH * 0.45);
-      beamMat.opacity = hl * (0.04 + ntH * 0.3);
-      ring.rotation.z = ringGlow.rotation.z = t * 0.05;
-      debrisG.rotation.y = t * 0.035;
-      debris.forEach(function (d, i) {
-        var u = d.userData, k = sm(c01(hl * 1.4 - (i % 10) * 0.04)), a = u.a + t * u.sp;
-        d.position.set(Math.cos(a) * u.r, u.y + Math.sin(t * 0.7 + i) * 0.05, Math.sin(a) * u.r);
-        d.rotation.set(t * 0.4 + u.rot, t * 0.3 + u.rot, 0);
-        d.scale.setScalar(Math.max(0.001, k));
-      });
-    }
 
     // mug, steam and notebook
     // the desk props step aside when the laptop takes centre stage

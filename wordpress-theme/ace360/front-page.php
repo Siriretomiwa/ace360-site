@@ -66,11 +66,6 @@ $ace360_sectors  = ace360_sectors();
 $ace360_steps   = ace360_process();
 $ace360_screens = array( 'call', 'quote', 'design', 'build', 'live' );
 ?>
-<div class="bigtype" aria-hidden="true">
-	<?php foreach ( ace360_baar() as $ace360_i => $ace360_b ) : ?>
-		<span class="bigword" data-word="<?php echo (int) $ace360_i; ?>"><span data-l="en"><?php echo esc_html( $ace360_b[1] ); ?><em><?php echo esc_html( substr( $ace360_b[0], strlen( $ace360_b[1] ) ) ); ?></em></span><span data-l="nl"><?php echo esc_html( $ace360_b[3] ); ?><em><?php echo esc_html( substr( $ace360_b[2], strlen( $ace360_b[3] ) ) ); ?></em></span></span>
-	<?php endforeach; ?>
-</div>
 <canvas id="stage" aria-hidden="true"></canvas>
 <main id="main" class="site-main film">
 
@@ -94,21 +89,6 @@ $ace360_screens = array( 'call', 'quote', 'design', 'build', 'live' );
 		</div>
 		<p class="scroll-cue" aria-hidden="true"><span></span><?php ace360_e( ace360_pair( 'Scroll', 'Scroll' ) ); ?></p>
 	</section>
-
-	<!-- 1a · Four things a website has to be: giant words slide behind the turning laptop -->
-	<div class="baar" id="wat">
-		<?php foreach ( ace360_baar() as $ace360_i => $ace360_b ) : ?>
-			<section class="ch baar-ch" data-k="<?php echo esc_attr( 'baar' . ( $ace360_i + 1 ) ); ?>" data-screen="<?php echo esc_attr( $ace360_b[6] ); ?>" data-baar="<?php echo (int) $ace360_i; ?>">
-				<div class="wrap">
-					<div class="baar-cap">
-						<p class="kicker"><span class="mono"><?php echo esc_html( sprintf( '%02d / %02d', $ace360_i + 1, count( ace360_baar() ) ) ); ?></span> · <?php ace360_e( ace360_pair( 'A website that works is', 'Een website die werkt is' ) ); ?></p>
-						<h2><?php ace360_e( ace360_pair( ucfirst( strtolower( $ace360_b[0] ) ), ucfirst( strtolower( $ace360_b[2] ) ) ) ); ?></h2>
-						<p class="lede"><?php ace360_e( ace360_pair( $ace360_b[4], $ace360_b[5] ) ); ?></p>
-					</div>
-				</div>
-			</section>
-		<?php endforeach; ?>
-	</div>
 
 	<!-- 1b · Sound familiar? The laptop shows the site the visitor has now -->
 	<section class="ch right pain-ch" id="herkenbaar" data-k="pain" data-screen="old">
@@ -139,6 +119,43 @@ $ace360_screens = array( 'call', 'quote', 'design', 'build', 'live' );
 				</ol>
 				<div class="actions">
 					<a class="btn btn-orange" href="#prijs"><?php ace360_e( ace360_pair( 'What would mine cost?', 'Wat kost de mijne?' ) ); ?> <span aria-hidden="true">→</span></a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- 1d · Try it: pick a business and a mood, the site on the laptop rebuilds itself -->
+	<?php $ace360_try = ace360_try(); ?>
+	<section class="ch try-ch" id="probeer" data-k="try" data-screen="try">
+		<div class="wrap">
+			<div class="copy" data-try>
+				<p class="kicker"><?php ace360_e( ace360_pair( 'Try it now', 'Probeer het nu' ) ); ?></p>
+				<h2><?php echo ace360_hl( ace360_pair( 'Build a homepage in *one* tap', 'Bouw een homepage in *één* tik' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></h2>
+				<p class="lede"><?php ace360_e( ace360_pair( 'Pick a business and a mood. Watch the site on the laptop take itself apart and rebuild, then see what a site like that costs.', 'Kies een bedrijf en een sfeer. Zie de site op de laptop uit elkaar vallen en opnieuw opbouwen, en zie wat zo’n site kost.' ) ); ?></p>
+				<fieldset class="try-set">
+					<legend class="mono"><?php ace360_e( ace360_pair( 'Which business?', 'Welk bedrijf?' ) ); ?></legend>
+					<div class="chips">
+						<?php foreach ( $ace360_try['sectors'] as $ace360_i => $ace360_t ) : ?>
+							<?php $ace360_q = ace360_work_quote( $ace360_t[0] ); ?>
+							<label class="chip"><input type="radio" name="try_sector" value="<?php echo esc_attr( $ace360_t[0] ); ?>" data-quote="<?php echo esc_attr( wp_json_encode( $ace360_q ) ); ?>"<?php echo 0 === $ace360_i ? ' checked' : ''; ?>><span><?php ace360_e( $ace360_t[1] ); ?></span></label>
+						<?php endforeach; ?>
+					</div>
+				</fieldset>
+				<fieldset class="try-set">
+					<legend class="mono"><?php ace360_e( ace360_pair( 'Which mood?', 'Welke sfeer?' ) ); ?></legend>
+					<div class="chips">
+						<?php foreach ( $ace360_try['moods'] as $ace360_i => $ace360_m ) : ?>
+							<label class="chip" title="<?php echo esc_attr( $ace360_m[2]['nl'] ); ?>"><input type="radio" name="try_mood" value="<?php echo esc_attr( $ace360_m[0] ); ?>"<?php echo 1 === $ace360_i ? ' checked' : ''; ?>><span><?php ace360_e( $ace360_m[1] ); ?></span></label>
+						<?php endforeach; ?>
+					</div>
+				</fieldset>
+				<div class="try-out" aria-live="polite">
+					<p class="try-price"><span class="mono"><?php ace360_e( ace360_pair( 'A site like this', 'Zo’n site' ) ); ?></span> <b data-try-price>—</b></p>
+					<p class="try-date mono" data-try-date></p>
+				</div>
+				<div class="actions">
+					<button type="button" class="btn btn-orange" data-try-build><?php ace360_e( ace360_pair( 'Build it again', 'Bouw opnieuw' ) ); ?> <span aria-hidden="true">↻</span></button>
+					<a class="btn btn-line" href="#prijs" data-try-use><?php ace360_e( ace360_pair( 'Price mine like this', 'Bereken de mijne zo' ) ); ?></a>
 				</div>
 			</div>
 		</div>

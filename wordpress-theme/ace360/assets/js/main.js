@@ -297,6 +297,31 @@
     }
   }
 
+  /* ---------- "Build a homepage": chips rebuild the site on the laptop ---------- */
+  var tryBox = document.querySelector('[data-try]');
+  if (tryBox) {
+    var tryVal = function (n) { var i = tryBox.querySelector('input[name="' + n + '"]:checked'); return i ? i.value : ''; };
+    var tryQuote = function () { var i = tryBox.querySelector('input[name="try_sector"]:checked'); try { return JSON.parse(i.getAttribute('data-quote')); } catch (e) { return null; } };
+    var liveOn = function (w1) { var d = new Date(); d.setDate(d.getDate() + 7); while (d.getDay() !== 1) d.setDate(d.getDate() + 1); d.setDate(d.getDate() + (w1 - 1) * 7 + 4); return d; };
+    var tryOut = function () {
+      var q = tryQuote(), l = lang(); if (!q) return;
+      tryBox.querySelector('[data-try-price]').textContent = money(q.lo, l) + ' – ' + money(q.hi, l);
+      tryBox.querySelector('[data-try-date]').textContent = (l === 'nl' ? 'live op ' : 'live by ') + new Intl.DateTimeFormat(l === 'nl' ? 'nl-NL' : 'en-GB', { weekday: 'long', day: 'numeric', month: 'long' }).format(liveOn(q.w1)) + ' · ' + q.w0 + '–' + q.w1 + (l === 'nl' ? ' weken' : ' weeks');
+    };
+    var tryBuild = function () { document.dispatchEvent(new CustomEvent('ace360:try', { detail: { key: tryVal('try_sector'), mood: tryVal('try_mood') } })); tryOut(); };
+    tryBox.addEventListener('change', tryBuild);
+    tryBox.querySelector('[data-try-build]').addEventListener('click', tryBuild);
+    document.addEventListener('ace360:lang', tryOut);
+    tryOut();
+    var use = tryBox.querySelector('[data-try-use]');
+    if (use && quote) use.addEventListener('click', function () {
+      var q = tryQuote(); if (!q) return;
+      var t = quote.querySelector('#q_type_' + q.type); if (t) t.checked = true;
+      quote.querySelectorAll('input[name="q_extra"]').forEach(function (x) { x.checked = q.extras.indexOf(x.value) !== -1; });
+      quote.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+  }
+
   /* ---------- Contact form in the static preview ---------- */
   var form = document.querySelector('[data-contact-form]');
   if (form && window.ACE360_PREVIEW) {
@@ -417,17 +442,6 @@
   })();
 
   if (!hasGsap || reduced) return;
-
-  /* ---------- "-baar": each giant word crosses the screen behind the laptop ---------- */
-  document.querySelectorAll('[data-baar]').forEach(function (sec) {
-    var w = document.querySelector('.bigword[data-word="' + sec.getAttribute('data-baar') + '"]');
-    if (!w) return;
-    gsap.set(w, { yPercent: -58, x: window.innerWidth, opacity: 0 });
-    gsap.timeline({ scrollTrigger: { trigger: sec, start: 'top bottom', end: 'bottom top', scrub: 0.6, invalidateOnRefresh: true } })
-      .fromTo(w, { x: function () { return window.innerWidth; } }, { x: function () { return -w.offsetWidth; }, ease: 'none', duration: 1 }, 0)
-      .fromTo(w, { opacity: 0 }, { opacity: 1, duration: 0.12, ease: 'none' }, 0.12)
-      .to(w, { opacity: 0, duration: 0.12, ease: 'none' }, 0.76);
-  });
 
   /* ---------- Reveals ---------- */
   var hl = document.querySelectorAll('.hero-title .hl');

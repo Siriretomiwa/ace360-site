@@ -20,11 +20,11 @@
 	d.setAttribute('data-lang', l);
 	d.setAttribute('lang', l);
 	d.className = d.className.replace('no-js', 'js');
-	/* Day or night: ?theme= → saved choice → day. */
+	/* Evening (night) first, like a lamp-lit desk; ?theme=day or the switch for daylight. */
 	var t = null;
 	try { t = new URLSearchParams(location.search).get('theme'); } catch (e) {}
 	if (t !== 'night' && t !== 'day') { try { t = localStorage.getItem('ace360-theme'); } catch (e) {} }
-	d.setAttribute('data-theme', t === 'night' ? 'night' : 'day');
+	d.setAttribute('data-theme', t === 'day' ? 'day' : 'night');
 })(document.documentElement);
 </script>
 <?php wp_head(); ?>

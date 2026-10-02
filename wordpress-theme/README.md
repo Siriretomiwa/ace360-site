@@ -15,6 +15,7 @@ The whole front page plays like one film. A 3D scene (`assets/js/film.js`, three
 | Section | Copy | What the 3D scene does |
 | --- | --- | --- |
 | Hero | Headline, "Price my website", "Call now" | Wide shot of the desk; the laptop shows the Ace 360 site |
+| Build a homepage (`#probeer`) | Pick a business (bakery, salon, restaurant, store, charity, studio) and a mood (calm, warm, bold); see what a site like it costs and when it could be live | The site on the laptop peels apart into four layers that fly towards you, restyle, and land back as the chosen business; the phone follows |
 | Sound familiar? (`#herkenbaar`) | Four things owners say about their current site | The laptop shows a dated, "Not secure" website and the phone a squashed, unreadable version; sticky notes on the screen list the complaints |
 | After launch (`#resultaat`) | What changes once the new site is live | The screen is rebuilt into the owner's dashboard, the sticky notes get crossed off, and order, booking, WhatsApp, enquiry and review notifications pop out of the buzzing phone |
 | Services (`#diensten`) | Four services with prices; "Estimate" opens the self-quote with that type selected | Website cards fly out and circle the laptop |
@@ -27,6 +28,8 @@ The whole front page plays like one film. A 3D scene (`assets/js/film.js`, three
 | Contact (`#contact`) | Form (name, company, email, phone, topic, message, consent) sent with `wp_mail()`, plus call, WhatsApp, email and hours | Close-up of the live site with the cards circling |
 
 Without WebGL the page shows a still, plain white background and everything else works.
+
+**Evening first.** Like Lovelight's candlelit table, the site opens in the evening scene (the desk lamp on, screens glowing); visitors can switch to daylight, and the choice is remembered. `?theme=day` opens daylight directly.
 
 **Day and night.** The sun/moon switch in the header (or a click on the 3D desk lamp) flips the whole site between day and night. At night the page turns near-black, the desk lamp switches on and throws a warm pool of light on the desk, the screens become the main light source, and the dust drifts like orange embers. The new theme spreads out from the switch in a growing circle (in browsers that support view transitions; others cross-fade). The choice is remembered per visitor; first-time visitors get day, and `?theme=night` opens the night version directly. The demo film keeps its daylight colours in both modes.
 

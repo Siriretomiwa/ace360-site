@@ -13,11 +13,11 @@
 	d.setAttribute('data-lang', l);
 	d.setAttribute('lang', l);
 	d.className = d.className.replace('no-js', 'js');
-	/* Day or night: ?theme= → saved choice → day. */
+	/* Evening (night) first, like a lamp-lit desk; ?theme=day or the switch for daylight. */
 	var t = null;
 	try { t = new URLSearchParams(location.search).get('theme'); } catch (e) {}
 	if (t !== 'night' && t !== 'day') { try { t = localStorage.getItem('ace360-theme'); } catch (e) {} }
-	d.setAttribute('data-theme', t === 'night' ? 'night' : 'day');
+	d.setAttribute('data-theme', t === 'day' ? 'day' : 'night');
 })(document.documentElement);
 </script>
 <title>Ace 360 Services</title>
@@ -60,12 +60,6 @@
 	</div>
 </header>
 <a class="btn btn-orange fab-call" href="tel:+31617858490"><span data-l="en" lang="en">Call now</span><span data-l="nl" lang="nl">Bel nu</span></a>
-<div class="bigtype" aria-hidden="true">
-			<span class="bigword" data-word="0"><span data-l="en">VIS<em>IBLE</em></span><span data-l="nl">ZICHT<em>BAAR</em></span></span>
-			<span class="bigword" data-word="1"><span data-l="en">FIND<em>ABLE</em></span><span data-l="nl">VIND<em>BAAR</em></span></span>
-			<span class="bigword" data-word="2"><span data-l="en">BOOK<em>ABLE</em></span><span data-l="nl">BOEK<em>BAAR</em></span></span>
-			<span class="bigword" data-word="3"><span data-l="en">PAY<em>ABLE</em></span><span data-l="nl">BETAAL<em>BAAR</em></span></span>
-	</div>
 <canvas id="stage" aria-hidden="true"></canvas>
 <main id="main" class="site-main film">
 
@@ -90,46 +84,6 @@
 		</div>
 		<p class="scroll-cue" aria-hidden="true"><span></span>Scroll</p>
 	</section>
-
-	<!-- 1a · Four things a website has to be: giant words slide behind the turning laptop -->
-	<div class="baar" id="wat">
-					<section class="ch baar-ch" data-k="baar1" data-screen="work-zout" data-baar="0">
-				<div class="wrap">
-					<div class="baar-cap">
-						<p class="kicker"><span class="mono">01 / 04</span> · <span data-l="en" lang="en">A website that works is</span><span data-l="nl" lang="nl">Een website die werkt is</span></p>
-						<h2><span data-l="en" lang="en">Visible</span><span data-l="nl" lang="nl">Zichtbaar</span></h2>
-						<p class="lede"><span data-l="en" lang="en">Sharp on every screen, from a 27-inch monitor to a phone with a cracked screen.</span><span data-l="nl" lang="nl">Scherp op elk scherm, van een 27-inch monitor tot een telefoon met een barst.</span></p>
-					</div>
-				</div>
-			</section>
-					<section class="ch baar-ch" data-k="baar2" data-screen="search" data-baar="1">
-				<div class="wrap">
-					<div class="baar-cap">
-						<p class="kicker"><span class="mono">02 / 04</span> · <span data-l="en" lang="en">A website that works is</span><span data-l="nl" lang="nl">Een website die werkt is</span></p>
-						<h2><span data-l="en" lang="en">Findable</span><span data-l="nl" lang="nl">Vindbaar</span></h2>
-						<p class="lede"><span data-l="en" lang="en">Built so Google understands what you sell and where, in Dutch and English.</span><span data-l="nl" lang="nl">Zo gebouwd dat Google snapt wat je verkoopt en waar, in het Nederlands en Engels.</span></p>
-					</div>
-				</div>
-			</section>
-					<section class="ch baar-ch" data-k="baar3" data-screen="work-noor" data-baar="2">
-				<div class="wrap">
-					<div class="baar-cap">
-						<p class="kicker"><span class="mono">03 / 04</span> · <span data-l="en" lang="en">A website that works is</span><span data-l="nl" lang="nl">Een website die werkt is</span></p>
-						<h2><span data-l="en" lang="en">Bookable</span><span data-l="nl" lang="nl">Boekbaar</span></h2>
-						<p class="lede"><span data-l="en" lang="en">Customers pick a time at 23:00 without having to call you.</span><span data-l="nl" lang="nl">Klanten kiezen om 23:00 zelf een tijd, zonder jou te hoeven bellen.</span></p>
-					</div>
-				</div>
-			</section>
-					<section class="ch baar-ch" data-k="baar4" data-screen="checkout" data-baar="3">
-				<div class="wrap">
-					<div class="baar-cap">
-						<p class="kicker"><span class="mono">04 / 04</span> · <span data-l="en" lang="en">A website that works is</span><span data-l="nl" lang="nl">Een website die werkt is</span></p>
-						<h2><span data-l="en" lang="en">Payable</span><span data-l="nl" lang="nl">Betaalbaar</span></h2>
-						<p class="lede"><span data-l="en" lang="en">iDEAL, cards and Apple Pay, paid straight to your account. Affordable too: the price is right on this page.</span><span data-l="nl" lang="nl">iDEAL, kaart en Apple Pay, direct op je rekening. En betaalbaar: de prijs staat gewoon op deze site.</span></p>
-					</div>
-				</div>
-			</section>
-			</div>
 
 	<!-- 1b · Sound familiar? The laptop shows the site the visitor has now -->
 	<section class="ch right pain-ch" id="herkenbaar" data-k="pain" data-screen="old">
@@ -162,6 +116,44 @@
 									</ol>
 				<div class="actions">
 					<a class="btn btn-orange" href="#prijs"><span data-l="en" lang="en">What would mine cost?</span><span data-l="nl" lang="nl">Wat kost de mijne?</span> <span aria-hidden="true">→</span></a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- 1d · Try it: pick a business and a mood, the site on the laptop rebuilds itself -->
+		<section class="ch try-ch" id="probeer" data-k="try" data-screen="try">
+		<div class="wrap">
+			<div class="copy" data-try>
+				<p class="kicker"><span data-l="en" lang="en">Try it now</span><span data-l="nl" lang="nl">Probeer het nu</span></p>
+				<h2><span data-l="en" lang="en">Build a homepage in <em class="hl">one</em> tap</span><span data-l="nl" lang="nl">Bouw een homepage in <em class="hl">één</em> tik</span></h2>
+				<p class="lede"><span data-l="en" lang="en">Pick a business and a mood. Watch the site on the laptop take itself apart and rebuild, then see what a site like that costs.</span><span data-l="nl" lang="nl">Kies een bedrijf en een sfeer. Zie de site op de laptop uit elkaar vallen en opnieuw opbouwen, en zie wat zo’n site kost.</span></p>
+				<fieldset class="try-set">
+					<legend class="mono"><span data-l="en" lang="en">Which business?</span><span data-l="nl" lang="nl">Welk bedrijf?</span></legend>
+					<div class="chips">
+																				<label class="chip"><input type="radio" name="try_sector" value="korrel" data-quote="{&quot;lo&quot;:2900,&quot;hi&quot;:3600,&quot;w0&quot;:4,&quot;w1&quot;:6,&quot;type&quot;:&quot;store&quot;,&quot;extras&quot;:[]}" checked><span><span data-l="en" lang="en">Bakery</span><span data-l="nl" lang="nl">Bakkerij</span></span></label>
+																				<label class="chip"><input type="radio" name="try_sector" value="noor" data-quote="{&quot;lo&quot;:1700,&quot;hi&quot;:2300,&quot;w0&quot;:3,&quot;w1&quot;:4,&quot;type&quot;:&quot;website&quot;,&quot;extras&quot;:[&quot;booking&quot;]}"><span><span data-l="en" lang="en">Hair salon</span><span data-l="nl" lang="nl">Kapsalon</span></span></label>
+																				<label class="chip"><input type="radio" name="try_sector" value="zout" data-quote="{&quot;lo&quot;:1700,&quot;hi&quot;:2300,&quot;w0&quot;:3,&quot;w1&quot;:4,&quot;type&quot;:&quot;website&quot;,&quot;extras&quot;:[&quot;booking&quot;]}"><span>Restaurant</span></label>
+																				<label class="chip"><input type="radio" name="try_sector" value="molen" data-quote="{&quot;lo&quot;:3200,&quot;hi&quot;:4050,&quot;w0&quot;:4,&quot;w1&quot;:6,&quot;type&quot;:&quot;store&quot;,&quot;extras&quot;:[&quot;products&quot;]}"><span><span data-l="en" lang="en">Online store</span><span data-l="nl" lang="nl">Webshop</span></span></label>
+																				<label class="chip"><input type="radio" name="try_sector" value="voedselbrug" data-quote="{&quot;lo&quot;:1700,&quot;hi&quot;:2300,&quot;w0&quot;:3,&quot;w1&quot;:4,&quot;type&quot;:&quot;website&quot;,&quot;extras&quot;:[&quot;booking&quot;]}"><span><span data-l="en" lang="en">Charity</span><span data-l="nl" lang="nl">Goed doel</span></span></label>
+																				<label class="chip"><input type="radio" name="try_sector" value="adem" data-quote="{&quot;lo&quot;:1700,&quot;hi&quot;:2300,&quot;w0&quot;:3,&quot;w1&quot;:4,&quot;type&quot;:&quot;website&quot;,&quot;extras&quot;:[&quot;booking&quot;]}"><span>Studio</span></label>
+											</div>
+				</fieldset>
+				<fieldset class="try-set">
+					<legend class="mono"><span data-l="en" lang="en">Which mood?</span><span data-l="nl" lang="nl">Welke sfeer?</span></legend>
+					<div class="chips">
+													<label class="chip" title="Licht, veel ruimte, zachte kleur."><input type="radio" name="try_mood" value="calm"><span><span data-l="en" lang="en">Calm</span><span data-l="nl" lang="nl">Rustig</span></span></label>
+													<label class="chip" title="De merkkleuren, zoals de eigenaar ze kiest."><input type="radio" name="try_mood" value="warm" checked><span>Warm</span></label>
+													<label class="chip" title="Donker, veel contrast, één harde kleur."><input type="radio" name="try_mood" value="bold"><span><span data-l="en" lang="en">Bold</span><span data-l="nl" lang="nl">Gedurfd</span></span></label>
+											</div>
+				</fieldset>
+				<div class="try-out" aria-live="polite">
+					<p class="try-price"><span class="mono"><span data-l="en" lang="en">A site like this</span><span data-l="nl" lang="nl">Zo’n site</span></span> <b data-try-price>—</b></p>
+					<p class="try-date mono" data-try-date></p>
+				</div>
+				<div class="actions">
+					<button type="button" class="btn btn-orange" data-try-build><span data-l="en" lang="en">Build it again</span><span data-l="nl" lang="nl">Bouw opnieuw</span> <span aria-hidden="true">↻</span></button>
+					<a class="btn btn-line" href="#prijs" data-try-use><span data-l="en" lang="en">Price mine like this</span><span data-l="nl" lang="nl">Bereken de mijne zo</span></a>
 				</div>
 			</div>
 		</div>
