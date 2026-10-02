@@ -11,7 +11,7 @@
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <script>
-/* Pick the language before first paint: ?lang= → saved choice → browser language. */
+/* Pick the language and day/night theme before first paint. Language: ?lang= → saved choice → browser language. */
 (function (d) {
 	var l = null;
 	try { l = new URLSearchParams(location.search).get('lang'); } catch (e) {}
@@ -20,6 +20,11 @@
 	d.setAttribute('data-lang', l);
 	d.setAttribute('lang', l);
 	d.className = d.className.replace('no-js', 'js');
+	/* Day or night: ?theme= → saved choice → day. */
+	var t = null;
+	try { t = new URLSearchParams(location.search).get('theme'); } catch (e) {}
+	if (t !== 'night' && t !== 'day') { try { t = localStorage.getItem('ace360-theme'); } catch (e) {} }
+	d.setAttribute('data-theme', t === 'night' ? 'night' : 'day');
 })(document.documentElement);
 </script>
 <?php wp_head(); ?>
@@ -63,6 +68,14 @@
 			<button type="button" data-set-lang="en" aria-pressed="true">EN</button>
 			<button type="button" data-set-lang="nl" aria-pressed="false">NL</button>
 		</div>
+
+		<button class="theme-switch" type="button" data-theme-toggle aria-pressed="false">
+			<span class="screen-reader-text"><?php ace360_e( ace360_pair( 'Night mode', 'Nachtmodus' ) ); ?></span>
+			<span class="theme-knob" aria-hidden="true">
+				<svg class="ico-sun" viewBox="0 0 24 24" width="14" height="14"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></g></svg>
+				<svg class="ico-moon" viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M20.2 14.6A8.5 8.5 0 0 1 9.4 3.8a8.5 8.5 0 1 0 10.8 10.8z"/></svg>
+			</span>
+		</button>
 
 		<a class="btn btn-orange btn-small" href="<?php echo esc_url( ace360_tel() ); ?>"><?php ace360_e( ace360_pair( 'Call now', 'Bel nu' ) ); ?></a>
 

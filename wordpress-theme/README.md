@@ -28,6 +28,8 @@ The whole front page plays like one film. A 3D scene (`assets/js/film.js`, three
 
 Without WebGL the page shows a still, plain white background and everything else works.
 
+**Day and night.** The sun/moon switch in the header (or a click on the 3D desk lamp) flips the whole site between day and night. At night the page turns near-black, the desk lamp switches on and throws a warm pool of light on the desk, the screens become the main light source, and the dust drifts like orange embers. The new theme spreads out from the switch in a growing circle (in browsers that support view transitions; others cross-fade). The choice is remembered per visitor; first-time visitors get day, and `?theme=night` opens the night version directly. The demo film keeps its daylight colours in both modes.
+
 Look: plain white and #F8F9FA, #111111 text, Inter with JetBrains Mono for labels and prices, and one Dutch orange (#FF6A00) for actions, prices and the live dot. All fonts and scripts are inside the theme; the site loads nothing from other servers and sets no tracking cookies.
 
 ## After installing

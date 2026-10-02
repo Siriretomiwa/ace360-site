@@ -536,6 +536,41 @@
   notebook.position.set(2.75, 0, -1.25); notebook.rotation.y = -0.32;
   scene.add(notebook);
 
+
+  /* ---------- desk lamp: decoration by day, the main light at night ---------- */
+  var lampInk = new THREE.MeshStandardMaterial({ color: col('#1c1d21'), roughness: 0.35, metalness: 0.5 });
+  var lamp = new THREE.Group();
+  var UP = new THREE.Vector3(0, 1, 0);
+  function rod(a, b, r) {
+    var d = new THREE.Vector3().subVectors(b, a), m = new THREE.Mesh(new THREE.CylinderGeometry(r, r, 1, 14), lampInk);
+    m.position.copy(a).addScaledVector(d, 0.5); m.scale.y = d.length(); m.quaternion.setFromUnitVectors(UP, d.normalize());
+    m.castShadow = true; lamp.add(m); return m;
+  }
+  var L_BASE = new THREE.Vector3(-3.35, 0.06, -2.45), L_JOINT = new THREE.Vector3(-3.05, 1.8, -2.15), L_HEAD = new THREE.Vector3(-2.25, 2.3, -1.45), L_AIM = new THREE.Vector3(-0.9, 0, 0.3);
+  var lampBase = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.34, 0.06, 40), lampInk);
+  lampBase.position.set(L_BASE.x, 0.03, L_BASE.z); lampBase.castShadow = true; lampBase.receiveShadow = true; lamp.add(lampBase);
+  rod(L_BASE, L_JOINT, 0.028); rod(L_JOINT, L_HEAD, 0.024);
+  var lampJoint = new THREE.Mesh(new THREE.SphereGeometry(0.055, 16, 12), orangeMat); lampJoint.position.copy(L_JOINT); lamp.add(lampJoint);
+  var aimDir = new THREE.Vector3().subVectors(L_AIM, L_HEAD).normalize();
+  var shadeQ = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, -1, 0), aimDir);
+  var shadeOut = new THREE.Mesh(new THREE.ConeGeometry(0.3, 0.42, 36, 1, true), lampInk);
+  shadeOut.quaternion.copy(shadeQ); shadeOut.position.copy(L_HEAD).addScaledVector(aimDir, 0.12); shadeOut.castShadow = true; lamp.add(shadeOut);
+  var shadeInMat = new THREE.MeshStandardMaterial({ color: col('#ffe3c7'), emissive: col('#ffb36b'), emissiveIntensity: 0, side: THREE.BackSide, roughness: 0.6 });
+  var shadeIn = new THREE.Mesh(shadeOut.geometry, shadeInMat); shadeIn.quaternion.copy(shadeQ); shadeIn.position.copy(shadeOut.position); shadeIn.scale.setScalar(0.97); lamp.add(shadeIn);
+  var bulbMat = new THREE.MeshBasicMaterial({ color: new THREE.Color('#fff4e6'), toneMapped: false });
+  var bulb = new THREE.Mesh(new THREE.SphereGeometry(0.075, 16, 12), bulbMat); bulb.position.copy(L_HEAD).addScaledVector(aimDir, 0.22); lamp.add(bulb);
+  var lampLight = new THREE.SpotLight(col('#ffc48a'), 0, 16, 0.72, 0.75, 1.1);
+  lampLight.position.copy(bulb.position); lampLight.target.position.copy(L_AIM);
+  scene.add(lampLight); scene.add(lampLight.target);
+  scene.add(lamp);
+  // the warm pool the lamp throws on the desk (seen against the dark page)
+  var poolC = mk(256, 256), plg = poolC.getContext('2d');
+  var prg = plg.createRadialGradient(128, 128, 0, 128, 128, 128); prg.addColorStop(0, 'rgba(255,190,120,0.55)'); prg.addColorStop(0.45, 'rgba(255,160,90,0.18)'); prg.addColorStop(1, 'rgba(255,150,80,0)');
+  plg.fillStyle = prg; plg.fillRect(0, 0, 256, 256);
+  var pool = new THREE.Mesh(new THREE.PlaneGeometry(7.5, 6), new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(poolC), transparent: true, opacity: 0, depthWrite: false, toneMapped: false }));
+  pool.rotation.x = -Math.PI / 2; pool.position.set(L_AIM.x - 0.3, 0.004, L_AIM.z - 0.4);
+  scene.add(pool);
+
   /* ---------- sticky notes on the laptop: what the client is fed up with ---------- */
   var STICKY = [
     { c: '#ffe066', lines: ['Looks old', 'on phones'], p: [-1.05, LIDH + 0.08, 0.05], r: 0.1 },
@@ -765,11 +800,39 @@
   }
   window.ACE360_FILM = { setScreen: setScreen, measure: measure };
 
+  /* ---------- day / night ---------- */
+  var night = { v: root.getAttribute('data-theme') === 'night' ? 1 : 0 }, lastNight = -1;
+  document.addEventListener('ace360:theme', function (e) {
+    var to = e.detail && e.detail.night ? 1 : 0;
+    if (window.gsap && !reduce) window.gsap.to(night, { v: to, duration: 1.6, ease: 'power2.inOut', overwrite: true });
+    else night.v = to;
+  });
+  var envMats = [];
+  scene.traverse(function (o) { if (o.material && o.material.envMapIntensity !== undefined && envMats.indexOf(o.material) < 0) { envMats.push(o.material); o.material.userData.env = o.material.envMapIntensity; } });
+  var DAY_KEY = new THREE.Color(0xffffff), MOON_KEY = col('#8fa6d9'), DAY_SKY = new THREE.Color(0xffffff), NIGHT_SKY = col('#3a4560');
+  var DUST_DAY = col('#9aa0aa'), DUST_NIGHT = col('#ffb26b'), STEAM_DAY = new THREE.Color('#aab0b8'), STEAM_NIGHT = new THREE.Color('#d8dce2');
+  function applyNight(nt) {
+    renderer.toneMappingExposure = 1.05 - nt * 0.2;
+    key.color.copy(DAY_KEY).lerp(MOON_KEY, nt);
+    hemi.color.copy(DAY_SKY).lerp(NIGHT_SKY, nt);
+    fill.intensity = 0.3 * (1 - nt * 0.7);
+    envMats.forEach(function (m) { m.envMapIntensity = m.userData.env * (1 - nt * 0.8); });
+    cards.forEach(function (c) { c.material.emissiveIntensity = 0.06 + nt * 0.32; });
+    lampLight.intensity = nt * 3.2;
+    shadeInMat.emissiveIntensity = nt * 1.4;
+    bulbMat.color.setRGB(1, 0.96 - (1 - nt) * 0.1, 0.9 - (1 - nt) * 0.2);
+    pool.material.opacity = nt;
+    floor.material.opacity = 0.13 + nt * 0.3;
+    dustMat.color.copy(DUST_DAY).lerp(DUST_NIGHT, nt);
+    dustMat.size = 0.035 + nt * 0.03;
+    steam.forEach(function (sp) { sp.material.color.copy(STEAM_DAY).lerp(STEAM_NIGHT, nt); });
+  }
+
   /* ---------- pointer: parallax, hover hints and clicks on the 3D objects ---------- */
   var ptr = { x: 0, y: 0, sx: 0, sy: 0 };
   var fine = window.matchMedia('(pointer: fine)').matches;
   var ray = new THREE.Raycaster(), ndc = new THREE.Vector2(-9, -9), over = false, hot = '', shownHot = '';
-  var hv = { laptop: 0, phone: 0, mug: 0, notebook: 0, notes: 0, notify: 0 };
+  var hv = { laptop: 0, phone: 0, mug: 0, notebook: 0, notes: 0, notify: 0, lamp: 0 };
   var telLink = document.querySelector('a[href^="tel:"]');
   var PICK = {
     laptop: { en: 'Price my website', nl: 'Bereken mijn prijs', href: '#prijs' },
@@ -777,14 +840,15 @@
     mug: { en: 'Coffee and a chat? Get in touch', nl: 'Koffie en een praatje? Neem contact op', href: '#contact' },
     notebook: { en: 'See how a project runs', nl: 'Zo verloopt een project', href: '#werkwijze' },
     notes: { en: 'All fixable. See how', nl: 'Allemaal op te lossen. Zo werkt het', href: '#resultaat' },
-    notify: { en: 'I want this too', nl: 'Dit wil ik ook', href: '#contact' }
+    notify: { en: 'I want this too', nl: 'Dit wil ik ook', href: '#contact' },
+    lamp: { en: 'Lights off: night mode', nl: 'Licht uit: nachtmodus', en2: 'Lights on: day mode', nl2: 'Licht aan: dagmodus', href: '' }
   };
   function tag(obj, key) { obj.traverse(function (o) { if (o.isMesh) o.userData.pick = key; }); }
-  tag(laptop, 'laptop'); tag(phone, 'phone'); tag(mug, 'mug'); tag(notebook, 'notebook');
+  tag(laptop, 'laptop'); tag(phone, 'phone'); tag(mug, 'mug'); tag(notebook, 'notebook'); tag(lamp, 'lamp');
   stickies.forEach(function (m) { m.userData.pick = 'notes'; });
   notes.forEach(function (m) { m.userData.pick = 'notify'; });
   var pickables = [];
-  [laptop, phone, mug, notebook].concat(notes).forEach(function (o) { o.traverse(function (m) { if (m.isMesh) pickables.push(m); }); });
+  [laptop, phone, mug, notebook, lamp].concat(notes).forEach(function (o) { o.traverse(function (m) { if (m.isMesh) pickables.push(m); }); });
   function shown(o) { while (o) { if (!o.visible || o.scale.x < 0.2) return false; o = o.parent; } return true; }
   function blocked(el) { return !el || !el.closest || !!el.closest('a,button,input,select,textarea,label,summary,details,dialog,.copy,.band,.sec-head,.site-header,.site-footer,.fab-call,.stage-tip'); }
   var tip = document.createElement('div');
@@ -808,6 +872,7 @@
   }
   window.addEventListener('click', function (e) {
     if (!fine || !hot || blocked(e.target)) return;
+    if (hot === 'lamp') { if (window.ACE360_THEME) window.ACE360_THEME.set(!window.ACE360_THEME.isNight(), { x: e.clientX, y: e.clientY }); shownHot = ''; return; }
     go(PICK[hot].href);
   });
   function hoverTest() {
@@ -823,7 +888,11 @@
     }
     if (hot !== shownHot) {
       shownHot = hot;
-      if (hot) { tip.textContent = PICK[hot][root.getAttribute('data-lang') === 'nl' ? 'nl' : 'en']; tip.classList.add('on'); document.body.style.cursor = 'pointer'; }
+      if (hot) {
+        var nl = root.getAttribute('data-lang') === 'nl', pk = PICK[hot];
+        tip.textContent = hot === 'lamp' && root.getAttribute('data-theme') === 'night' ? (nl ? pk.nl2 : pk.en2) : (nl ? pk.nl : pk.en);
+        tip.classList.add('on'); document.body.style.cursor = 'pointer';
+      }
       else { tip.classList.remove('on'); document.body.style.cursor = ''; }
     }
     for (var k in hv) hv[k] += ((hot === k ? 1 : 0) - hv[k]) * 0.15;
@@ -882,7 +951,7 @@
     lidG.updateMatrixWorld();
     screen.getWorldPosition(screenWorld);
     screenLight.position.copy(screenWorld).add(v1.set(0, 0, 1.2));
-    screenLight.intensity = S.glow * lid * 1.4;
+    screenLight.intensity = S.glow * lid * (1.4 + night.v * 2.4);
 
     // phone: flat on the desk → lifted toward the camera
     var ph = sm(c01(S.phone));
@@ -981,9 +1050,12 @@
     // dust and light
     dust.rotation.y = t * 0.01;
     dust.position.y = Math.sin(t * 0.15) * 0.15;
-    dustMat.opacity = S.dust * 0.55;
-    key.intensity = S.keyI;
-    hemi.intensity = S.hemiI;
+    var nt = night.v;
+    if (Math.abs(nt - lastNight) > 0.001) { applyNight(nt); lastNight = nt; }
+    key.intensity = S.keyI * (1 - nt * 0.8);
+    hemi.intensity = S.hemiI * (1 - nt * 0.7);
+    dustMat.opacity = S.dust * (0.55 + nt * 0.4);
+    lamp.position.y = hv.lamp * 0.04;
 
     renderer.render(scene, camera);
   }

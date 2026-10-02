@@ -35,6 +35,42 @@
   });
   applyLang(lang(), false);
 
+  /* ---------- Day / night ---------- */
+  // The new theme is revealed as a circle growing from the switch (or the lamp
+  // that was clicked); film.js listens for 'ace360:theme' and relights the desk.
+  var themeBtns = document.querySelectorAll('[data-theme-toggle]');
+  function isNight() { return root.getAttribute('data-theme') === 'night'; }
+  function syncThemeBtns() { themeBtns.forEach(function (b) { b.setAttribute('aria-pressed', String(isNight())); }); }
+  function setTheme(night, from) {
+    function apply() {
+      root.setAttribute('data-theme', night ? 'night' : 'day');
+      syncThemeBtns();
+      try { localStorage.setItem('ace360-theme', night ? 'night' : 'day'); } catch (e) {}
+      document.dispatchEvent(new CustomEvent('ace360:theme', { detail: { night: night } }));
+    }
+    if (document.startViewTransition && !reduced) {
+      var x = from ? from.x : window.innerWidth - 60, y = from ? from.y : 30;
+      var r = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
+      var vt = document.startViewTransition(apply);
+      vt.ready.then(function () {
+        root.animate({ clipPath: ['circle(0px at ' + x + 'px ' + y + 'px)', 'circle(' + r + 'px at ' + x + 'px ' + y + 'px)'] },
+          { duration: 750, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', pseudoElement: '::view-transition-new(root)' });
+      }).catch(function () {});
+    } else {
+      root.classList.add('theme-fade');
+      apply();
+      setTimeout(function () { root.classList.remove('theme-fade'); }, 650);
+    }
+  }
+  themeBtns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var rc = b.getBoundingClientRect();
+      setTheme(!isNight(), { x: rc.left + rc.width / 2, y: rc.top + rc.height / 2 });
+    });
+  });
+  syncThemeBtns();
+  window.ACE360_THEME = { set: setTheme, isNight: isNight };
+
   /* ---------- Smooth scroll ---------- */
   if (!reduced && typeof window.Lenis === 'function') {
     lenis = new window.Lenis({ lerp: 0.1, smoothWheel: true });
