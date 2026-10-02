@@ -224,3 +224,140 @@
   .receipt-incl { display: none; }
   .receipt-panel { width: calc(100vw - 24px); }
 }
+
+/* =========================================================================
+   Cinematic layer: a warm dark stage around the hero, wide display type,
+   the chrome ring with a glowing price line, glass cards with live numbers,
+   a short opening and one image that grows to full screen.
+   ========================================================================= */
+:root { --wide: "Archivo", "Inter Variable", system-ui, sans-serif; }
+.hero-dial .hero-title, .ring-page .sec-head h2, .zoom-title, .who-card h2 {
+  font-family: var(--wide); font-stretch: 125%; font-weight: 600; text-transform: uppercase; letter-spacing: -0.02em; line-height: 0.98;
+}
+.ring-page .sec-head h2 { font-size: clamp(1.9rem, 3.8vw, 3.3rem); }
+
+/* the stage */
+.hero-dial { padding-top: 88px !important; }
+.hero-dial > .wrap { display: block; max-width: 1480px; }
+.stage {
+  --s-ink: #f4efe9; --s-muted: rgba(244, 239, 233, 0.62); --s-line: rgba(255, 255, 255, 0.12); --s-glass: rgba(255, 255, 255, 0.06);
+  position: relative; isolation: isolate; overflow: clip;
+  display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); grid-template-areas: "head out" "ask out";
+  column-gap: clamp(28px, 4vw, 64px); align-items: start;
+  padding: clamp(28px, 4.2vw, 64px); border-radius: clamp(22px, 2.4vw, 34px);
+  color: var(--s-ink); background: #0d0a08;
+  box-shadow: 0 0 0 1px rgba(255, 190, 130, 0.18), 0 40px 120px -40px rgba(255, 106, 0, 0.35);
+}
+.stage .dial { display: contents; }
+.stage-light { position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(40% 45% at 74% 38%, rgba(255, 122, 30, 0.55), transparent 70%),
+    radial-gradient(35% 40% at 12% 0%, rgba(255, 200, 140, 0.28), transparent 70%),
+    radial-gradient(40% 40% at 60% 100%, rgba(255, 106, 0, 0.25), transparent 70%);
+  filter: blur(30px); animation: drift 18s ease-in-out infinite alternate; border-radius: inherit; }
+.stage::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0.08; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"); }
+@keyframes drift { to { transform: translate3d(-3%, 2%, 0); } }
+.stage .kicker { color: var(--s-muted); }
+.stage .hero-title { color: var(--s-ink); font-size: clamp(1.9rem, 3.3vw, 3.5rem); font-stretch: 118%; }
+.stage .hero-title .hl { color: #ff8a3d; }
+.stage .lede { color: var(--s-muted); }
+.stage .ask-q { color: var(--s-ink); }
+.stage .ask-n { background: var(--s-ink); color: #0d0a08; }
+.stage .ask-help, .stage .ask-more summary { color: var(--s-muted); }
+.stage .ask-more[open] summary { color: var(--s-ink); }
+.stage .ask-more summary::before { border-color: var(--s-line); }
+.stage .seg-ui, .stage .tog-ui { background: var(--s-glass); border-color: var(--s-line); color: var(--s-ink); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
+.stage .seg-ui small, .stage .seg-ui em, .stage .tog-price { color: var(--s-muted); }
+.stage .seg-opt:hover .seg-ui, .stage .tog:hover .tog-ui { border-color: rgba(255, 255, 255, 0.28); }
+.stage .seg-opt input:checked + .seg-ui { border-color: #ff8a3d; box-shadow: inset 0 0 0 1px #ff8a3d, 0 10px 40px -12px rgba(255, 106, 0, 0.6); background: rgba(255, 106, 0, 0.1); }
+.stage .seg-opt input:checked + .seg-ui em { color: #ff8a3d; }
+.stage .tog-plus { background: rgba(255, 255, 255, 0.12); }
+.stage .tog-plus::before, .stage .tog-plus::after { background: var(--s-ink); }
+.stage .tog input:checked + .tog-ui { background: var(--s-ink); color: #0d0a08; border-color: var(--s-ink); }
+.stage .tog input:checked + .tog-ui .tog-plus::before, .stage .tog input:checked + .tog-ui .tog-plus::after { background: #0d0a08; }
+.stage .tog input:checked + .tog-ui .tog-price { color: #c94f00; }
+.stage .q-range, .stage .switches { --ink: #ff8a3d; --line: rgba(255, 255, 255, 0.16); --line-2: rgba(255, 255, 255, 0.24); --white: #f4efe9; }
+.stage .q-switch, .stage .switches { color: var(--s-ink); }
+
+/* the ring */
+.stage .dial-out { position: sticky; top: 96px; padding: 0; border: 0; background: none; box-shadow: none; gap: 20px; }
+.stage .ring { width: min(100%, 470px); }
+.ring-img { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; user-select: none; filter: drop-shadow(0 30px 50px rgba(0, 0, 0, 0.6)); }
+.ring-glow { position: absolute; inset: 14%; border-radius: 50%; background: radial-gradient(circle, rgba(255, 120, 30, 0.35), transparent 65%); filter: blur(30px); }
+.stage .ring-ticks line { stroke: rgba(255, 255, 255, 0.16); }
+.stage .ring-ticks line.on { stroke: #ff8a3d; }
+.stage .ring-track { stroke: transparent; }
+.stage .ring-arc { stroke: #ff7a1a; stroke-width: 9; }
+.stage .ring-knob circle:first-child { fill: #fff6ec; stroke: none; filter: drop-shadow(0 0 8px #ff8a3d); }
+.stage .ring-knob-dot { fill: #ff6a00; }
+.stage .ring-center { inset: 22%; }
+.stage .ring-label, .stage .ring-vat { color: var(--s-muted); }
+.stage .ring-price { color: #fff; font-family: var(--wide); font-stretch: 112%; font-size: clamp(1.15rem, 1.7vw, 1.6rem); text-shadow: 0 0 30px rgba(255, 120, 30, 0.5); }
+
+/* glass cards with the live numbers, floating around the ring */
+.stage .glass-cards { position: absolute; inset: 0; display: block; border: 0; pointer-events: none; }
+.stage .glass-cards div { position: absolute; display: grid; gap: 2px; min-width: 128px; padding: 12px 15px !important; border: 1px solid var(--s-line) !important; border-radius: 16px; background: rgba(20, 14, 10, 0.55); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.8); animation: float 7s ease-in-out infinite; }
+.stage .glass-cards div:nth-child(1) { left: -4%; top: 8%; }
+.stage .glass-cards div:nth-child(2) { right: -6%; top: 42%; animation-delay: -2.5s; }
+.stage .glass-cards div:nth-child(3) { left: -2%; top: 56%; animation-delay: -4.5s; }
+.stage .glass-cards dt { color: var(--s-muted); }
+.stage .glass-cards dd { color: var(--s-ink); }
+.stage .ring-meta [data-ring-date] { color: #ff9a55; }
+.stage .dial-out .ring { position: relative; }
+.stage .dial-out { --ring-wrap: 1; }
+@keyframes float { 50% { transform: translateY(-8px); } }
+.stage .ring-lines summary { color: var(--s-muted); }
+.stage .ring-lines .q-lines, .stage .ring-lines .q-lines li span:last-child { color: var(--s-ink); }
+.stage .ring-call { color: var(--s-muted); }
+.stage .ring-call .mono { color: var(--s-ink); }
+.stage .btn-orange { box-shadow: 0 14px 40px -12px rgba(255, 106, 0, 0.9); }
+.hero-dial .facts { margin-top: 28px; }
+
+/* the opening: the ring draws itself on a warm blur, then the page opens */
+.intro { position: fixed; inset: 0; z-index: 400; display: grid; place-items: center; color: #ffb27a; pointer-events: none;
+  background: radial-gradient(60% 60% at 60% 60%, #ff7a1a 0%, #5a2a0c 45%, #0d0a08 80%); animation: intro-out 0.9s cubic-bezier(0.7, 0, 0.2, 1) 1.25s forwards; }
+.intro svg { filter: drop-shadow(0 0 18px rgba(255, 140, 60, 0.8)); animation: intro-svg 1.25s var(--ease) both; }
+.intro-ring { stroke-dasharray: 100; stroke-dashoffset: 100; animation: draw 1s var(--ease) 0.1s forwards; }
+.intro-notch { opacity: 0; animation: pop 0.35s var(--ease) 0.85s forwards; transform-origin: 16px 4.5px; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes pop { from { opacity: 0; transform: scale(0.2); } to { opacity: 1; transform: none; } }
+@keyframes intro-svg { from { transform: scale(0.8) rotate(-40deg); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes intro-out { to { clip-path: circle(0% at 50% 50%); opacity: 0.6; visibility: hidden; } }
+.intro { clip-path: circle(150% at 50% 50%); }
+.no-intro .intro { display: none; }
+.js:not(.no-intro) .stage { animation: stage-in 1.1s var(--ease) 1.45s both; }
+@keyframes stage-in { from { transform: scale(0.94); opacity: 0; } to { transform: none; opacity: 1; } }
+
+/* one project grows to full screen */
+.zoom { position: relative; height: 230svh; }
+.zoom-sticky { position: sticky; top: 0; height: 100svh; display: grid; place-items: center; overflow: hidden; }
+.zoom-title { position: absolute; top: 18vh; left: 0; right: 0; z-index: 2; text-align: center; font-size: clamp(2.2rem, 6vw, 5.6rem); }
+.zoom-frame { position: relative; width: min(92vw, 1400px); aspect-ratio: 16 / 10; border-radius: 20px; overflow: hidden; box-shadow: 0 60px 140px -40px rgba(0, 0, 0, 0.5); will-change: transform; }
+.zoom-frame canvas { display: block; width: 100%; height: 100%; }
+.zoom-cap { position: absolute; bottom: 6vh; left: 0; right: 0; display: flex; justify-content: center; gap: 18px; color: var(--muted); opacity: 0; }
+.zoom-cap span:first-child { color: var(--ink); font-weight: 700; }
+.no-js .zoom, .reduce-motion .zoom { height: auto; }
+
+@media (max-width: 1000px) {
+  .stage { grid-template-columns: minmax(0, 1fr); grid-template-areas: "head" "out" "ask"; }
+  .stage .dial-out { position: relative; top: 0; margin-bottom: 36px; }
+  .stage .glass-cards { position: static; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .stage .glass-cards div { position: static; min-width: 0; animation: none; }
+}
+@media (max-width: 640px) {
+  .hero-dial { padding-top: 76px !important; }
+  .hero-dial > .wrap { padding-inline: 10px; }
+  .stage { padding: 26px 18px; }
+  .stage .glass-cards { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .stage .glass-cards div:nth-child(3) { grid-column: 1 / -1; }
+  .zoom { height: 170svh; }
+  .zoom-frame { width: 94vw; }
+  .zoom-cap { flex-direction: column; align-items: center; gap: 4px; }
+}
+@media (prefers-reduced-motion: reduce) { .stage-light, .stage .glass-cards div { animation: none; } }
+.stage .ring-svg { position: relative; z-index: 1; }
+.stage .ring-center { z-index: 2; }
+.who-card { grid-template-columns: minmax(0, 1fr); }
+.ring-page h1, .ring-page h2 { overflow-wrap: break-word; hyphens: auto; }
+@media (max-width: 640px) { .who-card h2 { font-size: 1.55rem; font-stretch: 105%; } .zoom-title { font-size: 2rem; } }

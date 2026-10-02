@@ -39,6 +39,7 @@ function wp_parse_url( $u, $c = -1 ) { return parse_url( $u, $c ); }
 function get_the_post_thumbnail_url() { return ''; }
 function apply_filters( $t, $v ) { return $v; }
 function wp_json_encode( $v ) { return json_encode( $v ); }
+function get_template_directory_uri() { return '../ace360'; }
 function wp_get_attachment_image() { return ''; }
 function ace360_fallback_menu() {
 	echo '<ul class="menu">';

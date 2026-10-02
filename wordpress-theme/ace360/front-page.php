@@ -51,17 +51,24 @@ if ( empty( $ace360_work ) ) {
 $ace360_sectors = ace360_sectors();
 $ace360_steps   = ace360_process();
 ?>
+<div class="intro" data-intro aria-hidden="true">
+	<svg viewBox="0 0 32 32" width="84" height="84"><circle class="intro-ring" cx="16" cy="16" r="12" fill="none" stroke="currentColor" stroke-width="1.6" pathLength="100"/><rect class="intro-notch" x="13" y="1.5" width="6" height="6" rx="1" fill="currentColor"/></svg>
+</div>
+<script>try { if (sessionStorage.getItem('ace360-intro') || matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('no-intro'); sessionStorage.setItem('ace360-intro', '1'); } catch (e) {}</script>
 <main id="main" class="site-main ring-page">
 
 	<!-- 1 · The 360° quote -->
 	<section class="sec hero-dial" id="prijs">
 		<div class="wrap">
+			<div class="stage">
+			<span class="stage-light" aria-hidden="true"></span>
 			<div class="hero-head">
 				<p class="kicker"><?php ace360_e( ace360_pair( 'Websites for businesses in the Netherlands and beyond · fixed price', 'Websites voor bedrijven in Nederland en daarbuiten · vaste prijs' ) ); ?></p>
 				<h1 class="hero-title"><?php echo ace360_hl( ace360_pair( 'What will your website cost? *Know* in ten seconds.', 'Wat kost jouw website? *Weet het* in tien seconden.' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></h1>
 				<p class="lede"><?php ace360_e( ace360_pair( 'Three questions, and you see the same price and launch date you would get on the phone. Then we talk, if you want to.', 'Drie vragen, en je ziet dezelfde prijs en lanceerdatum die je aan de telefoon zou krijgen. Daarna praten we, als jij dat wilt.' ) ); ?></p>
 			</div>
 			<?php get_template_part( 'template-parts/dial' ); ?>
+			</div>
 			<ul class="facts" aria-label="<?php esc_attr_e( 'Guarantees', 'ace360' ); ?>">
 				<?php foreach ( ace360_guarantees() as $ace360_g ) : ?>
 					<li><span class="tick" aria-hidden="true"></span><?php ace360_e( $ace360_g[0] ); ?></li>
@@ -103,6 +110,17 @@ $ace360_steps   = ace360_process();
 					<?php endforeach; ?>
 				</ul>
 			</div>
+		</div>
+	</section>
+
+	<!-- 3b · One project grows to full screen as you scroll -->
+	<section class="zoom" aria-labelledby="zoom-title">
+		<div class="zoom-sticky">
+			<h2 class="zoom-title" id="zoom-title"><?php echo ace360_hl( ace360_pair( 'Every kind of *business*', 'Elk soort *bedrijf*' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></h2>
+			<div class="zoom-frame">
+				<canvas width="1600" height="1000" data-paint="korrel" data-title="Bakkerij Korrel" aria-hidden="true"></canvas>
+			</div>
+			<p class="zoom-cap mono"><span>Bakkerij Korrel</span> <span><?php ace360_e( ace360_pair( 'pre-orders + iDEAL · € 2.900 – 3.600 · 4–6 weeks', 'voorbestellen + iDEAL · € 2.900 – 3.600 · 4–6 weken' ) ); ?></span></p>
 		</div>
 	</section>
 

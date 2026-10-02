@@ -71,15 +71,18 @@ $ace360_c = ace360_estimator();
 
 	<aside class="dial-out" aria-live="polite">
 		<div class="ring" data-ring>
+			<span class="ring-glow" aria-hidden="true"></span>
+			<img class="ring-img" src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/ring-hero.webp' ); ?>" alt="" width="800" height="800" decoding="async" fetchpriority="high">
 			<svg class="ring-svg" viewBox="0 0 400 400" aria-hidden="true">
 				<g class="ring-ticks" data-ring-ticks>
 					<?php for ( $ace360_k = 0; $ace360_k < 72; $ace360_k++ ) : ?>
 						<line x1="200" y1="<?php echo 0 === $ace360_k % 6 ? 8 : 14; ?>" x2="200" y2="24" transform="rotate(<?php echo (int) ( $ace360_k * 5 ); ?> 200 200)"/>
 					<?php endfor; ?>
 				</g>
-				<circle class="ring-track" cx="200" cy="200" r="160"/>
-				<circle class="ring-arc" cx="200" cy="200" r="160" pathLength="360" data-ring-arc transform="rotate(-90 200 200)"/>
-				<g class="ring-knob" data-ring-knob><circle cx="200" cy="40" r="11"/><circle class="ring-knob-dot" cx="200" cy="40" r="4"/></g>
+				<defs><filter id="ring-bloom" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+				<circle class="ring-track" cx="200" cy="200" r="154"/>
+				<circle class="ring-arc" cx="200" cy="200" r="154" pathLength="360" data-ring-arc transform="rotate(-90 200 200)" filter="url(#ring-bloom)"/>
+				<g class="ring-knob" data-ring-knob><circle cx="200" cy="46" r="10"/><circle class="ring-knob-dot" cx="200" cy="46" r="3.5"/></g>
 			</svg>
 			<div class="ring-center">
 				<p class="ring-label mono"><?php ace360_e( ace360_pair( 'Your price', 'Jouw prijs' ) ); ?></p>
@@ -87,7 +90,7 @@ $ace360_c = ace360_estimator();
 				<p class="ring-vat mono" data-ring-vat><?php ace360_e( ace360_pair( 'excl. VAT · fixed in the quote', 'excl. btw · vast in de offerte' ) ); ?></p>
 			</div>
 		</div>
-		<dl class="ring-meta">
+		<dl class="ring-meta glass-cards">
 			<div><dt class="mono"><?php ace360_e( ace360_pair( 'Live by', 'Live op' ) ); ?></dt><dd data-ring-date>—</dd></div>
 			<div><dt class="mono"><?php ace360_e( ace360_pair( 'Build time', 'Bouwtijd' ) ); ?></dt><dd data-q-weeks>3–4 weken</dd></div>
 			<div><dt class="mono"><?php ace360_e( ace360_pair( 'Care', 'Onderhoud' ) ); ?></dt><dd data-q-care>€ 95 /mnd</dd></div>

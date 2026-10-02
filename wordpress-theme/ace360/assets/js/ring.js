@@ -197,13 +197,29 @@
     upd();
   }
 
+  /* ---------- one project grows to full screen ---------- */
+  var zc = document.querySelector('.zoom-frame canvas');
+  function paintZoom() { if (zc && window.ACE360_PAINT) window.ACE360_PAINT.paint(zc, 'korrel', 'Bakkerij Korrel'); }
+  if (zc) {
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(paintZoom); else paintZoom();
+    if (window.ACE360_PAINT && window.ACE360_PAINT.onPhotos) window.ACE360_PAINT.onPhotos(paintZoom);
+    document.addEventListener('ace360:lang', paintZoom);
+  }
+  if (gsap && ST && !reduced && document.querySelector('.zoom')) {
+    gsap.timeline({ scrollTrigger: { trigger: '.zoom', start: 'top top', end: 'bottom bottom', scrub: 0.6 } })
+      .fromTo('.zoom-frame', { scale: 0.36, y: function () { return window.innerHeight * 0.14; }, borderRadius: 70 }, { scale: 1, y: 0, borderRadius: 0, ease: 'power2.inOut', duration: 1 }, 0)
+      .to('.zoom-title', { y: -120, opacity: 0, scale: 0.9, ease: 'power1.in', duration: 0.45 }, 0)
+      .to('.zoom-cap', { opacity: 1, duration: 0.2 }, 0.75);
+  }
+
   /* ---------- quiet reveals ---------- */
   if (!gsap || !ST || reduced) return;
-  gsap.fromTo('.hero-dial .kicker, .hero-dial .hero-title, .hero-dial .lede', { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', stagger: 0.08, delay: 0.1 });
-  gsap.fromTo('.dial-ask .ask, .ask-more', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: 'power3.out', stagger: 0.07, delay: 0.3, clearProps: 'transform,opacity' });
-  gsap.fromTo('.dial-out', { scale: 0.96, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.9, ease: 'power3.out', delay: 0.2, clearProps: 'transform,opacity' });
+  var d0 = root.classList.contains('no-intro') ? 0 : 1.6;
+  gsap.fromTo('.hero-dial .kicker, .hero-dial .hero-title, .hero-dial .lede', { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', stagger: 0.08, delay: 0.1 + d0 });
+  gsap.fromTo('.dial-ask .ask, .ask-more', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: 'power3.out', stagger: 0.07, delay: 0.3 + d0, clearProps: 'transform,opacity' });
+  gsap.fromTo('.dial-out', { scale: 0.96, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.9, ease: 'power3.out', delay: 0.2 + d0, clearProps: 'transform,opacity' });
   var hl = document.querySelectorAll('.hero-dial .hero-title .hl');
-  if (hl.length) gsap.fromTo(hl, { '--u': 0 }, { '--u': 1, duration: 0.9, ease: 'power3.inOut', delay: 0.7 });
+  if (hl.length) gsap.fromTo(hl, { '--u': 0 }, { '--u': 1, duration: 0.9, ease: 'power3.inOut', delay: 0.7 + d0 });
   var plan = document.querySelector('.plan');
   if (plan) gsap.fromTo(plan, { '--line': 0 }, { '--line': 1, ease: 'none', scrollTrigger: { trigger: plan, start: 'top 75%', end: 'bottom 60%', scrub: 0.5 } });
   ST.batch('.service, .plan-step, .guarantees li, .facts li, .incl-list li, .who-card', {

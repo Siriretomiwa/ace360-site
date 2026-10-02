@@ -57,7 +57,14 @@
     c.position.set(pos[0], pos[1], pos[2]); c.lookAt(look[0], look[1], look[2]);
     return c;
   }
-  function shoot(scene, cam, w, h, q) {
+  var RA = null;
+  function shootAlpha(scene, cam, w, h) {
+    if (!RA) { RA = new T.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true, premultipliedAlpha: false }); RA.outputEncoding = T.sRGBEncoding; RA.toneMapping = T.ACESFilmicToneMapping; RA.toneMappingExposure = 1.0; RA.setClearColor(0x000000, 0); }
+    RA.setSize(w, h, false); scene.background = null; RA.render(scene, cam);
+    return RA.domElement.toDataURL('image/png');
+  }
+  function shoot(scene, cam, w, h, q, opts) {
+    if (opts && opts.alpha) return shootAlpha(scene, cam, w, h);
     R.setSize(w, h, false);
     cam.aspect = w / h; cam.updateProjectionMatrix();
     R.render(scene, cam);
@@ -205,7 +212,7 @@
     g.globalAlpha = 1; return c;
   }
 
-  window.STUDIO = { T: T, R: R, C: C, cv: cv, tex: tex, SANS: SANS, SERIF: SERIF, rnd: rnd, stage: stage, camera: camera, shoot: shoot,
+  window.STUDIO = { T: T, R: R, shootAlpha: shootAlpha, C: C, cv: cv, tex: tex, SANS: SANS, SERIF: SERIF, rnd: rnd, stage: stage, camera: camera, shoot: shoot,
     glass: glass, plastic: plastic, metal: metal, matte: matte, textured: textured, mesh: mesh, label: label, labelBand: labelBand,
     latheMesh: latheMesh, bottle: bottle, jar: jar, tube: tube, roundBox: roundBox, printedBox: printedBox,
     fbm: fbm, displace: displace, speckle: speckle, woodTex: woodTex, linenTex: linenTex, SHOTS: {} };
