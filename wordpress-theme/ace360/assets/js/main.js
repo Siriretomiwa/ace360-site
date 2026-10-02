@@ -375,6 +375,8 @@
     // Wait for the web fonts so the painted text uses Inter.
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(paintVisible); else paintVisible();
     // Repaint thumbnails already drawn once the product photos have loaded.
+    // Dutch businesses' sample sites switch language with the page
+    document.addEventListener('ace360:lang', function () { thumbs.forEach(function (c) { if (c.getAttribute('data-done')) { c.removeAttribute('data-done'); paint(c); } }); });
     if (P && P.onPhotos) P.onPhotos(function () { thumbs.forEach(function (c) { if (c.getAttribute('data-done')) { c.removeAttribute('data-done'); paint(c); } }); });
 
     var cards = Array.prototype.slice.call(grid.querySelectorAll('.wcard'));
@@ -415,6 +417,17 @@
   })();
 
   if (!hasGsap || reduced) return;
+
+  /* ---------- "-baar": each giant word crosses the screen behind the laptop ---------- */
+  document.querySelectorAll('[data-baar]').forEach(function (sec) {
+    var w = document.querySelector('.bigword[data-word="' + sec.getAttribute('data-baar') + '"]');
+    if (!w) return;
+    gsap.set(w, { yPercent: -58, x: window.innerWidth, opacity: 0 });
+    gsap.timeline({ scrollTrigger: { trigger: sec, start: 'top bottom', end: 'bottom top', scrub: 0.6, invalidateOnRefresh: true } })
+      .fromTo(w, { x: function () { return window.innerWidth; } }, { x: function () { return -w.offsetWidth; }, ease: 'none', duration: 1 }, 0)
+      .fromTo(w, { opacity: 0 }, { opacity: 1, duration: 0.12, ease: 'none' }, 0.12)
+      .to(w, { opacity: 0, duration: 0.12, ease: 'none' }, 0.76);
+  });
 
   /* ---------- Reveals ---------- */
   var hl = document.querySelectorAll('.hero-title .hl');

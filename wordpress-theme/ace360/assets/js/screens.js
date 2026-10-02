@@ -17,7 +17,14 @@
   function rr(g, x, y, w, h, r) { g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r); g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath(); }
   function box(g, x, y, w, h, r, fill) { rr(g, x, y, w, h, r); g.fillStyle = fill; g.fill(); }
   function stroke(g, x, y, w, h, r, c, lw) { rr(g, x, y, w, h, r); g.strokeStyle = c; g.lineWidth = lw || 2; g.stroke(); }
+  /* Ace 360's own screens follow the page language. Sample client sites keep
+   * their own copy (dictOn is switched off while they are painted). */
+  var NL = { "search · bakery utrecht pre-order": "zoeken · bakker utrecht bestellen", "About 1,240 results (0.31 seconds)": "Ongeveer 1.240 resultaten (0,31 seconden)", "Bakkerij Korrel · Fresh bread, ready at 7:30": "Bakkerij Korrel · Vers brood, klaar om 7:30", "Order today, pick up tomorrow from 07:30. Sourdough, croissants and cakes. ★ 4.8 (312 reviews)": "Vandaag bestellen, morgen vanaf 07:30 ophalen. Zuurdesem, croissants en taart. ★ 4,8 (312 reviews)", "Order today, pick up tomorrow from 07:30. Sourdough, croissants and cakes. ★ 4…": "Vandaag bestellen, morgen vanaf 07:30 ophalen. Zuurdesem, croissants en taart…", "Bakeries in Utrecht · the city guide": "Bakkerijen in Utrecht · de stadsgids", "utrecht-guide.nl › food": "utrecht-gids.nl › eten", "Twelve neighbourhood bakeries worth crossing town for, from Lombok to Oudwijk.": "Twaalf buurtbakkers waarvoor je de stad door fietst, van Lombok tot Oudwijk.", "Where to buy sourdough in Utrecht (2026)": "Waar koop je zuurdesem in Utrecht (2026)", "We tasted 9 loaves. Here are the ones that made the cut.": "We proefden 9 broden. Dit zijn de beste.", "Your order": "Je bestelling", "Pickup tomorrow · 07:30": "Morgen ophalen · 07:30", "Sourdough loaf": "Zuurdesembrood", "Butter croissants (4)": "Roomboter croissants (4)", "Dutch apple pie": "Hollandse appeltaart", "€4.50": "€4,50", "€6.80": "€6,80", "€18.50": "€18,50", "€29.80": "€29,80", "Total": "Totaal", "Card": "Kaart", "Pay €29.80 with iDEAL": "Betaal €29,80 met iDEAL", "Paid ✓": "Betaald ✓", "Order confirmed": "Bestelling bevestigd", "Order #1043 · €29.80 · paid with iDEAL": "Bestelling #1043 · €29,80 · betaald met iDEAL", "Pick up tomorrow from 07:30": "Morgen ophalen vanaf 07:30", "New order #1043 · €29.80": "Nieuwe bestelling #1043 · €29,80", "Bakkerij Korrel · iDEAL · now": "Bakkerij Korrel · iDEAL · nu", "Orders today": "Bestellingen vandaag", "Revenue today": "Omzet vandaag", "€342.50": "€342,50", "€372.30": "€372,30", "23:14 · your website took this order while you slept": "23:14 · je website nam deze bestelling aan terwijl jij sliep", "Payment received": "Betaling ontvangen", "€64.50 · order #1042 · iDEAL": "€64,50 · bestelling #1042 · iDEAL", "New booking": "Nieuwe boeking", "Sat 10:30 · Cut & finish": "za 10:30 · Knippen & föhnen", "“Is Saturday still free?”": "“Is zaterdag nog vrij?”", "New enquiry": "Nieuwe aanvraag", "Website form · budget €2k": "Contactformulier · budget €2k", "New 5-star review": "Nieuwe 5-sterrenreview", "“Quick, friendly, great site”": "“Snel, vriendelijk, top site”", "Visitors today": "Bezoekers vandaag", "1,284 · up 38% on last week": "1.284 · 38% meer dan vorige week", "now": "nu", "Overview": "Overzicht", "Orders": "Bestellingen", "Bookings": "Boekingen", "Enquiries": "Aanvragen", "Pages": "Pagina's", "Good morning, Sanne": "Goedemorgen, Sanne", "Here is your week so far": "Zo gaat je week tot nu toe", "Site live": "Site live", "Visitors": "Bezoekers", "4,812": "4.812", "Revenue": "Omzet", "€3,460": "€3.460", "Visitors this week": "Bezoekers deze week", "Mon": "ma", "Tue": "di", "Wed": "wo", "Thu": "do", "Fri": "vr", "Sat": "za", "Sun": "zo", "Just now": "Zojuist", "Order #1042": "Bestelling #1042", "€64.50 · iDEAL": "€64,50 · iDEAL", "Booking": "Boeking", "Sat 10:30 · Sanne": "za 10:30 · Sanne", "Enquiry": "Aanvraag", "Website form": "Contactformulier", "“Still free Saturday?”": "“Zaterdag nog vrij?”", "Saturday 14 June": "Zaterdag 14 juni", "⚠ Not secure": "⚠ Niet veilig", "Welcome to our Website!!!": "Welkom op onze Website!!!", "ABOUT US": "OVER ONS", "SERVICES": "DIENSTEN", "GUESTBOOK": "GASTENBOEK", "Since 2009 your partner for all your needs.": "Sinds 2009 uw partner voor al uw wensen.", "Click HERE for our prices (PDF, 4.2 MB)": "Klik HIER voor onze prijzen (PDF, 4,2 MB)", "*** Under construction ***": "*** In aanbouw ***", "Best viewed in Internet Explorer at 800×600": "Beste weergave in Internet Explorer op 800×600", "Visitors: 000417": "Bezoekers: 000417", "Loading… 8.4 s": "Laden… 8,4 s", "Mobile speed": "Mobiele snelheid", "Poor · not mobile-friendly": "Slecht · niet mobielvriendelijk", "© 2014 Your Business · Last updated 12-03-2016": "© 2014 Uw Bedrijf · Laatst bijgewerkt 12-03-2016", "Pinch to zoom…": "Knijp om te zoomen…", "Not mobile-friendly": "Niet mobielvriendelijk", "Text too small to read": "Tekst te klein om te lezen", "Incoming call": "Inkomende oproep", "Project notes": "Projectnotities", "GOAL": "DOEL", "30 bookings a month": "30 boekingen per maand", "MUST": "MOET", "PAGES": "PAGINA'S", "Home · Book · Contact": "Home · Boeken · Contact", "before 1 June": "vóór 1 juni", "Inbox": "Inbox", "Starred": "Met ster", "Sent": "Verzonden", "Your fixed quote and launch date": "Je vaste offerte en lanceerdatum", "Accept quote": "Offerte accepteren", "Quote Q-2026-041.pdf": "Offerte Q-2026-041.pdf", "Feedback": "Feedback", "1  Bigger photo?": "1  Grotere foto?", "2  Button in orange": "2  Knop in oranje", "Round 1 ✓": "Ronde 1 ✓", "Round 2 ✓": "Ronde 2 ✓", "Book": "Boeken", "Mobile": "Mobiel", "Date": "Datum", "Time": "Tijd", "Guests": "Gasten", "Mobile ✓": "Mobiel ✓", "Forms ✓": "Formulieren ✓", "Menu": "Menu", "About": "Over ons", "Book now": "Nu boeken", "Book a table": "Tafel reserveren", "Fresh every morning,": "Elke ochtend vers,", "booked in seconds.": "in seconden geboekt.", "Fresh every morning, booked": "Elke ochtend vers, in seconden", "in seconds.": "geboekt.", "Fresh every morning, booked in seconds.": "Elke ochtend vers, in seconden geboekt.", "iDEAL payment received": "iDEAL-betaling ontvangen", "€65.00 · booking for Saturday": "€65,00 · boeking voor zaterdag", "FIXED QUOTE": "VASTE OFFERTE", "Launch · 28 May": "Lancering · 28 mei", "Pay with iDEAL": "Betaal met iDEAL", "Checkout · Mollie": "Afrekenen · Mollie", "“Live in three weeks,": "“Live in drie weken,", "exactly as quoted.”": "precies zoals afgesproken.”", "Add to bag": "In winkelmand", "Organic visitors": "Organische bezoekers", "Performance": "Prestaties", "Necessary": "Noodzakelijk", "Statistics": "Statistieken", "Marketing": "Marketing", "Saturday": "Zaterdag", "Book for 2": "Boek voor 2", "Sunday service": "Zondagsdienst", "10:30 · Main hall": "10:30 · Grote zaal", "SUN": "ZO", "YOUR ESTIMATE": "JOUW SCHATTING", "Send this as an enquiry": "Verstuur als aanvraag", "Timeline": "Doorlooptijd", "Care": "Onderhoud", "3–4 weeks": "3–4 weken", "€95 /mo": "€95 /mnd", "€1,200 – €1,600": "€1.200 – €1.600", "€2,240 · live 28 May": "€2.240 · live 28 mei", "€2,240": "€2.240", "Call now": "Bel nu", "You know the": "Je weet de", "price": "prijs", "before we call.": "vóór we bellen.", "Price my website →": "Bereken mijn prijs →" };
+  var dictOn = true;
+  function isNL() { return document.documentElement.getAttribute('data-lang') !== 'en'; }
+  function L(en, nl) { return isNL() ? nl : en; }
   function txt(g, s, x, y, size, color, weight, font, align) {
+    if (dictOn && isNL() && NL[s] != null) s = NL[s];
     g.font = (weight || 500) + ' ' + size + 'px ' + (font || SANS);
     g.fillStyle = color; g.textAlign = align || 'left'; g.textBaseline = 'alphabetic'; g.fillText(s, x, y);
   }
@@ -56,6 +63,14 @@
     TPL[p[0]].photo = p[0] + '-hero';
     if (p[1]) TPL[p[0]].imgs = [p[0] + '-1', p[0] + '-2', p[0] + '-3'];
   });
+  // Dutch businesses get a Dutch site when the page is in Dutch
+  TPL.korrel.nl = { nav: ['Brood', 'Gebak', 'Taarten'], kicker: 'Elke nacht vers gebakken', h: ['Vers uit de oven,', 'klaar om 7:30.'], sub: 'Vandaag bestellen, morgenochtend ophalen.', cta: 'Bestellen', badge: 'Ophalen 07:30 – 12:00', items: [['Brood', 'Zuurdesembrood', '€4,50'], ['Gebak', 'Croissants (4)', '€6,80'], ['Taarten', 'Hollandse appeltaart', '€18,50']] };
+  TPL.noor.nl = { nav: ['Behandelingen', 'Team', 'Galerij'], kicker: 'Kapsalon · Utrecht', h: ['Haar dat voelt', 'als jezelf.'], sub: 'Boek je stylist, behandeling en tijd online.', cta: 'Boek nu', badge: '★ 4,9 · 380 reviews', day: 'Zaterdag 14 juni', items: [['Knippen & föhnen', '€55'], ['Kleuren & gloss', '€95'], ['Vlechten', 'vanaf €120'], ['Kinderen knippen', '€25']] };
+  TPL.spaak.nl = { nav: ['Reparaties', 'Prijzen', 'E-bikes'], kicker: 'Fietsenmaker · Amsterdam-Oost', h: ['Lekke band?', 'Vandaag gemaakt.'], sub: 'Vaste prijzen. Boek een tijd, breng hem langs, fiets naar huis.', cta: 'Reparatie boeken', badge: 'Klaar binnen 2 uur', day: 'Vandaag', items: [['Lekke band', '€17,50'], ['Grote beurt', '€59'], ['Remmen nakijken', '€22'], ['E-bike check', '€79']] };
+  TPL.zout.nl = { nav: ['Menu', 'Cadeaubonnen', 'Besloten diner'], kicker: 'Kleine gerechten · Rotterdam', h: ['Kleine gerechten,', 'grote avonden.'], sub: 'Open woensdag t/m zondag vanaf 17:30.', cta: 'Reserveren', badge: 'Vanavond: nog 4 tafels', items: [['Burrata, bloedsinaasappel', '€12'], ['Gegrilde prei, hazelnoot', '€9'], ['Mosselen, cider, lavas', '€14'], ['Steak tartaar, zuur', '€15'], ['Lam, salsa verde', '€19'], ['Basque cheesecake', '€8']] };
+  TPL.adem.nl = { nav: ['Rooster', 'Docenten', 'Prijzen'], kicker: 'Yogastudio · Haarlem', h: ['Maak ruimte', 'om te ademen.'], sub: 'Elke dag lessen, van zachte yin tot stevige flow.', cta: 'Probeer een week', badge: 'Vandaag 19:00 · nog 3 plekken', items: [['Starten', 'Introweek', '€25'], ['Flexibel', '10-rittenkaart', '€140'], ['Meest gekozen', 'Onbeperkt', '€89/mnd']] };
+  TPL.voedselbrug.nl = { nav: ['Hulp vragen', 'Vrijwilligen', 'Doneren'], kicker: 'Voedselbank · Eindhoven', h: ['Niemand in onze stad', 'slaapt met honger.'], sub: 'Geef eten, tijd of geld. Alles wordt deze week gebruikt.', cta: 'Word vrijwilliger', badge: '23 diensten open deze week', items: [['2.350', 'gezinnen geholpen'], ['640', 'vrijwilligers'], ['18 t', 'voedsel gered']], bar: ['Opgehaald dit jaar', '€48.200 van €60.000', 0.8] };
+  function loc(c) { return isNL() && c.nl ? Object.assign({}, c, c.nl, { isNl: true }) : c; }
   var SERIF = 'Georgia, "Times New Roman", serif';
 
   /* ---------- product photos ----------
@@ -138,6 +153,7 @@
   }
 
   function tplScreen(c, g, w, h) {
+    c = loc(c);
     g.fillStyle = c.bg; g.fillRect(0, 0, w, h);
     var t = chrome(g, w, c.url, c.dark), F = c.serif ? SERIF : SANS, HW = c.serif ? 400 : 750;
     var panel = c.panel || '#ffffff', line = c.dark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.08)';
@@ -164,7 +180,7 @@
         txt(g, it[2], x + 118, y0 + 132, 22, c.ink, c.serif ? 400 : 750, F);
       });
     } else if (c.layout === 'slots') {
-      txt(g, 'Services', 40, y0 + 6, 18, c.ink, 700, F);
+      txt(g, c.isNl ? 'Behandelingen' : 'Services', 40, y0 + 6, 18, c.ink, 700, F);
       c.items.forEach(function (it, i) {
         var yy = y0 + 30 + i * 44; g.fillStyle = line; g.fillRect(40, yy, 450, 1);
         txt(g, it[0], 40, yy + 29, 16, c.ink, 500); txt(g, it[1], 490, yy + 29, 16, c.ink, 650, SANS, 'right');
@@ -176,7 +192,7 @@
         if (on) box(g, sx, sy, 124, 40, 20, c.accent); else stroke(g, sx, sy, 124, 40, 20, line, 1.5);
         txt(g, s, sx + 62, sy + 26, 15, on ? c.onAccent : c.ink, 600, SANS, 'center');
       });
-      box(g, 564, y0 + 142, 396, 44, 22, c.ink); txt(g, 'Book 10:30', 762, y0 + 170, 15, c.bg, 700, SANS, 'center');
+      box(g, 564, y0 + 142, 396, 44, 22, c.ink); txt(g, c.isNl ? 'Boek 10:30' : 'Book 10:30', 762, y0 + 170, 15, c.bg, 700, SANS, 'center');
     } else if (c.layout === 'menu') {
       txt(g, 'Menu', 40, y0 + 8, 26, c.ink, c.serif ? 400 : 750, F);
       c.items.forEach(function (it, i) {
@@ -197,6 +213,7 @@
   }
 
   function tplPhone(c, g, w, h) {
+    c = loc(c);
     var F = c.serif ? SERIF : SANS, HW = c.serif ? 400 : 750;
     g.fillStyle = c.bg; g.fillRect(0, 50, w, h);
     txt(g, c.brand, 24, 96, 22, c.ink, c.serif ? 500 : 800, F);
@@ -212,6 +229,12 @@
   /* ---------- project laptop screens (1024 × 640) ---------- */
   function workScreen(kind) {
     return function (g, w, h, title) {
+      var was = dictOn; dictOn = false;
+      try { paintWork(kind, g, w, h, title); } finally { dictOn = was; }
+    };
+  }
+  function paintWork(kind, g, w, h, title) {
+    {
       var t;
       if (kind === 'hesed') {
         g.fillStyle = '#f7f1e8'; g.fillRect(0, 0, w, h); t = chrome(g, w, 'hesedimpactministries.com', false);
@@ -338,6 +361,10 @@
   }
   /* ---------- project phone screens (360 × 740; the caller paints the notch) ---------- */
   function phoneWork(g, w, h, k, title) {
+    var was = dictOn; dictOn = false;
+    try { phoneWorkInner(g, w, h, k, title); } finally { dictOn = was; }
+  }
+  function phoneWorkInner(g, w, h, k, title) {
     if (TPL[k]) { tplPhone(TPL[k], g, w, h); return; }
       if (k === 'hesed') { g.fillStyle = '#f7f1e8'; g.fillRect(0, 50, w, h); var gr = g.createLinearGradient(0, 120, w, 420); gr.addColorStop(0, '#6b4a8a'); gr.addColorStop(1, '#2a1d3a'); g.fillStyle = gr; rr(g, 18, 110, w - 36, 300, 18); g.fill(); txt(g, 'Hesed', 24, 90, 24, '#2a1d3a', 700, 'Georgia, serif'); txt(g, 'A church that', 40, 230, 30, '#ffffff', 400, 'Georgia, serif'); txt(g, 'shows up.', 40, 270, 30, '#ffffff', 400, 'Georgia, serif'); box(g, 40, 300, 130, 40, 8, '#c4923a'); box(g, 18, 440, w - 36, 120, 14, '#ffffff'); txt(g, 'Give with iDEAL', w / 2, 510, 18, '#2a1d3a', 700, SANS, 'center'); return; }
       if (k === 'sidwalk') { txt(g, 'SIDWALK', w / 2, 260, 64, '#f2f2f2', 900, SANS, 'center'); box(g, 60, 300, w - 120, 46, 0, '#f2f2f2'); txt(g, 'SHOP THE DROP', w / 2, 330, 15, '#0e0e0e', 800, SANS, 'center'); if (!photo(g, 'sidwalk-1', 18, 380, w / 2 - 27, 220, 0)) { g.fillStyle = '#1d1d1d'; g.fillRect(18, 380, w / 2 - 27, 220); } if (!photo(g, 'sidwalk-2', w / 2 + 9, 380, w / 2 - 27, 220, 0)) { g.fillStyle = '#1d1d1d'; g.fillRect(w / 2 + 9, 380, w / 2 - 27, 220); } return; }
@@ -355,6 +382,8 @@
     SANS: SANS, MONO: MONO,
     mk: mk, rr: rr, box: box, stroke: stroke, txt: txt, bars: bars, circle: circle, chrome: chrome,
     kinds: KINDS,
+    L: L,
+    isNL: isNL,
     onPhotos: onPhotos,
     photo: photo,
     screen: workScreen,

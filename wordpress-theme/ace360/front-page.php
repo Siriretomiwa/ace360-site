@@ -66,6 +66,11 @@ $ace360_sectors  = ace360_sectors();
 $ace360_steps   = ace360_process();
 $ace360_screens = array( 'call', 'quote', 'design', 'build', 'live' );
 ?>
+<div class="bigtype" aria-hidden="true">
+	<?php foreach ( ace360_baar() as $ace360_i => $ace360_b ) : ?>
+		<span class="bigword" data-word="<?php echo (int) $ace360_i; ?>"><span data-l="en"><?php echo esc_html( $ace360_b[1] ); ?><em><?php echo esc_html( substr( $ace360_b[0], strlen( $ace360_b[1] ) ) ); ?></em></span><span data-l="nl"><?php echo esc_html( $ace360_b[3] ); ?><em><?php echo esc_html( substr( $ace360_b[2], strlen( $ace360_b[3] ) ) ); ?></em></span></span>
+	<?php endforeach; ?>
+</div>
 <canvas id="stage" aria-hidden="true"></canvas>
 <main id="main" class="site-main film">
 
@@ -89,6 +94,21 @@ $ace360_screens = array( 'call', 'quote', 'design', 'build', 'live' );
 		</div>
 		<p class="scroll-cue" aria-hidden="true"><span></span><?php ace360_e( ace360_pair( 'Scroll', 'Scroll' ) ); ?></p>
 	</section>
+
+	<!-- 1a · Four things a website has to be: giant words slide behind the turning laptop -->
+	<div class="baar" id="wat">
+		<?php foreach ( ace360_baar() as $ace360_i => $ace360_b ) : ?>
+			<section class="ch baar-ch" data-k="<?php echo esc_attr( 'baar' . ( $ace360_i + 1 ) ); ?>" data-screen="<?php echo esc_attr( $ace360_b[6] ); ?>" data-baar="<?php echo (int) $ace360_i; ?>">
+				<div class="wrap">
+					<div class="baar-cap">
+						<p class="kicker"><span class="mono"><?php echo esc_html( sprintf( '%02d / %02d', $ace360_i + 1, count( ace360_baar() ) ) ); ?></span> · <?php ace360_e( ace360_pair( 'A website that works is', 'Een website die werkt is' ) ); ?></p>
+						<h2><?php ace360_e( ace360_pair( ucfirst( strtolower( $ace360_b[0] ) ), ucfirst( strtolower( $ace360_b[2] ) ) ) ); ?></h2>
+						<p class="lede"><?php ace360_e( ace360_pair( $ace360_b[4], $ace360_b[5] ) ); ?></p>
+					</div>
+				</div>
+			</section>
+		<?php endforeach; ?>
+	</div>
 
 	<!-- 1b · Sound familiar? The laptop shows the site the visitor has now -->
 	<section class="ch right pain-ch" id="herkenbaar" data-k="pain" data-screen="old">

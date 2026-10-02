@@ -11,12 +11,12 @@
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <script>
-/* Pick the language and day/night theme before first paint. Language: ?lang= → saved choice → browser language. */
+/* Pick the language and day/night theme before first paint. Language: ?lang= → saved choice → Dutch. */
 (function (d) {
 	var l = null;
 	try { l = new URLSearchParams(location.search).get('lang'); } catch (e) {}
 	if (l !== 'nl' && l !== 'en') { try { l = localStorage.getItem('ace360-lang'); } catch (e) {} }
-	if (l !== 'nl' && l !== 'en') { l = /^nl\b/i.test(navigator.language || '') ? 'nl' : 'en'; }
+	if (l !== 'nl' && l !== 'en') { l = 'nl'; }
 	d.setAttribute('data-lang', l);
 	d.setAttribute('lang', l);
 	d.className = d.className.replace('no-js', 'js');
@@ -65,8 +65,8 @@
 		</nav>
 
 		<div class="lang-switch" role="group" aria-label="Language / Taal">
-			<button type="button" data-set-lang="en" aria-pressed="true">EN</button>
-			<button type="button" data-set-lang="nl" aria-pressed="false">NL</button>
+			<button type="button" data-set-lang="nl" aria-pressed="true">NL</button>
+			<button type="button" data-set-lang="en" aria-pressed="false">EN</button>
 		</div>
 
 		<button class="theme-switch" type="button" data-theme-toggle aria-pressed="false">

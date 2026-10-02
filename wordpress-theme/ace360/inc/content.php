@@ -110,6 +110,20 @@ function ace360_process() {
 }
 
 /**
+ * "-baar": four things a website has to be. Each word slides behind the 3D
+ * laptop, which turns to show it. Dutch plays on "betaalbaar" (payable and
+ * affordable). [ en word, en stem, nl word, nl stem, en line, nl line, screen ]
+ */
+function ace360_baar() {
+	return array(
+		array( 'VISIBLE', 'VIS', 'ZICHTBAAR', 'ZICHT', 'Sharp on every screen, from a 27-inch monitor to a phone with a cracked screen.', 'Scherp op elk scherm, van een 27-inch monitor tot een telefoon met een barst.', 'work-zout' ),
+		array( 'FINDABLE', 'FIND', 'VINDBAAR', 'VIND', 'Built so Google understands what you sell and where, in Dutch and English.', 'Zo gebouwd dat Google snapt wat je verkoopt en waar, in het Nederlands en Engels.', 'search' ),
+		array( 'BOOKABLE', 'BOOK', 'BOEKBAAR', 'BOEK', 'Customers pick a time at 23:00 without having to call you.', 'Klanten kiezen om 23:00 zelf een tijd, zonder jou te hoeven bellen.', 'work-noor' ),
+		array( 'PAYABLE', 'PAY', 'BETAALBAAR', 'BETAAL', 'iDEAL, cards and Apple Pay, paid straight to your account. Affordable too: the price is right on this page.', 'iDEAL, kaart en Apple Pay, direct op je rekening. En betaalbaar: de prijs staat gewoon op deze site.', 'checkout' ),
+	);
+}
+
+/**
  * "Sound familiar?": what a business owner says about their current website.
  * The 3D laptop shows an outdated site while this chapter is on screen.
  */

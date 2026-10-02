@@ -276,7 +276,7 @@
       // 1 · searched for, found first
       g.fillStyle = '#ffffff'; g.fillRect(0, 0, w, h);
       var top = chrome(g, w, 'search · bakery utrecht pre-order', false);
-      var q = 'bakery utrecht pre-order', n = Math.round(seg(t, 0.15, 1.1) * q.length);
+      var q = P.L('bakery utrecht pre-order', 'bakker utrecht bestellen'), n = Math.round(seg(t, 0.15, 1.1) * q.length);
       box(g, 120, top + 34, 620, 50, 25, '#f1f3f4');
       g.beginPath(); g.arc(150, top + 59, 9, 0, Math.PI * 2); g.strokeStyle = '#5d6168'; g.lineWidth = 2.5; g.stroke(); g.beginPath(); g.moveTo(157, top + 66); g.lineTo(164, top + 73); g.stroke();
       txt(g, q.slice(0, n), 176, top + 67, 22, INK, 500);
@@ -302,7 +302,7 @@
       g.drawImage(landC, 0, 0);
       if (t < 2.8) { g.fillStyle = 'rgba(255,255,255,' + (1 - seg(t, 2.5, 2.8)) + ')'; g.fillRect(0, 0, w, h); }
       var live = Math.round(19 + seg(t, 2.6, 4.5) * 4);
-      box(g, w - 210, 56 + 40, 170, 30, 15, 'rgba(17,17,17,0.82)'); circle(g, w - 192, 111, 5, '#2bd17e'); txt(g, live + ' people browsing', w - 180, 116, 13, '#ffffff', 600);
+      box(g, w - 210, 56 + 40, 170, 30, 15, 'rgba(17,17,17,0.82)'); circle(g, w - 192, 111, 5, '#2bd17e'); txt(g, P.L(live + ' people browsing', live + ' mensen kijken nu'), w - 180, 116, 13, '#ffffff', 600);
       if (t < 5.0) { var m2 = seg(t, 2.9, 4.4); cx = lerp(500, 110, m2); cy = lerp(420, 344, m2); click = t - 4.55; }
       else {
         var o = seg(t, 5.0, 5.35);
@@ -371,6 +371,9 @@
     g.drawImage(storyC, rx, ry, rw, rh, 0, 0, SW, SH);
   }
   SCREENS.story = function (g) { storyCompose(g, reduce ? 9.6 : storyClock); };
+  // stills from the same story for the "-baar" words: found in search, paid with iDEAL
+  SCREENS.search = function (g) { storyCompose(g, 2.2); };
+  SCREENS.checkout = function (g) { storyCompose(g, 7.45); };
 
   /* ---------- phone screens (360 × 740) ---------- */
   function paintPhone(g, w, h, key, title) {
@@ -633,24 +636,29 @@
   }
 
   // open notebook: the client's brief on the left page, a wireframe sketch on the right
-  var bookC = mk(1024, 700), bk = bookC.getContext('2d'), HAND = 'italic 500 30px Georgia, "Times New Roman", serif';
+  var bookC = mk(1024, 700), bk = bookC.getContext('2d'), HAND = 'italic 500 30px Georgia, "Times New Roman", serif', bookTex = null;
+  function paintBook() {
   bk.fillStyle = '#fbfaf6'; bk.fillRect(0, 0, 1024, 700);
   bk.fillStyle = 'rgba(80,120,200,0.18)'; for (var ly = 90; ly < 700; ly += 44) { bk.fillRect(30, ly, 452, 2); bk.fillRect(542, ly, 452, 2); }
   bk.fillStyle = 'rgba(214,69,69,0.35)'; bk.fillRect(78, 0, 2, 700);
   var grad = bk.createLinearGradient(452, 0, 572, 0); grad.addColorStop(0, 'rgba(0,0,0,0)'); grad.addColorStop(0.5, 'rgba(0,0,0,0.12)'); grad.addColorStop(1, 'rgba(0,0,0,0)'); bk.fillStyle = grad; bk.fillRect(452, 0, 120, 700);
-  bk.font = 'italic 700 38px Georgia, serif'; bk.fillStyle = '#1d2b4f'; bk.fillText('New website!', 96, 76);
-  ['• online bookings', '• iDEAL payments', '• Dutch + English', '• works on phones', '• I can edit it myself', '• budget ± €2k?'].forEach(function (l, i) { bk.font = HAND; bk.fillStyle = '#24315e'; bk.fillText(l, 96, 128 + i * 44); });
+  bk.font = 'italic 700 38px Georgia, serif'; bk.fillStyle = '#1d2b4f'; bk.fillText(P.L('New website!', 'Nieuwe website!'), 96, 76);
+  (P.isNL() ? ['• online boekingen', '• iDEAL-betalingen', '• Nederlands + Engels', '• werkt op mobiel', '• zelf aanpassen', '• budget ± €2k?'] : ['• online bookings', '• iDEAL payments', '• Dutch + English', '• works on phones', '• I can edit it myself', '• budget ± €2k?']).forEach(function (l, i) { bk.font = HAND; bk.fillStyle = '#24315e'; bk.fillText(l, 96, 128 + i * 44); });
   bk.strokeStyle = OR; bk.lineWidth = 4; bk.beginPath(); bk.ellipse(250, 340, 160, 30, -0.03, 0, Math.PI * 2); bk.stroke();
   bk.strokeStyle = '#24315e'; bk.lineWidth = 3; bk.lineJoin = 'round';
   bk.strokeRect(580, 70, 380, 520); bk.strokeRect(600, 92, 120, 30); bk.strokeRect(840, 92, 100, 30);
   bk.strokeRect(600, 150, 340, 150); bk.beginPath(); bk.moveTo(600, 150); bk.lineTo(940, 300); bk.moveTo(940, 150); bk.lineTo(600, 300); bk.stroke();
   [0, 1, 2].forEach(function (i) { bk.strokeRect(600 + i * 118, 330, 104, 130); });
   bk.fillStyle = 'rgba(255,106,0,0.85)'; bk.fillRect(600, 490, 170, 44);
-  bk.font = 'italic 600 26px Georgia, serif'; bk.fillStyle = '#ffffff'; bk.fillText('Book now', 624, 520);
+  bk.font = 'italic 600 26px Georgia, serif'; bk.fillStyle = '#ffffff'; bk.fillText(P.L('Book now', 'Boek nu'), 624, 520);
+    if (bookTex) bookTex.needsUpdate = true;
+  }
+  paintBook();
   var notebook = new THREE.Group();
   var cover = new THREE.Mesh(new THREE.BoxGeometry(1.62, 0.03, 1.12), new THREE.MeshStandardMaterial({ color: col('#1d2433'), roughness: 0.7 }));
   cover.position.y = 0.015; cover.castShadow = true; cover.receiveShadow = true; notebook.add(cover);
-  var pages = new THREE.Mesh(new THREE.PlaneGeometry(1.56, 1.06), new THREE.MeshStandardMaterial({ map: toTex(bookC), roughness: 0.92 }));
+  bookTex = toTex(bookC);
+  var pages = new THREE.Mesh(new THREE.PlaneGeometry(1.56, 1.06), new THREE.MeshStandardMaterial({ map: bookTex, roughness: 0.92 }));
   pages.rotation.x = -Math.PI / 2; pages.position.y = 0.032; pages.receiveShadow = true; notebook.add(pages);
   var pen = new THREE.Group();
   var penBody = new THREE.Mesh(new THREE.CylinderGeometry(0.022, 0.022, 0.9, 16), orangeMat); penBody.rotation.z = Math.PI / 2; pen.add(penBody);
@@ -696,11 +704,33 @@
   pool.rotation.x = -Math.PI / 2; pool.position.set(L_AIM.x - 0.3, 0.004, L_AIM.z - 0.4);
   scene.add(pool);
 
+
+  /* ---------- halo: a ring of light around the laptop, a beam from above and orbiting pixels ---------- */
+  var halo = new THREE.Group(); halo.position.set(0, 1.15, -0.3); scene.add(halo);
+  var TILT = -0.32;
+  var ringMat = new THREE.MeshBasicMaterial({ color: col(OR), transparent: true, opacity: 0, toneMapped: false, depthWrite: false });
+  var ring = new THREE.Mesh(new THREE.TorusGeometry(2.75, 0.013, 12, 240), ringMat); ring.rotation.x = Math.PI / 2 + TILT; halo.add(ring);
+  var glowMat = new THREE.MeshBasicMaterial({ color: col('#ff9a4a'), transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false });
+  var ringGlow = new THREE.Mesh(new THREE.TorusGeometry(2.75, 0.085, 12, 240), glowMat); ringGlow.rotation.copy(ring.rotation); halo.add(ringGlow);
+  var beamC = mk(64, 256), bmg = beamC.getContext('2d'), bgr = bmg.createLinearGradient(0, 0, 0, 256);
+  bgr.addColorStop(0, 'rgba(255,214,170,0.9)'); bgr.addColorStop(0.55, 'rgba(255,180,120,0.25)'); bgr.addColorStop(1, 'rgba(255,170,110,0)');
+  bmg.fillStyle = bgr; bmg.fillRect(0, 0, 64, 256);
+  var beamMat = new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(beamC), transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide, toneMapped: false });
+  var beam = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 2.3, 7.5, 48, 1, true), beamMat); beam.position.y = 3.9; halo.add(beam);
+  var debrisG = new THREE.Group(); debrisG.rotation.x = TILT; halo.add(debrisG);
+  var debrisMats = [new THREE.MeshStandardMaterial({ color: col('#ffffff'), roughness: 0.4 }), new THREE.MeshStandardMaterial({ color: col(OR), roughness: 0.35, emissive: col('#ff6a00'), emissiveIntensity: 0.2 }), new THREE.MeshStandardMaterial({ color: col('#1c1d21'), roughness: 0.3, metalness: 0.4 })];
+  var debris = [], dr = (function () { var sd = 77; return function () { sd = (sd * 16807) % 2147483647; return (sd - 1) / 2147483646; }; })();
+  for (var di2 = 0; di2 < (mobile ? 26 : 44); di2++) {
+    var sz = 0.025 + dr() * 0.06, dm = new THREE.Mesh(new THREE.BoxGeometry(sz, sz, sz), debrisMats[di2 % 5 === 0 ? 1 : di2 % 9 === 0 ? 2 : 0]);
+    dm.userData = { a: dr() * Math.PI * 2, r: 2.35 + dr() * 1.35, y: (dr() - 0.5) * 0.35, sp: 0.03 + dr() * 0.05, rot: dr() * 3 };
+    dm.castShadow = true; debrisG.add(dm); debris.push(dm);
+  }
+
   /* ---------- sticky notes on the laptop: what the client is fed up with ---------- */
   var STICKY = [
-    { c: '#ffe066', lines: ['Looks old', 'on phones'], p: [-1.05, LIDH + 0.08, 0.05], r: 0.1 },
-    { c: '#ffc078', lines: ['Nobody', 'books online'], p: [0.75, LIDH + 0.1, 0.05], r: -0.08 },
-    { c: '#d0ebff', lines: ['New price =', 'wait a week'], p: [LW / 2 + 0.12, 1.45, 0.05], r: -0.06 }
+    { c: '#ffe066', lines: ['Looks old', 'on phones'], nl: ['Oud op', 'je mobiel'], p: [-1.05, LIDH + 0.08, 0.05], r: 0.1 },
+    { c: '#ffc078', lines: ['Nobody', 'books online'], nl: ['Niemand', 'boekt online'], p: [0.75, LIDH + 0.1, 0.05], r: -0.08 },
+    { c: '#d0ebff', lines: ['New price =', 'wait a week'], nl: ['Nieuwe prijs =', 'week wachten'], p: [LW / 2 + 0.12, 1.45, 0.05], r: -0.06 }
   ];
   var stickyGeo = new THREE.PlaneGeometry(0.5, 0.5);
   var stickies = STICKY.map(function (n) {
@@ -715,7 +745,7 @@
     var g = m.userData.c.getContext('2d'), n = m.userData.n;
     g.fillStyle = n.c; g.fillRect(0, 0, 256, 256);
     var sh = g.createLinearGradient(0, 0, 0, 256); sh.addColorStop(0, 'rgba(0,0,0,0.08)'); sh.addColorStop(0.25, 'rgba(0,0,0,0)'); g.fillStyle = sh; g.fillRect(0, 0, 256, 256);
-    n.lines.forEach(function (l, i) { g.font = 'italic 600 34px Georgia, serif'; g.fillStyle = '#2b2b2b'; g.fillText(l, 22, 104 + i * 46); });
+    (P.isNL() ? n.nl : n.lines).forEach(function (l, i) { g.font = 'italic 600 ' + (P.isNL() ? 30 : 34) + 'px Georgia, serif'; g.fillStyle = '#2b2b2b'; g.fillText(l, 22, 104 + i * 46); });
     if (solved) {
       g.strokeStyle = 'rgba(17,17,17,0.75)'; g.lineWidth = 5; g.beginPath(); g.moveTo(16, 96); g.lineTo(236, 148); g.stroke();
       circle(g, 206, 52, 30, OR); g.strokeStyle = '#ffffff'; g.lineWidth = 7; g.lineCap = 'round'; g.lineJoin = 'round';
@@ -783,10 +813,14 @@
   scene.add(dust);
 
   /* ---------- keyframes ---------- */
-  var BASE = { cx: -3.2, cy: 2.5, cz: 6.4, tx: 0.2, ty: 0.95, tz: -0.4, side: 1, lid: 1, fly: 0, gather: 0, paper: 0, lay: 0, phone: 0, nophone: 0, explode: 0, glow: 0.7, orbit: 0, dust: 0.5, keyI: 1.3, hemiI: 0.6, notes: 0, solved: 0, notify: 0, steam: 1, phoneL: 0 };
+  var BASE = { cx: -3.2, cy: 2.5, cz: 6.4, tx: 0.2, ty: 0.95, tz: -0.4, side: 1, lid: 1, fly: 0, gather: 0, paper: 0, lay: 0, phone: 0, nophone: 0, explode: 0, glow: 0.7, orbit: 0, dust: 0.5, keyI: 1.3, hemiI: 0.6, notes: 0, solved: 0, notify: 0, steam: 1, phoneL: 0, spin: 0, halo: 0, props: 1 };
   var SEQ = [
-    ['hero', {}],
-    ['pain', { side: -1, cx: -1.1, cy: 2.3, cz: 6.6, tx: -0.7, ty: 1.15, tz: -0.1, notes: 1, phone: 1, phoneL: 1, glow: 0.3, dust: 0.3, keyI: 1.1 }],
+    ['hero', { halo: 0.55 }],
+    ['baar1', { props: 0, side: 0, cx: 0.0, cy: 2.0, cz: 7.6, tx: 0, ty: 1.15, tz: -0.3, phone: 1, spin: 0, halo: 1, glow: 1, dust: 0.5 }],
+    ['baar2', { props: 0, side: 0, cx: -0.4, cy: 2.3, cz: 7.2, tx: 0, ty: 1.1, tz: -0.3, phone: 0, spin: Math.PI * 2, halo: 1 }],
+    ['baar3', { props: 0, side: 0, cx: 0.4, cy: 1.8, cz: 7.4, tx: 0, ty: 1.15, tz: -0.3, phone: 0, spin: Math.PI * 2 + 0.0001, halo: 1 }],
+    ['baar4', { props: 0, side: 0, cx: 0.0, cy: 2.1, cz: 7.0, tx: 0, ty: 1.1, tz: -0.3, phone: 0, spin: Math.PI * 4, halo: 1, glow: 1.2 }],
+    ['pain', { halo: 0, props: 1, side: -1, cx: -1.1, cy: 2.3, cz: 6.6, tx: -0.7, ty: 1.15, tz: -0.1, notes: 1, phone: 1, phoneL: 1, glow: 0.3, dust: 0.3, keyI: 1.1 }],
     ['fix', { side: 1, cx: 3.4, cy: 2.4, cz: 6.4, tx: 1.1, ty: 1.2, tz: 0.1, phoneL: 0, notes: 1, solved: 1, phone: 1, notify: 1, glow: 1.25, dust: 0.6, keyI: 1.3 }],
     ['services', { side: -1, cx: 3.9, cy: 3.4, cz: 6.6, tx: -0.3, ty: 1.2, tz: -0.2, fly: 1, orbit: 1, notes: 0, notify: 0, phone: 0, glow: 0.7, dust: 0.5 }],
     ['quote', { side: 1, cx: 4.6, cy: 2.8, cz: 5.6, tx: 1.9, ty: 1.0, tz: 0.1, fly: 1, gather: 1, paper: 1, orbit: 0, nophone: 1 }],
@@ -923,6 +957,14 @@
       notes.forEach(function (m) { m.material.map.dispose(); m.material.map = paintNote(NOTES[m.userData.i]); m.material.needsUpdate = true; });
     });
   }
+  // the language switch repaints every Ace screen, the notes, notifications and notebook
+  document.addEventListener('ace360:lang', function () {
+    paintLanding(); paintBook();
+    stickies.forEach(function (m) { paintSticky(m, !!m.userData.solved); });
+    notes.forEach(function (m) { m.material.map.dispose(); m.material.map = paintNote(NOTES[m.userData.i]); m.material.needsUpdate = true; });
+    var p = current.split('|');
+    if (!p[1]) { window.gsap && window.gsap.killTweensOf(wipe); wipe.v = 1; paintScreen(p[0], p[2]); }
+  });
   // product photos arrive after page load: repaint whatever is on the laptop and phone now
   P.onPhotos(function () {
     var p = current.split('|');
@@ -948,10 +990,9 @@
     fill.intensity = 0.3 * (1 - nt * 0.7);
     envMats.forEach(function (m) { m.envMapIntensity = m.userData.env * (1 - nt * 0.8); });
     cards.forEach(function (c) { c.material.emissiveIntensity = 0.06 + nt * 0.32; });
-    lampLight.intensity = nt * 3.2;
+    // lamp light and its pool are set every frame (they also follow the props fade)
     shadeInMat.emissiveIntensity = nt * 1.4;
     bulbMat.color.setRGB(1, 0.96 - (1 - nt) * 0.1, 0.9 - (1 - nt) * 0.2);
-    pool.material.opacity = nt;
     floor.material.opacity = 0.13 + nt * 0.3;
     dustMat.color.copy(DUST_DAY).lerp(DUST_NIGHT, nt);
     dustMat.size = 0.035 + nt * 0.03;
@@ -1056,9 +1097,11 @@
     }
     camera.position.set(cx + ptr.sx * 0.5, S.cy - ptr.sy * 0.3 + (1 - iv) * 1.2, cz + (1 - iv) * 2.5);
     target.set(S.tx, S.ty, S.tz);
+    // on phones the centred "-baar" shots pull back so the whole laptop and the word fit
+    if (mobile) { var pull = 1 + 0.55 * (1 - Math.min(1, Math.abs(S.side))); camera.position.sub(target).multiplyScalar(pull).add(target); }
     camera.lookAt(target);
     if (W >= 800) camera.setViewOffset(W, H, -W * 0.2 * S.side, 0, W, H);
-    else camera.setViewOffset(W, H, 0, H * 0.24, W, H);
+    else camera.setViewOffset(W, H, 0, H * (0.24 * Math.min(1, Math.abs(S.side)) + 0.06 * (1 - Math.min(1, Math.abs(S.side)))), W, H);
     camera.updateMatrixWorld();
     hoverTest();
 
@@ -1067,6 +1110,7 @@
     lidG.rotation.x = 1.52 * (1 - lid) - 0.3 * lid;
     screenMat.color.setScalar(Math.max(0.03, bright.v * (0.25 + 0.75 * lid)));
     laptop.position.y = hv.laptop * 0.05;
+    laptop.rotation.y = S.spin;
 
     // the hero story plays on the laptop while it is the current screen
     if (current.indexOf('story|') === 0 && wipe.v >= 1 && lid > 0.3 && !reduce) {
@@ -1135,14 +1179,35 @@
       c.visible = sc > 0.01;
     });
 
+    // halo, beam and orbiting pixels
+    var hl = c01(S.halo), ntH = night.v;
+    halo.visible = hl > 0.01;
+    if (halo.visible) {
+      ringMat.opacity = hl * 0.85;
+      glowMat.opacity = hl * (0.1 + ntH * 0.45);
+      beamMat.opacity = hl * (0.04 + ntH * 0.3);
+      ring.rotation.z = ringGlow.rotation.z = t * 0.05;
+      debrisG.rotation.y = t * 0.035;
+      debris.forEach(function (d, i) {
+        var u = d.userData, k = sm(c01(hl * 1.4 - (i % 10) * 0.04)), a = u.a + t * u.sp;
+        d.position.set(Math.cos(a) * u.r, u.y + Math.sin(t * 0.7 + i) * 0.05, Math.sin(a) * u.r);
+        d.rotation.set(t * 0.4 + u.rot, t * 0.3 + u.rot, 0);
+        d.scale.setScalar(Math.max(0.001, k));
+      });
+    }
+
     // mug, steam and notebook
+    // the desk props step aside when the laptop takes centre stage
+    var pr = sm(c01(S.props));
+    [mug, notebook, lamp].forEach(function (o, i) { var k = sm(c01(pr * 1.3 - i * 0.12)); o.scale.setScalar(Math.max(0.001, k)); o.visible = k > 0.01; });
+    lampLight.intensity = night.v * 3.2 * pr; pool.material.opacity = night.v * pr;
     mug.position.y = hv.mug * 0.08;
     notebook.position.y = hv.notebook * 0.05;
     steam.forEach(function (sp) {
       var u = sp.userData, life = ((reduce ? 0.5 : t * 0.2) + u.o) % 1;
       sp.position.set(mug.position.x + Math.sin(t * 0.9 + u.s) * 0.08 * (0.2 + life), mug.position.y + 0.5 + life * 1.15, mug.position.z + Math.cos(t * 0.7 + u.s) * 0.06 * (0.2 + life));
       var ss = 0.16 + life * 0.55; sp.scale.set(ss, ss, 1);
-      sp.material.opacity = Math.sin(life * Math.PI) * 0.42 * S.steam;
+      sp.material.opacity = Math.sin(life * Math.PI) * 0.42 * S.steam * pr;
     });
 
     // sticky notes: pop onto the lid, get ticked off once the new site is live
