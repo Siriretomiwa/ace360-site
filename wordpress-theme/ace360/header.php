@@ -64,7 +64,7 @@
 			<button type="button" data-set-lang="nl" aria-pressed="false">NL</button>
 		</div>
 
-		<a class="btn btn-small" href="<?php echo esc_url( ace360_tel() ); ?>"><?php ace360_e( ace360_pair( 'Call now', 'Bel nu' ) ); ?></a>
+		<a class="btn btn-orange btn-small" href="<?php echo esc_url( ace360_tel() ); ?>"><?php ace360_e( ace360_pair( 'Call now', 'Bel nu' ) ); ?></a>
 
 		<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
 			<span class="screen-reader-text">Menu</span>
@@ -72,4 +72,4 @@
 		</button>
 	</div>
 </header>
-<a class="btn fab-call" href="<?php echo esc_url( ace360_tel() ); ?>"><?php ace360_e( ace360_pair( 'Call now', 'Bel nu' ) ); ?></a>
+<a class="btn btn-orange fab-call" href="<?php echo esc_url( ace360_tel() ); ?>"><?php ace360_e( ace360_pair( 'Call now', 'Bel nu' ) ); ?></a>

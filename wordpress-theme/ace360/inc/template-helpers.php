@@ -54,6 +54,21 @@ function ace360_t( $pair ) {
 }
 
 /**
+ * Bilingual text where *words* get the orange highlight.
+ *
+ * @param array $pair Pair.
+ * @return string Safe HTML.
+ */
+function ace360_hl( $pair ) {
+	$out = array();
+	foreach ( array( 'en', 'nl' ) as $l ) {
+		$html      = preg_replace( '/\*(.+?)\*/', '<em class="hl">$1</em>', esc_html( $pair[ $l ] ) );
+		$out[ $l ] = '<span data-l="' . $l . '" lang="' . $l . '">' . $html . '</span>';
+	}
+	return $out['en'] . $out['nl'];
+}
+
+/**
  * Echo bilingual text.
  *
  * @param array|string $pair Pair or string.

@@ -1,7 +1,6 @@
 /**
- * ace360 page script: EN/NL switch, price estimator, Lenis smooth scroll,
- * the sticky Work chapter, reveals and navigation.
- * All content is readable without this file.
+ * Ace 360 page script: EN/NL switch, self-quote calculator, 3D hero tilt,
+ * Lenis smooth scroll, reveals and navigation. All content works without it.
  */
 (function () {
   'use strict';
@@ -9,6 +8,7 @@
   var root = document.documentElement;
   var body = document.body;
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = window.matchMedia('(pointer: fine)').matches;
   var gsap = window.gsap;
   var ScrollTrigger = window.ScrollTrigger;
   var hasGsap = !!(gsap && ScrollTrigger);
@@ -17,7 +17,7 @@
   if (hasGsap) gsap.registerPlugin(ScrollTrigger);
   function lang() { return root.getAttribute('data-lang') === 'nl' ? 'nl' : 'en'; }
 
-  /* ---------- Language switch ---------- */
+  /* ---------- Language ---------- */
   var langField = document.querySelector('[data-lang-field]');
   function applyLang(l, save) {
     root.setAttribute('data-lang', l);
@@ -37,7 +37,7 @@
 
   /* ---------- Smooth scroll ---------- */
   if (!reduced && typeof window.Lenis === 'function') {
-    lenis = new window.Lenis({ lerp: 0.09, smoothWheel: true });
+    lenis = new window.Lenis({ lerp: 0.1, smoothWheel: true });
     if (hasGsap) {
       lenis.on('scroll', ScrollTrigger.update);
       gsap.ticker.add(function (time) { lenis.raf(time * 1000); });
@@ -47,15 +47,11 @@
       requestAnimationFrame(raf);
     }
   }
-  function scrollToY(y) {
-    if (lenis) lenis.scrollTo(y, { duration: 1.5 });
-    else window.scrollTo({ top: y, behavior: reduced ? 'auto' : 'smooth' });
-  }
+  function headerH() { var h = document.querySelector('[data-header]'); return h ? h.offsetHeight : 0; }
   function scrollToEl(target) {
-    var y = target.id === 'top' ? 0 : target.getBoundingClientRect().top + window.scrollY;
-    var h = target.offsetHeight, vh = window.innerHeight;
-    if (target.classList.contains('ch') && !target.classList.contains('tall') && h <= vh * 1.3) y += (h - vh) / 2;
-    scrollToY(Math.max(0, y));
+    var y = target.id === 'top' ? 0 : target.getBoundingClientRect().top + window.scrollY - headerH() + 1;
+    if (lenis) lenis.scrollTo(Math.max(0, y), { duration: 1.4 });
+    else window.scrollTo({ top: Math.max(0, y), behavior: reduced ? 'auto' : 'smooth' });
   }
   document.addEventListener('click', function (e) {
     var link = e.target.closest('a[href*="#"]');
@@ -78,8 +74,8 @@
     var max = document.documentElement.scrollHeight - window.innerHeight;
     if (bar) bar.style.transform = 'scaleX(' + (max > 0 ? y / max : 0) + ')';
     if (header) {
-      header.classList.toggle('is-scrolled', y > 10);
-      header.classList.toggle('is-hidden', y > 500 && y > lastY + 2 && !body.classList.contains('nav-open'));
+      header.classList.toggle('is-scrolled', y > 8);
+      header.classList.toggle('is-hidden', y > 600 && y > lastY + 2 && !body.classList.contains('nav-open'));
     }
     lastY = y;
   }
@@ -104,73 +100,154 @@
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeNav(); });
   }
 
-  /* ---------- Price estimator ---------- */
-  var est = document.querySelector('[data-estimator]');
+  /* ---------- Self-quote ---------- */
+  var quote = document.querySelector('[data-quote]');
   var estField = document.querySelector('[data-estimate-field]');
   var estChip = document.querySelector('[data-estimate-chip]');
-  var lastEstimate = null;
+  var estChipText = document.querySelector('[data-estimate-chip-text]');
+  var last = null;
+
   function money(n, l) {
-    var s = new Intl.NumberFormat(l === 'nl' ? 'nl-NL' : 'en-GB', { maximumFractionDigits: 0 }).format(n);
+    var s = new Intl.NumberFormat(l === 'nl' ? 'nl-NL' : 'en-GB', { maximumFractionDigits: 0 }).format(Math.round(n));
     return l === 'nl' ? '€ ' + s : '€' + s;
   }
-  function weeksText(w, l) {
-    if (l === 'nl') return w === 1 ? '1 week' : w + ' weken';
-    return w === 1 ? '1 week' : w + ' weeks';
+  function round10(n) { return Math.round(n / 10) * 10; }
+  function weeksText(a, b, l) {
+    if (b <= 0) return l === 'nl' ? 'Direct' : 'Right away';
+    var r = a === b ? String(a) : a + '–' + b;
+    return r + (l === 'nl' ? (b === 1 ? ' week' : ' weken') : (b === 1 ? ' week' : ' weeks'));
   }
-  function describe(r, l) {
-    var range = r.max ? money(r.min, l) + ' – ' + money(r.max, l) : (l === 'nl' ? 'Vanaf ' : 'From ') + money(r.min, l);
-    var meta = r.max
-      ? (l === 'nl' ? 'Live in ongeveer ' : 'Launch in about ') + weeksText(r.weeks, l)
-      : (l === 'nl' ? 'Lanceerdatum volgt in de offerte' : 'Launch date set in the quote');
-    meta += l === 'nl' ? ' · excl. btw' : ' · excl. VAT';
-    if (r.care) meta += l === 'nl' ? ' · + ' + money(r.care, l) + ' per maand onderhoud' : ' · + ' + money(r.care, l) + '/month care';
-    return { range: range, meta: meta };
-  }
-  if (est) {
-    var cfg;
-    try { cfg = JSON.parse(est.getAttribute('data-estimator')); } catch (e) { cfg = null; }
-    if (cfg && cfg.types && cfg.types.length) {
-      var outRange = est.querySelector('[data-est-range]');
-      var outMeta = est.querySelector('[data-est-meta]');
-      var calc = function () {
-        var checked = est.querySelector('input[name="est_type"]:checked');
-        var type = cfg.types.filter(function (t) { return checked && t.id === checked.value; })[0] || cfg.types[0];
-        var picked = Array.prototype.map.call(est.querySelectorAll('input[name="est_extra"]:checked'), function (i) { return i.value; });
-        var extras = cfg.extras.filter(function (x) { return picked.indexOf(x.id) !== -1; });
-        var care = est.querySelector('#est_care');
-        var r = { type: type, extras: extras, min: type.min, max: type.max, weeks: type.weeks, care: care && care.checked ? cfg.care : 0 };
-        extras.forEach(function (x) { r.min += x.min; if (r.max) r.max += x.max; r.weeks += x.weeks; });
-        return r;
-      };
-      var renderChip = function () {
-        if (!lastEstimate || !estChip) return;
-        var l = lang();
-        var names = [lastEstimate.type[l]].concat(lastEstimate.extras.map(function (x) { return x[l]; }));
-        estChip.textContent = (l === 'nl' ? 'Indicatie: ' : 'Estimate: ') + names.join(', ') + ' — ' + describe(lastEstimate, l).range;
-      };
-      var render = function () {
-        lastEstimate = calc();
-        var d = describe(lastEstimate, lang());
-        outRange.textContent = d.range;
-        outMeta.textContent = d.meta;
-        if (estChip && !estChip.hidden) renderChip();
-      };
-      est.addEventListener('change', render);
-      document.addEventListener('ace360:lang', render);
-      render();
 
-      var send = est.querySelector('[data-est-send]');
+  if (quote) {
+    var cfg = null;
+    try { cfg = JSON.parse(quote.getAttribute('data-quote')); } catch (e) {}
+    if (cfg && cfg.types) {
+      var out = {
+        range: quote.querySelector('[data-q-range]'),
+        weeks: quote.querySelector('[data-q-weeks]'),
+        care: quote.querySelector('[data-q-care]'),
+        lines: quote.querySelector('[data-q-lines]'),
+        pagesOut: quote.querySelector('[data-q-pages-out]')
+      };
+      var pagesStep = quote.querySelector('[data-q-pages]');
+      var designStep = quote.querySelector('[data-q-design]');
+      var range = quote.querySelector('#q_pages');
+      var shown = { lo: 0, hi: 0 };
+
+      var find = function (list, id) { return list.filter(function (x) { return x.id === id; })[0]; };
+      var calc = function () {
+        var type = find(cfg.types, (quote.querySelector('input[name="q_type"]:checked') || {}).value) || cfg.types[0];
+        var design = find(cfg.design, (quote.querySelector('input[name="q_design"]:checked') || {}).value) || cfg.design[0];
+        var pages = type.pages ? parseInt(range.value, 10) : type.incl;
+        var lines = [];
+        var lo = type.base[0], hi = type.base[1];
+        lines.push({ label: type['label_' + lang()] + (type.pages ? ' · ' + pages + (lang() === 'nl' ? ' pagina’s' : ' pages') : ''), lo: type.base[0], hi: type.base[1] });
+        if (type.pages && pages > type.incl) {
+          var extra = pages - type.incl;
+          lo += extra * type.perPage[0]; hi += extra * type.perPage[1];
+          lines.push({ label: (lang() === 'nl' ? 'Extra pagina’s × ' : 'Extra pages × ') + extra, lo: extra * type.perPage[0], hi: extra * type.perPage[1] });
+        }
+        var siteType = type.id !== 'care';
+        if (siteType && design.pct) {
+          var dlo = type.base[0] * design.pct / 100, dhi = type.base[1] * design.pct / 100;
+          lo += dlo; hi += dhi;
+          lines.push({ label: design['label_' + lang()], lo: dlo, hi: dhi });
+        }
+        var extrasOn = Array.prototype.map.call(quote.querySelectorAll('input[name="q_extra"]:checked'), function (i) { return i.value; });
+        cfg.extras.forEach(function (x) {
+          if (extrasOn.indexOf(x.id) === -1) return;
+          if (x.only && x.only.indexOf(type.id) === -1) return;
+          lo += x.price[0]; hi += x.price[1];
+          lines.push({ label: x['label_' + lang()], lo: x.price[0], hi: x.price[1] });
+        });
+        var w0 = type.weeks[0], w1 = type.weeks[1];
+        if (type.pages && pages > 12) { w0 += 1; w1 += 1; }
+        if (extrasOn.indexOf('brand') !== -1 && siteType) { w0 += 1; w1 += 1; }
+        if (extrasOn.indexOf('motion') !== -1 && siteType) { w1 += 1; }
+        var rush = quote.querySelector('#q_rush').checked && siteType;
+        if (rush) {
+          var rlo = lo * (cfg.rush.factor - 1), rhi = hi * (cfg.rush.factor - 1);
+          lo += rlo; hi += rhi;
+          w0 = Math.max(1, w0 - cfg.rush.weeks); w1 = Math.max(1, w1 - cfg.rush.weeks);
+          lines.push({ label: lang() === 'nl' ? 'Spoed' : 'Rush', lo: rlo, hi: rhi });
+        }
+        var care = quote.querySelector('#q_care').checked || type.id === 'care';
+        var vat = quote.querySelector('#q_vat').checked ? 1 + cfg.vat / 100 : 1;
+        return { type: type, pages: pages, lo: round10(lo * vat), hi: round10(hi * vat), w0: w0, w1: w1, care: care, vat: vat > 1, lines: lines, mult: vat };
+      };
+
+      var render = function (animate) {
+        var r = calc();
+        last = r;
+        var l = lang();
+        // dependent controls
+        pagesStep.disabled = !r.type.pages;
+        designStep.disabled = r.type.id === 'care';
+        quote.querySelectorAll('[data-only]').forEach(function (el) {
+          var ok = el.getAttribute('data-only').split(' ').indexOf(r.type.id) !== -1;
+          el.hidden = !ok;
+        });
+        if (out.pagesOut) out.pagesOut.textContent = r.type.pages ? r.pages : r.type.incl || '—';
+        range.style.setProperty('--p', ((range.value - range.min) / (range.max - range.min) * 100) + '%');
+        // numbers
+        var set = function () {
+          out.range.textContent = money(shown.lo, l) + ' – ' + money(shown.hi, l);
+        };
+        if (animate && hasGsap && !reduced) {
+          gsap.to(shown, { lo: r.lo, hi: r.hi, duration: 0.6, ease: 'power3.out', onUpdate: set, overwrite: true });
+        } else {
+          shown.lo = r.lo; shown.hi = r.hi; set();
+        }
+        out.weeks.textContent = weeksText(r.w0, r.w1, l);
+        out.care.textContent = r.care ? money(cfg.care * (r.vat ? 1 + cfg.vat / 100 : 1), l) + (l === 'nl' ? ' /mnd' : ' /mo') : (l === 'nl' ? 'Geen' : 'None');
+        out.lines.innerHTML = '';
+        r.lines.forEach(function (line) {
+          var li = document.createElement('li');
+          var a = document.createElement('span'); a.textContent = line.label;
+          var b = document.createElement('span'); b.textContent = '+' + money(round10(line.lo * r.mult), l);
+          li.appendChild(a); li.appendChild(b);
+          out.lines.appendChild(li);
+        });
+        if (estChip && !estChip.hidden) chip();
+      };
+
+      var summary = function (r, l) {
+        var parts = r.lines.map(function (x) { return x.label; });
+        return parts.join(', ') + ' — ' + money(r.lo, l) + '–' + money(r.hi, l) + (r.vat ? (l === 'nl' ? ' incl. btw' : ' incl. VAT') : (l === 'nl' ? ' excl. btw' : ' excl. VAT')) + ', ' + weeksText(r.w0, r.w1, l) + (r.care ? (l === 'nl' ? ', met onderhoud' : ', with care plan') : '');
+      };
+      var chip = function () { if (estChipText && last) estChipText.textContent = summary(last, lang()); };
+
+      quote.addEventListener('input', function () { render(true); });
+      quote.addEventListener('change', function () { render(true); });
+      document.addEventListener('ace360:lang', function () { render(false); });
+      render(false);
+
+      // service cards preselect a project type
+      document.querySelectorAll('[data-pick-type]').forEach(function (a) {
+        a.addEventListener('click', function () {
+          var input = quote.querySelector('#q_type_' + a.getAttribute('data-pick-type'));
+          if (input) { input.checked = true; render(true); }
+        });
+      });
+
+      var send = quote.querySelector('[data-q-send]');
       if (send) {
         send.addEventListener('click', function () {
-          var r = lastEstimate;
-          var names = [r.type.en].concat(r.extras.map(function (x) { return x.en; }));
-          if (estField) estField.value = names.join(', ') + ' — ' + describe(r, 'en').range + (r.care ? ' + care plan' : '');
-          if (estChip) { estChip.hidden = false; renderChip(); }
-          var need = document.querySelector('input[name="ace360_need"][value="' + (r.type.id === 'store' ? 'Online store' : 'Website') + '"]');
+          var r = last;
+          if (estField) {
+            // the email always gets the English line, whatever the visitor's language
+            var saved = root.getAttribute('data-lang');
+            root.setAttribute('data-lang', 'en');
+            estField.value = summary(calc(), 'en');
+            root.setAttribute('data-lang', saved);
+          }
+          if (estChip) { estChip.hidden = false; chip(); }
+          var needVal = r.type.id === 'store' ? 'Online store' : r.type.id === 'care' ? 'Maintenance' : 'Website';
+          var need = document.querySelector('input[name="ace360_need"][value="' + needVal + '"]');
           if (need) need.checked = true;
           var contact = document.getElementById('contact');
           if (contact) scrollToEl(contact);
-          setTimeout(function () { var m = document.getElementById('ace360_message'); if (m) m.focus({ preventScroll: true }); }, 1300);
+          setTimeout(function () { var n = document.getElementById('ace360_name'); if (n) n.focus({ preventScroll: true }); }, 1400);
         });
       }
     }
@@ -184,63 +261,56 @@
       var note = form.querySelector('[data-form-preview]');
       if (note) {
         note.textContent = lang() === 'nl'
-          ? 'Alleen voorbeeld: in WordPress mailt dit formulier de aanvraag naar het e-mailadres uit de Customizer.'
-          : 'Preview only: in WordPress this form emails the enquiry to the address set in the Customizer.';
+          ? 'Alleen voorbeeld: in WordPress mailt dit formulier de aanvraag naar ' + 'info@ace360services.nl.'
+          : 'Preview only: in WordPress this form emails the enquiry to info@ace360services.nl.';
         note.hidden = false;
+        note.scrollIntoView({ block: 'nearest' });
       }
     });
   }
 
-  if (!hasGsap) return;
-
-  /* ---------- Work: sticky chapter cycles its projects ---------- */
-  document.querySelectorAll('.ch.tall').forEach(function (ch) {
-    var items = ch.querySelectorAll('.item');
-    var dots = ch.querySelectorAll('[data-go]');
-    var count = ch.querySelector('[data-count]');
-    var n = items.length;
-    var idx = -1;
-    function progress() {
-      var top = ch.getBoundingClientRect().top + window.scrollY;
-      var range = Math.max(1, ch.offsetHeight - window.innerHeight);
-      return Math.min(1, Math.max(0, (window.scrollY - top) / range));
+  /* ---------- Hero: 3D stack follows the pointer ---------- */
+  var stage = document.querySelector('[data-stage]');
+  var inner = document.querySelector('[data-stage-inner]');
+  if (stage && inner && !reduced && hasGsap) {
+    var rx = gsap.quickTo(inner, '--rx', { duration: 0.9, ease: 'power3' });
+    var ry = gsap.quickTo(inner, '--ry', { duration: 0.9, ease: 'power3' });
+    gsap.set(inner, { '--rx': 9, '--ry': -16 });
+    if (finePointer) {
+      window.addEventListener('pointermove', function (e) {
+        var x = e.clientX / window.innerWidth - 0.5, y = e.clientY / window.innerHeight - 0.5;
+        ry(-16 + x * 14); rx(9 - y * 10);
+      }, { passive: true });
     }
-    function activate(i) {
-      if (i === idx) return;
-      idx = i;
-      items.forEach(function (it, j) { it.classList.toggle('is-on', j === i); });
-      dots.forEach(function (d, j) { d.classList.toggle('on', j === i); });
-      if (count) count.textContent = (i + 1) + ' / ' + n;
-    }
-    ScrollTrigger.create({
-      trigger: ch, start: 'top bottom', end: 'bottom top',
-      onUpdate: function () { activate(Math.min(n - 1, Math.floor(progress() * n * 0.999))); }
-    });
-    dots.forEach(function (d) {
-      d.addEventListener('click', function () {
-        var i = parseInt(d.dataset.go, 10);
-        var top = ch.getBoundingClientRect().top + window.scrollY;
-        scrollToY(top + (ch.offsetHeight - window.innerHeight) * ((i + 0.5) / n));
-      });
-    });
-  });
+    gsap.from('.stage-win', { y: 80, z: -200, opacity: 0, duration: 1.4, ease: 'expo.out', stagger: 0.15, delay: 0.2 });
+    gsap.from('.stage-chip', { scale: 0.6, opacity: 0, duration: 0.8, ease: 'back.out(2)', stagger: 0.15, delay: 1 });
+    if (document.querySelector('.stage-win.w2')) gsap.to('.stage-win.w1', { yPercent: -10, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+    if (document.querySelector('.stage-win.w2')) gsap.to('.stage-win.w2', { yPercent: 12, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+  }
 
-  if (reduced) return;
+  /* ---------- Work windows scroll by themselves on touch screens ---------- */
+  if (!finePointer && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { e.target.classList.toggle('is-scrolling', e.isIntersecting && e.intersectionRatio > 0.6); });
+    }, { threshold: [0, 0.6] });
+    document.querySelectorAll('.hoverscroll').forEach(function (el) { io.observe(el); });
+  }
+
+  if (!hasGsap || reduced) return;
 
   /* ---------- Reveals ---------- */
-  gsap.timeline({ delay: 0.35 })
-    .from('.hero .kicker, .hero-title, .hero .body, .hero .actions, .hero .checks li', { y: 24, opacity: 0, duration: 1, ease: 'power3.out', stagger: 0.07 })
-    .from('.header-inner', { y: -14, opacity: 0, duration: 0.9, ease: 'power3.out', clearProps: 'transform,opacity' }, 0.1);
+  var hl = document.querySelectorAll('.hero-title .hl');
+  gsap.timeline({ delay: 0.15 })
+    .from('.hero .kicker, .hero-title, .hero .lede, .hero .actions, .hero .checks li', { y: 22, opacity: 0, duration: 0.9, ease: 'power3.out', stagger: 0.06 })
+    .fromTo(hl, { '--u': 0 }, { '--u': 1, duration: 0.9, ease: 'power3.inOut' }, 0.6);
 
-  document.querySelectorAll('.ch:not(.hero):not(.tall):not(.contact) .copy, .band-head, .contact .copy').forEach(function (copy) {
-    var kids = copy.querySelectorAll(':scope > *');
-    gsap.from(kids, {
-      y: 26, opacity: 0, duration: 0.9, ease: 'power3.out', stagger: 0.05,
-      scrollTrigger: { trigger: copy, start: 'top 82%', once: true }
-    });
+  document.querySelectorAll('.sec-head').forEach(function (h) {
+    gsap.from(h.children, { y: 24, opacity: 0, duration: 0.85, ease: 'power3.out', stagger: 0.07, scrollTrigger: { trigger: h, start: 'top 85%', once: true } });
   });
-  document.querySelectorAll('.faq details, .contact-form, .ch.tall .copy').forEach(function (el) {
-    gsap.from(el, { y: 24, opacity: 0, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 90%', once: true } });
+  ScrollTrigger.batch('.service, .work-item, .faq details, .contact-form, .direct, .quote-opts, .quote-result, .steps .step', {
+    start: 'top 90%',
+    once: true,
+    onEnter: function (els) { gsap.from(els, { y: 30, opacity: 0, duration: 0.85, ease: 'power3.out', stagger: 0.08 }); }
   });
 
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { ScrollTrigger.refresh(); });

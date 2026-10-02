@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'ACE360_VERSION', '3.0.0' );
+define( 'ACE360_VERSION', '4.0.0' );
 
 require get_template_directory() . '/inc/template-helpers.php';
 require get_template_directory() . '/inc/content.php';
@@ -60,11 +60,10 @@ function ace360_assets() {
 
 	$deps = array( 'gsap', 'gsap-scrolltrigger', 'lenis' );
 
-	// The 3D film only exists on the front page, so three.js only loads there.
+	// The demo film only exists on the front page.
 	if ( is_front_page() ) {
-		wp_enqueue_script( 'three', $uri . '/vendor/three.min.js', array(), '0.149.0', true );
-		wp_enqueue_script( 'ace360-film', $uri . '/js/film.js', array( 'three', 'gsap', 'gsap-scrolltrigger' ), ACE360_VERSION, true );
-		$deps[] = 'ace360-film';
+		wp_enqueue_script( 'ace360-demo', $uri . '/js/demo.js', array( 'gsap', 'gsap-scrolltrigger' ), ACE360_VERSION, true );
+		$deps[] = 'ace360-demo';
 	}
 
 	wp_enqueue_script( 'ace360-main', $uri . '/js/main.js', $deps, ACE360_VERSION, true );
@@ -79,7 +78,7 @@ add_action( 'wp_enqueue_scripts', 'ace360_assets' );
  * @return string
  */
 function ace360_defer_scripts( $tag, $handle ) {
-	$handles = array( 'gsap', 'gsap-scrolltrigger', 'lenis', 'three', 'ace360-film', 'ace360-main' );
+	$handles = array( 'gsap', 'gsap-scrolltrigger', 'lenis', 'ace360-demo', 'ace360-main' );
 	if ( in_array( $handle, $handles, true ) && false === strpos( $tag, ' defer' ) ) {
 		$tag = str_replace( ' src=', ' defer src=', $tag );
 	}
@@ -123,54 +122,67 @@ function ace360_register_projects() {
 add_action( 'init', 'ace360_register_projects' );
 
 /**
- * Project meta: a short "type" label (Webshop, Portfolio...).
+ * Project meta: a short "type" label and the live site URL.
  */
 function ace360_register_project_meta() {
-	register_post_meta(
-		'ace_project',
-		'ace360_project_type',
-		array(
-			'type'              => 'string',
-			'single'            => true,
-			'show_in_rest'      => true,
-			'sanitize_callback' => 'sanitize_text_field',
-			'auth_callback'     => function () {
-				return current_user_can( 'edit_posts' );
-			},
-		)
+	$fields = array(
+		'ace360_project_type' => 'sanitize_text_field',
+		'ace360_project_url'  => 'esc_url_raw',
 	);
+	foreach ( $fields as $key => $sanitize ) {
+		register_post_meta(
+			'ace_project',
+			$key,
+			array(
+				'type'              => 'string',
+				'single'            => true,
+				'show_in_rest'      => true,
+				'sanitize_callback' => $sanitize,
+				'auth_callback'     => function () {
+					return current_user_can( 'edit_posts' );
+				},
+			)
+		);
+	}
 }
 add_action( 'init', 'ace360_register_project_meta' );
 
 /**
- * Meta box for the project type (works in both editors).
+ * Meta box for the project details (works in both editors).
  */
 function ace360_project_meta_box() {
-	add_meta_box( 'ace360_project_type', __( 'Project type', 'ace360' ), 'ace360_project_meta_box_html', 'ace_project', 'side' );
+	add_meta_box( 'ace360_project_details', __( 'Project details', 'ace360' ), 'ace360_project_meta_box_html', 'ace_project', 'side' );
 }
 add_action( 'add_meta_boxes', 'ace360_project_meta_box' );
 
 /**
- * Render the project type field.
+ * Render the project fields.
  *
  * @param WP_Post $post Current post.
  */
 function ace360_project_meta_box_html( $post ) {
-	wp_nonce_field( 'ace360_project_type', 'ace360_project_type_nonce' );
+	wp_nonce_field( 'ace360_project_details', 'ace360_project_nonce' );
 	printf(
-		'<input type="text" class="widefat" name="ace360_project_type" value="%s" placeholder="%s">',
+		'<p><label for="ace360_project_type">%s</label><input type="text" class="widefat" id="ace360_project_type" name="ace360_project_type" value="%s" placeholder="%s"></p>',
+		esc_html__( 'Type', 'ace360' ),
 		esc_attr( get_post_meta( $post->ID, 'ace360_project_type', true ) ),
-		esc_attr__( 'e.g. Webshop', 'ace360' )
+		esc_attr__( 'e.g. Shopify + brand identity', 'ace360' )
+	);
+	printf(
+		'<p><label for="ace360_project_url">%s</label><input type="url" class="widefat" id="ace360_project_url" name="ace360_project_url" value="%s" placeholder="https://"></p><p class="description">%s</p>',
+		esc_html__( 'Live site URL', 'ace360' ),
+		esc_attr( get_post_meta( $post->ID, 'ace360_project_url', true ) ),
+		esc_html__( 'The featured image is shown inside the browser frame on the front page. Use a full-page screenshot (1440px wide) so it can scroll.', 'ace360' )
 	);
 }
 
 /**
- * Save the project type field.
+ * Save the project fields.
  *
  * @param int $post_id Post ID.
  */
 function ace360_save_project_meta( $post_id ) {
-	if ( ! isset( $_POST['ace360_project_type_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['ace360_project_type_nonce'] ) ), 'ace360_project_type' ) ) {
+	if ( ! isset( $_POST['ace360_project_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['ace360_project_nonce'] ) ), 'ace360_project_details' ) ) {
 		return;
 	}
 	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
@@ -181,6 +193,9 @@ function ace360_save_project_meta( $post_id ) {
 	}
 	if ( isset( $_POST['ace360_project_type'] ) ) {
 		update_post_meta( $post_id, 'ace360_project_type', sanitize_text_field( wp_unslash( $_POST['ace360_project_type'] ) ) );
+	}
+	if ( isset( $_POST['ace360_project_url'] ) ) {
+		update_post_meta( $post_id, 'ace360_project_url', esc_url_raw( wp_unslash( $_POST['ace360_project_url'] ) ) );
 	}
 }
 add_action( 'save_post_ace_project', 'ace360_save_project_meta' );
@@ -207,12 +222,13 @@ function ace360_handle_contact() {
 	$name     = isset( $_POST['ace360_name'] ) ? sanitize_text_field( wp_unslash( $_POST['ace360_name'] ) ) : '';
 	$company  = isset( $_POST['ace360_company'] ) ? sanitize_text_field( wp_unslash( $_POST['ace360_company'] ) ) : '';
 	$email    = isset( $_POST['ace360_email'] ) ? sanitize_email( wp_unslash( $_POST['ace360_email'] ) ) : '';
+	$phone    = isset( $_POST['ace360_phone'] ) ? sanitize_text_field( wp_unslash( $_POST['ace360_phone'] ) ) : '';
 	$need     = isset( $_POST['ace360_need'] ) ? sanitize_text_field( wp_unslash( $_POST['ace360_need'] ) ) : '';
 	$estimate = isset( $_POST['ace360_estimate'] ) ? sanitize_text_field( wp_unslash( $_POST['ace360_estimate'] ) ) : '';
 	$lang     = isset( $_POST['ace360_lang'] ) ? sanitize_key( wp_unslash( $_POST['ace360_lang'] ) ) : '';
 	$message  = isset( $_POST['ace360_message'] ) ? sanitize_textarea_field( wp_unslash( $_POST['ace360_message'] ) ) : '';
 
-	if ( '' === $name || ! is_email( $email ) || '' === $message ) {
+	if ( '' === $name || ! is_email( $email ) || '' === $message || empty( $_POST['ace360_consent'] ) ) {
 		wp_safe_redirect( add_query_arg( 'ace360_sent', 'invalid', $back ) . '#contact' );
 		exit;
 	}
@@ -222,9 +238,11 @@ function ace360_handle_contact() {
 	/* translators: %s: sender name */
 	$subject = sprintf( __( 'New project enquiry from %s', 'ace360' ), $name );
 	$body    = sprintf(
-		"%s: %s\n%s: %s\n%s: %s\n%s: %s\n%s: %s\n%s: %s\n\n%s",
+		"%s: %s\n%s: %s\n%s: %s\n%s: %s\n%s: %s\n%s: %s\n%s: %s\n\n%s",
 		__( 'Name', 'ace360' ),
 		$name,
+		__( 'Phone', 'ace360' ),
+		$phone,
 		__( 'Company', 'ace360' ),
 		$company,
 		__( 'Email', 'ace360' ),

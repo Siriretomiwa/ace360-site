@@ -1,10 +1,9 @@
 <?php
 /**
- * Site copy in English and Dutch, plus the price estimator table.
+ * Site copy in English and Dutch, the self-quote price model and project data.
  *
  * Every string is a pair: array( 'en' => ..., 'nl' => ... ). Templates print
- * both with ace360_t(); the EN/NL switch in the header shows one of them.
- * To change copy, edit it here. Prices live in ace360_estimator().
+ * both with ace360_e(); the EN/NL switch in the header shows one of them.
  *
  * @package ace360
  */
@@ -32,29 +31,31 @@ function ace360_pair( $en, $nl ) {
  */
 function ace360_hero() {
 	return array(
-		'kicker'  => ace360_pair( 'Web design and digital growth · Netherlands', 'Webdesign en digitale groei · Nederland' ),
-		'title'   => ace360_pair( 'You know the price before we get on a call.', 'Je weet de prijs al voordat we bellen.' ),
+		'kicker'  => ace360_pair( 'Web design and digital growth · Netherlands & worldwide', 'Webdesign en digitale groei · Nederland & wereldwijd' ),
+		'title'   => ace360_pair( 'You know the *price* before we get on a call.', 'Je weet de *prijs* al voordat we bellen.' ),
 		'text'    => ace360_pair(
 			'Ace 360 Services builds websites and online stores for businesses in the Netherlands and abroad. Fixed price up front, a launch date that holds, and one person to talk to. No account manager, no surprise invoice at the end.',
 			'Ace 360 Services bouwt websites en webshops voor bedrijven in Nederland en daarbuiten. Vaste prijs vooraf, een lanceerdatum die klopt en één aanspreekpunt. Geen accountmanager, geen verrassingsfactuur achteraf.'
 		),
+		'quote'   => ace360_pair( 'Price my website', 'Bereken mijn prijs' ),
 		'call'    => ace360_pair( 'Call now', 'Bel nu' ),
-		'how'     => ace360_pair( 'How I work', 'Zo werk ik' ),
 		'bullets' => array(
 			ace360_pair( 'Reply within 1 working day', 'Antwoord binnen 1 werkdag' ),
 			ace360_pair( 'Fixed price, no overruns billed', 'Vaste prijs, geen meerwerk achteraf' ),
 			ace360_pair( 'Domain and site stay yours', 'Domein en site blijven van jou' ),
-			ace360_pair( 'Working in English and Dutch', 'Werkt in het Nederlands en Engels' ),
+			ace360_pair( 'English or Dutch, wherever you are', 'Nederlands of Engels, waar je ook zit' ),
 		),
 	);
 }
 
 /**
- * Services with prices.
+ * Services with prices. 'type' links the card to an estimator project type.
  */
 function ace360_services() {
 	return array(
 		array(
+			'icon'  => 'site',
+			'type'  => 'website',
 			'title' => ace360_pair( 'Website build', 'Website laten maken' ),
 			'text'  => ace360_pair(
 				'From a one-pager to a site with job listings, forms and a booking page. Built in WordPress, so you can get into it yourself without calling me.',
@@ -63,6 +64,8 @@ function ace360_services() {
 			'price' => ace360_pair( 'from €550', 'vanaf € 550' ),
 		),
 		array(
+			'icon'  => 'store',
+			'type'  => 'store',
 			'title' => ace360_pair( 'Online store', 'Webshop' ),
 			'text'  => ace360_pair(
 				'WooCommerce or Shopify, with iDEAL and the rest of Mollie wired up. Stock, shipping rules and VAT set correctly before you go live.',
@@ -71,6 +74,8 @@ function ace360_services() {
 			'price' => ace360_pair( 'from €2,900', 'vanaf € 2.900' ),
 		),
 		array(
+			'icon'  => 'care',
+			'type'  => 'care',
 			'title' => ace360_pair( 'Maintenance and care', 'Onderhoud' ),
 			'text'  => ace360_pair(
 				'Updates, backups, security and small changes. Every month you get a short summary of what was done. Cancel any month.',
@@ -79,6 +84,8 @@ function ace360_services() {
 			'price' => ace360_pair( '€95 per month', '€ 95 per maand' ),
 		),
 		array(
+			'icon'  => 'grow',
+			'type'  => '',
 			'title' => ace360_pair( 'Visibility and growth', 'Vindbaarheid en groei' ),
 			'text'  => ace360_pair(
 				'Technical SEO, Google Business Profile and ads that chase revenue rather than clicks. Only worth doing once your site is solid.',
@@ -90,7 +97,7 @@ function ace360_services() {
 }
 
 /**
- * Process steps. Each one is a chapter; the 3D house is built along with it.
+ * Process steps. Each one is also a chapter of the demo film (same order).
  */
 function ace360_process() {
 	return array(
@@ -104,23 +111,48 @@ function ace360_process() {
 
 /**
  * Recent work, shown until Projects are added in the dashboard.
+ * 'mockup' picks the built-in browser preview; 'url' adds a "Visit live site" link.
  */
 function ace360_work() {
 	return array(
 		array(
-			'title' => 'Hesed Impact Ministries',
-			'type'  => ace360_pair( 'WordPress theme', 'WordPress-thema' ),
-			'text'  => ace360_pair( 'Custom theme with events, a media archive and a donation page.', 'Maatwerkthema met evenementen, een media-archief en een donatiepagina.' ),
+			'title'  => 'Hesed Impact Ministries',
+			'type'   => ace360_pair( 'WordPress theme', 'WordPress-thema' ),
+			'text'   => ace360_pair( 'Custom theme with events, a media archive and a donation page.', 'Maatwerkthema met evenementen, een media-archief en een donatiepagina.' ),
+			'built'  => array(
+				ace360_pair( 'Event calendar the team updates itself', 'Evenementenkalender die het team zelf bijhoudt' ),
+				ace360_pair( 'Searchable archive of sermons and videos', 'Doorzoekbaar archief met preken en video’s' ),
+				ace360_pair( 'Donation page with iDEAL and recurring gifts', 'Donatiepagina met iDEAL en periodieke giften' ),
+			),
+			'stack'  => array( 'WordPress', 'Custom theme', 'Mollie' ),
+			'mockup' => 'hesed',
+			'url'    => '',
 		),
 		array(
-			'title' => 'SIDWALK',
-			'type'  => ace360_pair( 'Shopify + brand identity', 'Shopify + merkidentiteit' ),
-			'text'  => ace360_pair( 'Streetwear store, from logo and identity through to the first campaign.', 'Streetwearwinkel, van logo en identiteit tot de eerste campagne.' ),
+			'title'  => 'SIDWALK',
+			'type'   => ace360_pair( 'Shopify + brand identity', 'Shopify + merkidentiteit' ),
+			'text'   => ace360_pair( 'Streetwear store, from logo and identity through to the first campaign.', 'Streetwearwinkel, van logo en identiteit tot de eerste campagne.' ),
+			'built'  => array(
+				ace360_pair( 'Logo, type and visual identity', 'Logo, typografie en huisstijl' ),
+				ace360_pair( 'Shopify store with drops and size guides', 'Shopify-winkel met drops en maattabellen' ),
+				ace360_pair( 'Launch campaign assets', 'Materiaal voor de lanceercampagne' ),
+			),
+			'stack'  => array( 'Shopify', 'Brand identity', 'Campaign' ),
+			'mockup' => 'sidwalk',
+			'url'    => '',
 		),
 		array(
-			'title' => 'Crea8or',
-			'type'  => ace360_pair( 'Platform', 'Platform' ),
-			'text'  => ace360_pair( 'Marketplace for creators with Mollie payments and payouts.', 'Marktplaats voor makers met Mollie-betalingen en -uitbetalingen.' ),
+			'title'  => 'Crea8or',
+			'type'   => ace360_pair( 'Platform', 'Platform' ),
+			'text'   => ace360_pair( 'Marketplace for creators with Mollie payments and payouts.', 'Marktplaats voor makers met Mollie-betalingen en -uitbetalingen.' ),
+			'built'  => array(
+				ace360_pair( 'Creator profiles and listings', 'Profielen en aanbod van makers' ),
+				ace360_pair( 'Checkout with Mollie Connect', 'Afrekenen met Mollie Connect' ),
+				ace360_pair( 'Automatic payouts to creators', 'Automatische uitbetalingen aan makers' ),
+			),
+			'stack'  => array( 'Platform', 'Mollie Connect', 'Payouts' ),
+			'mockup' => 'crea8or',
+			'url'    => '',
 		),
 	);
 }
@@ -132,81 +164,105 @@ function ace360_faq() {
 	return array(
 		array(
 			ace360_pair( 'I already have a design. Can you build it?', 'Ik heb al een ontwerp. Kun je dat bouwen?' ),
-			ace360_pair(
-				'Yes, and it is usually the fastest route. Send it as Figma, XD or a PDF with the image files. I convert it to WordPress, sort out the theme, plugins and hosting, and put it live. A finished design normally saves a week.',
-				'Ja, en meestal is dat de snelste route. Stuur het als Figma, XD of pdf met de beeldbestanden. Ik zet het om naar WordPress, regel thema, plug-ins en hosting en zet het live. Een af ontwerp scheelt meestal een week.'
-			),
+			ace360_pair( 'Yes, and it is usually the fastest route. Send it as Figma, XD or a PDF with the image files. I convert it to WordPress, sort out the theme, plugins and hosting, and put it live. A finished design normally saves a week.', 'Ja, en meestal is dat de snelste route. Stuur het als Figma, XD of pdf met de beeldbestanden. Ik zet het om naar WordPress, regel thema, plug-ins en hosting en zet het live. Een af ontwerp scheelt meestal een week.' ),
 		),
 		array(
 			ace360_pair( 'Can I edit the site myself afterwards?', 'Kan ik de site daarna zelf aanpassen?' ),
-			ace360_pair(
-				'Yes. Everything you would normally want to change — text, photos, job listings, products — you can do yourself. At handover you get a half-hour walkthrough and a short guide. Prefer to hand it off? That falls under the maintenance plan.',
-				'Ja. Alles wat je normaal wilt aanpassen — tekst, foto’s, vacatures, producten — doe je zelf. Bij de overdracht krijg je een rondleiding van een half uur en een korte handleiding. Liever uitbesteden? Dat valt onder het onderhoudsplan.'
-			),
+			ace360_pair( 'Yes. Everything you would normally want to change — text, photos, job listings, products — you can do yourself. At handover you get a half-hour walkthrough and a short guide. Prefer to hand it off? That falls under the maintenance plan.', 'Ja. Alles wat je normaal wilt aanpassen — tekst, foto’s, vacatures, producten — doe je zelf. Bij de overdracht krijg je een rondleiding van een half uur en een korte handleiding. Liever uitbesteden? Dat valt onder het onderhoudsplan.' ),
 		),
 		array(
 			ace360_pair( 'Who owns the domain, the hosting and the site?', 'Van wie zijn het domein, de hosting en de site?' ),
-			ace360_pair(
-				'You do. Domain and hosting are registered in your name, not mine. You get every login. If you ever want to work with someone else, you take the whole thing with you.',
-				'Van jou. Domein en hosting staan op jouw naam, niet op de mijne. Je krijgt alle inloggegevens. Wil je ooit met iemand anders verder, dan neem je alles mee.'
-			),
+			ace360_pair( 'You do. Domain and hosting are registered in your name, not mine. You get every login. If you ever want to work with someone else, you take the whole thing with you.', 'Van jou. Domein en hosting staan op jouw naam, niet op de mijne. Je krijgt alle inloggegevens. Wil je ooit met iemand anders verder, dan neem je alles mee.' ),
 		),
 		array(
-			ace360_pair( 'I’m not based in the Netherlands. Can we still work together?', 'Ik zit niet in Nederland. Kunnen we toch samenwerken?' ),
-			ace360_pair(
-				'Yes. I work with clients across Europe and beyond, fully remote and in English. Calls are planned around your time zone and quotes are in euros. Businesses in other EU countries with a VAT number are invoiced with VAT reverse-charged.',
-				'Ja. Ik werk met klanten in heel Europa en daarbuiten, volledig op afstand en in het Engels. Gesprekken plan ik rond jouw tijdzone en offertes zijn in euro’s. Bedrijven in andere EU-landen met een btw-nummer factureer ik met btw verlegd.'
-			),
+			ace360_pair( 'I’m outside the Netherlands. Can we still work together?', 'Ik zit buiten Nederland. Kunnen we toch samenwerken?' ),
+			ace360_pair( 'Yes. I work fully remote and in English with clients across the EU and beyond. Calls are planned around your time zone and quotes are in euros. EU businesses with a VAT number are invoiced with VAT reverse-charged; outside the EU no Dutch VAT is charged.', 'Ja. Ik werk volledig op afstand en in het Engels met klanten in de EU en daarbuiten. Gesprekken plan ik rond jouw tijdzone en offertes zijn in euro’s. EU-bedrijven met een btw-nummer factureer ik met btw verlegd; buiten de EU reken ik geen Nederlandse btw.' ),
 		),
 		array(
 			ace360_pair( 'Why are the prices on the site?', 'Waarom staan de prijzen op de site?' ),
-			ace360_pair(
-				'Because otherwise you have to request three quotes just to find out whether you are in the right bracket. That costs you a week. The estimator above gives the same range I would give you on the phone.',
-				'Omdat je anders drie offertes moet aanvragen om te weten of je in de goede prijsklasse zit. Dat kost je een week. De prijsindicatie hierboven geeft dezelfde bandbreedte die ik je aan de telefoon zou geven.'
-			),
+			ace360_pair( 'Because otherwise you have to request three quotes just to find out whether you are in the right bracket. That costs you a week. The estimator above gives the same range I would give you on the phone.', 'Omdat je anders drie offertes moet aanvragen om te weten of je in de goede prijsklasse zit. Dat kost je een week. De prijsberekening hierboven geeft dezelfde bandbreedte die ik je aan de telefoon zou geven.' ),
 		),
 		array(
 			ace360_pair( 'What happens if it runs late?', 'Wat als het uitloopt?' ),
-			ace360_pair(
-				'The launch date is in the quote. If it slips because of me, you do not pay extra. If it slips because text or images are not ready, we move the date together — and you hear that straight away, not afterwards.',
-				'De lanceerdatum staat in de offerte. Loopt het uit door mij, dan betaal je niets extra. Loopt het uit omdat tekst of beeld nog niet klaar is, dan verzetten we de datum samen — en dat hoor je meteen, niet achteraf.'
-			),
+			ace360_pair( 'The launch date is in the quote. If it slips because of me, you do not pay extra. If it slips because text or images are not ready, we move the date together — and you hear that straight away, not afterwards.', 'De lanceerdatum staat in de offerte. Loopt het uit door mij, dan betaal je niets extra. Loopt het uit omdat tekst of beeld nog niet klaar is, dan verzetten we de datum samen — en dat hoor je meteen, niet achteraf.' ),
 		),
 		array(
 			ace360_pair( 'What is in the maintenance plan?', 'Wat zit er in het onderhoudsplan?' ),
-			ace360_pair(
-				'WordPress and plugin updates, daily backups, security checks, monitoring and half an hour of small changes a month. You get a monthly summary. Cancel any month.',
-				'WordPress- en plug-in-updates, dagelijkse back-ups, beveiligingscontroles, monitoring en een half uur kleine aanpassingen per maand. Je krijgt een maandelijks overzicht. Maandelijks opzegbaar.'
-			),
+			ace360_pair( 'WordPress and plugin updates, daily backups, security checks, monitoring and half an hour of small changes a month. You get a monthly summary. Cancel any month.', 'WordPress- en plug-in-updates, dagelijkse back-ups, beveiligingscontroles, monitoring en een half uur kleine aanpassingen per maand. Je krijgt een maandelijks overzicht. Maandelijks opzegbaar.' ),
 		),
 	);
 }
 
 /**
- * Price estimator. Amounts are in euros excluding VAT; weeks are build time.
- * Edit these numbers to match your own pricing.
+ * Self-quote price model. Amounts in euros excluding VAT.
+ *
+ * types:  base = [low, high] including 'incl' pages; perPage = [low, high] per extra page.
+ * design: custom design adds a percentage of the base.
+ * extras: flat [low, high]; 'only' limits an extra to some project types.
+ * rush:   multiplier and weeks saved.
+ *
+ * Change the numbers here, or override them with the 'ace360_estimator' filter.
  */
 function ace360_estimator() {
 	$config = array(
-		'types'  => array(
-			array( 'id' => 'onepager', 'label' => ace360_pair( 'One-pager', 'One-pager' ), 'min' => 550, 'max' => 900, 'weeks' => 1 ),
-			array( 'id' => 'website', 'label' => ace360_pair( 'Website, 5–10 pages', 'Website, 5–10 pagina’s' ), 'min' => 1200, 'max' => 2400, 'weeks' => 3 ),
-			array( 'id' => 'store', 'label' => ace360_pair( 'Online store', 'Webshop' ), 'min' => 2900, 'max' => 5500, 'weeks' => 4 ),
-			array( 'id' => 'platform', 'label' => ace360_pair( 'Platform or custom build', 'Platform of maatwerk' ), 'min' => 6000, 'max' => 0, 'weeks' => 8 ),
+		'types'   => array(
+			array( 'id' => 'onepager', 'label' => ace360_pair( 'One-pager', 'One-pager' ), 'hint' => ace360_pair( '1 page', '1 pagina' ), 'base' => array( 550, 750 ), 'incl' => 1, 'perPage' => array( 0, 0 ), 'pages' => false, 'weeks' => array( 1, 2 ) ),
+			array( 'id' => 'website', 'label' => ace360_pair( 'Website', 'Website' ), 'hint' => ace360_pair( 'several pages', 'meerdere pagina’s' ), 'base' => array( 1200, 1600 ), 'incl' => 5, 'perPage' => array( 90, 130 ), 'pages' => true, 'weeks' => array( 3, 4 ) ),
+			array( 'id' => 'store', 'label' => ace360_pair( 'Online store', 'Webshop' ), 'hint' => ace360_pair( 'with payments', 'met betalingen' ), 'base' => array( 2900, 3600 ), 'incl' => 5, 'perPage' => array( 90, 130 ), 'pages' => true, 'weeks' => array( 4, 6 ) ),
+			array( 'id' => 'care', 'label' => ace360_pair( 'Maintenance', 'Onderhoud' ), 'hint' => ace360_pair( 'existing site', 'bestaande site' ), 'base' => array( 250, 450 ), 'incl' => 0, 'perPage' => array( 0, 0 ), 'pages' => false, 'weeks' => array( 0, 1 ) ),
 		),
-		'extras' => array(
-			array( 'id' => 'lang', 'label' => ace360_pair( 'Second language', 'Tweede taal' ), 'min' => 250, 'max' => 600, 'weeks' => 0 ),
-			array( 'id' => 'booking', 'label' => ace360_pair( 'Bookings or appointments', 'Boekingen of afspraken' ), 'min' => 300, 'max' => 700, 'weeks' => 0 ),
-			array( 'id' => 'copy', 'label' => ace360_pair( 'Copywriting', 'Teksten schrijven' ), 'min' => 200, 'max' => 600, 'weeks' => 0 ),
-			array( 'id' => 'brand', 'label' => ace360_pair( 'Logo and identity', 'Logo en huisstijl' ), 'min' => 450, 'max' => 1200, 'weeks' => 1 ),
-			array( 'id' => 'move', 'label' => ace360_pair( 'Move my old site', 'Oude site overzetten' ), 'min' => 200, 'max' => 500, 'weeks' => 0 ),
+		'design'  => array(
+			array( 'id' => 'tailored', 'label' => ace360_pair( 'Tailored', 'Op maat gestyled' ), 'hint' => ace360_pair( 'proven layout, your brand', 'bewezen opzet, jouw merk' ), 'pct' => 0 ),
+			array( 'id' => 'custom', 'label' => ace360_pair( 'Fully custom', 'Volledig maatwerk' ), 'hint' => ace360_pair( 'designed from scratch', 'vanaf nul ontworpen' ), 'pct' => 25 ),
 		),
-		'care'   => 95,
+		'extras'  => array(
+			array( 'id' => 'copy', 'label' => ace360_pair( 'Copywriting', 'Teksten schrijven' ), 'price' => array( 350, 450 ) ),
+			array( 'id' => 'images', 'label' => ace360_pair( 'Images and photography', 'Beeld en fotografie' ), 'price' => array( 250, 350 ) ),
+			array( 'id' => 'seo', 'label' => ace360_pair( 'SEO groundwork', 'SEO-basis' ), 'price' => array( 300, 400 ) ),
+			array( 'id' => 'lang', 'label' => ace360_pair( 'Second language', 'Tweede taal' ), 'price' => array( 450, 600 ) ),
+			array( 'id' => 'booking', 'label' => ace360_pair( 'Booking or sign-up system', 'Boekings- of inschrijfsysteem' ), 'price' => array( 500, 700 ) ),
+			array( 'id' => 'brand', 'label' => ace360_pair( 'Logo and identity', 'Logo en huisstijl' ), 'price' => array( 650, 900 ) ),
+			array( 'id' => 'motion', 'label' => ace360_pair( 'Animation and 3D', 'Animatie en 3D' ), 'price' => array( 800, 1400 ) ),
+			array( 'id' => 'products', 'label' => ace360_pair( 'Product upload (up to 100)', 'Producten invoeren (tot 100)' ), 'price' => array( 300, 450 ), 'only' => array( 'store' ) ),
+		),
+		'rush'    => array( 'factor' => 1.2, 'weeks' => 1 ),
+		'care'    => 95,
+		'vat'     => 21,
 	);
 	/**
-	 * Filter the estimator prices.
+	 * Filter the self-quote price model.
 	 *
-	 * @param array $config Types, extras and monthly care price.
+	 * @param array $config Price model.
 	 */
 	return apply_filters( 'ace360_estimator', $config );
+}
+
+/**
+ * Turn the price model into the plain array the estimator script reads.
+ */
+function ace360_estimator_js() {
+	$c    = ace360_estimator();
+	$flat = function ( $list ) {
+		return array_map(
+			function ( $item ) {
+				foreach ( array( 'label', 'hint' ) as $k ) {
+					if ( isset( $item[ $k ] ) ) {
+						$item[ $k . '_en' ] = $item[ $k ]['en'];
+						$item[ $k . '_nl' ] = $item[ $k ]['nl'];
+						unset( $item[ $k ] );
+					}
+				}
+				return $item;
+			},
+			$list
+		);
+	};
+	return array(
+		'types'  => $flat( $c['types'] ),
+		'design' => $flat( $c['design'] ),
+		'extras' => $flat( $c['extras'] ),
+		'rush'   => $c['rush'],
+		'care'   => $c['care'],
+		'vat'    => $c['vat'],
+	);
 }

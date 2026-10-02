@@ -34,7 +34,9 @@ function wp_unslash( $s ) { return $s; }
 function gmdate_stub() {}
 function get_header() { global $theme; include $theme . '/header.php'; }
 function get_footer() { global $theme; include $theme . '/footer.php'; }
-function get_template_part( $slug ) { global $theme; include $theme . '/' . $slug . '.php'; }
+function get_template_part( $slug, $name = null, $args = array() ) { global $theme; include $theme . '/' . $slug . '.php'; }
+function wp_parse_url( $u, $c = -1 ) { return parse_url( $u, $c ); }
+function get_the_post_thumbnail_url() { return ''; }
 function apply_filters( $t, $v ) { return $v; }
 function wp_json_encode( $v ) { return json_encode( $v ); }
 function wp_get_attachment_image() { return ''; }

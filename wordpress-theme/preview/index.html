@@ -38,7 +38,7 @@
 			<button type="button" data-set-lang="nl" aria-pressed="false">NL</button>
 		</div>
 
-		<a class="btn btn-small" href="tel:+31617858490"><span data-l="en" lang="en">Call now</span><span data-l="nl" lang="nl">Bel nu</span></a>
+		<a class="btn btn-orange btn-small" href="tel:+31617858490"><span data-l="en" lang="en">Call now</span><span data-l="nl" lang="nl">Bel nu</span></a>
 
 		<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
 			<span class="screen-reader-text">Menu</span>
@@ -46,256 +46,678 @@
 		</button>
 	</div>
 </header>
-<a class="btn fab-call" href="tel:+31617858490"><span data-l="en" lang="en">Call now</span><span data-l="nl" lang="nl">Bel nu</span></a>
-<div class="bg" aria-hidden="true"></div>
-<canvas id="stage" aria-hidden="true"></canvas>
+<a class="btn btn-orange fab-call" href="tel:+31617858490"><span data-l="en" lang="en">Call now</span><span data-l="nl" lang="nl">Bel nu</span></a>
+<main id="main" class="site-main">
 
-<main id="main" class="film">
-
-	<section class="ch hero" data-k="hero">
-		<div class="wrap">
-			<div class="copy">
-				<p class="kicker"><span data-l="en" lang="en">Web design and digital growth · Netherlands</span><span data-l="nl" lang="nl">Webdesign en digitale groei · Nederland</span></p>
-				<h1 class="hero-title"><span data-l="en" lang="en">You know the price before we get on a call.</span><span data-l="nl" lang="nl">Je weet de prijs al voordat we bellen.</span></h1>
-				<p class="body"><span data-l="en" lang="en">Ace 360 Services builds websites and online stores for businesses in the Netherlands and abroad. Fixed price up front, a launch date that holds, and one person to talk to. No account manager, no surprise invoice at the end.</span><span data-l="nl" lang="nl">Ace 360 Services bouwt websites en webshops voor bedrijven in Nederland en daarbuiten. Vaste prijs vooraf, een lanceerdatum die klopt en één aanspreekpunt. Geen accountmanager, geen verrassingsfactuur achteraf.</span></p>
+	<!-- Hero -->
+	<section class="hero">
+		<div class="wrap hero-grid">
+			<div class="hero-copy">
+				<p class="kicker"><span class="nl-flag" aria-hidden="true"></span><span data-l="en" lang="en">Web design and digital growth · Netherlands &amp; worldwide</span><span data-l="nl" lang="nl">Webdesign en digitale groei · Nederland &amp; wereldwijd</span></p>
+				<h1 class="hero-title"><span data-l="en" lang="en">You know the <em class="hl">price</em> before we get on a call.</span><span data-l="nl" lang="nl">Je weet de <em class="hl">prijs</em> al voordat we bellen.</span></h1>
+				<p class="lede"><span data-l="en" lang="en">Ace 360 Services builds websites and online stores for businesses in the Netherlands and abroad. Fixed price up front, a launch date that holds, and one person to talk to. No account manager, no surprise invoice at the end.</span><span data-l="nl" lang="nl">Ace 360 Services bouwt websites en webshops voor bedrijven in Nederland en daarbuiten. Vaste prijs vooraf, een lanceerdatum die klopt en één aanspreekpunt. Geen accountmanager, geen verrassingsfactuur achteraf.</span></p>
 				<div class="actions">
-					<a class="btn" href="tel:+31617858490"><span data-l="en" lang="en">Call now</span><span data-l="nl" lang="nl">Bel nu</span> <span aria-hidden="true">→</span></a>
-					<a class="btn btn-ghost" href="#werkwijze"><span data-l="en" lang="en">How I work</span><span data-l="nl" lang="nl">Zo werk ik</span></a>
+					<a class="btn btn-orange" href="#prijs"><span data-l="en" lang="en">Price my website</span><span data-l="nl" lang="nl">Bereken mijn prijs</span> <span aria-hidden="true">→</span></a>
+					<a class="btn btn-line" href="tel:+31617858490"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 006.6 6.6l2.2-2.2a1 1 0 011-.25 11.4 11.4 0 003.6.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1z" fill="currentColor"/></svg><span data-l="en" lang="en">Call now</span><span data-l="nl" lang="nl">Bel nu</span></a>
 				</div>
 				<ul class="checks">
 											<li><span data-l="en" lang="en">Reply within 1 working day</span><span data-l="nl" lang="nl">Antwoord binnen 1 werkdag</span></li>
 											<li><span data-l="en" lang="en">Fixed price, no overruns billed</span><span data-l="nl" lang="nl">Vaste prijs, geen meerwerk achteraf</span></li>
 											<li><span data-l="en" lang="en">Domain and site stay yours</span><span data-l="nl" lang="nl">Domein en site blijven van jou</span></li>
-											<li><span data-l="en" lang="en">Working in English and Dutch</span><span data-l="nl" lang="nl">Werkt in het Nederlands en Engels</span></li>
+											<li><span data-l="en" lang="en">English or Dutch, wherever you are</span><span data-l="nl" lang="nl">Nederlands of Engels, waar je ook zit</span></li>
 									</ul>
 			</div>
+
+			<div class="hero-stage" data-stage aria-hidden="true">
+				<div class="stage-inner" data-stage-inner>
+											<div class="stage-win w0">
+							<div class="browser autoscroll">
+	<div class="browser-bar" aria-hidden="true">
+		<span class="dots"><i></i><i></i><i></i></span>
+		<span class="addr"><svg viewBox="0 0 12 12" width="9" height="9"><path d="M3.5 5V3.8a2.5 2.5 0 015 0V5M2.5 5h7v5h-7z" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>hesedimpactministries.com</span>
+	</div>
+	<div class="browser-view">
+					<div class="mock-page mk-hesed" aria-hidden="true">
+				<div class="mk-nav"><b>Hesed<span>Impact Ministries</span></b><i>Events</i><i>Media</i><i>About</i><em>Give</em></div>
+				<div class="mk-hero"><small>Sunday 10:30 · All welcome</small><h4>A church that shows up for its city.</h4><span class="mk-btn">Plan a visit</span><span class="mk-btn ghost">Watch online</span></div>
+				<div class="mk-sec"><h5>Upcoming events</h5>
+					<div class="mk-ev"><b>SUN<br>14</b><p>Sunday service<small>10:30 · Main hall</small></p><i>RSVP</i></div>
+					<div class="mk-ev"><b>WED<br>17</b><p>Bible study<small>19:30 · Online & on site</small></p><i>RSVP</i></div>
+					<div class="mk-ev"><b>SAT<br>20</b><p>Community meal<small>17:00 · Family hall</small></p><i>RSVP</i></div>
+				</div>
+				<div class="mk-sec"><h5>Media archive</h5><div class="mk-media"><span><i></i>Hope that holds</span><span><i></i>Faith at work</span><span><i></i>Rooted</span></div></div>
+				<div class="mk-give"><h5>Support the mission</h5><div><span>€10</span><span class="on">€25</span><span>€50</span><span>Other</span></div><p><span class="mk-btn">Give with iDEAL</span><small>Monthly · One-off</small></p></div>
+			</div>
+			</div>
+</div>
+						</div>
+											<div class="stage-win w1">
+							<div class="browser autoscroll">
+	<div class="browser-bar" aria-hidden="true">
+		<span class="dots"><i></i><i></i><i></i></span>
+		<span class="addr"><svg viewBox="0 0 12 12" width="9" height="9"><path d="M3.5 5V3.8a2.5 2.5 0 015 0V5M2.5 5h7v5h-7z" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>sidwalk.com</span>
+	</div>
+	<div class="browser-view">
+					<div class="mock-page mk-sid" aria-hidden="true">
+				<div class="mk-nav"><b>SIDWALK</b><i>Shop</i><i>Drop 01</i><i>Lookbook</i><em>Bag (2)</em></div>
+				<div class="mk-hero"><h4>SIDWALK</h4><p>DROP 01 — OUT NOW</p><span class="mk-btn">Shop the drop</span></div>
+				<div class="mk-grid">
+											<div class="mk-prod"><span class="mk-shape tee"></span><p>Logo Tee<b>€45</b></p></div>
+											<div class="mk-prod"><span class="mk-shape hood"></span><p>Heavy Hoodie<b>€89</b></p></div>
+											<div class="mk-prod"><span class="mk-shape pant"></span><p>Cargo Pant<b>€95</b></p></div>
+											<div class="mk-prod"><span class="mk-shape cap"></span><p>Crew Cap<b>€35</b></p></div>
+									</div>
+				<div class="mk-band"><p>FREE SHIPPING NL & BE · 14 DAY RETURNS</p></div>
+				<div class="mk-campaign"><h5>WALK YOUR OWN WAY</h5><span class="mk-btn">See the campaign</span></div>
+			</div>
+			</div>
+</div>
+						</div>
+											<div class="stage-win w2">
+							<div class="browser autoscroll">
+	<div class="browser-bar" aria-hidden="true">
+		<span class="dots"><i></i><i></i><i></i></span>
+		<span class="addr"><svg viewBox="0 0 12 12" width="9" height="9"><path d="M3.5 5V3.8a2.5 2.5 0 015 0V5M2.5 5h7v5h-7z" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>crea8or.com</span>
+	</div>
+	<div class="browser-view">
+					<div class="mock-page mk-cre" aria-hidden="true">
+				<div class="mk-nav"><b>Crea8or</b><i>Explore</i><i>How it works</i><i>Sell</i><em>Sign in</em></div>
+				<div class="mk-hero"><h4>Hire creators who make things happen.</h4><div class="mk-search"><span>Video editors, illustrators…</span><b>Search</b></div><small>Secure payments by Mollie · Paid out to creators automatically</small></div>
+				<div class="mk-cards">
+											<div class="mk-card"><span class="mk-av">AV</span><p>Video editing<small>★ 4.9 · from €120</small></p></div>
+											<div class="mk-card"><span class="mk-av">MK</span><p>Illustration<small>★ 5.0 · from €90</small></p></div>
+											<div class="mk-card"><span class="mk-av">JD</span><p>Motion design<small>★ 4.8 · from €150</small></p></div>
+									</div>
+				<div class="mk-payout"><div><small>Payout</small><b>€ 1.240,00</b><p>Sent to NL91 •••• 4410</p></div><span>Paid</span></div>
+				<div class="mk-sec"><h5>Top categories</h5><div class="mk-tags"><span>Video</span><span>Design</span><span>Writing</span><span>Music</span><span>3D</span></div></div>
+			</div>
+			</div>
+</div>
+						</div>
+										<div class="stage-chip c-price"><span class="mono"><span data-l="en" lang="en">Fixed price</span><span data-l="nl" lang="nl">Vaste prijs</span></span><b>€2,240</b></div>
+					<div class="stage-chip c-live"><span class="live-dot"></span><span data-l="en" lang="en">Live on 28 May</span><span data-l="nl" lang="nl">Live op 28 mei</span></div>
+					<div class="stage-chip c-score"><b>98</b><span class="mono">Lighthouse</span></div>
+				</div>
+			</div>
 		</div>
 	</section>
 
-	<section class="ch right" id="diensten" data-k="services">
+	<!-- Recently live strip -->
+	<section class="strip" aria-label="Recently live">
+		<div class="wrap strip-inner">
+			<p class="mono"><span data-l="en" lang="en">Recently live</span><span data-l="nl" lang="nl">Onlangs live</span></p>
+			<ul>
+									<li><a href="#werk">Hesed Impact Ministries</a></li>
+									<li><a href="#werk">SIDWALK</a></li>
+									<li><a href="#werk">Crea8or</a></li>
+							</ul>
+			<p class="strip-note"><span data-l="en" lang="en">Based in the Netherlands · working with clients across Europe and beyond</span><span data-l="nl" lang="nl">Gevestigd in Nederland · werkt met klanten in heel Europa en daarbuiten</span></p>
+		</div>
+	</section>
+
+	<!-- Services -->
+	<section class="section" id="diensten">
 		<div class="wrap">
-			<div class="copy copy-wide">
+			<div class="sec-head">
 				<p class="kicker"><span data-l="en" lang="en">Services</span><span data-l="nl" lang="nl">Diensten</span></p>
-				<h2><span data-l="en" lang="en">Four things, done properly</span><span data-l="nl" lang="nl">Vier dingen, goed gedaan</span></h2>
-				<p class="body"><span data-l="en" lang="en">Not a list of thirty services where five of them actually work. This is what I build and maintain.</span><span data-l="nl" lang="nl">Geen lijst met dertig diensten waarvan er vijf echt werken. Dit is wat ik bouw en onderhoud.</span></p>
-				<ol class="services">
-											<li class="card">
-							<div class="card-top">
-								<span class="num tabular">01</span>
-								<span class="price tabular"><span data-l="en" lang="en">from €550</span><span data-l="nl" lang="nl">vanaf € 550</span></span>
-							</div>
-							<h3><span data-l="en" lang="en">Website build</span><span data-l="nl" lang="nl">Website laten maken</span></h3>
-							<p><span data-l="en" lang="en">From a one-pager to a site with job listings, forms and a booking page. Built in WordPress, so you can get into it yourself without calling me.</span><span data-l="nl" lang="nl">Van one-pager tot site met vacatures, formulieren en een boekingspagina. Gebouwd in WordPress, zodat je er zelf in kunt zonder mij te bellen.</span></p>
-						</li>
-											<li class="card">
-							<div class="card-top">
-								<span class="num tabular">02</span>
-								<span class="price tabular"><span data-l="en" lang="en">from €2,900</span><span data-l="nl" lang="nl">vanaf € 2.900</span></span>
-							</div>
-							<h3><span data-l="en" lang="en">Online store</span><span data-l="nl" lang="nl">Webshop</span></h3>
-							<p><span data-l="en" lang="en">WooCommerce or Shopify, with iDEAL and the rest of Mollie wired up. Stock, shipping rules and VAT set correctly before you go live.</span><span data-l="nl" lang="nl">WooCommerce of Shopify, met iDEAL en de rest van Mollie gekoppeld. Voorraad, verzendregels en btw goed ingesteld voordat je live gaat.</span></p>
-						</li>
-											<li class="card">
-							<div class="card-top">
-								<span class="num tabular">03</span>
-								<span class="price tabular"><span data-l="en" lang="en">€95 per month</span><span data-l="nl" lang="nl">€ 95 per maand</span></span>
-							</div>
-							<h3><span data-l="en" lang="en">Maintenance and care</span><span data-l="nl" lang="nl">Onderhoud</span></h3>
-							<p><span data-l="en" lang="en">Updates, backups, security and small changes. Every month you get a short summary of what was done. Cancel any month.</span><span data-l="nl" lang="nl">Updates, back-ups, beveiliging en kleine aanpassingen. Elke maand krijg je een kort overzicht van wat er is gedaan. Maandelijks opzegbaar.</span></p>
-						</li>
-											<li class="card">
-							<div class="card-top">
-								<span class="num tabular">04</span>
-								<span class="price tabular"><span data-l="en" lang="en">Price on request</span><span data-l="nl" lang="nl">Prijs op aanvraag</span></span>
-							</div>
-							<h3><span data-l="en" lang="en">Visibility and growth</span><span data-l="nl" lang="nl">Vindbaarheid en groei</span></h3>
-							<p><span data-l="en" lang="en">Technical SEO, Google Business Profile and ads that chase revenue rather than clicks. Only worth doing once your site is solid.</span><span data-l="nl" lang="nl">Technische SEO, Google Bedrijfsprofiel en advertenties die omzet najagen in plaats van klikken. Pas zinvol als je site goed staat.</span></p>
-						</li>
-									</ol>
+				<h2><span data-l="en" lang="en">Four things, done <em class="hl">properly</em></span><span data-l="nl" lang="nl">Vier dingen, <em class="hl">goed</em> gedaan</span></h2>
+				<p class="lede"><span data-l="en" lang="en">Not a list of thirty services where five of them actually work. This is what I build and maintain.</span><span data-l="nl" lang="nl">Geen lijst met dertig diensten waarvan er vijf echt werken. Dit is wat ik bouw en onderhoud.</span></p>
 			</div>
+			<ol class="services">
+									<li class="card service" data-reveal>
+						<div class="service-top">
+							<span class="service-icon icon-site" aria-hidden="true"></span>
+							<span class="mono muted">01</span>
+						</div>
+						<h3><span data-l="en" lang="en">Website build</span><span data-l="nl" lang="nl">Website laten maken</span></h3>
+						<p><span data-l="en" lang="en">From a one-pager to a site with job listings, forms and a booking page. Built in WordPress, so you can get into it yourself without calling me.</span><span data-l="nl" lang="nl">Van one-pager tot site met vacatures, formulieren en een boekingspagina. Gebouwd in WordPress, zodat je er zelf in kunt zonder mij te bellen.</span></p>
+						<div class="service-foot">
+							<span class="price mono"><span data-l="en" lang="en">from €550</span><span data-l="nl" lang="nl">vanaf € 550</span></span>
+															<a class="arrow-link" href="#prijs" data-pick-type="website"><span data-l="en" lang="en">Estimate</span><span data-l="nl" lang="nl">Bereken</span> <span aria-hidden="true">→</span></a>
+													</div>
+					</li>
+									<li class="card service" data-reveal>
+						<div class="service-top">
+							<span class="service-icon icon-store" aria-hidden="true"></span>
+							<span class="mono muted">02</span>
+						</div>
+						<h3><span data-l="en" lang="en">Online store</span><span data-l="nl" lang="nl">Webshop</span></h3>
+						<p><span data-l="en" lang="en">WooCommerce or Shopify, with iDEAL and the rest of Mollie wired up. Stock, shipping rules and VAT set correctly before you go live.</span><span data-l="nl" lang="nl">WooCommerce of Shopify, met iDEAL en de rest van Mollie gekoppeld. Voorraad, verzendregels en btw goed ingesteld voordat je live gaat.</span></p>
+						<div class="service-foot">
+							<span class="price mono"><span data-l="en" lang="en">from €2,900</span><span data-l="nl" lang="nl">vanaf € 2.900</span></span>
+															<a class="arrow-link" href="#prijs" data-pick-type="store"><span data-l="en" lang="en">Estimate</span><span data-l="nl" lang="nl">Bereken</span> <span aria-hidden="true">→</span></a>
+													</div>
+					</li>
+									<li class="card service" data-reveal>
+						<div class="service-top">
+							<span class="service-icon icon-care" aria-hidden="true"></span>
+							<span class="mono muted">03</span>
+						</div>
+						<h3><span data-l="en" lang="en">Maintenance and care</span><span data-l="nl" lang="nl">Onderhoud</span></h3>
+						<p><span data-l="en" lang="en">Updates, backups, security and small changes. Every month you get a short summary of what was done. Cancel any month.</span><span data-l="nl" lang="nl">Updates, back-ups, beveiliging en kleine aanpassingen. Elke maand krijg je een kort overzicht van wat er is gedaan. Maandelijks opzegbaar.</span></p>
+						<div class="service-foot">
+							<span class="price mono"><span data-l="en" lang="en">€95 per month</span><span data-l="nl" lang="nl">€ 95 per maand</span></span>
+															<a class="arrow-link" href="#prijs" data-pick-type="care"><span data-l="en" lang="en">Estimate</span><span data-l="nl" lang="nl">Bereken</span> <span aria-hidden="true">→</span></a>
+													</div>
+					</li>
+									<li class="card service" data-reveal>
+						<div class="service-top">
+							<span class="service-icon icon-grow" aria-hidden="true"></span>
+							<span class="mono muted">04</span>
+						</div>
+						<h3><span data-l="en" lang="en">Visibility and growth</span><span data-l="nl" lang="nl">Vindbaarheid en groei</span></h3>
+						<p><span data-l="en" lang="en">Technical SEO, Google Business Profile and ads that chase revenue rather than clicks. Only worth doing once your site is solid.</span><span data-l="nl" lang="nl">Technische SEO, Google Bedrijfsprofiel en advertenties die omzet najagen in plaats van klikken. Pas zinvol als je site goed staat.</span></p>
+						<div class="service-foot">
+							<span class="price mono"><span data-l="en" lang="en">Price on request</span><span data-l="nl" lang="nl">Prijs op aanvraag</span></span>
+															<a class="arrow-link" href="#contact"><span data-l="en" lang="en">Ask</span><span data-l="nl" lang="nl">Vraag aan</span> <span aria-hidden="true">→</span></a>
+													</div>
+					</li>
+							</ol>
 		</div>
 	</section>
 
-	<section class="ch" id="prijs" data-k="estimate">
+	<!-- Self-quote -->
+	<section class="section section-grey" id="prijs">
 		<div class="wrap">
-			<div class="copy copy-wide">
-				<p class="kicker"><span data-l="en" lang="en">Price estimator</span><span data-l="nl" lang="nl">Prijsindicatie</span></p>
-				<h2><span data-l="en" lang="en">What would yours cost?</span><span data-l="nl" lang="nl">Wat kost die van jou?</span></h2>
-				<p class="body"><span data-l="en" lang="en">Pick what you need. You see the same range I would give you on the phone.</span><span data-l="nl" lang="nl">Kies wat je nodig hebt. Je ziet dezelfde bandbreedte die ik je aan de telefoon zou geven.</span></p>
-
-				<form class="card estimator" data-estimator="{&quot;types&quot;:[{&quot;id&quot;:&quot;onepager&quot;,&quot;min&quot;:550,&quot;max&quot;:900,&quot;weeks&quot;:1,&quot;en&quot;:&quot;One-pager&quot;,&quot;nl&quot;:&quot;One-pager&quot;},{&quot;id&quot;:&quot;website&quot;,&quot;min&quot;:1200,&quot;max&quot;:2400,&quot;weeks&quot;:3,&quot;en&quot;:&quot;Website, 5\u201310 pages&quot;,&quot;nl&quot;:&quot;Website, 5\u201310 pagina\u2019s&quot;},{&quot;id&quot;:&quot;store&quot;,&quot;min&quot;:2900,&quot;max&quot;:5500,&quot;weeks&quot;:4,&quot;en&quot;:&quot;Online store&quot;,&quot;nl&quot;:&quot;Webshop&quot;},{&quot;id&quot;:&quot;platform&quot;,&quot;min&quot;:6000,&quot;max&quot;:0,&quot;weeks&quot;:8,&quot;en&quot;:&quot;Platform or custom build&quot;,&quot;nl&quot;:&quot;Platform of maatwerk&quot;}],&quot;extras&quot;:[{&quot;id&quot;:&quot;lang&quot;,&quot;min&quot;:250,&quot;max&quot;:600,&quot;weeks&quot;:0,&quot;en&quot;:&quot;Second language&quot;,&quot;nl&quot;:&quot;Tweede taal&quot;},{&quot;id&quot;:&quot;booking&quot;,&quot;min&quot;:300,&quot;max&quot;:700,&quot;weeks&quot;:0,&quot;en&quot;:&quot;Bookings or appointments&quot;,&quot;nl&quot;:&quot;Boekingen of afspraken&quot;},{&quot;id&quot;:&quot;copy&quot;,&quot;min&quot;:200,&quot;max&quot;:600,&quot;weeks&quot;:0,&quot;en&quot;:&quot;Copywriting&quot;,&quot;nl&quot;:&quot;Teksten schrijven&quot;},{&quot;id&quot;:&quot;brand&quot;,&quot;min&quot;:450,&quot;max&quot;:1200,&quot;weeks&quot;:1,&quot;en&quot;:&quot;Logo and identity&quot;,&quot;nl&quot;:&quot;Logo en huisstijl&quot;},{&quot;id&quot;:&quot;move&quot;,&quot;min&quot;:200,&quot;max&quot;:500,&quot;weeks&quot;:0,&quot;en&quot;:&quot;Move my old site&quot;,&quot;nl&quot;:&quot;Oude site overzetten&quot;}],&quot;care&quot;:95}" onsubmit="return false">
-					<fieldset>
-						<legend><span data-l="en" lang="en">What are we building?</span><span data-l="nl" lang="nl">Wat gaan we bouwen?</span></legend>
-						<div class="opts">
-															<label class="opt">
-									<input type="radio" name="est_type" id="est_type_onepager" value="onepager">
-									<span>One-pager</span>
-								</label>
-															<label class="opt">
-									<input type="radio" name="est_type" id="est_type_website" value="website" checked>
-									<span><span data-l="en" lang="en">Website, 5–10 pages</span><span data-l="nl" lang="nl">Website, 5–10 pagina’s</span></span>
-								</label>
-															<label class="opt">
-									<input type="radio" name="est_type" id="est_type_store" value="store">
-									<span><span data-l="en" lang="en">Online store</span><span data-l="nl" lang="nl">Webshop</span></span>
-								</label>
-															<label class="opt">
-									<input type="radio" name="est_type" id="est_type_platform" value="platform">
-									<span><span data-l="en" lang="en">Platform or custom build</span><span data-l="nl" lang="nl">Platform of maatwerk</span></span>
-								</label>
-													</div>
-					</fieldset>
-					<fieldset>
-						<legend><span data-l="en" lang="en">Extras</span><span data-l="nl" lang="nl">Extra’s</span></legend>
-						<div class="opts">
-															<label class="opt">
-									<input type="checkbox" name="est_extra" id="est_extra_lang" value="lang">
-									<span><span data-l="en" lang="en">Second language</span><span data-l="nl" lang="nl">Tweede taal</span></span>
-								</label>
-															<label class="opt">
-									<input type="checkbox" name="est_extra" id="est_extra_booking" value="booking">
-									<span><span data-l="en" lang="en">Bookings or appointments</span><span data-l="nl" lang="nl">Boekingen of afspraken</span></span>
-								</label>
-															<label class="opt">
-									<input type="checkbox" name="est_extra" id="est_extra_copy" value="copy">
-									<span><span data-l="en" lang="en">Copywriting</span><span data-l="nl" lang="nl">Teksten schrijven</span></span>
-								</label>
-															<label class="opt">
-									<input type="checkbox" name="est_extra" id="est_extra_brand" value="brand">
-									<span><span data-l="en" lang="en">Logo and identity</span><span data-l="nl" lang="nl">Logo en huisstijl</span></span>
-								</label>
-															<label class="opt">
-									<input type="checkbox" name="est_extra" id="est_extra_move" value="move">
-									<span><span data-l="en" lang="en">Move my old site</span><span data-l="nl" lang="nl">Oude site overzetten</span></span>
-								</label>
-													</div>
-					</fieldset>
-					<label class="switch">
-						<input type="checkbox" name="est_care" id="est_care">
-						<span class="switch-ui" aria-hidden="true"></span>
-						<span><span data-l="en" lang="en">Add maintenance and care</span><span data-l="nl" lang="nl">Onderhoud toevoegen</span> <span class="muted tabular">+ € 95/<span data-l="en" lang="en">month</span><span data-l="nl" lang="nl">maand</span></span></span>
+			<div class="sec-head">
+				<p class="kicker"><span data-l="en" lang="en">Self-quote</span><span data-l="nl" lang="nl">Zelf berekenen</span></p>
+				<h2><span data-l="en" lang="en">What will <em class="hl">your</em> website cost?</span><span data-l="nl" lang="nl">Wat kost <em class="hl">jouw</em> website?</span></h2>
+				<p class="lede"><span data-l="en" lang="en">Pick what you need and watch the price change. It’s the same range I would give you on the phone, without the phone call.</span><span data-l="nl" lang="nl">Kies wat je nodig hebt en zie de prijs meteen veranderen. Dezelfde bandbreedte die ik je aan de telefoon zou geven, zonder te bellen.</span></p>
+			</div>
+			<form class="quote" data-quote="{&quot;types&quot;:[{&quot;id&quot;:&quot;onepager&quot;,&quot;base&quot;:[550,750],&quot;incl&quot;:1,&quot;perPage&quot;:[0,0],&quot;pages&quot;:false,&quot;weeks&quot;:[1,2],&quot;label_en&quot;:&quot;One-pager&quot;,&quot;label_nl&quot;:&quot;One-pager&quot;,&quot;hint_en&quot;:&quot;1 page&quot;,&quot;hint_nl&quot;:&quot;1 pagina&quot;},{&quot;id&quot;:&quot;website&quot;,&quot;base&quot;:[1200,1600],&quot;incl&quot;:5,&quot;perPage&quot;:[90,130],&quot;pages&quot;:true,&quot;weeks&quot;:[3,4],&quot;label_en&quot;:&quot;Website&quot;,&quot;label_nl&quot;:&quot;Website&quot;,&quot;hint_en&quot;:&quot;several pages&quot;,&quot;hint_nl&quot;:&quot;meerdere pagina\u2019s&quot;},{&quot;id&quot;:&quot;store&quot;,&quot;base&quot;:[2900,3600],&quot;incl&quot;:5,&quot;perPage&quot;:[90,130],&quot;pages&quot;:true,&quot;weeks&quot;:[4,6],&quot;label_en&quot;:&quot;Online store&quot;,&quot;label_nl&quot;:&quot;Webshop&quot;,&quot;hint_en&quot;:&quot;with payments&quot;,&quot;hint_nl&quot;:&quot;met betalingen&quot;},{&quot;id&quot;:&quot;care&quot;,&quot;base&quot;:[250,450],&quot;incl&quot;:0,&quot;perPage&quot;:[0,0],&quot;pages&quot;:false,&quot;weeks&quot;:[0,1],&quot;label_en&quot;:&quot;Maintenance&quot;,&quot;label_nl&quot;:&quot;Onderhoud&quot;,&quot;hint_en&quot;:&quot;existing site&quot;,&quot;hint_nl&quot;:&quot;bestaande site&quot;}],&quot;design&quot;:[{&quot;id&quot;:&quot;tailored&quot;,&quot;pct&quot;:0,&quot;label_en&quot;:&quot;Tailored&quot;,&quot;label_nl&quot;:&quot;Op maat gestyled&quot;,&quot;hint_en&quot;:&quot;proven layout, your brand&quot;,&quot;hint_nl&quot;:&quot;bewezen opzet, jouw merk&quot;},{&quot;id&quot;:&quot;custom&quot;,&quot;pct&quot;:25,&quot;label_en&quot;:&quot;Fully custom&quot;,&quot;label_nl&quot;:&quot;Volledig maatwerk&quot;,&quot;hint_en&quot;:&quot;designed from scratch&quot;,&quot;hint_nl&quot;:&quot;vanaf nul ontworpen&quot;}],&quot;extras&quot;:[{&quot;id&quot;:&quot;copy&quot;,&quot;price&quot;:[350,450],&quot;label_en&quot;:&quot;Copywriting&quot;,&quot;label_nl&quot;:&quot;Teksten schrijven&quot;},{&quot;id&quot;:&quot;images&quot;,&quot;price&quot;:[250,350],&quot;label_en&quot;:&quot;Images and photography&quot;,&quot;label_nl&quot;:&quot;Beeld en fotografie&quot;},{&quot;id&quot;:&quot;seo&quot;,&quot;price&quot;:[300,400],&quot;label_en&quot;:&quot;SEO groundwork&quot;,&quot;label_nl&quot;:&quot;SEO-basis&quot;},{&quot;id&quot;:&quot;lang&quot;,&quot;price&quot;:[450,600],&quot;label_en&quot;:&quot;Second language&quot;,&quot;label_nl&quot;:&quot;Tweede taal&quot;},{&quot;id&quot;:&quot;booking&quot;,&quot;price&quot;:[500,700],&quot;label_en&quot;:&quot;Booking or sign-up system&quot;,&quot;label_nl&quot;:&quot;Boekings- of inschrijfsysteem&quot;},{&quot;id&quot;:&quot;brand&quot;,&quot;price&quot;:[650,900],&quot;label_en&quot;:&quot;Logo and identity&quot;,&quot;label_nl&quot;:&quot;Logo en huisstijl&quot;},{&quot;id&quot;:&quot;motion&quot;,&quot;price&quot;:[800,1400],&quot;label_en&quot;:&quot;Animation and 3D&quot;,&quot;label_nl&quot;:&quot;Animatie en 3D&quot;},{&quot;id&quot;:&quot;products&quot;,&quot;price&quot;:[300,450],&quot;only&quot;:[&quot;store&quot;],&quot;label_en&quot;:&quot;Product upload (up to 100)&quot;,&quot;label_nl&quot;:&quot;Producten invoeren (tot 100)&quot;}],&quot;rush&quot;:{&quot;factor&quot;:1.2,&quot;weeks&quot;:1},&quot;care&quot;:95,&quot;vat&quot;:21}" onsubmit="return false">
+	<div class="quote-opts">
+		<fieldset class="q-step">
+			<legend><span class="q-n">1</span><span data-l="en" lang="en">What do you need built?</span><span data-l="nl" lang="nl">Wat moet er gebouwd worden?</span></legend>
+			<div class="q-tiles">
+									<label class="q-tile">
+						<input type="radio" name="q_type" id="q_type_onepager" value="onepager">
+						<span class="q-tile-ui"><b>One-pager</b><small><span data-l="en" lang="en">1 page</span><span data-l="nl" lang="nl">1 pagina</span></small><em class="mono"><span data-l="en" lang="en">from €550</span><span data-l="nl" lang="nl">vanaf € 550</span></em></span>
 					</label>
-					<div class="est-result" aria-live="polite">
-						<p class="est-range tabular" data-est-range>€ 1,200 – 2,400</p>
-						<p class="est-meta" data-est-meta><span data-l="en" lang="en">Launch in about 3 weeks · excl. VAT</span><span data-l="nl" lang="nl">Live in ongeveer 3 weken · excl. btw</span></p>
-						<button class="btn" type="button" data-est-send><span data-l="en" lang="en">Ask for a fixed quote</span><span data-l="nl" lang="nl">Vraag een vaste offerte</span> <span aria-hidden="true">→</span></button>
-					</div>
-					<p class="small"><span data-l="en" lang="en">An indication, not a quote. Your fixed quote follows within 2 days.</span><span data-l="nl" lang="nl">Een indicatie, geen offerte. Je vaste offerte volgt binnen 2 dagen.</span></p>
-				</form>
-			</div>
+									<label class="q-tile">
+						<input type="radio" name="q_type" id="q_type_website" value="website" checked>
+						<span class="q-tile-ui"><b>Website</b><small><span data-l="en" lang="en">several pages</span><span data-l="nl" lang="nl">meerdere pagina’s</span></small><em class="mono"><span data-l="en" lang="en">from €1,200</span><span data-l="nl" lang="nl">vanaf € 1.200</span></em></span>
+					</label>
+									<label class="q-tile">
+						<input type="radio" name="q_type" id="q_type_store" value="store">
+						<span class="q-tile-ui"><b><span data-l="en" lang="en">Online store</span><span data-l="nl" lang="nl">Webshop</span></b><small><span data-l="en" lang="en">with payments</span><span data-l="nl" lang="nl">met betalingen</span></small><em class="mono"><span data-l="en" lang="en">from €2,900</span><span data-l="nl" lang="nl">vanaf € 2.900</span></em></span>
+					</label>
+									<label class="q-tile">
+						<input type="radio" name="q_type" id="q_type_care" value="care">
+						<span class="q-tile-ui"><b><span data-l="en" lang="en">Maintenance</span><span data-l="nl" lang="nl">Onderhoud</span></b><small><span data-l="en" lang="en">existing site</span><span data-l="nl" lang="nl">bestaande site</span></small><em class="mono"><span data-l="en" lang="en">from €250</span><span data-l="nl" lang="nl">vanaf € 250</span></em></span>
+					</label>
+							</div>
+		</fieldset>
+
+		<fieldset class="q-step" data-q-pages>
+			<legend><span class="q-n">2</span><span data-l="en" lang="en">Number of pages</span><span data-l="nl" lang="nl">Aantal pagina’s</span> <output class="q-out mono" for="q_pages" data-q-pages-out>5</output></legend>
+			<input class="q-range" type="range" id="q_pages" name="q_pages" min="1" max="30" value="5" step="1">
+			<p class="q-help"><span data-l="en" lang="en">First 5 pages included. Blog posts, products and job listings don’t count as pages.</span><span data-l="nl" lang="nl">Eerste 5 pagina’s inbegrepen. Blogberichten, producten en vacatures tellen niet als pagina.</span></p>
+		</fieldset>
+
+		<fieldset class="q-step" data-q-design>
+			<legend><span class="q-n">3</span><span data-l="en" lang="en">Design</span><span data-l="nl" lang="nl">Ontwerp</span></legend>
+			<div class="q-tiles two">
+									<label class="q-tile">
+						<input type="radio" name="q_design" id="q_design_tailored" value="tailored" checked>
+						<span class="q-tile-ui"><b><span data-l="en" lang="en">Tailored</span><span data-l="nl" lang="nl">Op maat gestyled</span></b><small><span data-l="en" lang="en">proven layout, your brand</span><span data-l="nl" lang="nl">bewezen opzet, jouw merk</span></small><em class="mono">—</em></span>
+					</label>
+									<label class="q-tile">
+						<input type="radio" name="q_design" id="q_design_custom" value="custom">
+						<span class="q-tile-ui"><b><span data-l="en" lang="en">Fully custom</span><span data-l="nl" lang="nl">Volledig maatwerk</span></b><small><span data-l="en" lang="en">designed from scratch</span><span data-l="nl" lang="nl">vanaf nul ontworpen</span></small><em class="mono">+25%</em></span>
+					</label>
+							</div>
+		</fieldset>
+
+		<fieldset class="q-step">
+			<legend><span class="q-n" data-q-n-extras>4</span><span data-l="en" lang="en">What do you need help with?</span><span data-l="nl" lang="nl">Waar heb je hulp bij nodig?</span></legend>
+			<div class="q-checks">
+									<label class="q-check">
+						<input type="checkbox" name="q_extra" id="q_extra_copy" value="copy">
+						<span class="q-box" aria-hidden="true"></span>
+						<span class="q-check-label"><span data-l="en" lang="en">Copywriting</span><span data-l="nl" lang="nl">Teksten schrijven</span></span>
+						<span class="mono q-price">+€350</span>
+					</label>
+									<label class="q-check">
+						<input type="checkbox" name="q_extra" id="q_extra_images" value="images">
+						<span class="q-box" aria-hidden="true"></span>
+						<span class="q-check-label"><span data-l="en" lang="en">Images and photography</span><span data-l="nl" lang="nl">Beeld en fotografie</span></span>
+						<span class="mono q-price">+€250</span>
+					</label>
+									<label class="q-check">
+						<input type="checkbox" name="q_extra" id="q_extra_seo" value="seo">
+						<span class="q-box" aria-hidden="true"></span>
+						<span class="q-check-label"><span data-l="en" lang="en">SEO groundwork</span><span data-l="nl" lang="nl">SEO-basis</span></span>
+						<span class="mono q-price">+€300</span>
+					</label>
+									<label class="q-check">
+						<input type="checkbox" name="q_extra" id="q_extra_lang" value="lang">
+						<span class="q-box" aria-hidden="true"></span>
+						<span class="q-check-label"><span data-l="en" lang="en">Second language</span><span data-l="nl" lang="nl">Tweede taal</span></span>
+						<span class="mono q-price">+€450</span>
+					</label>
+									<label class="q-check">
+						<input type="checkbox" name="q_extra" id="q_extra_booking" value="booking">
+						<span class="q-box" aria-hidden="true"></span>
+						<span class="q-check-label"><span data-l="en" lang="en">Booking or sign-up system</span><span data-l="nl" lang="nl">Boekings- of inschrijfsysteem</span></span>
+						<span class="mono q-price">+€500</span>
+					</label>
+									<label class="q-check">
+						<input type="checkbox" name="q_extra" id="q_extra_brand" value="brand">
+						<span class="q-box" aria-hidden="true"></span>
+						<span class="q-check-label"><span data-l="en" lang="en">Logo and identity</span><span data-l="nl" lang="nl">Logo en huisstijl</span></span>
+						<span class="mono q-price">+€650</span>
+					</label>
+									<label class="q-check">
+						<input type="checkbox" name="q_extra" id="q_extra_motion" value="motion">
+						<span class="q-box" aria-hidden="true"></span>
+						<span class="q-check-label"><span data-l="en" lang="en">Animation and 3D</span><span data-l="nl" lang="nl">Animatie en 3D</span></span>
+						<span class="mono q-price">+€800</span>
+					</label>
+									<label class="q-check" data-only="store">
+						<input type="checkbox" name="q_extra" id="q_extra_products" value="products">
+						<span class="q-box" aria-hidden="true"></span>
+						<span class="q-check-label"><span data-l="en" lang="en">Product upload (up to 100)</span><span data-l="nl" lang="nl">Producten invoeren (tot 100)</span></span>
+						<span class="mono q-price">+€300</span>
+					</label>
+							</div>
+		</fieldset>
+
+		<fieldset class="q-step">
+			<legend><span class="q-n" data-q-n-speed>5</span><span data-l="en" lang="en">Speed and aftercare</span><span data-l="nl" lang="nl">Snelheid en nazorg</span></legend>
+			<label class="q-switch">
+				<input type="checkbox" id="q_rush" name="q_rush">
+				<span class="q-switch-ui" aria-hidden="true"></span>
+				<span><span data-l="en" lang="en">Rush: one week faster</span><span data-l="nl" lang="nl">Spoed: een week sneller</span> <span class="mono muted">+20%</span></span>
+			</label>
+			<label class="q-switch">
+				<input type="checkbox" id="q_care" name="q_care" checked>
+				<span class="q-switch-ui" aria-hidden="true"></span>
+				<span><span data-l="en" lang="en">Maintenance and care</span><span data-l="nl" lang="nl">Onderhoud</span> <span class="mono muted">€95/<span data-l="en" lang="en">mo</span><span data-l="nl" lang="nl">mnd</span></span></span>
+			</label>
+		</fieldset>
+	</div>
+
+	<aside class="quote-result" aria-live="polite">
+		<p class="mono q-label"><span data-l="en" lang="en">Your estimate</span><span data-l="nl" lang="nl">Jouw indicatie</span></p>
+		<p class="q-range-out" data-q-range>€1,200 – €1,600</p>
+		<div class="q-meta">
+			<div><span class="mono"><span data-l="en" lang="en">Timeline</span><span data-l="nl" lang="nl">Doorlooptijd</span></span><b data-q-weeks>3–4 weeks</b></div>
+			<div><span class="mono"><span data-l="en" lang="en">Maintenance</span><span data-l="nl" lang="nl">Onderhoud</span></span><b data-q-care>€95 /mo</b></div>
+		</div>
+		<ul class="q-lines" data-q-lines></ul>
+		<label class="q-vat"><input type="checkbox" id="q_vat" name="q_vat"> <span><span data-l="en" lang="en">Show incl. 21% Dutch VAT</span><span data-l="nl" lang="nl">Toon incl. 21% btw</span></span></label>
+		<button class="btn btn-orange btn-block" type="button" data-q-send><span data-l="en" lang="en">Send this as an enquiry</span><span data-l="nl" lang="nl">Stuur dit als aanvraag</span> <span aria-hidden="true">→</span></button>
+		<p class="q-note"><span data-l="en" lang="en">Based on comparable projects, excluding VAT. You always get a fixed quote before anything gets built. Outside the Netherlands? EU businesses pay no Dutch VAT (reverse charge).</span><span data-l="nl" lang="nl">Gebaseerd op vergelijkbare projecten, excl. btw. Je krijgt altijd een vaste offerte voordat er iets gebouwd wordt. Buiten Nederland? EU-bedrijven betalen geen Nederlandse btw (verlegd).</span></p>
+	</aside>
+</form>
 		</div>
 	</section>
 
-	<section class="ch right" id="werkwijze" data-k="process">
+	<!-- Process + demo film -->
+	<section class="section" id="werkwijze">
 		<div class="wrap">
-			<div class="copy">
+			<div class="sec-head">
 				<p class="kicker"><span data-l="en" lang="en">Process</span><span data-l="nl" lang="nl">Werkwijze</span></p>
-				<h2><span data-l="en" lang="en">Five steps, and you always know which one you are on</span><span data-l="nl" lang="nl">Vijf stappen, en je weet altijd bij welke je bent</span></h2>
-				<p class="body"><span data-l="en" lang="en">Most projects run late because nobody agreed what finished means. That is why the schedule is written into the quote.</span><span data-l="nl" lang="nl">De meeste projecten lopen uit omdat niemand heeft afgesproken wat ‘af’ betekent. Daarom staat de planning in de offerte.</span></p>
-				<ol class="step-index">
-											<li><span class="tabular">01</span> <span data-l="en" lang="en">First call</span><span data-l="nl" lang="nl">Kennismaking</span></li>
-											<li><span class="tabular">02</span> <span data-l="en" lang="en">Fixed quote</span><span data-l="nl" lang="nl">Vaste offerte</span></li>
-											<li><span class="tabular">03</span> <span data-l="en" lang="en">Design</span><span data-l="nl" lang="nl">Ontwerp</span></li>
-											<li><span class="tabular">04</span> <span data-l="en" lang="en">Build</span><span data-l="nl" lang="nl">Bouw</span></li>
-											<li><span class="tabular">05</span> <span data-l="en" lang="en">Launch and handover</span><span data-l="nl" lang="nl">Lancering en overdracht</span></li>
+				<h2><span data-l="en" lang="en">Five steps, and you always know which one you are <em class="hl">on</em></span><span data-l="nl" lang="nl">Vijf stappen, en je weet altijd bij welke je <em class="hl">bent</em></span></h2>
+				<p class="lede"><span data-l="en" lang="en">Most projects run late because nobody agreed what finished means. That is why the schedule is written into the quote. Watch one project go from first call to live site in 30 seconds.</span><span data-l="nl" lang="nl">De meeste projecten lopen uit omdat niemand heeft afgesproken wat ‘af’ betekent. Daarom staat de planning in de offerte. Bekijk in 30 seconden hoe een project van eerste gesprek naar live site gaat.</span></p>
+			</div>
+			<div class="process">
+				<div class="process-film">
+					<div class="demo" data-demo>
+	<div class="demo-frame">
+		<div class="demo-canvas" data-demo-canvas aria-hidden="true">
+
+			<div class="dm-chapter"><span class="dm-dot"></span><span data-demo-label>01 · First call · Day 1</span></div>
+			<div class="dm-brand">Ace 360 <span>Services</span></div>
+
+			<!-- 1. First call -->
+			<div class="dm-scene" data-scene="0">
+				<div class="dm-call">
+					<div class="dm-av">A</div>
+					<p class="dm-call-name">Ace 360 Services</p>
+					<p class="dm-call-time" data-demo-timer>00:00</p>
+					<div class="dm-wave"><i style="--i:0"></i><i style="--i:1"></i><i style="--i:2"></i><i style="--i:3"></i><i style="--i:4"></i><i style="--i:5"></i><i style="--i:6"></i><i style="--i:7"></i><i style="--i:8"></i><i style="--i:9"></i><i style="--i:10"></i><i style="--i:11"></i><i style="--i:12"></i><i style="--i:13"></i><i style="--i:14"></i><i style="--i:15"></i><i style="--i:16"></i><i style="--i:17"></i><i style="--i:18"></i><i style="--i:19"></i><i style="--i:20"></i><i style="--i:21"></i></div>
+					<div class="dm-call-btns"><span></span><span class="end"></span><span></span></div>
+				</div>
+				<div class="dm-notes">
+					<p class="dm-notes-head">Project notes</p>
+					<p class="dm-note"><b>Goal</b> 30 online bookings a month</p>
+					<p class="dm-note"><b>Must</b> iDEAL · Dutch + English</p>
+					<p class="dm-note"><b>Pages</b> Home · Services · Book · Contact</p>
+					<p class="dm-note"><b>Live</b> before 1 June</p>
+				</div>
+			</div>
+
+			<!-- 2. Fixed quote -->
+			<div class="dm-scene" data-scene="1">
+				<div class="dm-quote">
+					<div class="dm-q-head"><b>Fixed quote</b><span>Q-2026-041 · valid 30 days</span></div>
+					<div class="dm-q-row"><span>Website, 6 pages</span><b>€1,290</b></div>
+					<div class="dm-q-row"><span>Booking system</span><b>€500</b></div>
+					<div class="dm-q-row"><span>Second language (EN)</span><b>€450</b></div>
+					<div class="dm-q-total"><span>Total, excl. VAT</span><b>€2,240</b></div>
+					<div class="dm-q-date"><span>Launch date</span><b>28 May</b></div>
+					<div class="dm-q-cols">
+						<div><p>Included</p><span>✓ 2 feedback rounds</span><span>✓ Hosting setup</span><span>✓ Walkthrough</span></div>
+						<div><p>Not included</p><span>✕ Copywriting</span><span>✕ Photography</span></div>
+					</div>
+					<div class="dm-stamp">Accepted</div>
+				</div>
+			</div>
+
+			<!-- 3. Design -->
+			<div class="dm-scene" data-scene="2">
+				<div class="dm-win dm-design">
+					<div class="dm-win-bar"><i></i><i></i><i></i><span>figma · homepage v2</span></div>
+					<div class="dm-wire">
+						<span class="w-nav"></span><span class="w-h1"></span><span class="w-h2"></span><span class="w-btn"></span><span class="w-img"></span>
+						<span class="w-card"></span><span class="w-card"></span><span class="w-card"></span>
+					</div>
+					<div class="dm-design-done">
+						<div class="d-nav"><b>yourbrand</b><i></i><i></i><i></i><em>Book now</em></div>
+						<div class="d-hero"><h6>Fresh every morning, booked in seconds.</h6><p></p><span>Book a table</span></div>
+						<div class="d-img"></div>
+						<div class="d-cards"><span></span><span></span><span></span></div>
+					</div>
+				</div>
+				<div class="dm-pin p1"><b>1</b>Bigger photo?</div>
+				<div class="dm-pin p2"><b>2</b>Button in orange</div>
+				<div class="dm-rounds"><span>Round 1 ✓</span><span>Round 2 ✓</span></div>
+			</div>
+
+			<!-- 4. Build -->
+			<div class="dm-scene" data-scene="3">
+				<div class="dm-code">
+					<div class="dm-win-bar"><i></i><i></i><i></i><span>front-page.php</span></div>
+					<pre><span class="c1">&lt;section class="hero"&gt;</span>
+<span class="c2">  &lt;h1&gt;&lt;?php the_title(); ?&gt;&lt;/h1&gt;</span>
+<span class="c3">  &lt;a class="btn" href="/book"&gt;</span>
+<span class="c4">&lt;/section&gt;</span>
+<span class="c5">mollie()-&gt;payments-&gt;create([</span>
+<span class="c6">  'method' =&gt; 'ideal',</span>
+<span class="c7">]);</span></pre>
+				</div>
+				<div class="dm-win dm-staging">
+					<div class="dm-win-bar"><i></i><i></i><i></i><span>staging.yourbrand.nl</span></div>
+					<div class="dm-build">
+						<div class="b-nav"><b>yourbrand</b><i></i><i></i><em>NL · EN</em></div>
+						<div class="b-hero"><h6>Fresh every morning, booked in seconds.</h6><span>Book a table</span></div>
+						<div class="b-form"><span>Date</span><span>Time</span><span>Guests</span><em>Pay with iDEAL</em></div>
+						<div class="b-cards"><span></span><span></span><span></span></div>
+					</div>
+				</div>
+				<div class="dm-checks">
+					<span>iDEAL payments</span><span>Dutch + English</span><span>Booking form</span><span>Mobile</span>
+				</div>
+			</div>
+
+			<!-- 5. Launch -->
+			<div class="dm-scene" data-scene="4">
+				<div class="dm-win dm-live">
+					<div class="dm-win-bar"><i></i><i></i><i></i><span class="dm-url"><b class="lock">●</b> <span data-demo-url>staging.yourbrand.nl</span></span><em class="dm-live-pill">Live</em></div>
+					<div class="dm-build done">
+						<div class="b-nav"><b>yourbrand</b><i></i><i></i><em>NL · EN</em></div>
+						<div class="b-hero"><h6>Fresh every morning, booked in seconds.</h6><span>Book a table</span></div>
+						<div class="b-cards"><span></span><span></span><span></span></div>
+					</div>
+				</div>
+				<div class="dm-scores">
+											<div class="dm-score" data-score="98">
+							<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="27"/><circle class="arc" cx="32" cy="32" r="27"/></svg>
+							<b>0</b><span>Performance</span>
+						</div>
+											<div class="dm-score" data-score="100">
+							<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="27"/><circle class="arc" cx="32" cy="32" r="27"/></svg>
+							<b>0</b><span>Accessibility</span>
+						</div>
+											<div class="dm-score" data-score="100">
+							<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="27"/><circle class="arc" cx="32" cy="32" r="27"/></svg>
+							<b>0</b><span>Best practices</span>
+						</div>
+											<div class="dm-score" data-score="100">
+							<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="27"/><circle class="arc" cx="32" cy="32" r="27"/></svg>
+							<b>0</b><span>SEO</span>
+						</div>
+									</div>
+				<div class="dm-toast t1"><i>✓</i><p>iDEAL payment received<small>€65.00 · booking for Saturday</small></p></div>
+				<div class="dm-toast t2"><i>✓</i><p>Handover done<small>Logins sent · walkthrough recorded</small></p></div>
+			</div>
+
+		</div>
+		<button class="demo-big-play" type="button" data-demo-bigplay><span class="screen-reader-text">Play</span><svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></button>
+	</div>
+
+	<div class="demo-controls">
+		<button class="demo-btn" type="button" data-demo-play aria-label="Play / pause">
+			<svg class="i-play" viewBox="0 0 24 24" width="18" height="18"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+			<svg class="i-pause" viewBox="0 0 24 24" width="18" height="18"><path d="M7 5h4v14H7zM13 5h4v14h-4z" fill="currentColor"/></svg>
+		</button>
+		<div class="demo-chapters" role="group" aria-label="Chapters">
+							<button type="button" class="demo-ch" data-demo-chapter="0" data-label-en="01 · First call · Day 1" data-label-nl="01 · Kennismaking · Dag 1">
+					<span class="demo-ch-track"><i></i></span>
+					<span class="demo-ch-name"><span data-l="en" lang="en">First call</span><span data-l="nl" lang="nl">Kennismaking</span></span>
+				</button>
+							<button type="button" class="demo-ch" data-demo-chapter="1" data-label-en="02 · Fixed quote · Within 2 days" data-label-nl="02 · Vaste offerte · Binnen 2 dagen">
+					<span class="demo-ch-track"><i></i></span>
+					<span class="demo-ch-name"><span data-l="en" lang="en">Fixed quote</span><span data-l="nl" lang="nl">Vaste offerte</span></span>
+				</button>
+							<button type="button" class="demo-ch" data-demo-chapter="2" data-label-en="03 · Design · Week 1" data-label-nl="03 · Ontwerp · Week 1">
+					<span class="demo-ch-track"><i></i></span>
+					<span class="demo-ch-name"><span data-l="en" lang="en">Design</span><span data-l="nl" lang="nl">Ontwerp</span></span>
+				</button>
+							<button type="button" class="demo-ch" data-demo-chapter="3" data-label-en="04 · Build · Week 2–3" data-label-nl="04 · Bouw · Week 2–3">
+					<span class="demo-ch-track"><i></i></span>
+					<span class="demo-ch-name"><span data-l="en" lang="en">Build</span><span data-l="nl" lang="nl">Bouw</span></span>
+				</button>
+							<button type="button" class="demo-ch" data-demo-chapter="4" data-label-en="05 · Launch and handover · Launch" data-label-nl="05 · Lancering en overdracht · Lancering">
+					<span class="demo-ch-track"><i></i></span>
+					<span class="demo-ch-name"><span data-l="en" lang="en">Launch and handover</span><span data-l="nl" lang="nl">Lancering en overdracht</span></span>
+				</button>
+					</div>
+		<span class="demo-time tabular" data-demo-time>0:00 / 0:30</span>
+		<button class="demo-btn" type="button" data-demo-full aria-label="Full screen"><svg viewBox="0 0 24 24" width="17" height="17"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
+	</div>
+	<noscript><p class="small"><span data-l="en" lang="en">Turn on JavaScript to play the demo.</span><span data-l="nl" lang="nl">Zet JavaScript aan om de demo af te spelen.</span></p></noscript>
+</div>
+				</div>
+				<ol class="steps">
+											<li class="step" data-step="0">
+							<button type="button" class="step-btn" data-demo-goto="0">
+								<span class="step-num mono">01</span>
+								<span class="step-body">
+									<span class="step-title"><span data-l="en" lang="en">First call</span><span data-l="nl" lang="nl">Kennismaking</span></span>
+									<span class="step-text"><span data-l="en" lang="en">Twenty minutes. I ask what the site has to bring in, not what colour it should be.</span><span data-l="nl" lang="nl">Twintig minuten. Ik vraag wat de site moet opleveren, niet welke kleur hij moet hebben.</span></span>
+									<span class="step-when mono"><span data-l="en" lang="en">Day 1</span><span data-l="nl" lang="nl">Dag 1</span></span>
+								</span>
+							</button>
+						</li>
+											<li class="step" data-step="1">
+							<button type="button" class="step-btn" data-demo-goto="1">
+								<span class="step-num mono">02</span>
+								<span class="step-body">
+									<span class="step-title"><span data-l="en" lang="en">Fixed quote</span><span data-l="nl" lang="nl">Vaste offerte</span></span>
+									<span class="step-text"><span data-l="en" lang="en">You get a price, a launch date and a list of what is and is not included. On one page.</span><span data-l="nl" lang="nl">Je krijgt een prijs, een lanceerdatum en een lijst van wat wel en niet is inbegrepen. Op één pagina.</span></span>
+									<span class="step-when mono"><span data-l="en" lang="en">Within 2 days</span><span data-l="nl" lang="nl">Binnen 2 dagen</span></span>
+								</span>
+							</button>
+						</li>
+											<li class="step" data-step="2">
+							<button type="button" class="step-btn" data-demo-goto="2">
+								<span class="step-num mono">03</span>
+								<span class="step-body">
+									<span class="step-title"><span data-l="en" lang="en">Design</span><span data-l="nl" lang="nl">Ontwerp</span></span>
+									<span class="step-text"><span data-l="en" lang="en">You see the layout before anything gets built. Two rounds of feedback are included.</span><span data-l="nl" lang="nl">Je ziet de opzet voordat er iets gebouwd wordt. Twee feedbackrondes zijn inbegrepen.</span></span>
+									<span class="step-when mono">Week 1</span>
+								</span>
+							</button>
+						</li>
+											<li class="step" data-step="3">
+							<button type="button" class="step-btn" data-demo-goto="3">
+								<span class="step-num mono">04</span>
+								<span class="step-body">
+									<span class="step-title"><span data-l="en" lang="en">Build</span><span data-l="nl" lang="nl">Bouw</span></span>
+									<span class="step-text"><span data-l="en" lang="en">I build on a staging site you can watch. Text and images get filled in as we go.</span><span data-l="nl" lang="nl">Ik bouw op een testomgeving waar je kunt meekijken. Tekst en beeld vullen we gaandeweg in.</span></span>
+									<span class="step-when mono">Week 2–3</span>
+								</span>
+							</button>
+						</li>
+											<li class="step" data-step="4">
+							<button type="button" class="step-btn" data-demo-goto="4">
+								<span class="step-num mono">05</span>
+								<span class="step-body">
+									<span class="step-title"><span data-l="en" lang="en">Launch and handover</span><span data-l="nl" lang="nl">Lancering en overdracht</span></span>
+									<span class="step-text"><span data-l="en" lang="en">The site goes live, you get the logins and a walkthrough. After that you can run it yourself.</span><span data-l="nl" lang="nl">De site gaat live, je krijgt de inloggegevens en een rondleiding. Daarna kun je hem zelf beheren.</span></span>
+									<span class="step-when mono"><span data-l="en" lang="en">Launch</span><span data-l="nl" lang="nl">Lancering</span></span>
+								</span>
+							</button>
+						</li>
 									</ol>
 			</div>
 		</div>
 	</section>
 
-			<section class="ch step" data-k="s1">
-			<div class="wrap">
-				<div class="copy">
-					<p class="kicker"><span class="tabular">01 / 05</span> · <span data-l="en" lang="en">Day 1</span><span data-l="nl" lang="nl">Dag 1</span></p>
-					<h2 class="step-title"><span data-l="en" lang="en">First call</span><span data-l="nl" lang="nl">Kennismaking</span></h2>
-					<p class="body"><span data-l="en" lang="en">Twenty minutes. I ask what the site has to bring in, not what colour it should be.</span><span data-l="nl" lang="nl">Twintig minuten. Ik vraag wat de site moet opleveren, niet welke kleur hij moet hebben.</span></p>
-					<div class="progress" aria-hidden="true"><i style="--p:0.2"></i></div>
-				</div>
+	<!-- Work -->
+	<section class="section section-grey" id="werk">
+		<div class="wrap">
+			<div class="sec-head">
+				<p class="kicker"><span data-l="en" lang="en">Work</span><span data-l="nl" lang="nl">Werk</span></p>
+				<h2><span data-l="en" lang="en">Recently <em class="hl">built</em></span><span data-l="nl" lang="nl">Recent <em class="hl">opgeleverd</em></span></h2>
+				<p class="lede"><span data-l="en" lang="en">A few of the projects that went live lately. Hover a window to scroll through the site.</span><span data-l="nl" lang="nl">Een paar projecten die onlangs live gingen. Beweeg over een venster om door de site te scrollen.</span></p>
 			</div>
-		</section>
-			<section class="ch step right" data-k="s2">
-			<div class="wrap">
-				<div class="copy">
-					<p class="kicker"><span class="tabular">02 / 05</span> · <span data-l="en" lang="en">Within 2 days</span><span data-l="nl" lang="nl">Binnen 2 dagen</span></p>
-					<h2 class="step-title"><span data-l="en" lang="en">Fixed quote</span><span data-l="nl" lang="nl">Vaste offerte</span></h2>
-					<p class="body"><span data-l="en" lang="en">You get a price, a launch date and a list of what is and is not included. On one page.</span><span data-l="nl" lang="nl">Je krijgt een prijs, een lanceerdatum en een lijst van wat wel en niet is inbegrepen. Op één pagina.</span></p>
-					<div class="progress" aria-hidden="true"><i style="--p:0.4"></i></div>
+			<div class="work">
+									<article class="work-item" data-reveal>
+						<div class="work-shot">
+							<div class="browser hoverscroll">
+	<div class="browser-bar" aria-hidden="true">
+		<span class="dots"><i></i><i></i><i></i></span>
+		<span class="addr"><svg viewBox="0 0 12 12" width="9" height="9"><path d="M3.5 5V3.8a2.5 2.5 0 015 0V5M2.5 5h7v5h-7z" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>hesedimpactministries.com</span>
+	</div>
+	<div class="browser-view">
+					<div class="mock-page mk-hesed" aria-hidden="true">
+				<div class="mk-nav"><b>Hesed<span>Impact Ministries</span></b><i>Events</i><i>Media</i><i>About</i><em>Give</em></div>
+				<div class="mk-hero"><small>Sunday 10:30 · All welcome</small><h4>A church that shows up for its city.</h4><span class="mk-btn">Plan a visit</span><span class="mk-btn ghost">Watch online</span></div>
+				<div class="mk-sec"><h5>Upcoming events</h5>
+					<div class="mk-ev"><b>SUN<br>14</b><p>Sunday service<small>10:30 · Main hall</small></p><i>RSVP</i></div>
+					<div class="mk-ev"><b>WED<br>17</b><p>Bible study<small>19:30 · Online & on site</small></p><i>RSVP</i></div>
+					<div class="mk-ev"><b>SAT<br>20</b><p>Community meal<small>17:00 · Family hall</small></p><i>RSVP</i></div>
 				</div>
+				<div class="mk-sec"><h5>Media archive</h5><div class="mk-media"><span><i></i>Hope that holds</span><span><i></i>Faith at work</span><span><i></i>Rooted</span></div></div>
+				<div class="mk-give"><h5>Support the mission</h5><div><span>€10</span><span class="on">€25</span><span>€50</span><span>Other</span></div><p><span class="mk-btn">Give with iDEAL</span><small>Monthly · One-off</small></p></div>
 			</div>
-		</section>
-			<section class="ch step" data-k="s3">
-			<div class="wrap">
-				<div class="copy">
-					<p class="kicker"><span class="tabular">03 / 05</span> · Week 1</p>
-					<h2 class="step-title"><span data-l="en" lang="en">Design</span><span data-l="nl" lang="nl">Ontwerp</span></h2>
-					<p class="body"><span data-l="en" lang="en">You see the layout before anything gets built. Two rounds of feedback are included.</span><span data-l="nl" lang="nl">Je ziet de opzet voordat er iets gebouwd wordt. Twee feedbackrondes zijn inbegrepen.</span></p>
-					<div class="progress" aria-hidden="true"><i style="--p:0.6"></i></div>
-				</div>
 			</div>
-		</section>
-			<section class="ch step right" data-k="s4">
-			<div class="wrap">
-				<div class="copy">
-					<p class="kicker"><span class="tabular">04 / 05</span> · Week 2–3</p>
-					<h2 class="step-title"><span data-l="en" lang="en">Build</span><span data-l="nl" lang="nl">Bouw</span></h2>
-					<p class="body"><span data-l="en" lang="en">I build on a staging site you can watch. Text and images get filled in as we go.</span><span data-l="nl" lang="nl">Ik bouw op een testomgeving waar je kunt meekijken. Tekst en beeld vullen we gaandeweg in.</span></p>
-					<div class="progress" aria-hidden="true"><i style="--p:0.8"></i></div>
-				</div>
+</div>
+						</div>
+						<div class="work-info">
+							<p class="mono muted">01 · <span data-l="en" lang="en">WordPress theme</span><span data-l="nl" lang="nl">WordPress-thema</span></p>
+							<h3>
+																	Hesed Impact Ministries															</h3>
+							<p class="work-text"><span data-l="en" lang="en">Custom theme with events, a media archive and a donation page.</span><span data-l="nl" lang="nl">Maatwerkthema met evenementen, een media-archief en een donatiepagina.</span></p>
+															<ul class="work-built">
+																			<li><span data-l="en" lang="en">Event calendar the team updates itself</span><span data-l="nl" lang="nl">Evenementenkalender die het team zelf bijhoudt</span></li>
+																			<li><span data-l="en" lang="en">Searchable archive of sermons and videos</span><span data-l="nl" lang="nl">Doorzoekbaar archief met preken en video’s</span></li>
+																			<li><span data-l="en" lang="en">Donation page with iDEAL and recurring gifts</span><span data-l="nl" lang="nl">Donatiepagina met iDEAL en periodieke giften</span></li>
+																	</ul>
+																						<ul class="tags">
+																			<li class="mono">WordPress</li>
+																			<li class="mono">Custom theme</li>
+																			<li class="mono">Mollie</li>
+																	</ul>
+																				</div>
+					</article>
+									<article class="work-item flip" data-reveal>
+						<div class="work-shot">
+							<div class="browser hoverscroll">
+	<div class="browser-bar" aria-hidden="true">
+		<span class="dots"><i></i><i></i><i></i></span>
+		<span class="addr"><svg viewBox="0 0 12 12" width="9" height="9"><path d="M3.5 5V3.8a2.5 2.5 0 015 0V5M2.5 5h7v5h-7z" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>sidwalk.com</span>
+	</div>
+	<div class="browser-view">
+					<div class="mock-page mk-sid" aria-hidden="true">
+				<div class="mk-nav"><b>SIDWALK</b><i>Shop</i><i>Drop 01</i><i>Lookbook</i><em>Bag (2)</em></div>
+				<div class="mk-hero"><h4>SIDWALK</h4><p>DROP 01 — OUT NOW</p><span class="mk-btn">Shop the drop</span></div>
+				<div class="mk-grid">
+											<div class="mk-prod"><span class="mk-shape tee"></span><p>Logo Tee<b>€45</b></p></div>
+											<div class="mk-prod"><span class="mk-shape hood"></span><p>Heavy Hoodie<b>€89</b></p></div>
+											<div class="mk-prod"><span class="mk-shape pant"></span><p>Cargo Pant<b>€95</b></p></div>
+											<div class="mk-prod"><span class="mk-shape cap"></span><p>Crew Cap<b>€35</b></p></div>
+									</div>
+				<div class="mk-band"><p>FREE SHIPPING NL & BE · 14 DAY RETURNS</p></div>
+				<div class="mk-campaign"><h5>WALK YOUR OWN WAY</h5><span class="mk-btn">See the campaign</span></div>
 			</div>
-		</section>
-			<section class="ch step" data-k="s5">
-			<div class="wrap">
-				<div class="copy">
-					<p class="kicker"><span class="tabular">05 / 05</span> · <span data-l="en" lang="en">Launch</span><span data-l="nl" lang="nl">Lancering</span></p>
-					<h2 class="step-title"><span data-l="en" lang="en">Launch and handover</span><span data-l="nl" lang="nl">Lancering en overdracht</span></h2>
-					<p class="body"><span data-l="en" lang="en">The site goes live, you get the logins and a walkthrough. After that you can run it yourself.</span><span data-l="nl" lang="nl">De site gaat live, je krijgt de inloggegevens en een rondleiding. Daarna kun je hem zelf beheren.</span></p>
-					<div class="progress" aria-hidden="true"><i style="--p:1"></i></div>
-				</div>
 			</div>
-		</section>
-	
-	<section class="ch tall right" id="werk" data-k="work" data-items="3" style="--items:3">
-		<div class="sticky">
-			<div class="wrap">
-				<div class="copy">
-					<p class="kicker"><span data-l="en" lang="en">Work</span><span data-l="nl" lang="nl">Werk</span> · <span class="tabular" data-count>1 / 3</span></p>
-					<h2><span data-l="en" lang="en">Recently built</span><span data-l="nl" lang="nl">Recent opgeleverd</span></h2>
-					<p class="body"><span data-l="en" lang="en">A few of the projects that went live lately.</span><span data-l="nl" lang="nl">Een paar projecten die onlangs live gingen.</span></p>
-					<ol class="items">
-													<li class="item card is-on">
-																<p class="small"><span data-l="en" lang="en">WordPress theme</span><span data-l="nl" lang="nl">WordPress-thema</span></p>
-								<h3>
-																			Hesed Impact Ministries																	</h3>
-								<p><span data-l="en" lang="en">Custom theme with events, a media archive and a donation page.</span><span data-l="nl" lang="nl">Maatwerkthema met evenementen, een media-archief en een donatiepagina.</span></p>
-							</li>
-													<li class="item card">
-																<p class="small"><span data-l="en" lang="en">Shopify + brand identity</span><span data-l="nl" lang="nl">Shopify + merkidentiteit</span></p>
-								<h3>
-																			SIDWALK																	</h3>
-								<p><span data-l="en" lang="en">Streetwear store, from logo and identity through to the first campaign.</span><span data-l="nl" lang="nl">Streetwearwinkel, van logo en identiteit tot de eerste campagne.</span></p>
-							</li>
-													<li class="item card">
-																<p class="small">Platform</p>
-								<h3>
-																			Crea8or																	</h3>
-								<p><span data-l="en" lang="en">Marketplace for creators with Mollie payments and payouts.</span><span data-l="nl" lang="nl">Marktplaats voor makers met Mollie-betalingen en -uitbetalingen.</span></p>
-							</li>
-											</ol>
-					<div class="dots" role="group" aria-label="Projects">
-													<button type="button" data-go="0" aria-label="Hesed Impact Ministries" class="on"></button>
-													<button type="button" data-go="1" aria-label="SIDWALK"></button>
-													<button type="button" data-go="2" aria-label="Crea8or"></button>
-											</div>
-				</div>
+</div>
+						</div>
+						<div class="work-info">
+							<p class="mono muted">02 · <span data-l="en" lang="en">Shopify + brand identity</span><span data-l="nl" lang="nl">Shopify + merkidentiteit</span></p>
+							<h3>
+																	SIDWALK															</h3>
+							<p class="work-text"><span data-l="en" lang="en">Streetwear store, from logo and identity through to the first campaign.</span><span data-l="nl" lang="nl">Streetwearwinkel, van logo en identiteit tot de eerste campagne.</span></p>
+															<ul class="work-built">
+																			<li><span data-l="en" lang="en">Logo, type and visual identity</span><span data-l="nl" lang="nl">Logo, typografie en huisstijl</span></li>
+																			<li><span data-l="en" lang="en">Shopify store with drops and size guides</span><span data-l="nl" lang="nl">Shopify-winkel met drops en maattabellen</span></li>
+																			<li><span data-l="en" lang="en">Launch campaign assets</span><span data-l="nl" lang="nl">Materiaal voor de lanceercampagne</span></li>
+																	</ul>
+																						<ul class="tags">
+																			<li class="mono">Shopify</li>
+																			<li class="mono">Brand identity</li>
+																			<li class="mono">Campaign</li>
+																	</ul>
+																				</div>
+					</article>
+									<article class="work-item" data-reveal>
+						<div class="work-shot">
+							<div class="browser hoverscroll">
+	<div class="browser-bar" aria-hidden="true">
+		<span class="dots"><i></i><i></i><i></i></span>
+		<span class="addr"><svg viewBox="0 0 12 12" width="9" height="9"><path d="M3.5 5V3.8a2.5 2.5 0 015 0V5M2.5 5h7v5h-7z" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>crea8or.com</span>
+	</div>
+	<div class="browser-view">
+					<div class="mock-page mk-cre" aria-hidden="true">
+				<div class="mk-nav"><b>Crea8or</b><i>Explore</i><i>How it works</i><i>Sell</i><em>Sign in</em></div>
+				<div class="mk-hero"><h4>Hire creators who make things happen.</h4><div class="mk-search"><span>Video editors, illustrators…</span><b>Search</b></div><small>Secure payments by Mollie · Paid out to creators automatically</small></div>
+				<div class="mk-cards">
+											<div class="mk-card"><span class="mk-av">AV</span><p>Video editing<small>★ 4.9 · from €120</small></p></div>
+											<div class="mk-card"><span class="mk-av">MK</span><p>Illustration<small>★ 5.0 · from €90</small></p></div>
+											<div class="mk-card"><span class="mk-av">JD</span><p>Motion design<small>★ 4.8 · from €150</small></p></div>
+									</div>
+				<div class="mk-payout"><div><small>Payout</small><b>€ 1.240,00</b><p>Sent to NL91 •••• 4410</p></div><span>Paid</span></div>
+				<div class="mk-sec"><h5>Top categories</h5><div class="mk-tags"><span>Video</span><span>Design</span><span>Writing</span><span>Music</span><span>3D</span></div></div>
 			</div>
+			</div>
+</div>
+						</div>
+						<div class="work-info">
+							<p class="mono muted">03 · Platform</p>
+							<h3>
+																	Crea8or															</h3>
+							<p class="work-text"><span data-l="en" lang="en">Marketplace for creators with Mollie payments and payouts.</span><span data-l="nl" lang="nl">Marktplaats voor makers met Mollie-betalingen en -uitbetalingen.</span></p>
+															<ul class="work-built">
+																			<li><span data-l="en" lang="en">Creator profiles and listings</span><span data-l="nl" lang="nl">Profielen en aanbod van makers</span></li>
+																			<li><span data-l="en" lang="en">Checkout with Mollie Connect</span><span data-l="nl" lang="nl">Afrekenen met Mollie Connect</span></li>
+																			<li><span data-l="en" lang="en">Automatic payouts to creators</span><span data-l="nl" lang="nl">Automatische uitbetalingen aan makers</span></li>
+																	</ul>
+																						<ul class="tags">
+																			<li class="mono">Platform</li>
+																			<li class="mono">Mollie Connect</li>
+																			<li class="mono">Payouts</li>
+																	</ul>
+																				</div>
+					</article>
+							</div>
 		</div>
 	</section>
 
-	<section class="band" id="vragen" data-k="faq">
-		<div class="wrap band-grid">
-			<div class="band-head">
+	<!-- FAQ -->
+	<section class="section" id="vragen">
+		<div class="wrap faq-grid">
+			<div class="sec-head sticky-head">
 				<p class="kicker"><span data-l="en" lang="en">Questions</span><span data-l="nl" lang="nl">Vragen</span></p>
-				<h2><span data-l="en" lang="en">What people ask first</span><span data-l="nl" lang="nl">Wat mensen als eerste vragen</span></h2>
+				<h2><span data-l="en" lang="en">What people ask <em class="hl">first</em></span><span data-l="nl" lang="nl">Wat mensen als <em class="hl">eerste</em> vragen</span></h2>
+				<p class="lede"><span data-l="en" lang="en">Something else? Call or send a WhatsApp, you get a straight answer.</span><span data-l="nl" lang="nl">Iets anders? Bel of stuur een WhatsApp, je krijgt een eerlijk antwoord.</span></p>
+				<div class="actions">
+					<a class="btn btn-line" href="https://wa.me/31617858490" target="_blank" rel="noopener">WhatsApp</a>
+					<a class="btn btn-line" href="tel:+31617858490">+31 6 17 85 84 90</a>
+				</div>
 			</div>
 			<div class="faq">
 									<details open>
@@ -311,12 +733,12 @@
 						<p><span data-l="en" lang="en">You do. Domain and hosting are registered in your name, not mine. You get every login. If you ever want to work with someone else, you take the whole thing with you.</span><span data-l="nl" lang="nl">Van jou. Domein en hosting staan op jouw naam, niet op de mijne. Je krijgt alle inloggegevens. Wil je ooit met iemand anders verder, dan neem je alles mee.</span></p>
 					</details>
 									<details>
-						<summary><span data-l="en" lang="en">I’m not based in the Netherlands. Can we still work together?</span><span data-l="nl" lang="nl">Ik zit niet in Nederland. Kunnen we toch samenwerken?</span></summary>
-						<p><span data-l="en" lang="en">Yes. I work with clients across Europe and beyond, fully remote and in English. Calls are planned around your time zone and quotes are in euros. Businesses in other EU countries with a VAT number are invoiced with VAT reverse-charged.</span><span data-l="nl" lang="nl">Ja. Ik werk met klanten in heel Europa en daarbuiten, volledig op afstand en in het Engels. Gesprekken plan ik rond jouw tijdzone en offertes zijn in euro’s. Bedrijven in andere EU-landen met een btw-nummer factureer ik met btw verlegd.</span></p>
+						<summary><span data-l="en" lang="en">I’m outside the Netherlands. Can we still work together?</span><span data-l="nl" lang="nl">Ik zit buiten Nederland. Kunnen we toch samenwerken?</span></summary>
+						<p><span data-l="en" lang="en">Yes. I work fully remote and in English with clients across the EU and beyond. Calls are planned around your time zone and quotes are in euros. EU businesses with a VAT number are invoiced with VAT reverse-charged; outside the EU no Dutch VAT is charged.</span><span data-l="nl" lang="nl">Ja. Ik werk volledig op afstand en in het Engels met klanten in de EU en daarbuiten. Gesprekken plan ik rond jouw tijdzone en offertes zijn in euro’s. EU-bedrijven met een btw-nummer factureer ik met btw verlegd; buiten de EU reken ik geen Nederlandse btw.</span></p>
 					</details>
 									<details>
 						<summary><span data-l="en" lang="en">Why are the prices on the site?</span><span data-l="nl" lang="nl">Waarom staan de prijzen op de site?</span></summary>
-						<p><span data-l="en" lang="en">Because otherwise you have to request three quotes just to find out whether you are in the right bracket. That costs you a week. The estimator above gives the same range I would give you on the phone.</span><span data-l="nl" lang="nl">Omdat je anders drie offertes moet aanvragen om te weten of je in de goede prijsklasse zit. Dat kost je een week. De prijsindicatie hierboven geeft dezelfde bandbreedte die ik je aan de telefoon zou geven.</span></p>
+						<p><span data-l="en" lang="en">Because otherwise you have to request three quotes just to find out whether you are in the right bracket. That costs you a week. The estimator above gives the same range I would give you on the phone.</span><span data-l="nl" lang="nl">Omdat je anders drie offertes moet aanvragen om te weten of je in de goede prijsklasse zit. Dat kost je een week. De prijsberekening hierboven geeft dezelfde bandbreedte die ik je aan de telefoon zou geven.</span></p>
 					</details>
 									<details>
 						<summary><span data-l="en" lang="en">What happens if it runs late?</span><span data-l="nl" lang="nl">Wat als het uitloopt?</span></summary>
@@ -330,78 +752,98 @@
 		</div>
 	</section>
 
-	<section class="ch contact" id="contact" data-k="contact">
-	<div class="wrap contact-grid">
-		<div class="copy">
+	<section class="section contact" id="contact">
+	<div class="wrap">
+		<div class="sec-head">
 			<p class="kicker">Contact</p>
-			<h2><span data-l="en" lang="en">Tell me what you need</span><span data-l="nl" lang="nl">Vertel wat je nodig hebt</span></h2>
-			<p class="body"><span data-l="en" lang="en">You get an answer within one working day, with either a concrete price or a concrete question back. No automated confirmation email that says nothing.</span><span data-l="nl" lang="nl">Je krijgt binnen één werkdag antwoord, met een concrete prijs of een concrete vraag terug. Geen automatische bevestigingsmail die niets zegt.</span></p>
-			<dl class="details card">
-				<div><dt><span data-l="en" lang="en">Call</span><span data-l="nl" lang="nl">Bellen</span></dt><dd><a href="tel:+31617858490">+31 6 17 85 84 90</a></dd></div>
-				<div><dt>WhatsApp</dt><dd><a href="https://wa.me/31617858490" target="_blank" rel="noopener"><span data-l="en" lang="en">Send a message</span><span data-l="nl" lang="nl">Stuur een bericht</span> ↗</a></dd></div>
-				<div><dt>Email</dt><dd><a href="mailto:info@ace360services.nl">info@ace360services.nl</a></dd></div>
-				<div><dt><span data-l="en" lang="en">Available</span><span data-l="nl" lang="nl">Bereikbaar</span></dt><dd><span data-l="en" lang="en">Mon–Fri 09:00–18:00 CET</span><span data-l="nl" lang="nl">Ma–vr 09:00–18:00</span></dd></div>
-				<div><dt><span data-l="en" lang="en">Coverage</span><span data-l="nl" lang="nl">Werkgebied</span></dt><dd><span data-l="en" lang="en">All of the Netherlands · international clients remotely</span><span data-l="nl" lang="nl">Heel Nederland · internationale klanten op afstand</span></dd></div>
-			</dl>
+			<h2><span data-l="en" lang="en">Tell me what you <em class="hl">need</em></span><span data-l="nl" lang="nl">Vertel wat je <em class="hl">nodig</em> hebt</span></h2>
+			<p class="lede"><span data-l="en" lang="en">You get an answer within one working day, with either a concrete price or a concrete question back. No automated confirmation email that says nothing.</span><span data-l="nl" lang="nl">Je krijgt binnen één werkdag antwoord, met een concrete prijs of een concrete vraag terug. Geen automatische bevestigingsmail die niets zegt.</span></p>
 		</div>
-
-		<form class="card contact-form" method="post" action="#" data-contact-form>
-			<input type="hidden" name="action" value="ace360_contact">
-			<input type="hidden" name="ace360_estimate" value="" data-estimate-field>
-			<input type="hidden" name="ace360_lang" value="en" data-lang-field>
-						<p class="hp" aria-hidden="true">
-				<label for="ace360_website">Website</label>
-				<input type="text" id="ace360_website" name="ace360_website" tabindex="-1" autocomplete="off">
-			</p>
-
-						<p class="form-status is-ok" role="status" data-form-preview hidden></p>
-
-			<div class="field-row">
-				<p class="field">
-					<label for="ace360_name"><span data-l="en" lang="en">Name</span><span data-l="nl" lang="nl">Naam</span></label>
-					<input type="text" id="ace360_name" name="ace360_name" autocomplete="name" required>
+		<div class="contact-grid">
+			<form class="card contact-form" method="post" action="#" data-contact-form>
+				<input type="hidden" name="action" value="ace360_contact">
+				<input type="hidden" name="ace360_estimate" value="" data-estimate-field>
+				<input type="hidden" name="ace360_lang" value="en" data-lang-field>
+								<p class="hp" aria-hidden="true">
+					<label for="ace360_website">Website</label>
+					<input type="text" id="ace360_website" name="ace360_website" tabindex="-1" autocomplete="off">
 				</p>
+
+								<p class="form-status is-ok" role="status" data-form-preview hidden></p>
+
+				<div class="est-chip" data-estimate-chip hidden>
+					<span class="mono"><span data-l="en" lang="en">Your estimate</span><span data-l="nl" lang="nl">Jouw indicatie</span></span>
+					<b data-estimate-chip-text></b>
+					<a href="#prijs" class="arrow-link"><span data-l="en" lang="en">Change</span><span data-l="nl" lang="nl">Wijzig</span></a>
+				</div>
+
+				<div class="field-row">
+					<p class="field">
+						<label for="ace360_name"><span data-l="en" lang="en">Name</span><span data-l="nl" lang="nl">Naam</span></label>
+						<input type="text" id="ace360_name" name="ace360_name" autocomplete="name" required>
+					</p>
+					<p class="field">
+						<label for="ace360_company"><span data-l="en" lang="en">Company</span><span data-l="nl" lang="nl">Bedrijf</span></label>
+						<input type="text" id="ace360_company" name="ace360_company" autocomplete="organization">
+					</p>
+				</div>
+				<div class="field-row">
+					<p class="field">
+						<label for="ace360_email"><span data-l="en" lang="en">Email</span><span data-l="nl" lang="nl">E-mail</span></label>
+						<input type="email" id="ace360_email" name="ace360_email" autocomplete="email" required>
+					</p>
+					<p class="field">
+						<label for="ace360_phone"><span data-l="en" lang="en">Phone (optional)</span><span data-l="nl" lang="nl">Telefoon (optioneel)</span></label>
+						<input type="tel" id="ace360_phone" name="ace360_phone" autocomplete="tel">
+					</p>
+				</div>
+				<fieldset class="field">
+					<legend><span data-l="en" lang="en">What is it about?</span><span data-l="nl" lang="nl">Waar gaat het over?</span></legend>
+					<div class="pills">
+													<label class="pill">
+								<input type="radio" id="ace360_need_0" name="ace360_need" value="Website" checked>
+								<span>Website</span>
+							</label>
+													<label class="pill">
+								<input type="radio" id="ace360_need_1" name="ace360_need" value="Online store">
+								<span><span data-l="en" lang="en">Online store</span><span data-l="nl" lang="nl">Webshop</span></span>
+							</label>
+													<label class="pill">
+								<input type="radio" id="ace360_need_2" name="ace360_need" value="Maintenance">
+								<span><span data-l="en" lang="en">Maintenance</span><span data-l="nl" lang="nl">Onderhoud</span></span>
+							</label>
+													<label class="pill">
+								<input type="radio" id="ace360_need_3" name="ace360_need" value="Growth">
+								<span><span data-l="en" lang="en">Growth</span><span data-l="nl" lang="nl">Groei</span></span>
+							</label>
+													<label class="pill">
+								<input type="radio" id="ace360_need_4" name="ace360_need" value="Not sure yet">
+								<span><span data-l="en" lang="en">Not sure yet</span><span data-l="nl" lang="nl">Weet ik nog niet</span></span>
+							</label>
+											</div>
+				</fieldset>
 				<p class="field">
-					<label for="ace360_company"><span data-l="en" lang="en">Company</span><span data-l="nl" lang="nl">Bedrijf</span></label>
-					<input type="text" id="ace360_company" name="ace360_company" autocomplete="organization">
+					<label for="ace360_message"><span data-l="en" lang="en">What kind of site do you need, and when do you want to be live?</span><span data-l="nl" lang="nl">Wat voor site heb je nodig, en wanneer wil je live?</span></label>
+					<textarea id="ace360_message" name="ace360_message" rows="4" required></textarea>
 				</p>
-			</div>
-			<p class="field">
-				<label for="ace360_email"><span data-l="en" lang="en">Email</span><span data-l="nl" lang="nl">E-mail</span></label>
-				<input type="email" id="ace360_email" name="ace360_email" autocomplete="email" required>
-			</p>
-			<fieldset class="field">
-				<legend><span data-l="en" lang="en">What do you need?</span><span data-l="nl" lang="nl">Wat heb je nodig?</span></legend>
-				<div class="opts">
-											<label class="opt">
-							<input type="radio" id="ace360_need_0" name="ace360_need" value="Website" checked>
-							<span>Website</span>
-						</label>
-											<label class="opt">
-							<input type="radio" id="ace360_need_1" name="ace360_need" value="Online store">
-							<span><span data-l="en" lang="en">Online store</span><span data-l="nl" lang="nl">Webshop</span></span>
-						</label>
-											<label class="opt">
-							<input type="radio" id="ace360_need_2" name="ace360_need" value="Maintenance">
-							<span><span data-l="en" lang="en">Maintenance</span><span data-l="nl" lang="nl">Onderhoud</span></span>
-						</label>
-											<label class="opt">
-							<input type="radio" id="ace360_need_3" name="ace360_need" value="Growth">
-							<span><span data-l="en" lang="en">Growth</span><span data-l="nl" lang="nl">Groei</span></span>
-						</label>
-											<label class="opt">
-							<input type="radio" id="ace360_need_4" name="ace360_need" value="Not sure yet">
-							<span><span data-l="en" lang="en">Not sure yet</span><span data-l="nl" lang="nl">Weet ik nog niet</span></span>
-						</label>
-									</div>
-			</fieldset>
-			<p class="est-chip" data-estimate-chip hidden></p>
-			<p class="field">
-				<label for="ace360_message"><span data-l="en" lang="en">Tell me about the project</span><span data-l="nl" lang="nl">Vertel over het project</span></label>
-				<textarea id="ace360_message" name="ace360_message" rows="4" required></textarea>
-			</p>
-			<button class="btn" type="submit"><span data-l="en" lang="en">Send</span><span data-l="nl" lang="nl">Versturen</span> <span aria-hidden="true">→</span></button>
-		</form>
+				<label class="consent">
+					<input type="checkbox" id="ace360_consent" name="ace360_consent" value="1" required>
+					<span><span data-l="en" lang="en">I agree to my details being used to respond to this enquiry.</span><span data-l="nl" lang="nl">Ik ga akkoord dat mijn gegevens worden gebruikt om op deze aanvraag te reageren.</span></span>
+				</label>
+				<button class="btn btn-orange" type="submit"><span data-l="en" lang="en">Send enquiry</span><span data-l="nl" lang="nl">Verstuur aanvraag</span> <span aria-hidden="true">→</span></button>
+			</form>
+
+			<aside class="card direct">
+				<p class="mono muted"><span data-l="en" lang="en">Prefer direct</span><span data-l="nl" lang="nl">Liever direct</span></p>
+				<dl>
+					<div><dt class="mono"><span data-l="en" lang="en">Call</span><span data-l="nl" lang="nl">Bellen</span></dt><dd><a href="tel:+31617858490">+31 6 17 85 84 90</a></dd></div>
+					<div><dt class="mono">WhatsApp</dt><dd><a href="https://wa.me/31617858490" target="_blank" rel="noopener"><span data-l="en" lang="en">Send a message</span><span data-l="nl" lang="nl">Stuur een bericht</span> ↗</a></dd></div>
+					<div><dt class="mono">Email</dt><dd><a href="mailto:info@ace360services.nl">info@ace360services.nl</a></dd></div>
+					<div><dt class="mono"><span data-l="en" lang="en">Available</span><span data-l="nl" lang="nl">Bereikbaar</span></dt><dd><span data-l="en" lang="en">Mon–Fri 09:00–18:00 CET</span><span data-l="nl" lang="nl">Ma–vr 09:00–18:00</span></dd></div>
+					<div><dt class="mono"><span data-l="en" lang="en">Coverage</span><span data-l="nl" lang="nl">Werkgebied</span></dt><dd><span data-l="en" lang="en">All of the Netherlands, and remote worldwide</span><span data-l="nl" lang="nl">Heel Nederland, en op afstand wereldwijd</span></dd></div>
+				</dl>
+			</aside>
+		</div>
 	</div>
 </section>
 
@@ -432,16 +874,15 @@
 	</div>
 	<div class="footer-bottom">
 		<p>&copy; 2026 Ace 360 Services · KvK 94618240</p>
-		<p><span data-l="en" lang="en">Based in the Netherlands · working worldwide</span><span data-l="nl" lang="nl">Gevestigd in Nederland · werkt wereldwijd</span></p>
+		<p><span data-l="en" lang="en">Based in the Netherlands · working worldwide · no tracking cookies</span><span data-l="nl" lang="nl">Gevestigd in Nederland · werkt wereldwijd · geen trackingcookies</span></p>
 		<a class="to-top" href="#top"><span data-l="en" lang="en">Back to top</span><span data-l="nl" lang="nl">Naar boven</span> &uarr;</a>
 	</div>
 </footer>
 <script src="../ace360/assets/vendor/gsap.min.js"></script>
 <script src="../ace360/assets/vendor/ScrollTrigger.min.js"></script>
 <script src="../ace360/assets/vendor/lenis.min.js"></script>
-<script src="../ace360/assets/vendor/three.min.js"></script>
 <script>window.ACE360_PREVIEW = true;</script>
-<script src="../ace360/assets/js/film.js"></script>
+<script src="../ace360/assets/js/demo.js"></script>
 <script src="../ace360/assets/js/main.js"></script>
 </body>
 </html>

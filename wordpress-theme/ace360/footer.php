@@ -34,7 +34,7 @@ $ace360_btw = ace360_mod( 'btw' );
 	</div>
 	<div class="footer-bottom">
 		<p>&copy; <?php echo esc_html( gmdate( 'Y' ) ); ?> Ace 360 Services<?php echo $ace360_kvk ? ' · KvK ' . esc_html( $ace360_kvk ) : ''; ?><?php echo $ace360_btw ? ' · BTW ' . esc_html( $ace360_btw ) : ''; ?></p>
-		<p><?php ace360_e( ace360_pair( 'Based in the Netherlands · working worldwide', 'Gevestigd in Nederland · werkt wereldwijd' ) ); ?></p>
+		<p><?php ace360_e( ace360_pair( 'Based in the Netherlands · working worldwide · no tracking cookies', 'Gevestigd in Nederland · werkt wereldwijd · geen trackingcookies' ) ); ?></p>
 		<a class="to-top" href="#top"><?php ace360_e( ace360_pair( 'Back to top', 'Naar boven' ) ); ?> &uarr;</a>
 	</div>
 </footer>
