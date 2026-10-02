@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'ACE360_VERSION', '5.3.0' );
+define( 'ACE360_VERSION', '5.4.0' );
 
 require get_template_directory() . '/inc/template-helpers.php';
 require get_template_directory() . '/inc/content.php';

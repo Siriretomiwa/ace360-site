@@ -798,6 +798,11 @@
       notes.forEach(function (m) { m.material.map.dispose(); m.material.map = paintNote(NOTES[m.userData.i]); m.material.needsUpdate = true; });
     });
   }
+  // product photos arrive after page load: repaint whatever is on the laptop and phone now
+  P.onPhotos(function () {
+    var p = current.split('|');
+    if (!p[1]) { window.gsap && window.gsap.killTweensOf(wipe); wipe.v = 1; paintScreen(p[0], p[2]); }
+  });
   window.ACE360_FILM = { setScreen: setScreen, measure: measure };
 
   /* ---------- day / night ---------- */

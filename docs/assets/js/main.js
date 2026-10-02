@@ -374,6 +374,8 @@
     }
     // Wait for the web fonts so the painted text uses Inter.
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(paintVisible); else paintVisible();
+    // Repaint thumbnails already drawn once the product photos have loaded.
+    if (P && P.onPhotos) P.onPhotos(function () { thumbs.forEach(function (c) { if (c.getAttribute('data-done')) { c.removeAttribute('data-done'); paint(c); } }); });
 
     var cards = Array.prototype.slice.call(grid.querySelectorAll('.wcard'));
     var chips = Array.prototype.slice.call(document.querySelectorAll('[data-filter]'));

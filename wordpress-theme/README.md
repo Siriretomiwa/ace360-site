@@ -45,6 +45,8 @@ Look: plain white and #F8F9FA, #111111 text, Inter with JetBrains Mono for label
 
 Until real projects are added, the theme shows 20 built-in examples. Hesed Impact Ministries, SIDWALK and Crea8or are recreations of real work; their headlines and details are placeholders. The other 17 are **concept designs** (made-up businesses such as Bright Wells Foundation, Velours Skin and Jollof House) and carry a *Concept* label. All of them are drawn in code (`assets/js/screens.js`), so they need no image files. To drop the label from a project, remove its `'concept' => true` line in `ace360_work()` (`inc/content.php`).
 
+The example sites are filled with product photography: sourdough and croissants for the bakery, coffee pouches and a flat white for the roaster, skincare bottles and jars, wedding rings and an album, a city bike, plates of burrata and jollof, a crate of groceries for the food bank, and so on. These photos (`assets/img/work/`, 41 images, about 840 KB) were rendered for this theme in a small 3D photo studio (`tools/studio/`), so there are no licences to worry about. To re-render them: `node tools/studio/render.js` (needs Playwright and ImageMagick). They load after the page itself has finished loading, so they never slow down the first view.
+
 ### About the demo film
 
 The film is HTML animated with GSAP (`template-parts/demo.php`, `assets/js/demo.js`), not a video file, so it is sharp at any size, weighs a few kilobytes and can jump to chapters. Its on-screen text is in English. The example quote (€2,240, launch 28 May) and scores in it illustrate the process and are not a real client.

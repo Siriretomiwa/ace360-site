@@ -50,6 +50,12 @@ def artifact(html):
     out += [f'<script src="{u}"></script>' for u in CDN]
     out.append('<script>window.ACE360_PREVIEW = true;</script>')
     out.append('<script>\n' + read('assets/js/demo.js') + '\n</script>')
+    # the artifact is one file: the product photos travel inline as data URIs
+    import base64, json
+    imgdir = os.path.join(THEME, 'assets', 'img', 'work')
+    photos = {f[:-4]: 'data:image/jpeg;base64,' + base64.b64encode(open(os.path.join(imgdir, f), 'rb').read()).decode()
+              for f in sorted(os.listdir(imgdir)) if f.endswith('.jpg')}
+    out.append('<script>window.ACE360_WORK_IMG = ' + json.dumps(photos) + ';</script>')
     out.append('<script>\n' + read('assets/js/screens.js') + '\n</script>')
     out.append('<script>\n' + read('assets/js/film.js') + '\n</script>')
     out.append('<script>\n' + read('assets/js/main.js') + '\n</script>')

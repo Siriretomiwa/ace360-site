@@ -52,9 +52,50 @@
     jollof: { url: 'jollofhouse.nl', bg: '#fff8f0', ink: '#2b1105', muted: '#7f5b48', accent: '#c92a2a', onAccent: '#ffffff', brand: 'Jollof House', nav: ['Menu', 'Catering', 'Party trays'], kicker: 'West African kitchen · Rotterdam', h: ['Party jollof,', 'delivered hot.'], sub: 'Catering for 10 to 300 guests. Order 48 hours ahead.', cta: 'Order catering', art: ['#ffd8a8', '#e8590c'], motif: 'plates', badge: 'Delivery Fri – Sun', layout: 'menu', items: [['Party jollof tray (10 p.)', '€65'], ['Suya platter', '€45'], ['Fried plantain', '€18'], ['Egusi & pounded yam', '€18'], ['Puff-puff (50)', '€25'], ['Chapman (1 L)', '€9']] },
     lens: { url: 'lensandlinen.com', bg: '#ffffff', ink: '#222222', muted: '#77706a', accent: '#8c7b6b', onAccent: '#ffffff', serif: true, brand: 'Lens & Linen', nav: ['Weddings', 'Journal', 'Packages'], kicker: 'Wedding photography · NL & Europe', h: ['Your day,', 'honestly told.'], sub: 'Calm, natural photos. Check your date in seconds.', cta: 'Check my date', art: ['#e9e4de', '#8c7b6b'], motif: 'arch', badge: '14 June · still free', layout: 'cards', items: [['Amsterdam', 'City elopement', 'from €1,450'], ['Tuscany', 'Destination', 'from €3,200'], ['Full day', '10-hour coverage', '€2,350']] }
   };
+  [['korrel', 1], ['noor', 0], ['spaak', 0], ['zout', 0], ['adem', 1], ['gracht', 1], ['molen', 1], ['voedselbrug', 0], ['youthrise', 0], ['ebene', 1], ['glow', 0], ['jollof', 0], ['lens', 1]].forEach(function (p) {
+    TPL[p[0]].photo = p[0] + '-hero';
+    if (p[1]) TPL[p[0]].imgs = [p[0] + '-1', p[0] + '-2', p[0] + '-3'];
+  });
   var SERIF = 'Georgia, "Times New Roman", serif';
 
+  /* ---------- product photos ----------
+   * Studio renders of each sample business's products (assets/img/work). They load
+   * after the page has finished loading; until then the painters fall back to
+   * flat colour, and onPhotos() lets the 3D screen and the grid repaint. */
+  var PHOTO_KEYS = ['adem-1', 'adem-2', 'adem-3', 'adem-hero', 'ebene-1', 'ebene-2', 'ebene-3', 'ebene-hero', 'glow-hero', 'gracht-1', 'gracht-2', 'gracht-3', 'gracht-hero', 'jollof-hero', 'korrel-1', 'korrel-2', 'korrel-3', 'korrel-hero', 'lens-1', 'lens-2', 'lens-3', 'lens-hero', 'molen-1', 'molen-2', 'molen-3', 'molen-hero', 'ngo-hero', 'noor-hero', 'prkiosk-hero', 'sidwalk-1', 'sidwalk-2', 'sidwalk-3', 'sidwalk-4', 'skincare-1', 'skincare-2', 'skincare-3', 'skincare-hero', 'spaak-hero', 'voedselbrug-hero', 'youthrise-hero', 'zout-hero'];
+  var PHOTOS = {}, photoWaiters = [], photosDone = false;
+  var photoBase = (function () {
+    if (window.ACE360_WORK_IMG_BASE) return window.ACE360_WORK_IMG_BASE;
+    var src = document.currentScript && document.currentScript.src;
+    return src ? src.replace(/js\/screens\.js.*$/, 'img/work/') : '';
+  })();
+  function photosReady() { photosDone = true; photoWaiters.splice(0).forEach(function (f) { f(); }); }
+  function onPhotos(f) { if (photosDone) f(); else photoWaiters.push(f); }
+  function loadPhotos() {
+    var inline = window.ACE360_WORK_IMG || null, left = PHOTO_KEYS.length;
+    if (!photoBase && !inline) { photosReady(); return; }
+    PHOTO_KEYS.forEach(function (k) {
+      var im = new Image();
+      im.onload = function () { PHOTOS[k] = im; if (--left === 0) photosReady(); };
+      im.onerror = function () { if (--left === 0) photosReady(); };
+      im.src = inline && inline[k] ? inline[k] : photoBase + k + '.jpg';
+    });
+  }
+  if (document.readyState === 'complete') setTimeout(loadPhotos, 200);
+  else window.addEventListener('load', function () { setTimeout(loadPhotos, 200); });
+  // draw a photo cropped to fill the box (object-fit: cover); false if it is not loaded
+  function photo(g, key, x, y, w, h, r) {
+    var im = key && PHOTOS[key];
+    if (!im) return false;
+    var s = Math.max(w / im.width, h / im.height), sw = w / s, sh = h / s;
+    g.save(); rr(g, x, y, w, h, r || 0); g.clip();
+    g.drawImage(im, (im.width - sw) / 2, (im.height - sh) / 2, sw, sh, x, y, w, h);
+    g.restore();
+    return true;
+  }
+
   function motif(g, c, x, y, w, h) {
+    if (photo(g, c.photo, x, y, w, h, 22 * h / 246)) return;
     var gr = g.createLinearGradient(x, y, x + w, y + h); gr.addColorStop(0, c.art[0]); gr.addColorStop(1, c.art[1]);
     g.fillStyle = gr; rr(g, x, y, w, h, 22 * h / 246); g.fill();
     g.save(); rr(g, x, y, w, h, 22 * h / 246); g.clip();
@@ -117,7 +158,7 @@
     if (c.layout === 'cards') {
       c.items.forEach(function (it, i) {
         var x = 40 + i * 320; box(g, x, y0, 296, 168, 16, panel); if (!c.panel) stroke(g, x, y0, 296, 168, 16, line, 1.5);
-        box(g, x + 16, y0 + 16, 84, 136, 12, i === 1 ? c.art[1] : c.art[0]);
+        if (!photo(g, c.imgs && c.imgs[i], x + 16, y0 + 16, 84, 136, 12)) box(g, x + 16, y0 + 16, 84, 136, 12, i === 1 ? c.art[1] : c.art[0]);
         txt(g, it[0].toUpperCase(), x + 118, y0 + 46, 11, c.accent, 700);
         txt(g, it[1], x + 118, y0 + 76, 16, c.ink, 600);
         txt(g, it[2], x + 118, y0 + 132, 22, c.ink, c.serif ? 400 : 750, F);
@@ -195,8 +236,8 @@
         txt(g, 'D R O P   0 1   —   O U T   N O W', w / 2, t + 274, 15, '#cfcfcf', 600, SANS, 'center');
         box(g, w / 2 - 90, t + 296, 180, 40, 0, '#f2f2f2'); txt(g, 'SHOP THE DROP', w / 2, t + 322, 13, '#0e0e0e', 800, SANS, 'center');
         [['LOGO TEE', '€45'], ['HEAVY HOODIE', '€89'], ['CARGO PANT', '€95'], ['CREW CAP', '€35']].forEach(function (p, i) {
-          var x = 40 + i * ((w - 80) / 4); g.fillStyle = '#1d1d1d'; g.fillRect(x, t + 370, (w - 80) / 4 - 16, 170);
-          g.fillStyle = '#3a3a3a'; g.fillRect(x + 50, t + 400, (w - 80) / 4 - 116, 110);
+          var x = 40 + i * ((w - 80) / 4);
+          if (!photo(g, 'sidwalk-' + (i + 1), x, t + 370, (w - 80) / 4 - 16, 170, 0)) { g.fillStyle = '#1d1d1d'; g.fillRect(x, t + 370, (w - 80) / 4 - 16, 170); g.fillStyle = '#3a3a3a'; g.fillRect(x + 50, t + 400, (w - 80) / 4 - 116, 110); }
           txt(g, p[0], x, t + 566, 12, '#dddddd', 600); txt(g, p[1], x + (w - 80) / 4 - 16, t + 566, 12, '#ffffff', 700, SANS, 'right');
         });
       } else if (kind === 'crea8or') {
@@ -221,8 +262,10 @@
         txt(g, 'PRESS RELEASES · DELIVERED TO 400+ OUTLETS', 40, t + 112, 12, '#d62839', 700, SANS);
         txt(g, 'Get your story', 40, t + 172, 50, '#111111', 700, 'Georgia, serif'); txt(g, 'in the news.', 40, t + 228, 50, '#111111', 700, 'Georgia, serif');
         txt(g, 'Pick a package, upload your release, we publish.', 40, t + 266, 17, '#555555', 400);
-        g.fillStyle = '#e9e5dc'; g.fillRect(620, t + 104, 364, 180); g.fillStyle = '#111111'; g.fillRect(640, t + 124, 150, 10); g.fillRect(640, t + 142, 110, 10);
-        [0, 1, 2, 3, 4].forEach(function (i) { g.fillStyle = '#c9c3b6'; g.fillRect(640, t + 168 + i * 20, i % 2 ? 240 : 320, 6); });
+        if (!photo(g, 'prkiosk-hero', 620, t + 96, 364, 196, 4)) {
+          g.fillStyle = '#e9e5dc'; g.fillRect(620, t + 104, 364, 180); g.fillStyle = '#111111'; g.fillRect(640, t + 124, 150, 10); g.fillRect(640, t + 142, 110, 10);
+          [0, 1, 2, 3, 4].forEach(function (i) { g.fillStyle = '#c9c3b6'; g.fillRect(640, t + 168 + i * 20, i % 2 ? 240 : 320, 6); });
+        }
         g.fillStyle = '#d62839'; g.fillRect(904, t + 124, 60, 60);
         [['Starter', '€149', '25 outlets'], ['Feature', '€399', '150 outlets'], ['Headline', '€899', '400+ outlets']].forEach(function (p, i) {
           var x = 40 + i * 320, on = i === 1;
@@ -255,6 +298,7 @@
         box(g, w - 120, t + 24, 84, 34, 17, '#f59e0b'); txt(g, 'Donate', w - 78, t + 46, 14, '#3b2400', 750, SANS, 'center');
         var ng = g.createLinearGradient(0, t + 70, 0, t + 360); ng.addColorStop(0, '#0f766e'); ng.addColorStop(1, '#0b4f4a'); g.fillStyle = ng; g.fillRect(0, t + 70, w, 290);
         g.fillStyle = 'rgba(255,255,255,.07)'; for (var wv = 0; wv < 4; wv++) { g.beginPath(); g.arc(860, t + 380, 120 + wv * 60, Math.PI, Math.PI * 2); g.lineWidth = 18; g.strokeStyle = 'rgba(255,255,255,.07)'; g.stroke(); }
+        photo(g, 'ngo-hero', 600, t + 92, 384, 246, 18);
         txt(g, 'CLEAN WATER · 2026', 40, t + 118, 12, '#99f6e4', 700, SANS);
         txt(g, '€25 gives one child', 40, t + 176, 46, '#ffffff', 750); txt(g, 'clean water for a year.', 40, t + 230, 46, '#ffffff', 750);
         box(g, 40, t + 262, 380, 56, 28, '#ffffff');
@@ -272,15 +316,15 @@
         txt(g, 'Skincare that', 40, t + 170, 52, '#3b2a22', 400, 'Georgia, serif'); txt(g, 'keeps it simple.', 40, t + 230, 52, '#3b2a22', 400, 'Georgia, serif');
         txt(g, 'Three steps. Clean ingredients. Refills every 6 weeks.', 40, t + 270, 17, '#7a6558', 400);
         box(g, 40, t + 296, 190, 48, 24, '#3b2a22'); txt(g, 'Take the skin quiz', 135, t + 326, 15, '#f4ede6', 650, SANS, 'center');
-        var sk = g.createRadialGradient(780, t + 220, 10, 780, t + 220, 220); sk.addColorStop(0, '#e8d5c4'); sk.addColorStop(1, '#f4ede6'); g.fillStyle = sk; g.fillRect(560, t + 80, 440, 300);
-        // bottles
-        box(g, 680, t + 140, 70, 200, 14, '#ffffff'); box(g, 696, t + 112, 38, 32, 6, '#a8b5a0');
-        box(g, 770, t + 190, 90, 150, 20, '#c9a58a'); box(g, 790, t + 170, 50, 24, 6, '#3b2a22');
-        box(g, 880, t + 250, 80, 90, 40, '#ffffff'); box(g, 890, t + 236, 60, 18, 8, '#a8b5a0');
-        txt(g, 'V', 715, t + 250, 26, '#3b2a22', 400, 'Georgia, serif', 'center');
+        if (!photo(g, 'skincare-hero', 580, t + 80, 404, 280, 18)) {
+          var sk = g.createRadialGradient(780, t + 220, 10, 780, t + 220, 220); sk.addColorStop(0, '#e8d5c4'); sk.addColorStop(1, '#f4ede6'); g.fillStyle = sk; g.fillRect(560, t + 80, 440, 300);
+          box(g, 680, t + 140, 70, 200, 14, '#ffffff'); box(g, 696, t + 112, 38, 32, 6, '#a8b5a0');
+          box(g, 770, t + 190, 90, 150, 20, '#c9a58a'); box(g, 790, t + 170, 50, 24, 6, '#3b2a22');
+          box(g, 880, t + 250, 80, 90, 40, '#ffffff'); box(g, 890, t + 236, 60, 18, 8, '#a8b5a0');
+        }
         [['Cleanse', 'Oat milk cleanser', '€24'], ['Treat', 'Niacinamide serum', '€32'], ['Hydrate', 'Barrier cream', '€28']].forEach(function (p, i) {
           var x = 40 + i * 320; box(g, x, t + 400, 296, 140, 16, '#fbf8f4');
-          box(g, x + 18, t + 418, 70, 104, 12, i === 1 ? '#c9a58a' : '#ffffff');
+          if (!photo(g, 'skincare-' + (i + 1), x + 18, t + 418, 70, 104, 12)) box(g, x + 18, t + 418, 70, 104, 12, i === 1 ? '#c9a58a' : '#ffffff');
           txt(g, p[0].toUpperCase(), x + 108, t + 444, 11, '#8a9a82', 700, SANS); txt(g, p[1], x + 108, t + 474, 16, '#3b2a22', 600);
           txt(g, p[2], x + 108, t + 510, 20, '#3b2a22', 400, 'Georgia, serif');
         });
@@ -296,12 +340,12 @@
   function phoneWork(g, w, h, k, title) {
     if (TPL[k]) { tplPhone(TPL[k], g, w, h); return; }
       if (k === 'hesed') { g.fillStyle = '#f7f1e8'; g.fillRect(0, 50, w, h); var gr = g.createLinearGradient(0, 120, w, 420); gr.addColorStop(0, '#6b4a8a'); gr.addColorStop(1, '#2a1d3a'); g.fillStyle = gr; rr(g, 18, 110, w - 36, 300, 18); g.fill(); txt(g, 'Hesed', 24, 90, 24, '#2a1d3a', 700, 'Georgia, serif'); txt(g, 'A church that', 40, 230, 30, '#ffffff', 400, 'Georgia, serif'); txt(g, 'shows up.', 40, 270, 30, '#ffffff', 400, 'Georgia, serif'); box(g, 40, 300, 130, 40, 8, '#c4923a'); box(g, 18, 440, w - 36, 120, 14, '#ffffff'); txt(g, 'Give with iDEAL', w / 2, 510, 18, '#2a1d3a', 700, SANS, 'center'); return; }
-      if (k === 'sidwalk') { txt(g, 'SIDWALK', w / 2, 260, 64, '#f2f2f2', 900, SANS, 'center'); box(g, 60, 300, w - 120, 46, 0, '#f2f2f2'); txt(g, 'SHOP THE DROP', w / 2, 330, 15, '#0e0e0e', 800, SANS, 'center'); g.fillStyle = '#1d1d1d'; g.fillRect(18, 380, w / 2 - 27, 220); g.fillRect(w / 2 + 9, 380, w / 2 - 27, 220); return; }
+      if (k === 'sidwalk') { txt(g, 'SIDWALK', w / 2, 260, 64, '#f2f2f2', 900, SANS, 'center'); box(g, 60, 300, w - 120, 46, 0, '#f2f2f2'); txt(g, 'SHOP THE DROP', w / 2, 330, 15, '#0e0e0e', 800, SANS, 'center'); if (!photo(g, 'sidwalk-1', 18, 380, w / 2 - 27, 220, 0)) { g.fillStyle = '#1d1d1d'; g.fillRect(18, 380, w / 2 - 27, 220); } if (!photo(g, 'sidwalk-2', w / 2 + 9, 380, w / 2 - 27, 220, 0)) { g.fillStyle = '#1d1d1d'; g.fillRect(w / 2 + 9, 380, w / 2 - 27, 220); } return; }
       if (k === 'crea8or') { txt(g, 'Crea8or', 24, 90, 24, '#5b3df5', 800); txt(g, 'Hire creators', 24, 180, 34, '#15121f', 750); txt(g, 'who deliver.', 24, 222, 34, '#15121f', 750); box(g, 24, 250, w - 48, 50, 12, '#f3f0ff'); box(g, 24, 330, w - 48, 90, 14, '#15121f'); txt(g, '€ 1.240,00', 48, 384, 26, '#ffffff', 750); return; }
       if (k === 'prkiosk') { g.fillStyle = '#fbfaf7'; g.fillRect(0, 50, w, h); txt(g, 'THE PR KIOSK', 24, 92, 20, '#111111', 900, 'Georgia, serif'); g.fillStyle = '#d62839'; g.fillRect(24, 102, 40, 4); txt(g, 'Get your story', 24, 190, 34, '#111111', 700, 'Georgia, serif'); txt(g, 'in the news.', 24, 232, 34, '#111111', 700, 'Georgia, serif'); box(g, 24, 270, w - 48, 170, 6, '#111111'); txt(g, 'FEATURE', 48, 306, 12, '#ff8f9a', 700, SANS); txt(g, '€399', 48, 366, 44, '#ffffff', 700, 'Georgia, serif'); box(g, 48, 390, w - 96, 36, 4, '#d62839'); txt(g, 'Choose', w / 2, 414, 14, '#ffffff', 650, SANS, 'center'); return; }
       if (k === 'shop4likes') { var pg = g.createLinearGradient(0, 50, w, 420); pg.addColorStop(0, '#ff3d77'); pg.addColorStop(1, '#4f46e5'); g.fillStyle = pg; g.fillRect(0, 50, w, 380); txt(g, 'Shop4likes', 24, 96, 22, '#ffffff', 800); txt(g, 'Grow your', 24, 200, 36, '#ffffff', 800); txt(g, 'socials.', 24, 244, 36, '#ffffff', 800); box(g, 24, 280, 170, 46, 23, '#ffffff'); txt(g, 'Pick a package', 109, 309, 15, '#a43dff', 750, SANS, 'center'); stroke(g, 18, 456, w - 36, 120, 18, '#ece9f5', 2); circle(g, 56, 496, 18, '#ff3d77'); txt(g, '1,000 followers', 86, 503, 17, '#15121f', 700); txt(g, '€9.99', 40, 556, 28, '#15121f', 800); return; }
-      if (k === 'ngo') { g.fillStyle = '#0f766e'; g.fillRect(0, 50, w, 420); txt(g, 'Bright Wells', 24, 96, 22, '#ffffff', 750); txt(g, '€25 gives one', 24, 200, 32, '#ffffff', 750); txt(g, 'child clean water.', 24, 240, 32, '#ffffff', 750); box(g, 24, 280, w - 48, 54, 27, '#f59e0b'); txt(g, 'Give €25 with iDEAL', w / 2, 314, 17, '#3b2400', 750, SANS, 'center'); txt(g, '12,480', 24, 540, 40, '#0b3b38', 800); txt(g, 'people with clean water', 24, 570, 15, '#5b7f7b', 500); return; }
-      if (k === 'skincare') { g.fillStyle = '#f4ede6'; g.fillRect(0, 50, w, h); txt(g, 'velours', w / 2, 98, 28, '#3b2a22', 400, 'Georgia, serif', 'center'); txt(g, 'Skincare that', 24, 190, 32, '#3b2a22', 400, 'Georgia, serif'); txt(g, 'keeps it simple.', 24, 230, 32, '#3b2a22', 400, 'Georgia, serif'); box(g, 110, 280, 60, 170, 12, '#ffffff'); box(g, 186, 320, 74, 130, 18, '#c9a58a'); box(g, 24, 490, w - 48, 52, 26, '#3b2a22'); txt(g, 'Take the skin quiz', w / 2, 522, 16, '#f4ede6', 650, SANS, 'center'); return; }
+      if (k === 'ngo') { g.fillStyle = '#0f766e'; g.fillRect(0, 50, w, 420); txt(g, 'Bright Wells', 24, 96, 22, '#ffffff', 750); txt(g, '€25 gives one', 24, 200, 32, '#ffffff', 750); txt(g, 'child clean water.', 24, 240, 32, '#ffffff', 750); box(g, 24, 280, w - 48, 54, 27, '#f59e0b'); txt(g, 'Give €25 with iDEAL', w / 2, 314, 17, '#3b2400', 750, SANS, 'center'); photo(g, 'ngo-hero', 24, 352, w - 48, 104, 14); txt(g, '12,480', 24, 540, 40, '#0b3b38', 800); txt(g, 'people with clean water', 24, 570, 15, '#5b7f7b', 500); return; }
+      if (k === 'skincare') { g.fillStyle = '#f4ede6'; g.fillRect(0, 50, w, h); txt(g, 'velours', w / 2, 98, 28, '#3b2a22', 400, 'Georgia, serif', 'center'); txt(g, 'Skincare that', 24, 190, 32, '#3b2a22', 400, 'Georgia, serif'); txt(g, 'keeps it simple.', 24, 230, 32, '#3b2a22', 400, 'Georgia, serif'); if (!photo(g, 'skincare-hero', 24, 262, w - 48, 200, 16)) { box(g, 110, 280, 60, 170, 12, '#ffffff'); box(g, 186, 320, 74, 130, 18, '#c9a58a'); } box(g, 24, 490, w - 48, 52, 26, '#3b2a22'); txt(g, 'Take the skin quiz', w / 2, 522, 16, '#f4ede6', 650, SANS, 'center'); return; }
     txt(g, title || '', 24, 200, 34, INK, 750);
   }
 
@@ -311,6 +355,7 @@
     SANS: SANS, MONO: MONO,
     mk: mk, rr: rr, box: box, stroke: stroke, txt: txt, bars: bars, circle: circle, chrome: chrome,
     kinds: KINDS,
+    onPhotos: onPhotos,
     screen: workScreen,
     phone: phoneWork,
     // Paint a project's desktop screen into any canvas, scaled to fit.
