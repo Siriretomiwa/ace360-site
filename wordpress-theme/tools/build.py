@@ -17,11 +17,12 @@ def read(p):
     with open(os.path.join(THEME, p), encoding='utf-8') as f:
         return f.read()
 
-LIBS = ['gsap.min.js', 'ScrollTrigger.min.js', 'lenis.min.js']
+LIBS = ['gsap.min.js', 'ScrollTrigger.min.js', 'lenis.min.js', 'three.min.js']
 CDN = [
     'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js',
     'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js',
     'https://unpkg.com/lenis@1.1.13/dist/lenis.min.js',
+    'https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js',
 ]
 
 def local_preview(html):
@@ -29,7 +30,7 @@ def local_preview(html):
     head = (f'<title>Ace 360 Services</title>\n'
             f'<link rel="stylesheet" href="{a}css/fonts.css">\n<link rel="stylesheet" href="{a}css/main.css">\n<meta name="description" content="Ace 360 Services: websites, online stores and maintenance for businesses in the Netherlands and abroad. Fixed price, fixed launch date.">')
     scripts = ''.join(f'<script src="{a}vendor/{l}"></script>\n' for l in LIBS)
-    scripts += f'<script>window.ACE360_PREVIEW = true;</script>\n<script src="{a}js/demo.js"></script>\n<script src="{a}js/main.js"></script>'
+    scripts += f'<script>window.ACE360_PREVIEW = true;</script>\n<script src="{a}js/demo.js"></script>\n<script src="{a}js/scene.js"></script>\n<script src="{a}js/main.js"></script>'
     return html.replace('<!--wp_head-->', head).replace('<!--wp_footer-->', scripts)
 
 def artifact(html):
@@ -44,10 +45,12 @@ def artifact(html):
            '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
            '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&family=JetBrains+Mono:wght@400..700&display=swap">',
            '<style>\n' + read('assets/css/main.css') + '\n</style>',
+           "<script>document.body.classList.add('home');</script>",
            body]
     out += [f'<script src="{u}"></script>' for u in CDN]
     out.append('<script>window.ACE360_PREVIEW = true;</script>')
     out.append('<script>\n' + read('assets/js/demo.js') + '\n</script>')
+    out.append('<script>\n' + read('assets/js/scene.js') + '\n</script>')
     out.append('<script>\n' + read('assets/js/main.js') + '\n</script>')
     return '\n'.join(out)
 

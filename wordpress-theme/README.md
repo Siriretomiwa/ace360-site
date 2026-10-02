@@ -12,6 +12,7 @@ Bilingual (English / Dutch) WordPress theme for **Ace 360 Services**: websites, 
 
 | Section | What it does |
 | --- | --- |
+| Background scene | One 3D scene (`assets/js/scene.js`, three.js) fixed behind the whole front page, made of the parts of a web page in white with orange accents. As you scroll it changes with each section: pieces float in the hero, circle in Services, stack into a rising price chart in Self-quote, snap together into a web page in Process, pull apart into layers in Work, line up in Questions, and settle as the finished page with an orange live dot in Contact. It follows the mouse, pauses in background tabs, is softened on phones and stays still with reduced motion. |
 | Hero | Headline, "Price my website" and "Call now", plus a 3D stack of live browser windows showing your projects. The windows scroll through their sites and tilt toward the mouse. |
 | Services (`#diensten`) | Four cards with prices. "Estimate" opens the self-quote with that project type selected. |
 | Self-quote (`#prijs`) | Visitors pick a project type, number of pages, design level, extras, rush and maintenance, and see a live price range, timeline and line-by-line breakdown. Optional "incl. 21% VAT" toggle. "Send this as an enquiry" carries everything into the contact form and your email. |

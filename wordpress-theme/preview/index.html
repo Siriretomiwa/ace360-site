@@ -47,10 +47,11 @@
 	</div>
 </header>
 <a class="btn btn-orange fab-call" href="tel:+31617858490"><span data-l="en" lang="en">Call now</span><span data-l="nl" lang="nl">Bel nu</span></a>
+<canvas id="bg-stage" aria-hidden="true"></canvas>
 <main id="main" class="site-main">
 
 	<!-- Hero -->
-	<section class="hero">
+	<section class="hero" data-bg="hero">
 		<div class="wrap hero-grid">
 			<div class="hero-copy">
 				<p class="kicker"><span class="nl-flag" aria-hidden="true"></span><span data-l="en" lang="en">Web design and digital growth · Netherlands &amp; worldwide</span><span data-l="nl" lang="nl">Webdesign en digitale groei · Nederland &amp; wereldwijd</span></p>
@@ -156,7 +157,7 @@
 	</section>
 
 	<!-- Services -->
-	<section class="section" id="diensten">
+	<section class="section" id="diensten" data-bg="services">
 		<div class="wrap">
 			<div class="sec-head">
 				<p class="kicker"><span data-l="en" lang="en">Services</span><span data-l="nl" lang="nl">Diensten</span></p>
@@ -217,7 +218,7 @@
 	</section>
 
 	<!-- Self-quote -->
-	<section class="section section-grey" id="prijs">
+	<section class="section section-grey" id="prijs" data-bg="quote">
 		<div class="wrap">
 			<div class="sec-head">
 				<p class="kicker"><span data-l="en" lang="en">Self-quote</span><span data-l="nl" lang="nl">Zelf berekenen</span></p>
@@ -354,7 +355,7 @@
 	</section>
 
 	<!-- Process + demo film -->
-	<section class="section" id="werkwijze">
+	<section class="section" id="werkwijze" data-bg="process">
 		<div class="wrap">
 			<div class="sec-head">
 				<p class="kicker"><span data-l="en" lang="en">Process</span><span data-l="nl" lang="nl">Werkwijze</span></p>
@@ -577,7 +578,7 @@
 	</section>
 
 	<!-- Work -->
-	<section class="section section-grey" id="werk">
+	<section class="section section-grey" id="werk" data-bg="work">
 		<div class="wrap">
 			<div class="sec-head">
 				<p class="kicker"><span data-l="en" lang="en">Work</span><span data-l="nl" lang="nl">Werk</span></p>
@@ -708,7 +709,7 @@
 	</section>
 
 	<!-- FAQ -->
-	<section class="section" id="vragen">
+	<section class="section" id="vragen" data-bg="faq">
 		<div class="wrap faq-grid">
 			<div class="sec-head sticky-head">
 				<p class="kicker"><span data-l="en" lang="en">Questions</span><span data-l="nl" lang="nl">Vragen</span></p>
@@ -752,7 +753,7 @@
 		</div>
 	</section>
 
-	<section class="section contact" id="contact">
+	<section class="section contact" id="contact" data-bg="contact">
 	<div class="wrap">
 		<div class="sec-head">
 			<p class="kicker">Contact</p>
@@ -881,8 +882,10 @@
 <script src="../ace360/assets/vendor/gsap.min.js"></script>
 <script src="../ace360/assets/vendor/ScrollTrigger.min.js"></script>
 <script src="../ace360/assets/vendor/lenis.min.js"></script>
+<script src="../ace360/assets/vendor/three.min.js"></script>
 <script>window.ACE360_PREVIEW = true;</script>
 <script src="../ace360/assets/js/demo.js"></script>
+<script src="../ace360/assets/js/scene.js"></script>
 <script src="../ace360/assets/js/main.js"></script>
 </body>
 </html>

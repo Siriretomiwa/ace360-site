@@ -48,10 +48,11 @@ if ( empty( $ace360_work ) ) {
 // The hero stack always shows three windows: real projects first, then the built-in ones.
 $ace360_hero_work = array_slice( array_merge( $ace360_work, ace360_work() ), 0, 3 );
 ?>
+<canvas id="bg-stage" aria-hidden="true"></canvas>
 <main id="main" class="site-main">
 
 	<!-- Hero -->
-	<section class="hero">
+	<section class="hero" data-bg="hero">
 		<div class="wrap hero-grid">
 			<div class="hero-copy">
 				<p class="kicker"><span class="nl-flag" aria-hidden="true"></span><?php ace360_e( $ace360_hero['kicker'] ); ?></p>
@@ -97,7 +98,7 @@ $ace360_hero_work = array_slice( array_merge( $ace360_work, ace360_work() ), 0, 
 	</section>
 
 	<!-- Services -->
-	<section class="section" id="diensten">
+	<section class="section" id="diensten" data-bg="services">
 		<div class="wrap">
 			<div class="sec-head">
 				<p class="kicker"><?php ace360_e( ace360_pair( 'Services', 'Diensten' ) ); ?></p>
@@ -128,7 +129,7 @@ $ace360_hero_work = array_slice( array_merge( $ace360_work, ace360_work() ), 0, 
 	</section>
 
 	<!-- Self-quote -->
-	<section class="section section-grey" id="prijs">
+	<section class="section section-grey" id="prijs" data-bg="quote">
 		<div class="wrap">
 			<div class="sec-head">
 				<p class="kicker"><?php ace360_e( ace360_pair( 'Self-quote', 'Zelf berekenen' ) ); ?></p>
@@ -140,7 +141,7 @@ $ace360_hero_work = array_slice( array_merge( $ace360_work, ace360_work() ), 0, 
 	</section>
 
 	<!-- Process + demo film -->
-	<section class="section" id="werkwijze">
+	<section class="section" id="werkwijze" data-bg="process">
 		<div class="wrap">
 			<div class="sec-head">
 				<p class="kicker"><?php ace360_e( ace360_pair( 'Process', 'Werkwijze' ) ); ?></p>
@@ -170,7 +171,7 @@ $ace360_hero_work = array_slice( array_merge( $ace360_work, ace360_work() ), 0, 
 	</section>
 
 	<!-- Work -->
-	<section class="section section-grey" id="werk">
+	<section class="section section-grey" id="werk" data-bg="work">
 		<div class="wrap">
 			<div class="sec-head">
 				<p class="kicker"><?php ace360_e( ace360_pair( 'Work', 'Werk' ) ); ?></p>
@@ -218,7 +219,7 @@ $ace360_hero_work = array_slice( array_merge( $ace360_work, ace360_work() ), 0, 
 	</section>
 
 	<!-- FAQ -->
-	<section class="section" id="vragen">
+	<section class="section" id="vragen" data-bg="faq">
 		<div class="wrap faq-grid">
 			<div class="sec-head sticky-head">
 				<p class="kicker"><?php ace360_e( ace360_pair( 'Questions', 'Vragen' ) ); ?></p>

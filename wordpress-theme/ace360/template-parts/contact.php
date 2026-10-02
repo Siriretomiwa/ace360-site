@@ -20,7 +20,7 @@ $ace360_needs    = array(
 	ace360_pair( 'Not sure yet', 'Weet ik nog niet' ),
 );
 ?>
-<section class="section contact" id="contact">
+<section class="section contact" id="contact" data-bg="contact">
 	<div class="wrap">
 		<div class="sec-head">
 			<p class="kicker"><?php ace360_e( ace360_pair( 'Contact', 'Contact' ) ); ?></p>

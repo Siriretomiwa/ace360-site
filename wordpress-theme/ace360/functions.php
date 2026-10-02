@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'ACE360_VERSION', '4.0.0' );
+define( 'ACE360_VERSION', '4.1.0' );
 
 require get_template_directory() . '/inc/template-helpers.php';
 require get_template_directory() . '/inc/content.php';
@@ -63,7 +63,10 @@ function ace360_assets() {
 	// The demo film only exists on the front page.
 	if ( is_front_page() ) {
 		wp_enqueue_script( 'ace360-demo', $uri . '/js/demo.js', array( 'gsap', 'gsap-scrolltrigger' ), ACE360_VERSION, true );
+		wp_enqueue_script( 'three', $uri . '/vendor/three.min.js', array(), '0.149.0', true );
+		wp_enqueue_script( 'ace360-scene', $uri . '/js/scene.js', array( 'three' ), ACE360_VERSION, true );
 		$deps[] = 'ace360-demo';
+		$deps[] = 'ace360-scene';
 	}
 
 	wp_enqueue_script( 'ace360-main', $uri . '/js/main.js', $deps, ACE360_VERSION, true );
@@ -78,7 +81,7 @@ add_action( 'wp_enqueue_scripts', 'ace360_assets' );
  * @return string
  */
 function ace360_defer_scripts( $tag, $handle ) {
-	$handles = array( 'gsap', 'gsap-scrolltrigger', 'lenis', 'ace360-demo', 'ace360-main' );
+	$handles = array( 'gsap', 'gsap-scrolltrigger', 'lenis', 'ace360-demo', 'three', 'ace360-scene', 'ace360-main' );
 	if ( in_array( $handle, $handles, true ) && false === strpos( $tag, ' defer' ) ) {
 		$tag = str_replace( ' src=', ' defer src=', $tag );
 	}
