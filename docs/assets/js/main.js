@@ -209,6 +209,14 @@
           out.lines.appendChild(li);
         });
         if (estChip && !estChip.hidden) chip();
+        document.dispatchEvent(new CustomEvent('ace360:quote', { detail: {
+          lang: l,
+          lines: r.lines.map(function (x) { return [x.label, '+' + money(round10(x.lo * r.mult), l)]; }),
+          range: money(r.lo, l) + ' – ' + money(r.hi, l),
+          weeks: weeksText(r.w0, r.w1, l),
+          care: r.care ? money(cfg.care * (r.vat ? 1 + cfg.vat / 100 : 1), l) + (l === 'nl' ? ' /mnd' : ' /mo') : (l === 'nl' ? 'geen' : 'none'),
+          vat: r.vat ? (l === 'nl' ? 'incl. btw' : 'incl. VAT') : (l === 'nl' ? 'excl. btw' : 'excl. VAT')
+        } }));
       };
 
       var summary = function (r, l) {
@@ -269,45 +277,70 @@
     });
   }
 
-  /* ---------- Hero: 3D stack follows the pointer ---------- */
-  var stage = document.querySelector('[data-stage]');
-  var inner = document.querySelector('[data-stage-inner]');
-  if (stage && inner && !reduced && hasGsap) {
-    var rx = gsap.quickTo(inner, '--rx', { duration: 0.9, ease: 'power3' });
-    var ry = gsap.quickTo(inner, '--ry', { duration: 0.9, ease: 'power3' });
-    gsap.set(inner, { '--rx': 9, '--ry': -16 });
-    if (finePointer) {
-      window.addEventListener('pointermove', function (e) {
-        var x = e.clientX / window.innerWidth - 0.5, y = e.clientY / window.innerHeight - 0.5;
-        ry(-16 + x * 14); rx(9 - y * 10);
-      }, { passive: true });
-    }
-    gsap.from('.stage-win', { y: 80, z: -200, opacity: 0, duration: 1.4, ease: 'expo.out', stagger: 0.15, delay: 0.2 });
-    gsap.from('.stage-chip', { scale: 0.6, opacity: 0, duration: 0.8, ease: 'back.out(2)', stagger: 0.15, delay: 1 });
-    if (document.querySelector('.stage-win.w2')) gsap.to('.stage-win.w1', { yPercent: -10, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
-    if (document.querySelector('.stage-win.w2')) gsap.to('.stage-win.w2', { yPercent: 12, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
-  }
+  /* ---------- Chapters tell the 3D laptop what to show ---------- */
+  function film() { return window.ACE360_FILM; }
+  function show(key, image, title) { var f = film(); if (f && key) f.setScreen(key, image, title); }
+  if (hasGsap) {
+    document.querySelectorAll('[data-k][data-screen]:not(.tall)').forEach(function (ch) {
+      ScrollTrigger.create({
+        trigger: ch, start: 'top 55%', end: 'bottom 45%',
+        onToggle: function (self) { if (self.isActive) show(ch.getAttribute('data-screen')); }
+      });
+    });
 
-  /* ---------- Work windows scroll by themselves on touch screens ---------- */
-  if (!finePointer && 'IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) { e.target.classList.toggle('is-scrolling', e.isIntersecting && e.intersectionRatio > 0.6); });
-    }, { threshold: [0, 0.6] });
-    document.querySelectorAll('.hoverscroll').forEach(function (el) { io.observe(el); });
+    /* Work: the copy cycles through projects while the laptop shows each one */
+    document.querySelectorAll('.ch.tall').forEach(function (ch) {
+      var items = ch.querySelectorAll('.item');
+      var dots = ch.querySelectorAll('[data-go]');
+      var count = ch.querySelector('[data-count]');
+      var n = items.length, idx = -1, st;
+      function progress() {
+        var top = ch.getBoundingClientRect().top + window.scrollY;
+        return Math.min(1, Math.max(0, (window.scrollY - top) / Math.max(1, ch.offsetHeight - window.innerHeight)));
+      }
+      function activate(i, force) {
+        if (i === idx && !force) return;
+        idx = i;
+        items.forEach(function (it, j) { it.classList.toggle('is-on', j === i); });
+        dots.forEach(function (d, j) { d.classList.toggle('on', j === i); });
+        if (count) count.textContent = (i + 1) + ' / ' + n;
+        if (st && st.isActive) show(items[i].getAttribute('data-screen'), items[i].getAttribute('data-image'), items[i].getAttribute('data-title'));
+      }
+      st = ScrollTrigger.create({
+        trigger: ch, start: 'top 55%', end: 'bottom 45%',
+        onUpdate: function () { activate(Math.min(n - 1, Math.floor(progress() * n * 0.999))); },
+        onToggle: function (self) { if (self.isActive) activate(Math.min(n - 1, Math.floor(progress() * n * 0.999)), true); }
+      });
+      dots.forEach(function (d) {
+        d.addEventListener('click', function () {
+          var i = parseInt(d.getAttribute('data-go'), 10);
+          var top = ch.getBoundingClientRect().top + window.scrollY;
+          var y = top + (ch.offsetHeight - window.innerHeight) * ((i + 0.5) / n);
+          if (lenis) lenis.scrollTo(y, { duration: 1.2 }); else window.scrollTo({ top: y, behavior: 'smooth' });
+        });
+      });
+    });
   }
 
   if (!hasGsap || reduced) return;
 
   /* ---------- Reveals ---------- */
   var hl = document.querySelectorAll('.hero-title .hl');
-  gsap.timeline({ delay: 0.15 })
-    .from('.hero .kicker, .hero-title, .hero .lede, .hero .actions, .hero .checks li', { y: 22, opacity: 0, duration: 0.9, ease: 'power3.out', stagger: 0.06 })
-    .fromTo(hl, { '--u': 0 }, { '--u': 1, duration: 0.9, ease: 'power3.inOut' }, 0.6);
+  var heroBits = document.querySelectorAll('.hero .kicker, .hero-title, .hero .lede, .hero .actions, .hero .checks li');
+  var intro = gsap.timeline({ delay: 0.15 });
+  if (heroBits.length) intro.from(heroBits, { y: 22, opacity: 0, duration: 0.9, ease: 'power3.out', stagger: 0.06 });
+  if (hl.length) intro.fromTo(hl, { '--u': 0 }, { '--u': 1, duration: 0.9, ease: 'power3.inOut' }, 0.6);
 
-  document.querySelectorAll('.sec-head').forEach(function (h) {
+  document.querySelectorAll('.ch:not(.hero):not(.tall) .copy').forEach(function (c) {
+    var bits = c.querySelectorAll(':scope > .kicker, :scope > h2, :scope > .lede, :scope > .progress, :scope > .step-index');
+    if (!bits.length) return;
+    gsap.from(bits, { y: 26, opacity: 0, duration: 0.9, ease: 'power3.out', stagger: 0.07, scrollTrigger: { trigger: c, start: 'top 82%', once: true } });
+  });
+  document.querySelectorAll('.band .sec-head').forEach(function (h) {
+    if (!h.children.length) return;
     gsap.from(h.children, { y: 24, opacity: 0, duration: 0.85, ease: 'power3.out', stagger: 0.07, scrollTrigger: { trigger: h, start: 'top 85%', once: true } });
   });
-  ScrollTrigger.batch('.service, .work-item, .faq details, .contact-form, .direct, .quote-opts, .quote-result, .steps .step', {
+  ScrollTrigger.batch('.svc li, .step-index li, .faq details, .contact-form, .direct, .quote-opts, .quote-result, .demo', {
     start: 'top 90%',
     once: true,
     onEnter: function (els) { gsap.from(els, { y: 30, opacity: 0, duration: 0.85, ease: 'power3.out', stagger: 0.08 }); }

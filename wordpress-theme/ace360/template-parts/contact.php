@@ -20,8 +20,9 @@ $ace360_needs    = array(
 	ace360_pair( 'Not sure yet', 'Weet ik nog niet' ),
 );
 ?>
-<section class="section contact" id="contact" data-bg="contact">
+<section class="ch contact-ch" id="contact" data-k="contact" data-screen="live">
 	<div class="wrap">
+		<div class="copy copy-contact">
 		<div class="sec-head">
 			<p class="kicker"><?php ace360_e( ace360_pair( 'Contact', 'Contact' ) ); ?></p>
 			<h2><?php echo ace360_hl( ace360_pair( 'Tell me what you *need*', 'Vertel wat je *nodig* hebt' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></h2>
@@ -101,6 +102,7 @@ $ace360_needs    = array(
 					<div><dt class="mono"><?php ace360_e( ace360_pair( 'Coverage', 'Werkgebied' ) ); ?></dt><dd><?php ace360_e( ace360_pair( 'All of the Netherlands, and remote worldwide', 'Heel Nederland, en op afstand wereldwijd' ) ); ?></dd></div>
 				</dl>
 			</aside>
+		</div>
 		</div>
 	</div>
 </section>
