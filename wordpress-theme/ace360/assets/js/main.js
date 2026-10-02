@@ -89,6 +89,7 @@
     if (lenis) lenis.scrollTo(Math.max(0, y), { duration: 1.4 });
     else window.scrollTo({ top: Math.max(0, y), behavior: reduced ? 'auto' : 'smooth' });
   }
+  window.ACE360_SCROLL = scrollToEl;
   document.addEventListener('click', function (e) {
     var link = e.target.closest('a[href*="#"]');
     if (!link) return;
@@ -251,7 +252,9 @@
           range: money(r.lo, l) + ' – ' + money(r.hi, l),
           weeks: weeksText(r.w0, r.w1, l),
           care: r.care ? money(cfg.care * (r.vat ? 1 + cfg.vat / 100 : 1), l) + (l === 'nl' ? ' /mnd' : ' /mo') : (l === 'nl' ? 'geen' : 'none'),
-          vat: r.vat ? (l === 'nl' ? 'incl. btw' : 'incl. VAT') : (l === 'nl' ? 'excl. btw' : 'excl. VAT')
+          vat: r.vat ? (l === 'nl' ? 'incl. btw' : 'incl. VAT') : (l === 'nl' ? 'excl. btw' : 'excl. VAT'),
+          lo: r.lo, hi: r.hi, w0: r.w0, w1: r.w1, type: r.type.id, isVat: r.vat,
+          items: r.lines.map(function (x) { return [x.label, money(round10(x.lo * r.mult), l), money(round10(x.hi * r.mult), l)]; })
         } }));
       };
 
@@ -430,8 +433,8 @@
   });
 
   /* ---------- Reveals ---------- */
-  var hl = document.querySelectorAll('.hero-title .hl');
-  var heroBits = document.querySelectorAll('.hero .kicker, .hero-title, .hero .lede, .hero .actions, .hero .checks li');
+  var hl = document.querySelectorAll('.hero .hero-title .hl');
+  var heroBits = document.querySelectorAll('.hero .kicker, .hero .hero-title, .hero .lede, .hero .actions, .hero .checks li');
   var intro = gsap.timeline({ delay: 0.15 });
   if (heroBits.length) intro.from(heroBits, { y: 22, opacity: 0, duration: 0.9, ease: 'power3.out', stagger: 0.06 });
   if (hl.length) intro.fromTo(hl, { '--u': 0 }, { '--u': 1, duration: 0.9, ease: 'power3.inOut' }, 0.6);

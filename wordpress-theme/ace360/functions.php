@@ -60,18 +60,17 @@ function ace360_assets() {
 
 	$deps = array( 'gsap', 'gsap-scrolltrigger', 'lenis' );
 
-	// The demo film only exists on the front page.
+	// The front page is the 360° quote: the dial, the receipt and the project screens.
 	if ( is_front_page() ) {
-		wp_enqueue_script( 'ace360-demo', $uri . '/js/demo.js', array( 'gsap', 'gsap-scrolltrigger' ), ACE360_VERSION, true );
-		wp_enqueue_script( 'three', $uri . '/vendor/three.min.js', array(), '0.149.0', true );
+		wp_enqueue_style( 'ace360-ring', $uri . '/css/ring.css', array( 'ace360-main' ), ACE360_VERSION );
 		wp_enqueue_script( 'ace360-screens', $uri . '/js/screens.js', array(), ACE360_VERSION, true );
-		wp_enqueue_script( 'ace360-film', $uri . '/js/film.js', array( 'three', 'gsap', 'ace360-screens' ), ACE360_VERSION, true );
-		$deps[] = 'ace360-demo';
 		$deps[] = 'ace360-screens';
-		$deps[] = 'ace360-film';
 	}
 
 	wp_enqueue_script( 'ace360-main', $uri . '/js/main.js', $deps, ACE360_VERSION, true );
+	if ( is_front_page() ) {
+		wp_enqueue_script( 'ace360-ring', $uri . '/js/ring.js', array( 'ace360-main' ), ACE360_VERSION, true );
+	}
 }
 add_action( 'wp_enqueue_scripts', 'ace360_assets' );
 
@@ -83,7 +82,7 @@ add_action( 'wp_enqueue_scripts', 'ace360_assets' );
  * @return string
  */
 function ace360_defer_scripts( $tag, $handle ) {
-	$handles = array( 'gsap', 'gsap-scrolltrigger', 'lenis', 'ace360-demo', 'three', 'ace360-screens', 'ace360-film', 'ace360-main' );
+	$handles = array( 'gsap', 'gsap-scrolltrigger', 'lenis', 'ace360-screens', 'ace360-main', 'ace360-ring' );
 	if ( in_array( $handle, $handles, true ) && false === strpos( $tag, ' defer' ) ) {
 		$tag = str_replace( ' src=', ' defer src=', $tag );
 	}
@@ -296,6 +295,7 @@ add_action( 'admin_post_ace360_contact', 'ace360_handle_contact' );
 function ace360_fallback_menu() {
 	$base  = is_front_page() ? '' : home_url( '/' );
 	$items = array(
+		'#prijs'     => ace360_pair( 'Price', 'Prijs' ),
 		'#diensten'  => ace360_pair( 'Services', 'Diensten' ),
 		'#werkwijze' => ace360_pair( 'Process', 'Werkwijze' ),
 		'#werk'      => ace360_pair( 'Work', 'Werk' ),

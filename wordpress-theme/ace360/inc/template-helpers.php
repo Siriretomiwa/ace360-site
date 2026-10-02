@@ -94,10 +94,18 @@ function ace360_wa() {
 /**
  * Wordmark used when no custom logo is uploaded.
  */
+/**
+ * The Ace 360 ring on its own, large (used as the maker's mark on the front page).
+ */
+function ace360_wordmark_ring() {
+	return '<svg viewBox="0 0 32 32" width="88" height="88"><circle cx="16" cy="16" r="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="5.2 2.34"/><rect x="13" y="1.5" width="6" height="6" rx="1" fill="currentColor"/></svg>';
+}
+
 function ace360_wordmark() {
 	return '<span class="wordmark" aria-hidden="true">'
 		. '<svg class="wordmark-ring" viewBox="0 0 32 32" width="26" height="26">'
 		. '<circle cx="16" cy="16" r="12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-dasharray="5.2 2.34"/>'
+		. '<circle class="wordmark-progress" cx="16" cy="16" r="12" fill="none" stroke="currentColor" stroke-width="2.6" pathLength="360" transform="rotate(-90 16 16)"/>'
 		. '<rect x="13" y="1.5" width="6" height="6" rx="1" fill="currentColor"/>'
 		. '</svg>'
 		. '<span class="wordmark-text">Ace 360<span class="wordmark-sub">Services</span></span>'

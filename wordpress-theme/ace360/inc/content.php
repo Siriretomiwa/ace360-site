@@ -110,6 +110,101 @@ function ace360_process() {
 }
 
 /**
+ * Always included in every website quote (shown at €0 on the live receipt).
+ * Each line is something the FAQ and process already promise.
+ */
+function ace360_included() {
+	return array(
+		ace360_pair( 'Works on every screen', 'Werkt op elk scherm' ),
+		ace360_pair( 'Fast loading, tested before launch', 'Snel geladen, getest voor de lancering' ),
+		ace360_pair( 'SSL certificate (https)', 'SSL-certificaat (https)' ),
+		ace360_pair( 'GDPR-proof cookie notice', 'Cookiemelding volgens de AVG' ),
+		ace360_pair( 'Contact form with spam filter', 'Contactformulier met spamfilter' ),
+		ace360_pair( 'Domain, hosting and logins in your name', 'Domein, hosting en logins op jouw naam' ),
+		ace360_pair( 'Half-hour walkthrough and a short guide', 'Half uur uitleg en een korte handleiding' ),
+		ace360_pair( 'Launch date written into the quote', 'Lanceerdatum in de offerte' ),
+	);
+}
+
+/**
+ * Guarantees: plain promises, each backed by an FAQ answer.
+ */
+function ace360_guarantees() {
+	return array(
+		array( ace360_pair( 'The quote is the invoice', 'De offerte is de factuur' ), ace360_pair( 'The price you agree is the price you pay. No hourly surprises at the end.', 'De prijs die we afspreken is de prijs die je betaalt. Geen uren-verrassing achteraf.' ) ),
+		array( ace360_pair( 'Late because of me? Free.', 'Te laat door mij? Gratis.' ), ace360_pair( 'The launch date is in the quote. If it slips on my side, you pay nothing extra.', 'De lanceerdatum staat in de offerte. Loopt het bij mij uit, dan betaal je niets extra.' ) ),
+		array( ace360_pair( 'Everything is yours', 'Alles is van jou' ), ace360_pair( 'Domain, hosting and every login in your name. Leave whenever you like and take it all.', 'Domein, hosting en alle logins op jouw naam. Vertrek wanneer je wilt en neem alles mee.' ) ),
+		array( ace360_pair( 'One person, one number', 'Eén persoon, één nummer' ), ace360_pair( 'No account manager in between. An answer within one working day.', 'Geen accountmanager ertussen. Binnen één werkdag antwoord.' ) ),
+	);
+}
+
+/**
+ * What a site like a portfolio project would cost, straight from the price
+ * model: [ type, extras ] → [ lo, hi, weeks_lo, weeks_hi ] (excl. VAT).
+ *
+ * @param string $mockup Project key from ace360_work().
+ * @return array|null Null when the project is beyond the self-quote (custom platforms).
+ */
+function ace360_work_quote( $mockup ) {
+	$map = array(
+		'hesed'       => array( 'website', array( 'booking' ) ),
+		'sidwalk'     => array( 'store', array( 'brand', 'images' ) ),
+		'prkiosk'     => array( 'store', array( 'copy' ) ),
+		'shop4likes'  => array( 'store', array() ),
+		'ngo'         => array( 'website', array( 'copy' ) ),
+		'skincare'    => array( 'store', array( 'products' ) ),
+		'korrel'      => array( 'store', array() ),
+		'noor'        => array( 'website', array( 'booking' ) ),
+		'spaak'       => array( 'website', array( 'booking' ) ),
+		'zout'        => array( 'website', array( 'booking' ) ),
+		'adem'        => array( 'website', array( 'booking' ) ),
+		'gracht'      => array( 'website', array( 'booking', 'lang' ) ),
+		'molen'       => array( 'store', array( 'products' ) ),
+		'voedselbrug' => array( 'website', array( 'booking' ) ),
+		'youthrise'   => array( 'website', array( 'booking' ) ),
+		'ebene'       => array( 'store', array( 'products', 'lang' ) ),
+		'glow'        => array( 'website', array( 'booking' ) ),
+		'jollof'      => array( 'store', array( 'lang' ) ),
+		'lens'        => array( 'website', array( 'booking', 'images' ) ),
+	);
+	if ( ! isset( $map[ $mockup ] ) ) {
+		return null;
+	}
+	$c    = ace360_estimator();
+	$type = null;
+	foreach ( $c['types'] as $t ) {
+		if ( $t['id'] === $map[ $mockup ][0] ) {
+			$type = $t;
+		}
+	}
+	if ( ! $type ) {
+		return null;
+	}
+	$lo = $type['base'][0];
+	$hi = $type['base'][1];
+	$w0 = $type['weeks'][0];
+	$w1 = $type['weeks'][1];
+	foreach ( $c['extras'] as $x ) {
+		if ( in_array( $x['id'], $map[ $mockup ][1], true ) ) {
+			$lo += $x['price'][0];
+			$hi += $x['price'][1];
+			if ( 'brand' === $x['id'] ) {
+				++$w0;
+				++$w1;
+			}
+		}
+	}
+	return array(
+		'lo'     => $lo,
+		'hi'     => $hi,
+		'w0'     => $w0,
+		'w1'     => $w1,
+		'type'   => $type['id'],
+		'extras' => $map[ $mockup ][1],
+	);
+}
+
+/**
  * "-baar": four things a website has to be. Each word slides behind the 3D
  * laptop, which turns to show it. Dutch plays on "betaalbaar" (payable and
  * affordable). [ en word, en stem, nl word, nl stem, en line, nl line, screen ]

@@ -1,19 +1,18 @@
 <?php
 /**
- * Front page: a scroll-driven 3D film.
+ * Front page: "De 360°-offerte".
  *
- * One three.js stage (assets/js/film.js) is fixed behind the page: a laptop and a
- * phone on a white desk, with floating cards of website parts. Every chapter
- * (<section data-k="...">) is a camera keyframe; data-screen says what the laptop
- * shows. Short copy sits on one side of each chapter, the scene on the other.
- * All copy is in the HTML in English and Dutch and reads fine without WebGL.
+ * One idea carries the page: the ring in the Ace 360 logo is a price dial. The
+ * hero asks three questions and the dial shows a real price and launch date;
+ * a receipt follows the visitor down the page and collects what is included.
+ * Every project shows what a site like it costs and can be put into the quote,
+ * and the process dates move with the dial. Motion only explains something.
+ * Copy is in Dutch and English (Dutch first).
  *
  * @package ace360
  */
 
 get_header();
-
-$ace360_hero = ace360_hero();
 
 $ace360_projects = new WP_Query(
 	array(
@@ -49,223 +48,71 @@ if ( $ace360_projects->have_posts() ) {
 if ( empty( $ace360_work ) ) {
 	$ace360_work = ace360_work();
 }
-// The 3D showcase takes the featured projects (or the first seven); the grid shows them all.
-$ace360_featured = array_values(
-	array_filter(
-		$ace360_work,
-		function ( $w ) {
-			return ! empty( $w['featured'] );
-		}
-	)
-);
-if ( empty( $ace360_featured ) ) {
-	$ace360_featured = $ace360_work;
-}
-$ace360_featured = array_slice( $ace360_featured, 0, 7 );
-$ace360_sectors  = ace360_sectors();
+$ace360_sectors = ace360_sectors();
 $ace360_steps   = ace360_process();
-$ace360_screens = array( 'call', 'quote', 'design', 'build', 'live' );
 ?>
-<div class="bigtype" aria-hidden="true">
-	<?php foreach ( ace360_baar() as $ace360_i => $ace360_b ) : ?>
-		<span class="bigword" data-word="<?php echo (int) $ace360_i; ?>"><span data-l="en"><?php echo esc_html( $ace360_b[1] ); ?><em><?php echo esc_html( substr( $ace360_b[0], strlen( $ace360_b[1] ) ) ); ?></em></span><span data-l="nl"><?php echo esc_html( $ace360_b[3] ); ?><em><?php echo esc_html( substr( $ace360_b[2], strlen( $ace360_b[3] ) ) ); ?></em></span></span>
-	<?php endforeach; ?>
-</div>
-<canvas id="stage" aria-hidden="true"></canvas>
-<main id="main" class="site-main film">
+<main id="main" class="site-main ring-page">
 
-	<!-- 1 · Hero -->
-	<section class="ch hero" data-k="hero" data-screen="story">
+	<!-- 1 · The 360° quote -->
+	<section class="sec hero-dial" id="prijs">
 		<div class="wrap">
-			<div class="copy">
-				<p class="kicker"><span class="nl-flag" aria-hidden="true"></span><?php ace360_e( $ace360_hero['kicker'] ); ?></p>
-				<h1 class="hero-title"><?php echo ace360_hl( $ace360_hero['title'] ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped in helper. ?></h1>
-				<p class="lede"><?php ace360_e( $ace360_hero['text'] ); ?></p>
-				<div class="actions">
-					<a class="btn btn-orange" href="#prijs"><?php ace360_e( $ace360_hero['quote'] ); ?> <span aria-hidden="true">→</span></a>
-					<a class="btn btn-line" href="<?php echo esc_url( ace360_tel() ); ?>"><?php ace360_e( $ace360_hero['call'] ); ?></a>
-				</div>
-				<ul class="checks">
-					<?php foreach ( $ace360_hero['bullets'] as $ace360_b ) : ?>
-						<li><?php ace360_e( $ace360_b ); ?></li>
-					<?php endforeach; ?>
-				</ul>
+			<div class="hero-head">
+				<p class="kicker"><?php ace360_e( ace360_pair( 'Websites for businesses in the Netherlands and beyond · fixed price', 'Websites voor bedrijven in Nederland en daarbuiten · vaste prijs' ) ); ?></p>
+				<h1 class="hero-title"><?php echo ace360_hl( ace360_pair( 'What will your website cost? *Know* in ten seconds.', 'Wat kost jouw website? *Weet het* in tien seconden.' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></h1>
+				<p class="lede"><?php ace360_e( ace360_pair( 'Three questions, and you see the same price and launch date you would get on the phone. Then we talk, if you want to.', 'Drie vragen, en je ziet dezelfde prijs en lanceerdatum die je aan de telefoon zou krijgen. Daarna praten we, als jij dat wilt.' ) ); ?></p>
 			</div>
-		</div>
-		<p class="scroll-cue" aria-hidden="true"><span></span><?php ace360_e( ace360_pair( 'Scroll', 'Scroll' ) ); ?></p>
-	</section>
-
-	<!-- 1a · Four things a website has to be: giant words slide behind the turning laptop -->
-	<div class="baar" id="wat">
-		<?php foreach ( ace360_baar() as $ace360_i => $ace360_b ) : ?>
-			<section class="ch baar-ch" data-k="<?php echo esc_attr( 'baar' . ( $ace360_i + 1 ) ); ?>" data-screen="<?php echo esc_attr( $ace360_b[6] ); ?>" data-baar="<?php echo (int) $ace360_i; ?>">
-				<div class="wrap">
-					<div class="baar-cap">
-						<p class="kicker"><span class="mono"><?php echo esc_html( sprintf( '%02d / %02d', $ace360_i + 1, count( ace360_baar() ) ) ); ?></span> · <?php ace360_e( ace360_pair( 'A website that works is', 'Een website die werkt is' ) ); ?></p>
-						<h2><?php ace360_e( ace360_pair( ucfirst( strtolower( $ace360_b[0] ) ), ucfirst( strtolower( $ace360_b[2] ) ) ) ); ?></h2>
-						<p class="lede"><?php ace360_e( ace360_pair( $ace360_b[4], $ace360_b[5] ) ); ?></p>
-					</div>
-				</div>
-			</section>
-		<?php endforeach; ?>
-	</div>
-
-	<!-- 1b · Sound familiar? The laptop shows the site the visitor has now -->
-	<section class="ch right pain-ch" id="herkenbaar" data-k="pain" data-screen="old">
-		<div class="wrap">
-			<div class="copy">
-				<p class="kicker"><?php ace360_e( ace360_pair( 'Sound familiar?', 'Herkenbaar?' ) ); ?></p>
-				<h2><?php echo ace360_hl( ace360_pair( 'Your website should be *working* for you', 'Je website hoort voor je te *werken*' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></h2>
-				<ul class="pains">
-					<?php foreach ( ace360_pains() as $ace360_p ) : ?>
-						<li><span class="x" aria-hidden="true"></span><?php ace360_e( $ace360_p ); ?></li>
-					<?php endforeach; ?>
-				</ul>
-				<p class="lede"><?php ace360_e( ace360_pair( 'Most of the businesses I work with started here. Keep scrolling.', 'De meeste bedrijven waarmee ik werk begonnen hier. Scroll verder.' ) ); ?></p>
-			</div>
+			<?php get_template_part( 'template-parts/dial' ); ?>
+			<ul class="facts" aria-label="<?php esc_attr_e( 'Guarantees', 'ace360' ); ?>">
+				<?php foreach ( ace360_guarantees() as $ace360_g ) : ?>
+					<li><span class="tick" aria-hidden="true"></span><?php ace360_e( $ace360_g[0] ); ?></li>
+				<?php endforeach; ?>
+			</ul>
 		</div>
 	</section>
 
-	<!-- 1c · After launch: the new site goes live and the phone starts buzzing -->
-	<section class="ch fix-ch" id="resultaat" data-k="fix" data-screen="results">
+	<!-- 2 · Services, and what every price already includes -->
+	<section class="sec" id="diensten">
 		<div class="wrap">
-			<div class="copy">
-				<p class="kicker"><?php ace360_e( ace360_pair( 'After launch', 'Na de lancering' ) ); ?></p>
-				<h2><?php echo ace360_hl( ace360_pair( 'Then your phone starts *buzzing*', 'Dan gaat je telefoon *trillen*' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></h2>
-				<ol class="outcomes">
-					<?php foreach ( ace360_outcomes() as $ace360_i => $ace360_o ) : ?>
-						<li><span class="tick" aria-hidden="true"></span><b><?php ace360_e( $ace360_o[0] ); ?></b><span><?php ace360_e( $ace360_o[1] ); ?></span></li>
-					<?php endforeach; ?>
-				</ol>
-				<div class="actions">
-					<a class="btn btn-orange" href="#prijs"><?php ace360_e( ace360_pair( 'What would mine cost?', 'Wat kost de mijne?' ) ); ?> <span aria-hidden="true">→</span></a>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- 2 · Services -->
-	<section class="ch right" id="diensten" data-k="services" data-screen="live">
-		<div class="wrap">
-			<div class="copy">
+			<div class="sec-head">
 				<p class="kicker"><?php ace360_e( ace360_pair( 'Services', 'Diensten' ) ); ?></p>
 				<h2><?php echo ace360_hl( ace360_pair( 'Four things, done *properly*', 'Vier dingen, *goed* gedaan' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></h2>
-				<p class="lede"><?php ace360_e( ace360_pair( 'Not a list of thirty services where five of them actually work. This is what I build and maintain.', 'Geen lijst met dertig diensten waarvan er vijf echt werken. Dit is wat ik bouw en onderhoud.' ) ); ?></p>
-				<ol class="svc">
-					<?php foreach ( ace360_services() as $ace360_i => $ace360_s ) : ?>
-						<li>
-							<a href="<?php echo esc_url( $ace360_s['type'] ? '#prijs' : '#contact' ); ?>"<?php echo $ace360_s['type'] ? ' data-pick-type="' . esc_attr( $ace360_s['type'] ) . '"' : ''; ?>>
-								<span class="svc-top"><b><?php ace360_e( $ace360_s['title'] ); ?></b><span class="price mono"><?php ace360_e( $ace360_s['price'] ); ?></span></span>
-								<span class="svc-text"><?php ace360_e( $ace360_s['text'] ); ?></span>
-							</a>
-						</li>
-					<?php endforeach; ?>
-				</ol>
 			</div>
-		</div>
-	</section>
-
-	<!-- 3 · Self-quote -->
-	<section class="ch quote-ch" id="prijs" data-k="quote" data-screen="quote">
-		<div class="wrap">
-			<div class="copy copy-quote">
-				<p class="kicker"><?php ace360_e( ace360_pair( 'Self-quote', 'Zelf berekenen' ) ); ?></p>
-				<h2><?php echo ace360_hl( ace360_pair( 'What will *your* website cost?', 'Wat kost *jouw* website?' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></h2>
-				<p class="lede"><?php ace360_e( ace360_pair( 'Pick what you need and watch the quote on the desk change. The same range I would give you on the phone.', 'Kies wat je nodig hebt en zie de offerte op het bureau meteen veranderen. Dezelfde bandbreedte die ik je aan de telefoon zou geven.' ) ); ?></p>
-				<?php get_template_part( 'template-parts/estimator' ); ?>
-			</div>
-		</div>
-	</section>
-
-	<!-- 4 · Process intro -->
-	<section class="ch right" id="werkwijze" data-k="process" data-screen="blank">
-		<div class="wrap">
-			<div class="copy">
-				<p class="kicker"><?php ace360_e( ace360_pair( 'Process', 'Werkwijze' ) ); ?></p>
-				<h2><?php echo ace360_hl( ace360_pair( 'Five steps, and you always know which one you are *on*', 'Vijf stappen, en je weet altijd bij welke je *bent*' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></h2>
-				<p class="lede"><?php ace360_e( ace360_pair( 'Most projects run late because nobody agreed what finished means. That is why the schedule is written into the quote. Keep scrolling and watch one site get built.', 'De meeste projecten lopen uit omdat niemand heeft afgesproken wat ‘af’ betekent. Daarom staat de planning in de offerte. Scroll verder en zie hoe één site gebouwd wordt.' ) ); ?></p>
-				<ol class="step-index">
-					<?php foreach ( $ace360_steps as $ace360_i => $ace360_p ) : ?>
-						<li><span class="mono"><?php echo esc_html( sprintf( '%02d', $ace360_i + 1 ) ); ?></span><?php ace360_e( $ace360_p[0] ); ?><span class="mono muted"><?php ace360_e( $ace360_p[1] ); ?></span></li>
-					<?php endforeach; ?>
-				</ol>
-			</div>
-		</div>
-	</section>
-
-	<!-- 5–9 · One chapter per step -->
-	<?php foreach ( $ace360_steps as $ace360_i => $ace360_p ) : ?>
-		<section class="ch step<?php echo 1 === $ace360_i % 2 ? ' right' : ''; ?>" data-k="<?php echo esc_attr( 's' . ( $ace360_i + 1 ) ); ?>" data-screen="<?php echo esc_attr( $ace360_screens[ $ace360_i ] ); ?>">
-			<div class="wrap">
-				<div class="copy">
-					<p class="kicker"><span class="mono"><b><?php echo esc_html( sprintf( '%02d', $ace360_i + 1 ) ); ?></b> / 05</span> · <?php ace360_e( $ace360_p[1] ); ?></p>
-					<h2 class="step-word"><?php ace360_e( $ace360_p[0] ); ?></h2>
-					<p class="lede"><?php ace360_e( $ace360_p[2] ); ?></p>
-					<div class="progress" aria-hidden="true"><i style="--p:<?php echo esc_attr( ( $ace360_i + 1 ) / 5 ); ?>"></i></div>
+			<ol class="services">
+				<?php foreach ( ace360_services() as $ace360_i => $ace360_s ) : ?>
+					<li class="service">
+						<span class="service-n mono"><?php echo esc_html( sprintf( '%02d', $ace360_i + 1 ) ); ?></span>
+						<h3><?php ace360_e( $ace360_s['title'] ); ?></h3>
+						<p class="service-price mono"><?php ace360_e( $ace360_s['price'] ); ?></p>
+						<p class="service-text"><?php ace360_e( $ace360_s['text'] ); ?></p>
+						<?php if ( $ace360_s['type'] ) : ?>
+							<button type="button" class="service-use" data-use-quote="<?php echo esc_attr( wp_json_encode( array( 'type' => $ace360_s['type'] ) ) ); ?>"><?php ace360_e( ace360_pair( 'Price this', 'Bereken dit' ) ); ?> <span aria-hidden="true">↑</span></button>
+						<?php else : ?>
+							<a class="service-use" href="#contact"><?php ace360_e( ace360_pair( 'Ask me', 'Vraag het me' ) ); ?> <span aria-hidden="true">→</span></a>
+						<?php endif; ?>
+					</li>
+				<?php endforeach; ?>
+			</ol>
+			<div class="included" id="inbegrepen">
+				<div class="included-head">
+					<h3><?php ace360_e( ace360_pair( 'Already in every price above', 'Zit al in elke prijs hierboven' ) ); ?></h3>
+					<p><?php ace360_e( ace360_pair( 'Watch your receipt: these land on it at €0.', 'Kijk naar je bonnetje: deze komen erop voor € 0.' ) ); ?></p>
 				</div>
-			</div>
-		</section>
-	<?php endforeach; ?>
-
-	<!-- 10 · Demo film -->
-	<section class="ch demo-ch" id="demo" data-k="demo" data-screen="live">
-		<div class="wrap">
-			<div class="copy copy-demo">
-				<p class="kicker"><?php ace360_e( ace360_pair( 'The 30-second version', 'De versie van 30 seconden' ) ); ?></p>
-				<h2><?php echo ace360_hl( ace360_pair( 'From first call to *live*, start to finish', 'Van eerste gesprek tot *live*, van begin tot eind' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></h2>
-				<?php get_template_part( 'template-parts/demo' ); ?>
+				<ul class="incl-list">
+					<?php foreach ( ace360_included() as $ace360_n ) : ?>
+						<li data-incl><span class="incl-tick" aria-hidden="true"></span><span class="incl-text"><?php ace360_e( $ace360_n ); ?></span><span class="mono incl-zero">€ 0</span></li>
+					<?php endforeach; ?>
+				</ul>
 			</div>
 		</div>
 	</section>
 
-	<!-- 11 · Work: the laptop shows each project in turn -->
-	<section class="ch tall" id="werk" data-k="work" data-items="<?php echo esc_attr( count( $ace360_featured ) ); ?>" style="--items:<?php echo esc_attr( count( $ace360_featured ) ); ?>">
-		<div class="sticky">
-			<div class="wrap">
-				<div class="copy">
-					<p class="kicker"><?php ace360_e( ace360_pair( 'Work · selected projects', 'Werk · geselecteerde projecten' ) ); ?> · <span class="mono" data-count>1 / <?php echo esc_html( count( $ace360_featured ) ); ?></span></p>
-					<ol class="items">
-						<?php foreach ( $ace360_featured as $ace360_i => $ace360_w ) : ?>
-							<li class="item<?php echo 0 === $ace360_i ? ' is-on' : ''; ?>" data-screen="<?php echo esc_attr( 'work-' . ( $ace360_w['mockup'] ? $ace360_w['mockup'] : 'generic' ) ); ?>" data-title="<?php echo esc_attr( $ace360_w['title'] ); ?>"<?php echo ! empty( $ace360_w['image'] ) ? ' data-image="' . esc_url( $ace360_w['image'] ) . '"' : ''; ?>>
-								<p class="mono muted"><?php ace360_e( $ace360_w['type'] ); ?><?php if ( ! empty( $ace360_w['concept'] ) ) : ?> <span class="tag-concept"><?php ace360_e( ace360_pair( 'Concept', 'Concept' ) ); ?></span><?php endif; ?></p>
-								<h2>
-									<?php if ( ! empty( $ace360_w['link'] ) ) : ?>
-										<a href="<?php echo esc_url( $ace360_w['link'] ); ?>"><?php echo esc_html( $ace360_w['title'] ); ?></a>
-									<?php else : ?>
-										<?php echo esc_html( $ace360_w['title'] ); ?>
-									<?php endif; ?>
-								</h2>
-								<p class="lede"><?php ace360_e( $ace360_w['text'] ); ?></p>
-								<?php if ( ! empty( $ace360_w['built'] ) ) : ?>
-									<ul class="work-built">
-										<?php foreach ( $ace360_w['built'] as $ace360_b ) : ?>
-											<li><?php ace360_e( $ace360_b ); ?></li>
-										<?php endforeach; ?>
-									</ul>
-								<?php endif; ?>
-								<?php if ( ! empty( $ace360_w['url'] ) ) : ?>
-									<a class="arrow-link" href="<?php echo esc_url( $ace360_w['url'] ); ?>" target="_blank" rel="noopener"><?php ace360_e( ace360_pair( 'Visit the live site', 'Bekijk de live site' ) ); ?> <span aria-hidden="true">↗</span></a>
-								<?php endif; ?>
-							</li>
-						<?php endforeach; ?>
-					</ol>
-					<div class="dots" role="group" aria-label="<?php esc_attr_e( 'Projects', 'ace360' ); ?>">
-						<?php foreach ( $ace360_featured as $ace360_i => $ace360_w ) : ?>
-							<button type="button" data-go="<?php echo (int) $ace360_i; ?>" aria-label="<?php echo esc_attr( $ace360_w['title'] ); ?>"<?php echo 0 === $ace360_i ? ' class="on"' : ''; ?>></button>
-						<?php endforeach; ?>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- 11b · All work: every project as a filterable grid -->
-	<section class="band all-work" id="projecten" data-k="more" data-screen="live">
+	<!-- 4 · Work: every project with what a site like it costs -->
+	<section class="sec all-work" id="werk">
 		<div class="wrap">
 			<div class="sec-head">
 				<p class="kicker"><?php ace360_e( ace360_pair( 'All work', 'Al het werk' ) ); ?> · <span class="mono"><?php echo esc_html( count( $ace360_work ) ); ?></span></p>
-				<h2><?php echo ace360_hl( ace360_pair( 'Every kind of business, *one* way of working', 'Elk soort bedrijf, *één* manier van werken' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></h2>
-				<p class="lede"><?php ace360_e( ace360_pair( 'Stores, charities, salons, restaurants and platforms. Filter by sector and open any project to see it up close.', 'Webshops, goede doelen, salons, restaurants en platforms. Filter op sector en open een project om het van dichtbij te zien.' ) ); ?></p>
+				<h2><?php echo ace360_hl( ace360_pair( 'What it cost. How long it *took*.', 'Wat het kost. Hoe lang het *duurt*.' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></h2>
+				<p class="lede"><?php ace360_e( ace360_pair( 'Every project shows what a site like it costs and how long it takes, worked out with the same price model as the dial above. Like one? Put it straight into your quote.', 'Bij elk project zie je wat zo’n site kost en hoe lang het duurt, berekend met hetzelfde prijsmodel als de draaiknop hierboven. Zie je iets wat je wilt? Zet het direct in je offerte.' ) ); ?></p>
 			</div>
 			<?php
 			$ace360_counts = array_count_values(
@@ -289,7 +136,8 @@ $ace360_screens = array( 'call', 'quote', 'design', 'build', 'live' );
 			</div>
 			<ul class="work-grid">
 				<?php foreach ( $ace360_work as $ace360_i => $ace360_w ) : ?>
-					<li class="wcard" data-sector="<?php echo esc_attr( isset( $ace360_w['sector'] ) ? $ace360_w['sector'] : '' ); ?>">
+					<?php $ace360_wq = ace360_work_quote( isset( $ace360_w['mockup'] ) ? $ace360_w['mockup'] : '' ); ?>
+					<li class="wcard<?php echo $ace360_i >= 6 ? ' is-extra' : ''; ?>" data-sector="<?php echo esc_attr( isset( $ace360_w['sector'] ) ? $ace360_w['sector'] : '' ); ?>">
 						<button type="button" class="wcard-open" aria-haspopup="dialog">
 							<span class="wcard-thumb">
 								<?php if ( ! empty( $ace360_w['image'] ) ) : ?>
@@ -301,6 +149,17 @@ $ace360_screens = array( 'call', 'quote', 'design', 'build', 'live' );
 							<span class="wcard-meta mono"><?php ace360_e( $ace360_w['type'] ); ?><?php if ( ! empty( $ace360_w['concept'] ) ) : ?> <span class="tag-concept"><?php ace360_e( ace360_pair( 'Concept', 'Concept' ) ); ?></span><?php endif; ?></span>
 							<span class="wcard-title"><?php echo esc_html( $ace360_w['title'] ); ?> <span class="wcard-arrow" aria-hidden="true">↗</span></span>
 						</button>
+						<div class="wcard-price">
+							<?php if ( $ace360_wq ) : ?>
+								<span class="mono"><?php ace360_e( ace360_pair( 'A site like this', 'Zo’n site' ) ); ?></span>
+								<b>€ <?php echo esc_html( number_format( $ace360_wq['lo'], 0, ',', '.' ) ); ?> – <?php echo esc_html( number_format( $ace360_wq['hi'], 0, ',', '.' ) ); ?></b>
+								<span class="mono"><?php echo esc_html( $ace360_wq['w0'] . '–' . $ace360_wq['w1'] ); ?> <?php ace360_e( ace360_pair( 'weeks', 'weken' ) ); ?></span>
+								<button type="button" class="wcard-use" data-use-quote="<?php echo esc_attr( wp_json_encode( array( 'type' => $ace360_wq['type'], 'extras' => $ace360_wq['extras'] ) ) ); ?>"><?php ace360_e( ace360_pair( 'Put in my quote', 'Zet in mijn offerte' ) ); ?> <span aria-hidden="true">↑</span></button>
+							<?php else : ?>
+								<span class="mono"><?php ace360_e( ace360_pair( 'Custom platform', 'Maatwerkplatform' ) ); ?></span>
+								<b><?php ace360_e( ace360_pair( 'Price on request', 'Prijs op aanvraag' ) ); ?></b>
+							<?php endif; ?>
+						</div>
 						<div class="wcard-more" hidden>
 							<p class="lede"><?php ace360_e( $ace360_w['text'] ); ?></p>
 							<?php if ( ! empty( $ace360_w['built'] ) ) : ?>
@@ -322,6 +181,7 @@ $ace360_screens = array( 'call', 'quote', 'design', 'build', 'live' );
 					</li>
 				<?php endforeach; ?>
 			</ul>
+			<p class="more-work"><button type="button" class="btn btn-line" data-more-work><?php ace360_e( ace360_pair( 'Show all ' . count( $ace360_work ) . ' projects', 'Toon alle ' . count( $ace360_work ) . ' projecten' ) ); ?></button></p>
 			<p class="all-work-cta"><?php ace360_e( ace360_pair( 'Your business not in the list?', 'Staat jouw soort bedrijf er niet bij?' ) ); ?> <a class="arrow-link" href="#prijs"><?php ace360_e( ace360_pair( 'Price your website', 'Bereken je prijs' ) ); ?> <span aria-hidden="true">→</span></a></p>
 		</div>
 		<dialog class="work-dialog" aria-labelledby="work-dialog-title">
@@ -337,8 +197,55 @@ $ace360_screens = array( 'call', 'quote', 'design', 'build', 'live' );
 		</dialog>
 	</section>
 
-	<!-- 12 · Questions -->
-	<section class="band" id="vragen" data-k="faq" data-screen="live">
+	<!-- 5 · Process: the dates move with the dial -->
+	<section class="sec" id="werkwijze">
+		<div class="wrap">
+			<div class="sec-head">
+				<p class="kicker"><?php ace360_e( ace360_pair( 'Process', 'Werkwijze' ) ); ?></p>
+				<h2><?php echo ace360_hl( ace360_pair( 'Your project, with *dates*', 'Jouw project, met *data*' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></h2>
+				<p class="lede"><?php ace360_e( ace360_pair( 'These dates come from your dial. Change the questions at the top and the plan moves with them.', 'Deze data komen uit jouw draaiknop. Verander de vragen bovenaan en de planning schuift mee.' ) ); ?></p>
+			</div>
+			<ol class="plan" data-plan>
+				<?php foreach ( $ace360_steps as $ace360_i => $ace360_p ) : ?>
+					<li class="plan-step">
+						<span class="plan-date mono" data-plan-date="<?php echo (int) $ace360_i; ?>">—</span>
+						<span class="plan-dot" aria-hidden="true"></span>
+						<h3><?php ace360_e( $ace360_p[0] ); ?></h3>
+						<p><?php ace360_e( $ace360_p[2] ); ?></p>
+					</li>
+				<?php endforeach; ?>
+			</ol>
+		</div>
+	</section>
+
+	<!-- 6 · Who builds it, and what is guaranteed -->
+	<section class="sec" id="garanties">
+		<div class="wrap who">
+			<div class="who-card">
+				<div class="who-ring" aria-hidden="true"><?php echo ace360_wordmark_ring(); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
+				<p class="kicker"><?php ace360_e( ace360_pair( 'Who builds it', 'Wie het bouwt' ) ); ?></p>
+				<h2><?php ace360_e( ace360_pair( 'One maker. No account manager.', 'Eén maker. Geen accountmanager.' ) ); ?></h2>
+				<p class="lede"><?php ace360_e( ace360_hero()['text'] ); ?></p>
+				<dl class="who-facts">
+					<div><dt class="mono">KvK</dt><dd><?php echo esc_html( ace360_mod( 'kvk' ) ); ?></dd></div>
+					<div><dt class="mono"><?php ace360_e( ace360_pair( 'Reply', 'Antwoord' ) ); ?></dt><dd><?php ace360_e( ace360_pair( 'within 1 working day', 'binnen 1 werkdag' ) ); ?></dd></div>
+					<div><dt class="mono"><?php ace360_e( ace360_pair( 'Hours', 'Bereikbaar' ) ); ?></dt><dd><?php ace360_e( ace360_pair( ace360_mod( 'hours_en' ), ace360_mod( 'hours_nl' ) ) ); ?></dd></div>
+				</dl>
+			</div>
+			<ol class="guarantees">
+				<?php foreach ( ace360_guarantees() as $ace360_i => $ace360_g ) : ?>
+					<li>
+						<span class="g-n mono"><?php echo esc_html( sprintf( '%02d', $ace360_i + 1 ) ); ?></span>
+						<h3><?php ace360_e( $ace360_g[0] ); ?></h3>
+						<p><?php ace360_e( $ace360_g[1] ); ?></p>
+					</li>
+				<?php endforeach; ?>
+			</ol>
+		</div>
+	</section>
+
+	<!-- 7 · Questions -->
+	<section class="sec band" id="vragen">
 		<div class="wrap faq-grid">
 			<div class="sec-head sticky-head">
 				<p class="kicker"><?php ace360_e( ace360_pair( 'Questions', 'Vragen' ) ); ?></p>
@@ -360,9 +267,27 @@ $ace360_screens = array( 'call', 'quote', 'design', 'build', 'live' );
 		</div>
 	</section>
 
-	<!-- 13 · Contact -->
+	<!-- 8 · Contact -->
 	<?php get_template_part( 'template-parts/contact' ); ?>
 
 </main>
+
+<aside class="receipt" data-receipt aria-label="<?php esc_attr_e( 'Your quote', 'ace360' ); ?>">
+	<button type="button" class="receipt-pill" data-receipt-toggle aria-expanded="false">
+		<svg class="receipt-ring" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="16" class="rr-track"/><circle cx="20" cy="20" r="16" class="rr-arc" pathLength="360" data-receipt-arc transform="rotate(-90 20 20)"/></svg>
+		<span class="receipt-sum"><b data-receipt-price>—</b><span class="mono" data-receipt-date></span></span>
+		<span class="receipt-incl mono" data-receipt-incl hidden></span>
+	</button>
+	<div class="receipt-panel" data-receipt-panel hidden>
+		<p class="receipt-title"><?php ace360_e( ace360_pair( 'Your quote', 'Jouw offerte' ) ); ?></p>
+		<ul class="receipt-lines" data-receipt-lines></ul>
+		<ul class="receipt-lines incl" data-receipt-included></ul>
+		<p class="receipt-total"><span><?php ace360_e( ace360_pair( 'Total', 'Totaal' ) ); ?></span><b data-receipt-total>—</b></p>
+		<div class="receipt-actions">
+			<a class="btn btn-line" href="#prijs"><?php ace360_e( ace360_pair( 'Change', 'Aanpassen' ) ); ?></a>
+			<button type="button" class="btn btn-orange" data-receipt-send><?php ace360_e( ace360_pair( 'Lock in', 'Vastleggen' ) ); ?> <span aria-hidden="true">→</span></button>
+		</div>
+	</div>
+</aside>
 <?php
 get_footer();
