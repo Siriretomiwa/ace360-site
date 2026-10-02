@@ -18,7 +18,7 @@ $ace360_hero = ace360_hero();
 $ace360_projects = new WP_Query(
 	array(
 		'post_type'      => 'ace_project',
-		'posts_per_page' => 6,
+		'posts_per_page' => 40,
 		'orderby'        => array(
 			'menu_order' => 'ASC',
 			'date'       => 'DESC',
@@ -38,6 +38,8 @@ if ( $ace360_projects->have_posts() ) {
 			'stack'  => array(),
 			'mockup' => 'generic',
 			'image'  => get_the_post_thumbnail_url( get_the_ID(), 'full' ),
+			'sector'   => get_post_meta( get_the_ID(), 'ace360_project_sector', true ),
+			'featured' => '1' === get_post_meta( get_the_ID(), 'ace360_project_featured', true ),
 			'url'    => get_post_meta( get_the_ID(), 'ace360_project_url', true ),
 			'link'   => get_permalink(),
 		);
@@ -47,6 +49,20 @@ if ( $ace360_projects->have_posts() ) {
 if ( empty( $ace360_work ) ) {
 	$ace360_work = ace360_work();
 }
+// The 3D showcase takes the featured projects (or the first seven); the grid shows them all.
+$ace360_featured = array_values(
+	array_filter(
+		$ace360_work,
+		function ( $w ) {
+			return ! empty( $w['featured'] );
+		}
+	)
+);
+if ( empty( $ace360_featured ) ) {
+	$ace360_featured = $ace360_work;
+}
+$ace360_featured = array_slice( $ace360_featured, 0, 7 );
+$ace360_sectors  = ace360_sectors();
 $ace360_steps   = ace360_process();
 $ace360_screens = array( 'call', 'quote', 'design', 'build', 'live' );
 ?>
@@ -149,13 +165,13 @@ $ace360_screens = array( 'call', 'quote', 'design', 'build', 'live' );
 	</section>
 
 	<!-- 11 · Work: the laptop shows each project in turn -->
-	<section class="ch tall" id="werk" data-k="work" data-items="<?php echo esc_attr( count( $ace360_work ) ); ?>" style="--items:<?php echo esc_attr( count( $ace360_work ) ); ?>">
+	<section class="ch tall" id="werk" data-k="work" data-items="<?php echo esc_attr( count( $ace360_featured ) ); ?>" style="--items:<?php echo esc_attr( count( $ace360_featured ) ); ?>">
 		<div class="sticky">
 			<div class="wrap">
 				<div class="copy">
-					<p class="kicker"><?php ace360_e( ace360_pair( 'Work · selected projects', 'Werk · geselecteerde projecten' ) ); ?> · <span class="mono" data-count>1 / <?php echo esc_html( count( $ace360_work ) ); ?></span></p>
+					<p class="kicker"><?php ace360_e( ace360_pair( 'Work · selected projects', 'Werk · geselecteerde projecten' ) ); ?> · <span class="mono" data-count>1 / <?php echo esc_html( count( $ace360_featured ) ); ?></span></p>
 					<ol class="items">
-						<?php foreach ( $ace360_work as $ace360_i => $ace360_w ) : ?>
+						<?php foreach ( $ace360_featured as $ace360_i => $ace360_w ) : ?>
 							<li class="item<?php echo 0 === $ace360_i ? ' is-on' : ''; ?>" data-screen="<?php echo esc_attr( 'work-' . ( $ace360_w['mockup'] ? $ace360_w['mockup'] : 'generic' ) ); ?>" data-title="<?php echo esc_attr( $ace360_w['title'] ); ?>"<?php echo ! empty( $ace360_w['image'] ) ? ' data-image="' . esc_url( $ace360_w['image'] ) . '"' : ''; ?>>
 								<p class="mono muted"><?php ace360_e( $ace360_w['type'] ); ?><?php if ( ! empty( $ace360_w['concept'] ) ) : ?> <span class="tag-concept"><?php ace360_e( ace360_pair( 'Concept', 'Concept' ) ); ?></span><?php endif; ?></p>
 								<h2>
@@ -180,13 +196,91 @@ $ace360_screens = array( 'call', 'quote', 'design', 'build', 'live' );
 						<?php endforeach; ?>
 					</ol>
 					<div class="dots" role="group" aria-label="<?php esc_attr_e( 'Projects', 'ace360' ); ?>">
-						<?php foreach ( $ace360_work as $ace360_i => $ace360_w ) : ?>
+						<?php foreach ( $ace360_featured as $ace360_i => $ace360_w ) : ?>
 							<button type="button" data-go="<?php echo (int) $ace360_i; ?>" aria-label="<?php echo esc_attr( $ace360_w['title'] ); ?>"<?php echo 0 === $ace360_i ? ' class="on"' : ''; ?>></button>
 						<?php endforeach; ?>
 					</div>
 				</div>
 			</div>
 		</div>
+	</section>
+
+	<!-- 11b · All work: every project as a filterable grid -->
+	<section class="band all-work" id="projecten" data-k="more" data-screen="live">
+		<div class="wrap">
+			<div class="sec-head">
+				<p class="kicker"><?php ace360_e( ace360_pair( 'All work', 'Al het werk' ) ); ?> · <span class="mono"><?php echo esc_html( count( $ace360_work ) ); ?></span></p>
+				<h2><?php echo ace360_hl( ace360_pair( 'Every kind of business, *one* way of working', 'Elk soort bedrijf, *één* manier van werken' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></h2>
+				<p class="lede"><?php ace360_e( ace360_pair( 'Stores, charities, salons, restaurants and platforms. Filter by sector and open any project to see it up close.', 'Webshops, goede doelen, salons, restaurants en platforms. Filter op sector en open een project om het van dichtbij te zien.' ) ); ?></p>
+			</div>
+			<?php
+			$ace360_counts = array_count_values(
+				array_filter(
+					array_map(
+						function ( $w ) {
+							return isset( $w['sector'] ) ? (string) $w['sector'] : '';
+						},
+						$ace360_work
+					)
+				)
+			);
+			?>
+			<div class="filters" role="group" aria-label="<?php esc_attr_e( 'Filter projects', 'ace360' ); ?>">
+				<button type="button" class="chip is-on" data-filter="all" aria-pressed="true"><span><?php ace360_e( ace360_pair( 'All', 'Alles' ) ); ?></span> <i class="mono"><?php echo esc_html( count( $ace360_work ) ); ?></i></button>
+				<?php foreach ( $ace360_sectors as $ace360_key => $ace360_label ) : ?>
+					<?php if ( ! empty( $ace360_counts[ $ace360_key ] ) ) : ?>
+						<button type="button" class="chip" data-filter="<?php echo esc_attr( $ace360_key ); ?>" aria-pressed="false"><span><?php ace360_e( $ace360_label ); ?></span> <i class="mono"><?php echo esc_html( $ace360_counts[ $ace360_key ] ); ?></i></button>
+					<?php endif; ?>
+				<?php endforeach; ?>
+			</div>
+			<ul class="work-grid">
+				<?php foreach ( $ace360_work as $ace360_i => $ace360_w ) : ?>
+					<li class="wcard" data-sector="<?php echo esc_attr( isset( $ace360_w['sector'] ) ? $ace360_w['sector'] : '' ); ?>">
+						<button type="button" class="wcard-open" aria-haspopup="dialog">
+							<span class="wcard-thumb">
+								<?php if ( ! empty( $ace360_w['image'] ) ) : ?>
+									<img src="<?php echo esc_url( $ace360_w['image'] ); ?>" alt="" loading="lazy">
+								<?php else : ?>
+									<canvas width="768" height="480" data-paint="<?php echo esc_attr( $ace360_w['mockup'] ? $ace360_w['mockup'] : 'generic' ); ?>" data-title="<?php echo esc_attr( $ace360_w['title'] ); ?>" aria-hidden="true"></canvas>
+								<?php endif; ?>
+							</span>
+							<span class="wcard-meta mono"><?php ace360_e( $ace360_w['type'] ); ?><?php if ( ! empty( $ace360_w['concept'] ) ) : ?> <span class="tag-concept"><?php ace360_e( ace360_pair( 'Concept', 'Concept' ) ); ?></span><?php endif; ?></span>
+							<span class="wcard-title"><?php echo esc_html( $ace360_w['title'] ); ?> <span class="wcard-arrow" aria-hidden="true">↗</span></span>
+						</button>
+						<div class="wcard-more" hidden>
+							<p class="lede"><?php ace360_e( $ace360_w['text'] ); ?></p>
+							<?php if ( ! empty( $ace360_w['built'] ) ) : ?>
+								<ul class="work-built">
+									<?php foreach ( $ace360_w['built'] as $ace360_b ) : ?>
+										<li><?php ace360_e( $ace360_b ); ?></li>
+									<?php endforeach; ?>
+								</ul>
+							<?php endif; ?>
+							<?php if ( ! empty( $ace360_w['stack'] ) ) : ?>
+								<p class="stack mono"><?php echo esc_html( implode( ' · ', $ace360_w['stack'] ) ); ?></p>
+							<?php endif; ?>
+							<?php if ( ! empty( $ace360_w['url'] ) ) : ?>
+								<a class="arrow-link" href="<?php echo esc_url( $ace360_w['url'] ); ?>" target="_blank" rel="noopener"><?php ace360_e( ace360_pair( 'Visit the live site', 'Bekijk de live site' ) ); ?> <span aria-hidden="true">↗</span></a>
+							<?php elseif ( ! empty( $ace360_w['link'] ) ) : ?>
+								<a class="arrow-link" href="<?php echo esc_url( $ace360_w['link'] ); ?>"><?php ace360_e( ace360_pair( 'Read the case', 'Lees de case' ) ); ?> <span aria-hidden="true">→</span></a>
+							<?php endif; ?>
+						</div>
+					</li>
+				<?php endforeach; ?>
+			</ul>
+			<p class="all-work-cta"><?php ace360_e( ace360_pair( 'Your business not in the list?', 'Staat jouw soort bedrijf er niet bij?' ) ); ?> <a class="arrow-link" href="#prijs"><?php ace360_e( ace360_pair( 'Price your website', 'Bereken je prijs' ) ); ?> <span aria-hidden="true">→</span></a></p>
+		</div>
+		<dialog class="work-dialog" aria-labelledby="work-dialog-title">
+			<div class="work-dialog-inner">
+				<button type="button" class="work-dialog-close" data-close aria-label="<?php esc_attr_e( 'Close', 'ace360' ); ?>">×</button>
+				<div class="work-dialog-shot"></div>
+				<div class="work-dialog-copy">
+					<p class="mono muted" data-d-type></p>
+					<h3 id="work-dialog-title" data-d-title></h3>
+					<div data-d-more></div>
+				</div>
+			</div>
+		</dialog>
 	</section>
 
 	<!-- 12 · Questions -->

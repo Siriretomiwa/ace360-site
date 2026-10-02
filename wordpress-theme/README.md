@@ -20,6 +20,7 @@ The whole front page plays like one film. A 3D scene (`assets/js/film.js`, three
 | Process (`#werkwijze`) + 5 steps | The five steps, one per screen | Top-down shot as the lid closes, then: first call (the phone lifts up with the call on screen), fixed quote (quote lands on the desk), design (lid opens on the design), build (the site splits into its layers), launch (cards circle the live site) |
 | Demo film (`#demo`) | A 30-second film of one project from first call to launch, with chapters, scrubbing and full screen | Pulls back to a wide shot |
 | Work (`#werk`) | Your projects, one at a time while the section is pinned | The laptop and phone show each project; with a featured image, that screenshot is what appears on the 3D screen |
+| All work (`#projecten`) | Every project (20 built in) as a grid of screen thumbnails, with sector filters (Stores, Charity & church, Beauty & skincare, Bookings & hospitality, Platforms & services). Click a project for a close-up with its details | The cards circle above the desk, softened behind the grid |
 | Questions (`#vragen`) | Your FAQ plus one for clients outside the Netherlands | Overhead shot, faded behind the answers |
 | Contact (`#contact`) | Form (name, company, email, phone, topic, message, consent) sent with `wp_mail()`, plus call, WhatsApp, email and hours | Close-up of the live site with the cards circling |
 
@@ -31,14 +32,14 @@ Look: plain white and #F8F9FA, #111111 text, Inter with JetBrains Mono for label
 
 1. **Logo**: Appearance → Customize → Site Identity → Logo.
 2. **Business details**: Appearance → Customize → *ace360 business details* (phone, WhatsApp, email, hours in both languages, KvK, BTW-id).
-3. **Your real projects**: Dashboard → Projects → Add project. Fill in the title, excerpt, *Type* and *Live site URL*, and set a **screenshot (1440px wide) as the featured image**: it appears on the 3D laptop screen in Work. Published projects replace the three built-in previews.
+3. **Your real projects**: Dashboard → Projects → Add project. Fill in the title, excerpt, *Type*, *Live site URL* and *Sector*, tick *Show in the 3D showcase* for up to seven of them, and set a **screenshot (1440px wide) as the featured image**: it appears on the 3D laptop and in the All work grid. Once you publish any projects, they replace all the built-in examples.
 4. **Prices**: every number in the self-quote is in `ace360_estimator()` in `ace360/inc/content.php` (or override it with the `ace360_estimator` filter).
 5. **Copy**: all page text, in English and Dutch, is in `ace360/inc/content.php`.
 6. **Email delivery**: install an SMTP plugin (e.g. WP Mail SMTP).
 
 ### About the built-in project previews
 
-Until real projects are added, the 3D screens in Work show drawn recreations of Hesed Impact Ministries, SIDWALK and Crea8or (`workScreen()` in `assets/js/film.js`). Their headlines and details are placeholders written for the preview; replace them with real screenshots and live URLs as described above.
+Until real projects are added, the theme shows 20 built-in examples. Hesed Impact Ministries, SIDWALK and Crea8or are recreations of real work; their headlines and details are placeholders. The other 17 are **concept designs** (made-up businesses such as Bright Wells Foundation, Velours Skin and Jollof House) and carry a *Concept* label. All of them are drawn in code (`assets/js/screens.js`), so they need no image files. To drop the label from a project, remove its `'concept' => true` line in `ace360_work()` (`inc/content.php`).
 
 ### About the demo film
 

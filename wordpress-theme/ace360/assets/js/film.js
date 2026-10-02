@@ -16,7 +16,7 @@
   var root = document.documentElement;
   var canvas = document.getElementById('stage');
   function fail() { root.classList.add('no-webgl'); }
-  if (!canvas || typeof window.THREE === 'undefined') { fail(); return; }
+  if (!canvas || typeof window.THREE === 'undefined' || !window.ACE360_PAINT) { fail(); return; }
   var THREE = window.THREE;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var mobile = window.innerWidth < 800;
@@ -44,24 +44,9 @@
   var MONO = '"JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace';
 
   /* ---------- 2D helpers ---------- */
-  function mk(w, h) { var c = document.createElement('canvas'); c.width = w; c.height = h; return c; }
+  var P = window.ACE360_PAINT;
+  var mk = P.mk, rr = P.rr, box = P.box, stroke = P.stroke, txt = P.txt, bars = P.bars, circle = P.circle, chrome = P.chrome;
   function toTex(c) { var t = new THREE.CanvasTexture(c); t.encoding = THREE.sRGBEncoding; t.anisotropy = aniso; return t; }
-  function rr(g, x, y, w, h, r) { g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r); g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath(); }
-  function box(g, x, y, w, h, r, fill) { rr(g, x, y, w, h, r); g.fillStyle = fill; g.fill(); }
-  function stroke(g, x, y, w, h, r, c, lw) { rr(g, x, y, w, h, r); g.strokeStyle = c; g.lineWidth = lw || 2; g.stroke(); }
-  function txt(g, s, x, y, size, color, weight, font, align) {
-    g.font = (weight || 500) + ' ' + size + 'px ' + (font || SANS);
-    g.fillStyle = color; g.textAlign = align || 'left'; g.textBaseline = 'alphabetic'; g.fillText(s, x, y);
-  }
-  function bars(g, x, y, ws, h, gap, c) { ws.forEach(function (w, i) { box(g, x, y + i * (h + gap), w, h, h / 2, c); }); }
-  function circle(g, x, y, r, c) { g.beginPath(); g.arc(x, y, r, 0, Math.PI * 2); g.fillStyle = c; g.fill(); }
-  function chrome(g, w, url, dark) {
-    g.fillStyle = dark ? '#16171b' : '#eef0f3'; g.fillRect(0, 0, w, 40);
-    ['#ff5f57', '#febc2e', '#28c840'].forEach(function (c, i) { circle(g, 22 + i * 18, 20, 5.5, c); });
-    box(g, w / 2 - 170, 9, 340, 22, 11, dark ? '#24262c' : '#ffffff');
-    txt(g, url, w / 2, 25, 13, dark ? '#9aa0aa' : '#5d6168', 500, MONO, 'center');
-    return 40;
-  }
 
   /* ---------- laptop screens (1024 × 640) ---------- */
   var SW = 1024, SH = 640;
@@ -182,128 +167,7 @@
       txt(g, 'iDEAL payment received', 630, h - 98, 17, '#ffffff', 650); txt(g, '€65.00 · booking for Saturday', 630, h - 74, 14, '#9aa0aa', 500);
     }
   };
-  function workScreen(kind) {
-    return function (g, w, h, title) {
-      var t;
-      if (kind === 'hesed') {
-        g.fillStyle = '#f7f1e8'; g.fillRect(0, 0, w, h); t = chrome(g, w, 'hesedimpactministries.com', false);
-        txt(g, 'Hesed', 40, t + 44, 24, '#2a1d3a', 700, 'Georgia, serif'); txt(g, 'IMPACT MINISTRIES', 40, t + 62, 10, '#2a1d3a', 600, SANS);
-        ['Events', 'Media', 'About'].forEach(function (s, i) { txt(g, s, 640 + i * 80, t + 48, 14, '#2a1d3a', 500); });
-        box(g, w - 110, t + 26, 74, 32, 7, '#c4923a'); txt(g, 'Give', w - 73, t + 47, 14, '#ffffff', 650, SANS, 'center');
-        var gr = g.createRadialGradient(w * 0.8, t + 90, 20, w * 0.6, t + 200, 520); gr.addColorStop(0, '#6b4a8a'); gr.addColorStop(1, '#2a1d3a');
-        g.fillStyle = gr; rr(g, 40, t + 84, w - 80, 250, 18); g.fill();
-        txt(g, 'SUNDAY 10:30 · ALL WELCOME', 76, t + 130, 12, '#e8dcf2', 600, SANS);
-        txt(g, 'A church that shows up', 76, t + 190, 40, '#ffffff', 400, 'Georgia, serif'); txt(g, 'for its city.', 76, t + 236, 40, '#ffffff', 400, 'Georgia, serif');
-        box(g, 76, t + 262, 130, 38, 7, '#c4923a'); stroke(g, 218, t + 262, 140, 38, 7, 'rgba(255,255,255,.6)', 2);
-        txt(g, 'Upcoming events', 40, t + 380, 20, '#2a1d3a', 700);
-        [['SUN 14', 'Sunday service'], ['WED 17', 'Bible study'], ['SAT 20', 'Community meal']].forEach(function (e, i) {
-          var y = t + 410 + i * 50; g.fillStyle = 'rgba(42,29,58,.15)'; g.fillRect(40, y, w - 80, 1);
-          txt(g, e[0], 40, y + 32, 13, '#c4923a', 700, SANS); txt(g, e[1], 130, y + 32, 16, '#2a1d3a', 600);
-          stroke(g, w - 120, y + 12, 80, 28, 14, '#2a1d3a', 1.5); txt(g, 'RSVP', w - 80, y + 31, 12, '#2a1d3a', 600, SANS, 'center');
-        });
-      } else if (kind === 'sidwalk') {
-        g.fillStyle = '#0e0e0e'; g.fillRect(0, 0, w, h); t = chrome(g, w, 'sidwalk.com', true);
-        txt(g, 'SIDWALK', 40, t + 44, 20, '#f2f2f2', 900); ['SHOP', 'DROP 01', 'LOOKBOOK'].forEach(function (s, i) { txt(g, s, 600 + i * 100, t + 44, 13, '#bbbbbb', 600); });
-        txt(g, 'SIDWALK', w / 2, t + 230, 150, '#f2f2f2', 900, SANS, 'center');
-        txt(g, 'D R O P   0 1   —   O U T   N O W', w / 2, t + 274, 15, '#cfcfcf', 600, SANS, 'center');
-        box(g, w / 2 - 90, t + 296, 180, 40, 0, '#f2f2f2'); txt(g, 'SHOP THE DROP', w / 2, t + 322, 13, '#0e0e0e', 800, SANS, 'center');
-        [['LOGO TEE', '€45'], ['HEAVY HOODIE', '€89'], ['CARGO PANT', '€95'], ['CREW CAP', '€35']].forEach(function (p, i) {
-          var x = 40 + i * ((w - 80) / 4); g.fillStyle = '#1d1d1d'; g.fillRect(x, t + 370, (w - 80) / 4 - 16, 170);
-          g.fillStyle = '#3a3a3a'; g.fillRect(x + 50, t + 400, (w - 80) / 4 - 116, 110);
-          txt(g, p[0], x, t + 566, 12, '#dddddd', 600); txt(g, p[1], x + (w - 80) / 4 - 16, t + 566, 12, '#ffffff', 700, SANS, 'right');
-        });
-      } else if (kind === 'crea8or') {
-        g.fillStyle = '#ffffff'; g.fillRect(0, 0, w, h); t = chrome(g, w, 'crea8or.com', false);
-        txt(g, 'Crea8or', 40, t + 44, 22, '#5b3df5', 800); ['Explore', 'How it works', 'Sell'].forEach(function (s, i) { txt(g, s, 600 + i * 110, t + 44, 14, MUTED, 500); });
-        var gr = g.createLinearGradient(0, t + 70, 0, t + 330); gr.addColorStop(0, '#f3f0ff'); gr.addColorStop(1, '#ffffff'); g.fillStyle = gr; g.fillRect(0, t + 70, w, 260);
-        txt(g, 'Hire creators who', 40, t + 150, 46, '#15121f', 750); txt(g, 'make things happen.', 40, t + 204, 46, '#15121f', 750);
-        stroke(g, 40, t + 236, 560, 52, 12, '#ddd6ff', 2); txt(g, 'Video editors, illustrators…', 62, t + 268, 16, '#8a849c', 500);
-        box(g, 500, t + 242, 92, 40, 9, '#5b3df5'); txt(g, 'Search', 546, t + 268, 15, '#ffffff', 650, SANS, 'center');
-        [['AV', 'Video editing'], ['MK', 'Illustration'], ['JD', 'Motion design']].forEach(function (p, i) {
-          var x = 40 + i * 320; stroke(g, x, t + 330, 300, 90, 14, '#ece8f7', 2); circle(g, x + 44, t + 375, 26, '#ebe6ff');
-          txt(g, p[0], x + 44, t + 381, 14, '#5b3df5', 800, SANS, 'center'); txt(g, p[1], x + 84, t + 372, 16, '#15121f', 650); txt(g, '★ 4.9 · from €90', x + 84, t + 396, 13, '#6b6580', 500);
-        });
-        box(g, 40, t + 446, w - 80, 100, 16, '#15121f'); txt(g, 'Payout', 70, t + 482, 13, '#9a96a8', 500); txt(g, '€ 1.240,00', 70, t + 522, 32, '#ffffff', 750);
-        box(g, w - 160, t + 480, 92, 32, 16, '#2bd17e'); txt(g, 'Paid', w - 114, t + 501, 14, '#0b2a19', 750, SANS, 'center');
-      } else if (kind === 'prkiosk') {
-        g.fillStyle = '#fbfaf7'; g.fillRect(0, 0, w, h); t = chrome(g, w, 'theprkiosk.com', false);
-        txt(g, 'THE PR KIOSK', 40, t + 44, 20, '#111111', 900, 'Georgia, serif'); g.fillStyle = '#d62839'; g.fillRect(40, t + 54, 46, 4);
-        ['Packages', 'Media list', 'Coverage'].forEach(function (s, i) { txt(g, s, 560 + i * 110, t + 44, 14, '#444444', 500); });
-        box(g, w - 130, t + 24, 94, 34, 4, '#111111'); txt(g, 'Submit story', w - 83, t + 46, 13, '#ffffff', 650, SANS, 'center');
-        g.fillStyle = '#111111'; g.fillRect(40, t + 80, w - 80, 2);
-        txt(g, 'PRESS RELEASES · DELIVERED TO 400+ OUTLETS', 40, t + 112, 12, '#d62839', 700, SANS);
-        txt(g, 'Get your story', 40, t + 172, 50, '#111111', 700, 'Georgia, serif'); txt(g, 'in the news.', 40, t + 228, 50, '#111111', 700, 'Georgia, serif');
-        txt(g, 'Pick a package, upload your release, we publish.', 40, t + 266, 17, '#555555', 400);
-        g.fillStyle = '#e9e5dc'; g.fillRect(620, t + 104, 364, 180); g.fillStyle = '#111111'; g.fillRect(640, t + 124, 150, 10); g.fillRect(640, t + 142, 110, 10);
-        [0, 1, 2, 3, 4].forEach(function (i) { g.fillStyle = '#c9c3b6'; g.fillRect(640, t + 168 + i * 20, i % 2 ? 240 : 320, 6); });
-        g.fillStyle = '#d62839'; g.fillRect(904, t + 124, 60, 60);
-        [['Starter', '€149', '25 outlets'], ['Feature', '€399', '150 outlets'], ['Headline', '€899', '400+ outlets']].forEach(function (p, i) {
-          var x = 40 + i * 320, on = i === 1;
-          box(g, x, t + 316, 296, 200, 6, on ? '#111111' : '#ffffff'); if (!on) stroke(g, x, t + 316, 296, 200, 6, '#dcd7cc', 2);
-          var c = on ? '#ffffff' : '#111111';
-          txt(g, p[0].toUpperCase(), x + 24, t + 350, 12, on ? '#ff8f9a' : '#d62839', 700, SANS);
-          txt(g, p[1], x + 24, t + 408, 46, c, 700, 'Georgia, serif'); txt(g, p[2], x + 24, t + 440, 15, on ? '#bbbbbb' : '#666666', 500);
-          box(g, x + 24, t + 462, 248, 36, 4, on ? '#d62839' : '#f1eee7'); txt(g, 'Choose', x + 148, t + 486, 14, on ? '#ffffff' : '#111111', 650, SANS, 'center');
-        });
-      } else if (kind === 'shop4likes') {
-        g.fillStyle = '#ffffff'; g.fillRect(0, 0, w, h); t = chrome(g, w, 'shop4likes.com', false);
-        var sg = g.createLinearGradient(0, t, w, t + 330); sg.addColorStop(0, '#ff3d77'); sg.addColorStop(0.55, '#a43dff'); sg.addColorStop(1, '#4f46e5');
-        g.fillStyle = sg; g.fillRect(0, t, w, 330);
-        txt(g, 'Shop4likes', 40, t + 44, 22, '#ffffff', 800); ['Instagram', 'TikTok', 'YouTube', 'Track order'].forEach(function (s, i) { txt(g, s, 520 + i * 110, t + 44, 14, 'rgba(255,255,255,.85)', 500); });
-        txt(g, 'Grow your socials,', 40, t + 140, 48, '#ffffff', 800); txt(g, 'starting today.', 40, t + 196, 48, '#ffffff', 800);
-        txt(g, 'Real delivery · instant checkout · 24/7 support', 40, t + 236, 17, 'rgba(255,255,255,.85)', 500);
-        box(g, 40, t + 260, 170, 46, 23, '#ffffff'); txt(g, 'Pick a package', 125, t + 289, 15, '#a43dff', 750, SANS, 'center');
-        box(g, 660, t + 90, 300, 200, 22, 'rgba(255,255,255,.18)'); txt(g, '♥', 700, t + 156, 40, '#ffffff', 700); txt(g, '+12.4K', 750, t + 156, 40, '#ffffff', 800); txt(g, 'this month', 700, t + 190, 16, 'rgba(255,255,255,.85)', 500);
-        g.beginPath(); [0.1, 0.18, 0.3, 0.45, 0.7, 0.95].forEach(function (pp, i) { var x = 700 + i * 44, y = t + 270 - pp * 60; if (i) g.lineTo(x, y); else g.moveTo(x, y); }); g.strokeStyle = '#ffffff'; g.lineWidth = 5; g.lineJoin = 'round'; g.stroke();
-        [['Instagram', '1,000 followers', '€9.99', '#ff3d77'], ['TikTok', '5,000 views', '€6.99', '#111111'], ['YouTube', '500 subscribers', '€14.99', '#ff2a2a']].forEach(function (p, i) {
-          var x = 40 + i * 320; stroke(g, x, t + 356, 296, 180, 18, '#ece9f5', 2);
-          circle(g, x + 44, t + 400, 22, p[3]); txt(g, p[0], x + 80, t + 407, 18, '#15121f', 750);
-          txt(g, p[1], x + 24, t + 456, 16, '#6b6580', 500); txt(g, p[2], x + 24, t + 500, 30, '#15121f', 800);
-          box(g, x + 176, t + 476, 96, 38, 19, '#a43dff'); txt(g, 'Buy', x + 224, t + 500, 15, '#ffffff', 700, SANS, 'center');
-        });
-      } else if (kind === 'ngo') {
-        g.fillStyle = '#ffffff'; g.fillRect(0, 0, w, h); t = chrome(g, w, 'brightwells.org', false);
-        circle(g, 52, t + 38, 12, '#0f766e'); txt(g, 'Bright Wells', 72, t + 45, 20, '#0b3b38', 750);
-        ['Our work', 'Projects', 'ANBI'].forEach(function (s, i) { txt(g, s, 560 + i * 100, t + 45, 14, '#355f5b', 500); });
-        box(g, w - 120, t + 24, 84, 34, 17, '#f59e0b'); txt(g, 'Donate', w - 78, t + 46, 14, '#3b2400', 750, SANS, 'center');
-        var ng = g.createLinearGradient(0, t + 70, 0, t + 360); ng.addColorStop(0, '#0f766e'); ng.addColorStop(1, '#0b4f4a'); g.fillStyle = ng; g.fillRect(0, t + 70, w, 290);
-        g.fillStyle = 'rgba(255,255,255,.07)'; for (var wv = 0; wv < 4; wv++) { g.beginPath(); g.arc(860, t + 380, 120 + wv * 60, Math.PI, Math.PI * 2); g.lineWidth = 18; g.strokeStyle = 'rgba(255,255,255,.07)'; g.stroke(); }
-        txt(g, 'CLEAN WATER · 2026', 40, t + 118, 12, '#99f6e4', 700, SANS);
-        txt(g, '€25 gives one child', 40, t + 176, 46, '#ffffff', 750); txt(g, 'clean water for a year.', 40, t + 230, 46, '#ffffff', 750);
-        box(g, 40, t + 262, 380, 56, 28, '#ffffff');
-        ['€10', '€25', '€50'].forEach(function (a, i) { box(g, 46 + i * 84, t + 268, 78, 44, 22, i === 1 ? '#0f766e' : '#ffffff'); txt(g, a, 85 + i * 84, t + 297, 16, i === 1 ? '#ffffff' : '#0b3b38', 750, SANS, 'center'); });
-        box(g, 300, t + 268, 114, 44, 22, '#f59e0b'); txt(g, 'Give now', 357, t + 297, 15, '#3b2400', 750, SANS, 'center');
-        [['12,480', 'people with clean water'], ['38', 'wells built'], ['1,206', 'monthly donors']].forEach(function (p, i) {
-          var x = 40 + i * 320; txt(g, p[0], x, t + 430, 40, '#0b3b38', 800); txt(g, p[1], x, t + 460, 15, '#5b7f7b', 500);
-        });
-        box(g, 40, t + 490, w - 80, 56, 12, '#f0fdfa'); txt(g, 'ANBI registered · 100% of your gift goes to projects · Yearly report 2025', 64, t + 524, 15, '#0f766e', 600);
-      } else if (kind === 'skincare') {
-        g.fillStyle = '#f4ede6'; g.fillRect(0, 0, w, h); t = chrome(g, w, 'veloursskin.nl', false);
-        txt(g, 'velours', w / 2, t + 48, 30, '#3b2a22', 400, 'Georgia, serif', 'center');
-        ['Shop', 'Skin quiz', 'Ingredients'].forEach(function (s, i) { txt(g, s, 40 + i * 100, t + 45, 14, '#6b574c', 500); });
-        txt(g, 'Bag (2)', w - 40, t + 45, 14, '#3b2a22', 600, SANS, 'right');
-        txt(g, 'Skincare that', 40, t + 170, 52, '#3b2a22', 400, 'Georgia, serif'); txt(g, 'keeps it simple.', 40, t + 230, 52, '#3b2a22', 400, 'Georgia, serif');
-        txt(g, 'Three steps. Clean ingredients. Refills every 6 weeks.', 40, t + 270, 17, '#7a6558', 400);
-        box(g, 40, t + 296, 190, 48, 24, '#3b2a22'); txt(g, 'Take the skin quiz', 135, t + 326, 15, '#f4ede6', 650, SANS, 'center');
-        var sk = g.createRadialGradient(780, t + 220, 10, 780, t + 220, 220); sk.addColorStop(0, '#e8d5c4'); sk.addColorStop(1, '#f4ede6'); g.fillStyle = sk; g.fillRect(560, t + 80, 440, 300);
-        // bottles
-        box(g, 680, t + 140, 70, 200, 14, '#ffffff'); box(g, 696, t + 112, 38, 32, 6, '#a8b5a0');
-        box(g, 770, t + 190, 90, 150, 20, '#c9a58a'); box(g, 790, t + 170, 50, 24, 6, '#3b2a22');
-        box(g, 880, t + 250, 80, 90, 40, '#ffffff'); box(g, 890, t + 236, 60, 18, 8, '#a8b5a0');
-        txt(g, 'V', 715, t + 250, 26, '#3b2a22', 400, 'Georgia, serif', 'center');
-        [['Cleanse', 'Oat milk cleanser', '€24'], ['Treat', 'Niacinamide serum', '€32'], ['Hydrate', 'Barrier cream', '€28']].forEach(function (p, i) {
-          var x = 40 + i * 320; box(g, x, t + 400, 296, 140, 16, '#fbf8f4');
-          box(g, x + 18, t + 418, 70, 104, 12, i === 1 ? '#c9a58a' : '#ffffff');
-          txt(g, p[0].toUpperCase(), x + 108, t + 444, 11, '#8a9a82', 700, SANS); txt(g, p[1], x + 108, t + 474, 16, '#3b2a22', 600);
-          txt(g, p[2], x + 108, t + 510, 20, '#3b2a22', 400, 'Georgia, serif');
-        });
-      } else {
-        g.fillStyle = '#ffffff'; g.fillRect(0, 0, w, h); t = chrome(g, w, (title || 'project').toLowerCase().replace(/[^a-z0-9]+/g, '') + '.com', false);
-        txt(g, title || '', 60, t + 260, 64, INK, 750); box(g, 60, t + 300, 160, 46, 10, OR);
-      }
-    };
-  }
-  ['hesed', 'sidwalk', 'crea8or', 'prkiosk', 'shop4likes', 'ngo', 'skincare', 'generic'].forEach(function (k) { SCREENS['work-' + k] = workScreen(k); });
+  P.kinds.forEach(function (k) { SCREENS['work-' + k] = P.screen(k); });
 
   /* ---------- phone screens (360 × 740) ---------- */
   function paintPhone(g, w, h, key, title) {
@@ -318,17 +182,7 @@
       circle(g, 100, h - 130, 38, '#e5484d'); circle(g, w - 100, h - 130, 38, '#2bd17e');
       return;
     }
-    if (key.indexOf('work-') === 0) {
-      var k = key.slice(5);
-      if (k === 'hesed') { g.fillStyle = '#f7f1e8'; g.fillRect(0, 50, w, h); var gr = g.createLinearGradient(0, 120, w, 420); gr.addColorStop(0, '#6b4a8a'); gr.addColorStop(1, '#2a1d3a'); g.fillStyle = gr; rr(g, 18, 110, w - 36, 300, 18); g.fill(); txt(g, 'Hesed', 24, 90, 24, '#2a1d3a', 700, 'Georgia, serif'); txt(g, 'A church that', 40, 230, 30, '#ffffff', 400, 'Georgia, serif'); txt(g, 'shows up.', 40, 270, 30, '#ffffff', 400, 'Georgia, serif'); box(g, 40, 300, 130, 40, 8, '#c4923a'); box(g, 18, 440, w - 36, 120, 14, '#ffffff'); txt(g, 'Give with iDEAL', w / 2, 510, 18, '#2a1d3a', 700, SANS, 'center'); return; }
-      if (k === 'sidwalk') { txt(g, 'SIDWALK', w / 2, 260, 64, '#f2f2f2', 900, SANS, 'center'); box(g, 60, 300, w - 120, 46, 0, '#f2f2f2'); txt(g, 'SHOP THE DROP', w / 2, 330, 15, '#0e0e0e', 800, SANS, 'center'); g.fillStyle = '#1d1d1d'; g.fillRect(18, 380, w / 2 - 27, 220); g.fillRect(w / 2 + 9, 380, w / 2 - 27, 220); return; }
-      if (k === 'crea8or') { txt(g, 'Crea8or', 24, 90, 24, '#5b3df5', 800); txt(g, 'Hire creators', 24, 180, 34, '#15121f', 750); txt(g, 'who deliver.', 24, 222, 34, '#15121f', 750); box(g, 24, 250, w - 48, 50, 12, '#f3f0ff'); box(g, 24, 330, w - 48, 90, 14, '#15121f'); txt(g, '€ 1.240,00', 48, 384, 26, '#ffffff', 750); return; }
-      if (k === 'prkiosk') { g.fillStyle = '#fbfaf7'; g.fillRect(0, 50, w, h); txt(g, 'THE PR KIOSK', 24, 92, 20, '#111111', 900, 'Georgia, serif'); g.fillStyle = '#d62839'; g.fillRect(24, 102, 40, 4); txt(g, 'Get your story', 24, 190, 34, '#111111', 700, 'Georgia, serif'); txt(g, 'in the news.', 24, 232, 34, '#111111', 700, 'Georgia, serif'); box(g, 24, 270, w - 48, 170, 6, '#111111'); txt(g, 'FEATURE', 48, 306, 12, '#ff8f9a', 700, SANS); txt(g, '€399', 48, 366, 44, '#ffffff', 700, 'Georgia, serif'); box(g, 48, 390, w - 96, 36, 4, '#d62839'); txt(g, 'Choose', w / 2, 414, 14, '#ffffff', 650, SANS, 'center'); return; }
-      if (k === 'shop4likes') { var pg = g.createLinearGradient(0, 50, w, 420); pg.addColorStop(0, '#ff3d77'); pg.addColorStop(1, '#4f46e5'); g.fillStyle = pg; g.fillRect(0, 50, w, 380); txt(g, 'Shop4likes', 24, 96, 22, '#ffffff', 800); txt(g, 'Grow your', 24, 200, 36, '#ffffff', 800); txt(g, 'socials.', 24, 244, 36, '#ffffff', 800); box(g, 24, 280, 170, 46, 23, '#ffffff'); txt(g, 'Pick a package', 109, 309, 15, '#a43dff', 750, SANS, 'center'); stroke(g, 18, 456, w - 36, 120, 18, '#ece9f5', 2); circle(g, 56, 496, 18, '#ff3d77'); txt(g, '1,000 followers', 86, 503, 17, '#15121f', 700); txt(g, '€9.99', 40, 556, 28, '#15121f', 800); return; }
-      if (k === 'ngo') { g.fillStyle = '#0f766e'; g.fillRect(0, 50, w, 420); txt(g, 'Bright Wells', 24, 96, 22, '#ffffff', 750); txt(g, '€25 gives one', 24, 200, 32, '#ffffff', 750); txt(g, 'child clean water.', 24, 240, 32, '#ffffff', 750); box(g, 24, 280, w - 48, 54, 27, '#f59e0b'); txt(g, 'Give €25 with iDEAL', w / 2, 314, 17, '#3b2400', 750, SANS, 'center'); txt(g, '12,480', 24, 540, 40, '#0b3b38', 800); txt(g, 'people with clean water', 24, 570, 15, '#5b7f7b', 500); return; }
-      if (k === 'skincare') { g.fillStyle = '#f4ede6'; g.fillRect(0, 50, w, h); txt(g, 'velours', w / 2, 98, 28, '#3b2a22', 400, 'Georgia, serif', 'center'); txt(g, 'Skincare that', 24, 190, 32, '#3b2a22', 400, 'Georgia, serif'); txt(g, 'keeps it simple.', 24, 230, 32, '#3b2a22', 400, 'Georgia, serif'); box(g, 110, 280, 60, 170, 12, '#ffffff'); box(g, 186, 320, 74, 130, 18, '#c9a58a'); box(g, 24, 490, w - 48, 52, 26, '#3b2a22'); txt(g, 'Take the skin quiz', w / 2, 522, 16, '#f4ede6', 650, SANS, 'center'); return; }
-      txt(g, title || '', 24, 200, 34, INK, 750); return;
-    }
+    if (key.indexOf('work-') === 0) { P.phone(g, w, h, key.slice(5), title); return; }
     circle(g, 34, 80, 9, OR); txt(g, 'Ace 360', 52, 87, 18, fg, 700);
     txt(g, 'You know the', 24, 200, 34, fg, 700); txt(g, 'price', 24, 242, 34, ORD, 700); txt(g, 'before we call.', 24, 284, 34, fg, 700);
     box(g, 24, 320, w - 48, 52, 10, OR); txt(g, 'Price my website →', w / 2, 352, 17, INK, 700, SANS, 'center');
@@ -541,7 +395,8 @@
     ['s5', { side: 1, cx: -3.6, cy: 2.8, cz: 6.2, tx: 0.2, ty: 1.1, tz: -0.4, explode: 0, gather: 0, fly: 1, orbit: 1, glow: 1.3, dust: 0.7 }],
     ['demo', { side: 1, cx: 4.8, cy: 5.2, cz: 9.5, tx: 1.4, ty: 0.6, tz: -0.4, fly: 0.0, orbit: 0, glow: 0.8, dust: 0.4 }],
     ['work', { side: 1, cx: 3.2, cy: 1.9, cz: 5.4, tx: 0.9, ty: 1.0, tz: -0.2, phone: 1, glow: 1 }],
-    ['faq', { side: 0, cx: 0.4, cy: 9.5, cz: 3.6, tx: 0.2, ty: 0, tz: 0, phone: 0, nophone: 1, glow: 0.6, dust: 0.3 }],
+    ['more', { side: 0, cx: -0.8, cy: 8.2, cz: 5.2, tx: 0, ty: 0.3, tz: 0, phone: 0, nophone: 1, fly: 1, orbit: 1, glow: 0.8, dust: 0.45 }],
+    ['faq', { side: 0, cx: 0.4, cy: 9.5, cz: 3.6, tx: 0.2, ty: 0, tz: 0, fly: 0, orbit: 0, glow: 0.6, dust: 0.3 }],
     ['contact', { side: 1, cx: 2.8, cy: 1.7, cz: 5.6, tx: 0.6, ty: 1.05, tz: -0.6, glow: 1.2, fly: 1, orbit: 1, dust: 0.6, nophone: 1 }]
   ];
   var KF = {};

@@ -30,7 +30,7 @@ def local_preview(html):
     head = (f'<title>Ace 360 Services</title>\n'
             f'<link rel="stylesheet" href="{a}css/fonts.css">\n<link rel="stylesheet" href="{a}css/main.css">\n<meta name="description" content="Ace 360 Services: websites, online stores and maintenance for businesses in the Netherlands and abroad. Fixed price, fixed launch date.">')
     scripts = ''.join(f'<script src="{a}vendor/{l}"></script>\n' for l in LIBS)
-    scripts += f'<script>window.ACE360_PREVIEW = true;</script>\n<script src="{a}js/demo.js"></script>\n<script src="{a}js/film.js"></script>\n<script src="{a}js/main.js"></script>'
+    scripts += f'<script>window.ACE360_PREVIEW = true;</script>\n<script src="{a}js/demo.js"></script>\n<script src="{a}js/screens.js"></script>\n<script src="{a}js/film.js"></script>\n<script src="{a}js/main.js"></script>'
     return html.replace('<!--wp_head-->', head).replace('<!--wp_footer-->', scripts)
 
 def artifact(html):
@@ -50,6 +50,7 @@ def artifact(html):
     out += [f'<script src="{u}"></script>' for u in CDN]
     out.append('<script>window.ACE360_PREVIEW = true;</script>')
     out.append('<script>\n' + read('assets/js/demo.js') + '\n</script>')
+    out.append('<script>\n' + read('assets/js/screens.js') + '\n</script>')
     out.append('<script>\n' + read('assets/js/film.js') + '\n</script>')
     out.append('<script>\n' + read('assets/js/main.js') + '\n</script>')
     return '\n'.join(out)

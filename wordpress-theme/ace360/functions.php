@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'ACE360_VERSION', '5.0.0' );
+define( 'ACE360_VERSION', '5.1.0' );
 
 require get_template_directory() . '/inc/template-helpers.php';
 require get_template_directory() . '/inc/content.php';
@@ -64,8 +64,10 @@ function ace360_assets() {
 	if ( is_front_page() ) {
 		wp_enqueue_script( 'ace360-demo', $uri . '/js/demo.js', array( 'gsap', 'gsap-scrolltrigger' ), ACE360_VERSION, true );
 		wp_enqueue_script( 'three', $uri . '/vendor/three.min.js', array(), '0.149.0', true );
-		wp_enqueue_script( 'ace360-film', $uri . '/js/film.js', array( 'three', 'gsap' ), ACE360_VERSION, true );
+		wp_enqueue_script( 'ace360-screens', $uri . '/js/screens.js', array(), ACE360_VERSION, true );
+		wp_enqueue_script( 'ace360-film', $uri . '/js/film.js', array( 'three', 'gsap', 'ace360-screens' ), ACE360_VERSION, true );
 		$deps[] = 'ace360-demo';
+		$deps[] = 'ace360-screens';
 		$deps[] = 'ace360-film';
 	}
 
@@ -81,7 +83,7 @@ add_action( 'wp_enqueue_scripts', 'ace360_assets' );
  * @return string
  */
 function ace360_defer_scripts( $tag, $handle ) {
-	$handles = array( 'gsap', 'gsap-scrolltrigger', 'lenis', 'ace360-demo', 'three', 'ace360-film', 'ace360-main' );
+	$handles = array( 'gsap', 'gsap-scrolltrigger', 'lenis', 'ace360-demo', 'three', 'ace360-screens', 'ace360-film', 'ace360-main' );
 	if ( in_array( $handle, $handles, true ) && false === strpos( $tag, ' defer' ) ) {
 		$tag = str_replace( ' src=', ' defer src=', $tag );
 	}
@@ -129,8 +131,10 @@ add_action( 'init', 'ace360_register_projects' );
  */
 function ace360_register_project_meta() {
 	$fields = array(
-		'ace360_project_type' => 'sanitize_text_field',
-		'ace360_project_url'  => 'esc_url_raw',
+		'ace360_project_type'     => 'sanitize_text_field',
+		'ace360_project_url'      => 'esc_url_raw',
+		'ace360_project_sector'   => 'sanitize_key',
+		'ace360_project_featured' => 'sanitize_key',
 	);
 	foreach ( $fields as $key => $sanitize ) {
 		register_post_meta(
@@ -175,7 +179,18 @@ function ace360_project_meta_box_html( $post ) {
 		'<p><label for="ace360_project_url">%s</label><input type="url" class="widefat" id="ace360_project_url" name="ace360_project_url" value="%s" placeholder="https://"></p><p class="description">%s</p>',
 		esc_html__( 'Live site URL', 'ace360' ),
 		esc_attr( get_post_meta( $post->ID, 'ace360_project_url', true ) ),
-		esc_html__( 'The featured image is shown inside the browser frame on the front page. Use a full-page screenshot (1440px wide) so it can scroll.', 'ace360' )
+		esc_html__( 'The featured image is shown on the 3D laptop screen and in the All work grid. Use a screenshot 1440px wide.', 'ace360' )
+	);
+	$sector = get_post_meta( $post->ID, 'ace360_project_sector', true );
+	echo '<p><label for="ace360_project_sector">' . esc_html__( 'Sector (for the filter)', 'ace360' ) . '</label><select class="widefat" id="ace360_project_sector" name="ace360_project_sector">';
+	foreach ( ace360_sectors() as $key => $label ) {
+		printf( '<option value="%s"%s>%s</option>', esc_attr( $key ), selected( $sector, $key, false ), esc_html( $label['en'] ) );
+	}
+	echo '</select></p>';
+	printf(
+		'<p><label><input type="checkbox" name="ace360_project_featured" value="1"%s> %s</label></p>',
+		checked( get_post_meta( $post->ID, 'ace360_project_featured', true ), '1', false ),
+		esc_html__( 'Show in the 3D showcase (up to 7)', 'ace360' )
 	);
 }
 
@@ -200,6 +215,13 @@ function ace360_save_project_meta( $post_id ) {
 	if ( isset( $_POST['ace360_project_url'] ) ) {
 		update_post_meta( $post_id, 'ace360_project_url', esc_url_raw( wp_unslash( $_POST['ace360_project_url'] ) ) );
 	}
+	if ( isset( $_POST['ace360_project_sector'] ) ) {
+		$sector = sanitize_key( wp_unslash( $_POST['ace360_project_sector'] ) );
+		if ( array_key_exists( $sector, ace360_sectors() ) ) {
+			update_post_meta( $post_id, 'ace360_project_sector', $sector );
+		}
+	}
+	update_post_meta( $post_id, 'ace360_project_featured', empty( $_POST['ace360_project_featured'] ) ? '' : '1' );
 }
 add_action( 'save_post_ace_project', 'ace360_save_project_meta' );
 

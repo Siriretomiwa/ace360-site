@@ -110,8 +110,23 @@ function ace360_process() {
 }
 
 /**
- * Recent work, shown until Projects are added in the dashboard.
- * 'mockup' picks the built-in browser preview; 'url' adds a "Visit live site" link.
+ * Sectors used to filter the "All work" grid.
+ */
+function ace360_sectors() {
+	return array(
+		'store'    => ace360_pair( 'Stores', 'Webshops' ),
+		'ngo'      => ace360_pair( 'Charity & church', 'Goede doelen & kerk' ),
+		'beauty'   => ace360_pair( 'Beauty & skincare', 'Beauty & huidverzorging' ),
+		'booking'  => ace360_pair( 'Bookings & hospitality', 'Boekingen & horeca' ),
+		'platform' => ace360_pair( 'Platforms & services', 'Platforms & diensten' ),
+	);
+}
+
+/**
+ * Work, shown until Projects are added in the dashboard.
+ * 'mockup' picks the built-in screen design (assets/js/screens.js); 'url' adds a
+ * "Visit live site" link; 'featured' puts it in the 3D showcase; 'concept' marks
+ * a design study rather than client work.
  */
 function ace360_work() {
 	return array(
@@ -126,6 +141,8 @@ function ace360_work() {
 			),
 			'stack'  => array( 'WordPress', 'Custom theme', 'Mollie' ),
 			'mockup' => 'hesed',
+			'sector' => 'ngo',
+			'featured' => true,
 			'url'    => '',
 		),
 		array(
@@ -139,6 +156,8 @@ function ace360_work() {
 			),
 			'stack'  => array( 'Shopify', 'Brand identity', 'Campaign' ),
 			'mockup' => 'sidwalk',
+			'sector' => 'store',
+			'featured' => true,
 			'url'    => '',
 		),
 		array(
@@ -152,6 +171,8 @@ function ace360_work() {
 			),
 			'stack'  => array( 'Platform', 'Mollie Connect', 'Payouts' ),
 			'mockup' => 'crea8or',
+			'sector' => 'platform',
+			'featured' => true,
 			'url'    => '',
 		),
 		array(
@@ -165,6 +186,8 @@ function ace360_work() {
 			),
 			'stack'   => array( 'WordPress', 'WooCommerce', 'Mollie' ),
 			'mockup'  => 'prkiosk',
+			'sector'  => 'platform',
+			'featured' => true,
 			'url'     => '',
 			'concept' => true,
 		),
@@ -179,6 +202,8 @@ function ace360_work() {
 			),
 			'stack'   => array( 'WooCommerce', 'Mollie', 'Order tracking' ),
 			'mockup'  => 'shop4likes',
+			'sector'  => 'store',
+			'featured' => true,
 			'url'     => '',
 			'concept' => true,
 		),
@@ -193,6 +218,8 @@ function ace360_work() {
 			),
 			'stack'   => array( 'WordPress', 'Mollie', 'ANBI' ),
 			'mockup'  => 'ngo',
+			'sector'  => 'ngo',
+			'featured' => true,
 			'url'     => '',
 			'concept' => true,
 		),
@@ -207,6 +234,203 @@ function ace360_work() {
 			),
 			'stack'   => array( 'Shopify', 'Subscriptions', 'NL / EN' ),
 			'mockup'  => 'skincare',
+			'sector'  => 'beauty',
+			'featured' => true,
+			'url'     => '',
+			'concept' => true,
+		),
+		array(
+			'title'   => 'Bakkerij Korrel',
+			'type'    => ace360_pair( 'Online store · bakery', 'Webshop · bakkerij' ),
+			'text'    => ace360_pair( 'Neighbourhood bakery that takes pre-orders online, so the bread is waiting when the customer walks in.', 'Buurtbakkerij die online voorbestellingen aanneemt, zodat het brood klaarligt als de klant binnenloopt.' ),
+			'built'   => array(
+				ace360_pair( 'Order today, pick up tomorrow from 07:30', 'Vandaag bestellen, morgen vanaf 07:30 ophalen' ),
+				ace360_pair( 'Pickup slots so the counter never queues', 'Ophaalmomenten zodat er geen rij staat' ),
+				ace360_pair( 'Cake orders with photo upload', 'Taartbestellingen met foto-upload' ),
+			),
+			'stack'   => array( 'WooCommerce', 'Pickup slots', 'iDEAL' ),
+			'mockup'  => 'korrel',
+			'sector'  => 'store',
+			'url'     => '',
+			'concept' => true,
+		),
+		array(
+			'title'   => 'Studio Noor Hair',
+			'type'    => ace360_pair( 'Booking site · hair salon', 'Boekingssite · kapsalon' ),
+			'text'    => ace360_pair( 'Salon site where clients book a stylist, a service and a time in three taps.', 'Salonsite waar klanten in drie tikken een stylist, behandeling en tijd boeken.' ),
+			'built'   => array(
+				ace360_pair( 'Online booking per stylist', 'Online boeken per stylist' ),
+				ace360_pair( 'Deposit for long appointments', 'Aanbetaling bij lange afspraken' ),
+				ace360_pair( 'Automatic WhatsApp reminders', 'Automatische herinneringen via WhatsApp' ),
+			),
+			'stack'   => array( 'WordPress', 'Booking', 'Reminders' ),
+			'mockup'  => 'noor',
+			'sector'  => 'beauty',
+			'url'     => '',
+			'concept' => true,
+		),
+		array(
+			'title'   => 'Spaak Fietsherstel',
+			'type'    => ace360_pair( 'Booking site · bike repair', 'Boekingssite · fietsenmaker' ),
+			'text'    => ace360_pair( 'Bike repair shop where customers book a repair and see the price before they come in.', 'Fietsenmaker waar klanten een reparatie boeken en de prijs zien voordat ze langskomen.' ),
+			'built'   => array(
+				ace360_pair( 'Repair menu with fixed prices', 'Reparatielijst met vaste prijzen' ),
+				ace360_pair( 'Same-day slots for flat tyres', 'Plekken op dezelfde dag voor lekke banden' ),
+				ace360_pair( 'Text message when the bike is ready', 'Sms als de fiets klaar is' ),
+			),
+			'stack'   => array( 'WordPress', 'Booking', 'SMS' ),
+			'mockup'  => 'spaak',
+			'sector'  => 'booking',
+			'url'     => '',
+			'concept' => true,
+		),
+		array(
+			'title'   => 'Zout & Zuur',
+			'type'    => ace360_pair( 'Restaurant · reservations', 'Restaurant · reserveringen' ),
+			'text'    => ace360_pair( 'Small-plates restaurant with the menu, table reservations and gift cards on one page.', 'Restaurant met kleine gerechten: menukaart, reserveringen en cadeaubonnen op één pagina.' ),
+			'built'   => array(
+				ace360_pair( 'Table reservations with live availability', 'Tafelreserveringen met live beschikbaarheid' ),
+				ace360_pair( 'Menu the chef updates from a phone', 'Menukaart die de chef vanaf de telefoon bijwerkt' ),
+				ace360_pair( 'Gift cards with iDEAL', 'Cadeaubonnen met iDEAL' ),
+			),
+			'stack'   => array( 'WordPress', 'Reservations', 'Gift cards' ),
+			'mockup'  => 'zout',
+			'sector'  => 'booking',
+			'url'     => '',
+			'concept' => true,
+		),
+		array(
+			'title'   => 'Ademruimte Yoga',
+			'type'    => ace360_pair( 'Studio · classes & memberships', 'Studio · lessen & abonnementen' ),
+			'text'    => ace360_pair( 'Yoga studio with a live class schedule, class cards and memberships.', 'Yogastudio met een live lesrooster, rittenkaarten en abonnementen.' ),
+			'built'   => array(
+				ace360_pair( 'Class schedule with spots left', 'Lesrooster met vrije plekken' ),
+				ace360_pair( 'Class cards and monthly memberships', 'Rittenkaarten en maandabonnementen' ),
+				ace360_pair( 'Waiting list that fills itself', 'Wachtlijst die zichzelf vult' ),
+			),
+			'stack'   => array( 'WordPress', 'Memberships', 'Mollie' ),
+			'mockup'  => 'adem',
+			'sector'  => 'booking',
+			'url'     => '',
+			'concept' => true,
+		),
+		array(
+			'title'   => 'Grachtzicht Stays',
+			'type'    => ace360_pair( 'Booking site · short stays', 'Boekingssite · korte verblijven' ),
+			'text'    => ace360_pair( 'Canal-side apartments in Amsterdam, booked direct instead of through the big platforms.', 'Appartementen aan de gracht in Amsterdam, direct geboekt in plaats van via de grote platforms.' ),
+			'built'   => array(
+				ace360_pair( 'Direct booking with calendar sync', 'Direct boeken met agendasynchronisatie' ),
+				ace360_pair( 'Prices per night and per season', 'Prijzen per nacht en per seizoen' ),
+				ace360_pair( 'Guest guide in four languages', 'Gastengids in vier talen' ),
+			),
+			'stack'   => array( 'WordPress', 'Booking', 'Multilingual' ),
+			'mockup'  => 'gracht',
+			'sector'  => 'booking',
+			'url'     => '',
+			'concept' => true,
+		),
+		array(
+			'title'   => 'Molen Coffee Roasters',
+			'type'    => ace360_pair( 'Online store · coffee', 'Webshop · koffie' ),
+			'text'    => ace360_pair( 'Small-batch roaster selling beans online, with a subscription that ships every two weeks.', 'Kleine branderij die bonen online verkoopt, met een abonnement dat elke twee weken verstuurt.' ),
+			'built'   => array(
+				ace360_pair( 'Coffee subscriptions with skip and pause', 'Koffieabonnement met overslaan en pauzeren' ),
+				ace360_pair( 'Brew guide for every bean', 'Zetgids voor elke boon' ),
+				ace360_pair( 'Wholesale login for cafés', 'Groothandelslogin voor cafés' ),
+			),
+			'stack'   => array( 'Shopify', 'Subscriptions', 'Wholesale' ),
+			'mockup'  => 'molen',
+			'sector'  => 'store',
+			'url'     => '',
+			'concept' => true,
+		),
+		array(
+			'title'   => 'Stichting Voedselbrug',
+			'type'    => ace360_pair( 'Charity · food bank', 'Goed doel · voedselbank' ),
+			'text'    => ace360_pair( 'Local food bank site that signs up volunteers and collects donations in the same place.', 'Site van een lokale voedselbank die op één plek vrijwilligers werft en donaties ophaalt.' ),
+			'built'   => array(
+				ace360_pair( 'Volunteer sign-up with shift picker', 'Vrijwilligersaanmelding met dienstenkiezer' ),
+				ace360_pair( 'Donations with iDEAL, one-off or monthly', 'Donaties met iDEAL, eenmalig of maandelijks' ),
+				ace360_pair( 'Drop-off points on a map', 'Inzamelpunten op een kaart' ),
+			),
+			'stack'   => array( 'WordPress', 'Mollie', 'Volunteers' ),
+			'mockup'  => 'voedselbrug',
+			'sector'  => 'ngo',
+			'url'     => '',
+			'concept' => true,
+		),
+		array(
+			'title'   => 'Youth Rise Foundation',
+			'type'    => ace360_pair( 'Charity · mentoring', 'Goed doel · mentoring' ),
+			'text'    => ace360_pair( 'Mentoring programme that matches young people with a mentor and shows donors the results.', 'Mentorprogramma dat jongeren aan een mentor koppelt en donateurs de resultaten laat zien.' ),
+			'built'   => array(
+				ace360_pair( 'Mentor applications with screening steps', 'Mentoraanmelding met screeningsstappen' ),
+				ace360_pair( 'Stories and results from each year', 'Verhalen en resultaten per jaar' ),
+				ace360_pair( 'Sponsor-a-mentee monthly giving', 'Maandelijks een jongere sponsoren' ),
+			),
+			'stack'   => array( 'WordPress', 'Applications', 'Mollie' ),
+			'mockup'  => 'youthrise',
+			'sector'  => 'ngo',
+			'url'     => '',
+			'concept' => true,
+		),
+		array(
+			'title'   => 'Ébène Skin',
+			'type'    => ace360_pair( 'Shopify · skincare', 'Shopify · huidverzorging' ),
+			'text'    => ace360_pair( 'Skincare made for melanin-rich skin, with routines by concern and shade-safe ingredients.', 'Huidverzorging voor een donkere huid, met routines per huidprobleem en veilige ingrediënten.' ),
+			'built'   => array(
+				ace360_pair( 'Shop by concern: dark spots, dryness, texture', 'Shoppen per huidprobleem: pigmentvlekken, droogte, textuur' ),
+				ace360_pair( 'Before-and-after stories from customers', 'Voor-en-naverhalen van klanten' ),
+				ace360_pair( 'Ships across the EU and to the UK', 'Verzending in de hele EU en naar het VK' ),
+			),
+			'stack'   => array( 'Shopify', 'Reviews', 'EU shipping' ),
+			'mockup'  => 'ebene',
+			'sector'  => 'beauty',
+			'url'     => '',
+			'concept' => true,
+		),
+		array(
+			'title'   => 'Glow Ritual Studio',
+			'type'    => ace360_pair( 'Booking site · lashes & brows', 'Boekingssite · wimpers & wenkbrauwen' ),
+			'text'    => ace360_pair( 'Lash and brow studio with online booking, a deposit and aftercare tips by email.', 'Studio voor wimpers en wenkbrauwen met online boeken, aanbetaling en nazorgtips per e-mail.' ),
+			'built'   => array(
+				ace360_pair( 'Booking with deposit against no-shows', 'Boeken met aanbetaling tegen no-shows' ),
+				ace360_pair( 'Before-and-after gallery', 'Galerij met voor-en-na' ),
+				ace360_pair( 'Aftercare email after each visit', 'Nazorgmail na elk bezoek' ),
+			),
+			'stack'   => array( 'WordPress', 'Booking', 'Mollie' ),
+			'mockup'  => 'glow',
+			'sector'  => 'beauty',
+			'url'     => '',
+			'concept' => true,
+		),
+		array(
+			'title'   => 'Jollof House',
+			'type'    => ace360_pair( 'Online store · catering', 'Webshop · catering' ),
+			'text'    => ace360_pair( 'West African kitchen in Rotterdam taking catering and party-tray orders online.', 'West-Afrikaanse keuken in Rotterdam die catering en partyschalen online aanneemt.' ),
+			'built'   => array(
+				ace360_pair( 'Party-tray builder with live total', 'Partyschaal samenstellen met live totaal' ),
+				ace360_pair( 'Delivery date and time picker', 'Kiezen van bezorgdatum en -tijd' ),
+				ace360_pair( 'Menu in English and Dutch', 'Menukaart in het Engels en Nederlands' ),
+			),
+			'stack'   => array( 'WooCommerce', 'Delivery slots', 'iDEAL' ),
+			'mockup'  => 'jollof',
+			'sector'  => 'store',
+			'url'     => '',
+			'concept' => true,
+		),
+		array(
+			'title'   => 'Lens & Linen',
+			'type'    => ace360_pair( 'Portfolio · wedding photography', 'Portfolio · trouwfotografie' ),
+			'text'    => ace360_pair( 'Wedding photographer portfolio that lets couples check a date and get a quote straight away.', 'Portfolio van een trouwfotograaf waar stellen direct een datum checken en een prijs krijgen.' ),
+			'built'   => array(
+				ace360_pair( 'Full-screen galleries that load fast', 'Schermvullende galerijen die snel laden' ),
+				ace360_pair( 'Date checker linked to the calendar', 'Datumcheck gekoppeld aan de agenda' ),
+				ace360_pair( 'Packages with an instant quote', 'Pakketten met directe prijsopgave' ),
+			),
+			'stack'   => array( 'WordPress', 'Galleries', 'Calendar' ),
+			'mockup'  => 'lens',
+			'sector'  => 'platform',
 			'url'     => '',
 			'concept' => true,
 		),
