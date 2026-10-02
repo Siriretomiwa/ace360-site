@@ -153,11 +153,11 @@ $ace360_screens = array( 'call', 'quote', 'design', 'build', 'live' );
 		<div class="sticky">
 			<div class="wrap">
 				<div class="copy">
-					<p class="kicker"><?php ace360_e( ace360_pair( 'Work · recently built', 'Werk · recent opgeleverd' ) ); ?> · <span class="mono" data-count>1 / <?php echo esc_html( count( $ace360_work ) ); ?></span></p>
+					<p class="kicker"><?php ace360_e( ace360_pair( 'Work · selected projects', 'Werk · geselecteerde projecten' ) ); ?> · <span class="mono" data-count>1 / <?php echo esc_html( count( $ace360_work ) ); ?></span></p>
 					<ol class="items">
 						<?php foreach ( $ace360_work as $ace360_i => $ace360_w ) : ?>
 							<li class="item<?php echo 0 === $ace360_i ? ' is-on' : ''; ?>" data-screen="<?php echo esc_attr( 'work-' . ( $ace360_w['mockup'] ? $ace360_w['mockup'] : 'generic' ) ); ?>" data-title="<?php echo esc_attr( $ace360_w['title'] ); ?>"<?php echo ! empty( $ace360_w['image'] ) ? ' data-image="' . esc_url( $ace360_w['image'] ) . '"' : ''; ?>>
-								<p class="mono muted"><?php ace360_e( $ace360_w['type'] ); ?></p>
+								<p class="mono muted"><?php ace360_e( $ace360_w['type'] ); ?><?php if ( ! empty( $ace360_w['concept'] ) ) : ?> <span class="tag-concept"><?php ace360_e( ace360_pair( 'Concept', 'Concept' ) ); ?></span><?php endif; ?></p>
 								<h2>
 									<?php if ( ! empty( $ace360_w['link'] ) ) : ?>
 										<a href="<?php echo esc_url( $ace360_w['link'] ); ?>"><?php echo esc_html( $ace360_w['title'] ); ?></a>

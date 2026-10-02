@@ -154,6 +154,62 @@ function ace360_work() {
 			'mockup' => 'crea8or',
 			'url'    => '',
 		),
+		array(
+			'title'   => 'The PR Kiosk',
+			'type'    => ace360_pair( 'Platform · PR & press releases', 'Platform · PR & persberichten' ),
+			'text'    => ace360_pair( 'Order a press release like you order a product: pick a package, upload your story, pay and follow the coverage.', 'Een persbericht bestellen zoals je een product bestelt: kies een pakket, upload je verhaal, betaal en volg de publicaties.' ),
+			'built'   => array(
+				ace360_pair( 'Press-release packages with checkout', 'Persberichtpakketten met afrekenen' ),
+				ace360_pair( 'Upload and review flow for stories', 'Upload- en reviewflow voor verhalen' ),
+				ace360_pair( 'Coverage dashboard for each client', 'Publicatiedashboard per klant' ),
+			),
+			'stack'   => array( 'WordPress', 'WooCommerce', 'Mollie' ),
+			'mockup'  => 'prkiosk',
+			'url'     => '',
+			'concept' => true,
+		),
+		array(
+			'title'   => 'Shop4likes',
+			'type'    => ace360_pair( 'Online store · social media growth', 'Webshop · groei op social media' ),
+			'text'    => ace360_pair( 'Growth packages for Instagram, TikTok and YouTube, with instant checkout and order tracking.', 'Groeipakketten voor Instagram, TikTok en YouTube, met direct afrekenen en ordertracking.' ),
+			'built'   => array(
+				ace360_pair( 'Package picker per platform', 'Pakketkiezer per platform' ),
+				ace360_pair( 'Checkout with iDEAL, cards and PayPal', 'Afrekenen met iDEAL, kaart en PayPal' ),
+				ace360_pair( 'Order status page and email updates', 'Orderstatuspagina en updates per e-mail' ),
+			),
+			'stack'   => array( 'WooCommerce', 'Mollie', 'Order tracking' ),
+			'mockup'  => 'shop4likes',
+			'url'     => '',
+			'concept' => true,
+		),
+		array(
+			'title'   => 'Bright Wells Foundation',
+			'type'    => ace360_pair( 'NGO · donations', 'Goed doel · donaties' ),
+			'text'    => ace360_pair( 'Charity site for clean-water projects, built so a first-time visitor can give in under a minute.', 'Site voor een goed doel met schoonwaterprojecten, gebouwd zodat een nieuwe bezoeker binnen een minuut kan doneren.' ),
+			'built'   => array(
+				ace360_pair( 'One-off and monthly giving with iDEAL', 'Eenmalig en maandelijks geven met iDEAL' ),
+				ace360_pair( 'Live impact counter and project map', 'Live impactteller en projectkaart' ),
+				ace360_pair( 'ANBI page and yearly reports', 'ANBI-pagina en jaarverslagen' ),
+			),
+			'stack'   => array( 'WordPress', 'Mollie', 'ANBI' ),
+			'mockup'  => 'ngo',
+			'url'     => '',
+			'concept' => true,
+		),
+		array(
+			'title'   => 'Velours Skin',
+			'type'    => ace360_pair( 'Shopify · skincare', 'Shopify · huidverzorging' ),
+			'text'    => ace360_pair( 'Clean skincare store with a skin quiz that builds a routine and a subscription for refills.', 'Webshop voor clean skincare met een huidtest die een routine samenstelt en een abonnement op navullingen.' ),
+			'built'   => array(
+				ace360_pair( 'Skin quiz that recommends a routine', 'Huidtest die een routine aanraadt' ),
+				ace360_pair( 'Refill subscriptions every 4, 6 or 8 weeks', 'Abonnement op navullingen elke 4, 6 of 8 weken' ),
+				ace360_pair( 'Ingredient glossary in Dutch and English', 'Ingrediëntenlijst in het Nederlands en Engels' ),
+			),
+			'stack'   => array( 'Shopify', 'Subscriptions', 'NL / EN' ),
+			'mockup'  => 'skincare',
+			'url'     => '',
+			'concept' => true,
+		),
 	);
 }
 

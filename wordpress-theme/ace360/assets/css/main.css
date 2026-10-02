@@ -207,7 +207,8 @@ h1, h2, h3 { font-weight: 650; letter-spacing: -0.035em; line-height: 1.05; text
 .demo-ch::before { background: linear-gradient(90deg, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.85) 50%, rgba(255, 255, 255, 0) 75%); }
 
 /* work: sticky chapter, copy cycles while the laptop shows each project */
-.tall { display: block; padding: 0; height: calc(var(--items, 3) * 80svh + 100svh); }
+.tall { display: block; padding: 0; height: calc(var(--items, 3) * 70svh + 100svh); }
+.tag-concept { display: inline-block; margin-left: 8px; padding: 2px 8px; border: 1px solid var(--line-2); border-radius: 999px; font-size: 0.85em; vertical-align: 1px; }
 .sticky { position: sticky; top: 0; height: 100svh; display: flex; align-items: center; padding-block: 110px 80px; }
 .items { display: grid; }
 .items .item { display: grid; gap: 14px; }
