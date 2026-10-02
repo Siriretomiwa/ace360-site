@@ -356,6 +356,7 @@
     mk: mk, rr: rr, box: box, stroke: stroke, txt: txt, bars: bars, circle: circle, chrome: chrome,
     kinds: KINDS,
     onPhotos: onPhotos,
+    photo: photo,
     screen: workScreen,
     phone: phoneWork,
     // Paint a project's desktop screen into any canvas, scaled to fit.

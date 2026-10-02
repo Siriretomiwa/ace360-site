@@ -247,6 +247,131 @@
   };
   P.kinds.forEach(function (k) { SCREENS['work-' + k] = P.screen(k); });
 
+  /* ---------- hero: a landing page at work ----------
+   * An 11-second loop played on the laptop while the hero is on screen:
+   * found in search → lands on the page → pre-orders → pays with iDEAL →
+   * the owner gets the order at 23:14. It uses one of the sample sites
+   * (Bakkerij Korrel) and its product photos. */
+  var STORY_T = 11, storyClock = 0, storyAcc = 0;
+  var landC = mk(SW, SH);
+  function paintLanding() { P.screen('korrel')(landC.getContext('2d'), SW, SH, 'Bakkerij Korrel'); }
+  paintLanding();
+  P.onPhotos(paintLanding);
+  function ez(x) { x = x < 0 ? 0 : x > 1 ? 1 : x; return x * x * (3 - 2 * x); }
+  function seg(t, a, b) { return ez((t - a) / (b - a)); }
+  function lerp(a, b, k) { return a + (b - a) * k; }
+  function pointer(g, x, y, clickAge) {
+    if (clickAge >= 0 && clickAge < 0.5) {
+      g.beginPath(); g.arc(x, y, 8 + clickAge * 60, 0, Math.PI * 2);
+      g.strokeStyle = 'rgba(255,106,0,' + (1 - clickAge * 2) + ')'; g.lineWidth = 4; g.stroke();
+    }
+    g.save(); g.translate(x, y); var sc = clickAge >= 0 && clickAge < 0.15 ? 0.88 : 1; g.scale(sc, sc);
+    g.beginPath(); g.moveTo(0, 0); g.lineTo(0, 26); g.lineTo(7, 20); g.lineTo(12, 31); g.lineTo(17, 29); g.lineTo(12, 18); g.lineTo(21, 18); g.closePath();
+    g.fillStyle = '#111111'; g.fill(); g.strokeStyle = '#ffffff'; g.lineWidth = 2; g.stroke(); g.restore();
+  }
+  function storyFrame(g, w, h, tt) {
+    var t = tt % STORY_T, cx, cy, click = -1;
+    g.clearRect(0, 0, w, h);
+    if (t < 2.5) {
+      // 1 · searched for, found first
+      g.fillStyle = '#ffffff'; g.fillRect(0, 0, w, h);
+      var top = chrome(g, w, 'search · bakery utrecht pre-order', false);
+      var q = 'bakery utrecht pre-order', n = Math.round(seg(t, 0.15, 1.1) * q.length);
+      box(g, 120, top + 34, 620, 50, 25, '#f1f3f4');
+      g.beginPath(); g.arc(150, top + 59, 9, 0, Math.PI * 2); g.strokeStyle = '#5d6168'; g.lineWidth = 2.5; g.stroke(); g.beginPath(); g.moveTo(157, top + 66); g.lineTo(164, top + 73); g.stroke();
+      txt(g, q.slice(0, n), 176, top + 67, 22, INK, 500);
+      if (t < 1.3 && Math.floor(t * 3) % 2 === 0) { g.font = '500 22px ' + SANS; g.fillStyle = INK; g.fillRect(178 + g.measureText(q.slice(0, n)).width, top + 47, 2, 24); }
+      var rv = seg(t, 1.2, 1.5);
+      g.globalAlpha = rv;
+      txt(g, 'About 1,240 results (0.31 seconds)', 120, top + 120, 13, MUTED, 500);
+      var hover = t > 1.95;
+      [['Bakkerij Korrel · Fresh bread, ready at 7:30', 'bakkerijkorrel.nl', 'Order today, pick up tomorrow from 07:30. Sourdough, croissants and cakes. ★ 4.8 (312 reviews)'],
+       ['Bakeries in Utrecht · the city guide', 'utrecht-guide.nl › food', 'Twelve neighbourhood bakeries worth crossing town for, from Lombok to Oudwijk.'],
+       ['Where to buy sourdough in Utrecht (2026)', 'foodblog.nl › utrecht', 'We tasted 9 loaves. Here are the ones that made the cut.']].forEach(function (r, i) {
+        var y = top + 160 + i * 110;
+        if (i === 0) { box(g, 104, y - 26, 680, 100, 12, hover ? '#fff3eb' : '#ffffff'); circle(g, 132, y - 2, 12, '#c8742c'); txt(g, 'K', 132, y + 3, 13, '#ffffff', 800, SANS, 'center'); }
+        txt(g, r[1], i === 0 ? 152 : 120, y + 2, 13, '#3c6e47', 500);
+        txt(g, r[0], 120, y + 30, 23, i === 0 && hover ? '#c94f00' : '#1d4ed8', 600);
+        if (i === 0 && hover) { g.fillStyle = '#c94f00'; g.font = '600 23px ' + SANS; g.fillRect(120, y + 34, g.measureText(r[0]).width, 2); }
+        txt(g, r[2].length > 78 ? r[2].slice(0, 76) + '…' : r[2], 120, y + 58, 15, '#4a4d52', 400);
+      });
+      g.globalAlpha = 1;
+      var m = seg(t, 1.4, 2.1); cx = lerp(860, 330, m); cy = lerp(560, top + 190, m); click = t - 2.2;
+    } else if (t < 8.0) {
+      // 2 · the landing page, then 3 · checkout
+      g.drawImage(landC, 0, 0);
+      if (t < 2.8) { g.fillStyle = 'rgba(255,255,255,' + (1 - seg(t, 2.5, 2.8)) + ')'; g.fillRect(0, 0, w, h); }
+      var live = Math.round(19 + seg(t, 2.6, 4.5) * 4);
+      box(g, w - 210, 56 + 40, 170, 30, 15, 'rgba(17,17,17,0.82)'); circle(g, w - 192, 111, 5, '#2bd17e'); txt(g, live + ' people browsing', w - 180, 116, 13, '#ffffff', 600);
+      if (t < 5.0) { var m2 = seg(t, 2.9, 4.4); cx = lerp(500, 110, m2); cy = lerp(420, 344, m2); click = t - 4.55; }
+      else {
+        var o = seg(t, 5.0, 5.35);
+        g.fillStyle = 'rgba(17,17,17,' + 0.45 * o + ')'; g.fillRect(0, 0, w, h);
+        var px = w / 2 - 270, py = lerp(140, 76, o), pw = 540;
+        g.globalAlpha = o;
+        g.save(); g.shadowColor = 'rgba(0,0,0,0.25)'; g.shadowBlur = 30; box(g, px, py, pw, 470, 18, '#ffffff'); g.restore();
+        txt(g, 'Your order', px + 32, py + 50, 24, INK, 750); txt(g, 'Pickup tomorrow · 07:30', px + pw - 32, py + 50, 14, MUTED, 500, SANS, 'right');
+        [['korrel-1', 'Sourdough loaf', '€4.50'], ['korrel-2', 'Butter croissants (4)', '€6.80'], ['korrel-3', 'Dutch apple pie', '€18.50']].forEach(function (it, i) {
+          var y = py + 78 + i * 64; g.fillStyle = LINE; g.fillRect(px + 32, y - 6, pw - 64, 1);
+          if (!P.photo(g, it[0], px + 32, y + 4, 48, 48, 10)) box(g, px + 32, y + 4, 48, 48, 10, '#f1d9b8');
+          txt(g, it[1], px + 96, y + 34, 17, INK, 550); txt(g, it[2], px + pw - 32, y + 34, 17, INK, 650, SANS, 'right');
+        });
+        g.fillStyle = INK; g.fillRect(px + 32, py + 276, pw - 64, 2);
+        txt(g, 'Total', px + 32, py + 310, 19, INK, 700); txt(g, '€29.80', px + pw - 32, py + 310, 22, INK, 800, SANS, 'right');
+        [['iDEAL', '#cc0066'], ['Card', '#3b82f6'], ['Apple Pay', '#111111']].forEach(function (pm, i) {
+          var x = px + 32 + i * 162, on = i === 0;
+          box(g, x, py + 330, 150, 44, 10, on ? '#fdf0f6' : '#ffffff'); stroke(g, x, py + 330, 150, 44, 10, on ? '#cc0066' : LINE, on ? 2.5 : 1.5);
+          circle(g, x + 22, py + 352, 8, pm[1]); txt(g, pm[0], x + 38, py + 358, 15, INK, 600);
+        });
+        var paid = t > 7.25, busy = t > 6.95 && !paid;
+        box(g, px + 32, py + 392, pw - 64, 52, 26, paid ? '#1a8f4e' : OR);
+        if (busy) { for (var k = 0; k < 8; k++) { var a = k / 8 * Math.PI * 2 + t * 8; circle(g, w / 2 + Math.cos(a) * 11, py + 418 + Math.sin(a) * 11, 2.6, 'rgba(17,17,17,' + (0.2 + k * 0.1) + ')'); } }
+        else txt(g, paid ? 'Paid ✓' : 'Pay €29.80 with iDEAL', w / 2, py + 425, 18, paid ? '#ffffff' : INK, 750, SANS, 'center');
+        g.globalAlpha = 1;
+        var m3 = seg(t, 5.6, 6.7); cx = lerp(110, w / 2 + 60, m3); cy = lerp(344, py + 418, m3); click = t - 6.85;
+      }
+    } else {
+      // 4 · the owner's side: order in, while they slept
+      g.drawImage(landC, 0, 0);
+      g.fillStyle = 'rgba(17,17,17,0.5)'; g.fillRect(0, 0, w, h);
+      var o2 = seg(t, 8.0, 8.35), px2 = w / 2 - 230, py2 = 120;
+      g.globalAlpha = o2;
+      g.save(); g.shadowColor = 'rgba(0,0,0,0.25)'; g.shadowBlur = 30; box(g, px2, py2, 460, 300, 18, '#ffffff'); g.restore();
+      circle(g, w / 2, py2 + 78, 38, '#1a8f4e');
+      g.strokeStyle = '#ffffff'; g.lineWidth = 7; g.lineCap = 'round'; g.lineJoin = 'round';
+      var ck = seg(t, 8.2, 8.6); g.beginPath(); g.moveTo(w / 2 - 16, py2 + 78); g.lineTo(w / 2 - 4, py2 + 90); if (ck > 0.5) g.lineTo(w / 2 - 4 + 22 * (ck - 0.5) * 2, py2 + 90 - 26 * (ck - 0.5) * 2); g.stroke(); g.lineCap = 'butt';
+      txt(g, 'Order confirmed', w / 2, py2 + 160, 28, INK, 750, SANS, 'center');
+      txt(g, 'Order #1043 · €29.80 · paid with iDEAL', w / 2, py2 + 196, 16, MUTED, 500, SANS, 'center');
+      txt(g, 'Pick up tomorrow from 07:30', w / 2, py2 + 236, 18, '#c8742c', 650, SANS, 'center');
+      g.globalAlpha = 1;
+      // the owner's notification
+      var n2 = seg(t, 8.5, 8.9), nx = lerp(w + 20, w - 380, n2);
+      box(g, nx, 64, 360, 76, 16, 'rgba(17,17,17,0.92)'); box(g, nx + 16, 82, 40, 40, 10, OR); txt(g, '€', nx + 36, 110, 22, INK, 800, SANS, 'center');
+      txt(g, 'New order #1043 · €29.80', nx + 70, 98, 16, '#ffffff', 700); txt(g, 'Bakkerij Korrel · iDEAL · now', nx + 70, 122, 13, '#9aa0aa', 500);
+      // counters tick up
+      var flip = t > 8.9;
+      box(g, 40, h - 120, 214, 76, 14, '#ffffff'); txt(g, 'Orders today', 60, h - 90, 13, MUTED, 600); txt(g, flip ? '13' : '12', 60, h - 58, 26, INK, 800); if (flip) txt(g, '+1', 110, h - 58, 15, '#1a8f4e', 700);
+      box(g, 268, h - 120, 214, 76, 14, '#ffffff'); txt(g, 'Revenue today', 288, h - 90, 13, MUTED, 600); txt(g, flip ? '€372.30' : '€342.50', 288, h - 58, 26, INK, 800);
+      var cap = seg(t, 9.0, 9.4);
+      g.globalAlpha = cap; box(g, w - 560, h - 100, 520, 58, 29, OR); txt(g, '23:14 · your website took this order while you slept', w - 300, h - 64, 17, INK, 750, SANS, 'center'); g.globalAlpha = 1;
+      if (t > 10.5) { g.fillStyle = 'rgba(255,255,255,' + seg(t, 10.5, 11) + ')'; g.fillRect(0, 0, w, h); }
+    }
+    if (cx != null) pointer(g, cx, cy, click);
+  }
+  // the story is drawn full-size off screen, then a moving crop zooms in on the action
+  var storyC = mk(SW, SH), storyG = storyC.getContext('2d');
+  var ZOOM = [[0, 70, 30, 820], [2.3, 70, 30, 820], [2.75, 0, 40, 780], [4.8, 0, 90, 700], [5.3, 120, 56, 810], [7.6, 135, 64, 790], [8.1, 0, 0, 1024], [11, 0, 0, 1024]];
+  function storyCompose(g, tt) {
+    var t = tt % STORY_T, i = 0;
+    while (i < ZOOM.length - 2 && t > ZOOM[i + 1][0]) i++;
+    var a = ZOOM[i], b = ZOOM[i + 1], k = ez((t - a[0]) / Math.max(0.001, b[0] - a[0]));
+    var rw = lerp(a[3], b[3], k), rh = rw * SH / SW, rx = lerp(a[1], b[1], k), ry = lerp(a[2], b[2], k);
+    storyFrame(storyG, SW, SH, tt);
+    g.clearRect(0, 0, SW, SH);
+    g.drawImage(storyC, rx, ry, rw, rh, 0, 0, SW, SH);
+  }
+  SCREENS.story = function (g) { storyCompose(g, reduce ? 9.6 : storyClock); };
+
   /* ---------- phone screens (360 × 740) ---------- */
   function paintPhone(g, w, h, key, title) {
     var dark = key === 'call' || key === 'blank' || key === 'build' || key === 'work-sidwalk';
@@ -788,8 +913,8 @@
       apply(null);
     }
   }
-  paintScreen('ace');
-  current = 'ace||';
+  paintScreen('story');
+  current = 'story||';
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(function () {
       var p = current.split('|'); current = ''; setScreen(p[0], p[1], p[2]);
@@ -803,7 +928,7 @@
     var p = current.split('|');
     if (!p[1]) { window.gsap && window.gsap.killTweensOf(wipe); wipe.v = 1; paintScreen(p[0], p[2]); }
   });
-  window.ACE360_FILM = { setScreen: setScreen, measure: measure };
+  window.ACE360_FILM = { setScreen: setScreen, measure: measure, storyAt: function (canvas, t) { storyCompose(canvas.getContext('2d'), t); } };
 
   /* ---------- day / night ---------- */
   var night = { v: root.getAttribute('data-theme') === 'night' ? 1 : 0 }, lastNight = -1;
@@ -942,6 +1067,12 @@
     lidG.rotation.x = 1.52 * (1 - lid) - 0.3 * lid;
     screenMat.color.setScalar(Math.max(0.03, bright.v * (0.25 + 0.75 * lid)));
     laptop.position.y = hv.laptop * 0.05;
+
+    // the hero story plays on the laptop while it is the current screen
+    if (current.indexOf('story|') === 0 && wipe.v >= 1 && lid > 0.3 && !reduce) {
+      storyClock += dt; storyAcc += dt;
+      if (storyAcc > (mobile ? 1 / 20 : 1 / 30)) { storyAcc = 0; storyCompose(sg, storyClock); screenTex.needsUpdate = true; }
+    }
 
     // exploded page layers
     var ex = sm(c01(S.explode));

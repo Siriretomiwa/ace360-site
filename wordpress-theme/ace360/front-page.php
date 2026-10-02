@@ -70,7 +70,7 @@ $ace360_screens = array( 'call', 'quote', 'design', 'build', 'live' );
 <main id="main" class="site-main film">
 
 	<!-- 1 · Hero -->
-	<section class="ch hero" data-k="hero" data-screen="ace">
+	<section class="ch hero" data-k="hero" data-screen="story">
 		<div class="wrap">
 			<div class="copy">
 				<p class="kicker"><span class="nl-flag" aria-hidden="true"></span><?php ace360_e( $ace360_hero['kicker'] ); ?></p>
@@ -125,7 +125,7 @@ $ace360_screens = array( 'call', 'quote', 'design', 'build', 'live' );
 	</section>
 
 	<!-- 2 · Services -->
-	<section class="ch right" id="diensten" data-k="services" data-screen="ace">
+	<section class="ch right" id="diensten" data-k="services" data-screen="live">
 		<div class="wrap">
 			<div class="copy">
 				<p class="kicker"><?php ace360_e( ace360_pair( 'Services', 'Diensten' ) ); ?></p>
@@ -146,7 +146,7 @@ $ace360_screens = array( 'call', 'quote', 'design', 'build', 'live' );
 	</section>
 
 	<!-- 3 · Self-quote -->
-	<section class="ch quote-ch" id="prijs" data-k="quote" data-screen="ace">
+	<section class="ch quote-ch" id="prijs" data-k="quote" data-screen="quote">
 		<div class="wrap">
 			<div class="copy copy-quote">
 				<p class="kicker"><?php ace360_e( ace360_pair( 'Self-quote', 'Zelf berekenen' ) ); ?></p>
