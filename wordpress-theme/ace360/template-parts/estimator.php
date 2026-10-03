@@ -80,6 +80,6 @@ $ace360_c = ace360_estimator();
 		<ul class="q-lines" data-q-lines></ul>
 		<label class="q-vat"><input type="checkbox" id="q_vat" name="q_vat"> <span><?php ace360_e( ace360_pair( 'Show incl. 21% Dutch VAT', 'Toon incl. 21% btw' ) ); ?></span></label>
 		<button class="btn btn-orange btn-block" type="button" data-q-send><?php ace360_e( ace360_pair( 'Send this as an enquiry', 'Stuur dit als aanvraag' ) ); ?> <span aria-hidden="true">→</span></button>
-		<p class="q-note"><?php ace360_e( ace360_pair( 'Based on comparable projects, excluding VAT. You always get a fixed quote before anything gets built. Outside the Netherlands? EU businesses pay no Dutch VAT (reverse charge).', 'Gebaseerd op vergelijkbare projecten, excl. btw. Je krijgt altijd een vaste offerte voordat er iets gebouwd wordt. Buiten Nederland? EU-bedrijven betalen geen Nederlandse btw (verlegd).' ) ); ?></p>
+		<p class="q-note"><?php ace360_e( ace360_pair( 'An estimate, not a quote: based on comparable projects, excluding VAT. Your final price depends on the details and is agreed in writing after our call, before anything gets built. Outside the Netherlands? EU businesses pay no Dutch VAT (reverse charge).', 'Een indicatie, geen offerte: gebaseerd op vergelijkbare projecten, excl. btw. Je definitieve prijs hangt af van de details en spreken we na ons gesprek schriftelijk af, voordat er iets gebouwd wordt. Buiten Nederland? EU-bedrijven betalen geen Nederlandse btw (verlegd).' ) ); ?></p>
 	</aside>
 </form>

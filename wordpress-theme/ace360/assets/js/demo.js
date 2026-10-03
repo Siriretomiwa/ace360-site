@@ -55,7 +55,7 @@
     tl.to(bar, { scaleY: 1, duration: 0.25, repeat: 17, yoyo: true, ease: 'sine.inOut' }, 0.2 + (i % 7) * 0.06);
   });
 
-  // 2 · Fixed quote (5–10)
+  // 2 · Quote (5–10)
   sceneIn(1, CH[1]);
   tl.from(one('.dm-quote'), { y: 70, rotation: -2, autoAlpha: 0, duration: 0.9 }, CH[1] + 0.05)
     .from(q('.dm-q-row, .dm-q-total, .dm-q-date'), { autoAlpha: 0, y: 10, duration: 0.45, stagger: 0.35 }, CH[1] + 0.7)

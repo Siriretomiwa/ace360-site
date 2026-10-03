@@ -34,10 +34,10 @@ $ace360_steps = ace360_process();
 				</div>
 			</div>
 
-			<!-- 2. Fixed quote -->
+			<!-- 2. Quote -->
 			<div class="dm-scene" data-scene="1">
 				<div class="dm-quote">
-					<div class="dm-q-head"><b>Fixed quote</b><span>Q-2026-041 · valid 30 days</span></div>
+					<div class="dm-q-head"><b>Your quote</b><span>Q-2026-041 · valid 30 days</span></div>
 					<div class="dm-q-row"><span>Website, 6 pages</span><b>€1,290</b></div>
 					<div class="dm-q-row"><span>Booking system</span><b>€500</b></div>
 					<div class="dm-q-row"><span>Second language (EN)</span><b>€450</b></div>

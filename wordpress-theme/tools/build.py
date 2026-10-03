@@ -28,7 +28,7 @@ CDN = [
 def local_preview(html):
     a = '../ace360/assets/'
     head = (f'<title>Ace 360 Services</title>\n'
-            f'<link rel="stylesheet" href="{a}css/fonts.css">\n<link rel="stylesheet" href="{a}css/main.css">\n<meta name="description" content="Ace 360 Services: websites, online stores and maintenance for businesses in the Netherlands and abroad. Fixed price, fixed launch date.">')
+            f'<link rel="stylesheet" href="{a}css/fonts.css">\n<link rel="stylesheet" href="{a}css/main.css">\n<meta name="description" content="Ace 360 Services: websites, online stores and maintenance for businesses in the Netherlands and abroad. See an estimate online, fixed launch date.">')
     scripts = ''.join(f'<script src="{a}vendor/{l}"></script>\n' for l in LIBS)
     scripts += f'<script>window.ACE360_PREVIEW = true;</script>\n<script src="{a}js/demo.js"></script>\n<script src="{a}js/screens.js"></script>\n<script src="{a}js/film.js"></script>\n<script src="{a}js/main.js"></script>'
     return html.replace('<!--wp_head-->', head).replace('<!--wp_footer-->', scripts)
@@ -40,7 +40,7 @@ def artifact(html):
     out = ['<title>Ace 360 Services</title>',
            head_script,
            "<script>document.documentElement.classList.add('js');</script>",
-           '<meta name="description" content="Ace 360 Services: websites, online stores and maintenance for businesses in the Netherlands and abroad. Fixed price, fixed launch date.">',
+           '<meta name="description" content="Ace 360 Services: websites, online stores and maintenance for businesses in the Netherlands and abroad. See an estimate online, fixed launch date.">',
            '<link rel="preconnect" href="https://fonts.googleapis.com">',
            '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
            '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital@1&family=Inter:wght@300..800&family=JetBrains+Mono:wght@400..700&display=swap">',

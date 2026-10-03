@@ -142,13 +142,15 @@
       txt(g, 'Ace 360', 64, t + 44, 18, INK, 700);
       ['Services', 'Process', 'Work', 'Questions'].forEach(function (s, i) { txt(g, s, 520 + i * 92, t + 44, 14, MUTED, 500); });
       box(g, w - 130, t + 22, 100, 34, 8, OR); txt(g, 'Call now', w - 80, t + 45, 14, INK, 650, SANS, 'center');
-      txt(g, 'You know the', 44, t + 160, 58, INK, 700);
-      txt(g, 'price', 44, t + 222, 58, ORD, 700);
-      g.fillStyle = OR; g.fillRect(44, t + 230, 148, 6);
-      txt(g, ' before we', 192, t + 222, 58, INK, 700);
-      txt(g, 'get on a call.', 44, t + 284, 58, INK, 700);
+      txt(g, P.L('See an', 'Je ziet een'), 44, t + 160, 58, INK, 700);
+      var hw = P.L('estimate', 'prijsindicatie');
+      txt(g, hw, 44, t + 222, 58, ORD, 700);
+      var hwW = g.measureText(hw).width;
+      g.fillStyle = OR; g.fillRect(44, t + 230, hwW, 6);
+      txt(g, P.L(' before we', ' al'), 44 + hwW, t + 222, 58, INK, 700);
+      txt(g, P.L('get on a call.', 'voordat we bellen.'), 44, t + 284, 58, INK, 700);
       bars(g, 44, t + 318, [420, 380, 300], 9, 11, '#d9dce1');
-      box(g, 44, t + 400, 190, 46, 9, OR); txt(g, 'Price my website →', 139, t + 429, 15, INK, 650, SANS, 'center');
+      box(g, 44, t + 400, 190, 46, 9, OR); txt(g, 'Get my estimate →', 139, t + 429, 15, INK, 650, SANS, 'center');
       stroke(g, 246, t + 400, 120, 46, 9, '#d6d8dd', 2); txt(g, 'Call now', 306, t + 429, 15, INK, 600, SANS, 'center');
       // estimate card
       box(g, 620, t + 120, 340, 300, 16, INK);
@@ -179,7 +181,7 @@
       var t = chrome(g, w, 'mail · inbox', false);
       g.fillStyle = GREY; g.fillRect(0, t, 260, h - t);
       ['Inbox', 'Starred', 'Sent'].forEach(function (s, i) { txt(g, s, 30, t + 50 + i * 40, 16, i ? MUTED : INK, i ? 500 : 700); });
-      txt(g, 'Your fixed quote and launch date', 300, t + 70, 26, INK, 700);
+      txt(g, 'Your quote and launch date', 300, t + 70, 26, INK, 700);
       txt(g, 'Ace 360 Services · hello@ace360services.nl', 300, t + 102, 14, MUTED, 500);
       bars(g, 300, t + 140, [600, 560, 480], 10, 14, '#dfe2e6');
       box(g, 300, t + 230, 360, 120, 12, GREY); stroke(g, 300, t + 230, 360, 120, 12, LINE, 2);
@@ -415,15 +417,15 @@
     }
     if (key.indexOf('work-') === 0) { P.phone(g, w, h, key.slice(5), title); return; }
     circle(g, 34, 80, 9, OR); txt(g, 'Ace 360', 52, 87, 18, fg, 700);
-    txt(g, 'You know the', 24, 200, 34, fg, 700); txt(g, 'price', 24, 242, 34, ORD, 700); txt(g, 'before we call.', 24, 284, 34, fg, 700);
-    box(g, 24, 320, w - 48, 52, 10, OR); txt(g, 'Price my website →', w / 2, 352, 17, INK, 700, SANS, 'center');
+    txt(g, P.L('See an', 'Je ziet een'), 24, 200, 34, fg, 700); txt(g, P.L('estimate', 'prijsindicatie'), 24, 242, 34, ORD, 700); txt(g, 'before we call.', 24, 284, 34, fg, 700);
+    box(g, 24, 320, w - 48, 52, 10, OR); txt(g, 'Get my estimate →', w / 2, 352, 17, INK, 700, SANS, 'center');
     box(g, 24, 400, w - 48, 200, 16, INK); txt(g, '€1,200 – €1,600', 44, 460, 26, '#ffffff', 700); g.fillStyle = OR; g.fillRect(44, 474, 40, 4);
   }
 
   /* ---------- floating website cards ---------- */
   var CARD_W = 1.0, CARD_H = 0.62;
   var CARDS = [
-    function (g, w, h) { txt(g, 'FIXED QUOTE', 34, 70, 22, MUTED, 600, MONO); txt(g, '€2,240', 34, 170, 92, INK, 750); g.fillStyle = OR; g.fillRect(34, 196, 90, 8); txt(g, 'Launch · 28 May', 34, 260, 26, MUTED, 500); },
+    function (g, w, h) { txt(g, 'ESTIMATE', 34, 70, 22, MUTED, 600, MONO); txt(g, '€2,240', 34, 170, 92, INK, 750); g.fillStyle = OR; g.fillRect(34, 196, 90, 8); txt(g, 'Launch · 28 May', 34, 260, 26, MUTED, 500); },
     function (g, w, h) { box(g, 34, 90, w - 68, 120, 18, OR); txt(g, 'Pay with iDEAL', w / 2, 168, 42, INK, 750, SANS, 'center'); txt(g, 'Checkout · Mollie', w / 2, 260, 24, MUTED, 500, SANS, 'center'); },
     function (g, w, h) { txt(g, '★★★★★', 34, 100, 50, OR, 700); txt(g, '“Live in three weeks,', 34, 170, 32, INK, 600); txt(g, 'exactly as quoted.”', 34, 214, 32, INK, 600); },
     function (g, w, h) { circle(g, 58, 90, 18, OR); txt(g, 'yourbrand', 90, 100, 30, INK, 700); bars(g, 34, 160, [300, 380, 240], 16, 18, '#dfe2e6'); },
@@ -1018,7 +1020,7 @@
   var hv = { laptop: 0, phone: 0, mug: 0, notebook: 0, notes: 0, notify: 0, lamp: 0 };
   var telLink = document.querySelector('a[href^="tel:"]');
   var PICK = {
-    laptop: { en: 'Price my website', nl: 'Bereken mijn prijs', href: '#prijs' },
+    laptop: { en: 'Get my estimate', nl: 'Bekijk mijn prijsindicatie', href: '#prijs' },
     phone: { en: 'Call now', nl: 'Bel nu', href: telLink ? telLink.getAttribute('href') : '#contact' },
     mug: { en: 'Coffee and a chat? Get in touch', nl: 'Koffie en een praatje? Neem contact op', href: '#contact' },
     notebook: { en: 'See how a project runs', nl: 'Zo verloopt een project', href: '#werkwijze' },

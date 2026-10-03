@@ -17,12 +17,13 @@ function ace360_defaults() {
 		'phone'    => '+31 6 17 85 84 90',
 		'whatsapp' => '31617858490',
 		'email'        => 'hello@ace360services.nl',
-		'hours_en'     => 'Calls Mon–Fri 15:30–16:30 and 17:30–19:00, Sat–Sun 09:00–13:30 (Amsterdam time)',
-		'hours_nl'     => 'Bellen ma–vr 15:30–16:30 en 17:30–19:00, za–zo 09:00–13:30',
+		'hours_en'     => 'Calls Mon–Fri 15:30–16:30 and 17:30–19:00, Sat 09:00–13:30 (Amsterdam time)',
+		'hours_nl'     => 'Bellen ma–vr 15:30–16:30 en 17:30–19:00, za 09:00–13:30',
 		'kvk'          => '94618240',
 		'btw'          => '',
 		'book_weekday' => '15:30-16:30, 17:30-19:00',
-		'book_weekend' => '09:00-13:30',
+		'book_saturday' => '09:00-13:30',
+		'book_sunday'  => '',
 		'book_length'  => '20',
 		'book_step'    => '30',
 		'book_notice'  => '12',
@@ -65,11 +66,12 @@ function ace360_book_windows( $text ) {
  */
 function ace360_book_rules() {
 	$weekday = ace360_book_windows( ace360_mod( 'book_weekday' ) );
-	$weekend = ace360_book_windows( ace360_mod( 'book_weekend' ) );
+	$sat     = ace360_book_windows( ace360_mod( 'book_saturday' ) );
+	$sun     = ace360_book_windows( ace360_mod( 'book_sunday' ) );
 	preg_match_all( '/\d{4}-\d{2}-\d{2}/', ace360_mod( 'book_off' ), $off );
 	return array(
 		'tz'     => ace360_book_tz(),
-		'week'   => array( $weekend, $weekday, $weekday, $weekday, $weekday, $weekday, $weekend ),
+		'week'   => array( $sun, $weekday, $weekday, $weekday, $weekday, $weekday, $sat ),
 		'len'    => max( 5, min( 240, (int) ace360_mod( 'book_length' ) ) ),
 		'step'   => max( 5, min( 240, (int) ace360_mod( 'book_step' ) ) ),
 		'notice' => max( 0, min( 720, (int) ace360_mod( 'book_notice' ) ) ),

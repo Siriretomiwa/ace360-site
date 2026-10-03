@@ -46,7 +46,8 @@ function ace360_customize_register( $wp_customize ) {
 	);
 	$booking = array(
 		'book_weekday' => array( __( 'Free for calls, Monday to Friday', 'ace360' ), 'text', __( 'Time windows, e.g. 15:30-16:30, 17:30-19:00', 'ace360' ) ),
-		'book_weekend' => array( __( 'Free for calls, Saturday and Sunday', 'ace360' ), 'text', __( 'e.g. 09:00-13:30. Leave empty for no weekend calls.', 'ace360' ) ),
+		'book_saturday' => array( __( 'Free for calls, Saturday', 'ace360' ), 'text', __( 'e.g. 09:00-13:30. Leave empty for no calls on Saturday.', 'ace360' ) ),
+		'book_sunday'  => array( __( 'Free for calls, Sunday', 'ace360' ), 'text', __( 'Empty means no calls on Sunday.', 'ace360' ) ),
 		'book_length'  => array( __( 'Call length (minutes)', 'ace360' ), 'number', '' ),
 		'book_step'    => array( __( 'Start a call every … minutes', 'ace360' ), 'number', __( '30 gives 15:30, 16:00, …', 'ace360' ) ),
 		'book_notice'  => array( __( 'Minimum notice (hours)', 'ace360' ), 'number', __( 'Nobody can book a call sooner than this.', 'ace360' ) ),

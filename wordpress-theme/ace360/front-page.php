@@ -118,7 +118,7 @@ $ace360_screens = array( 'call', 'quote', 'design', 'build', 'live' );
 					<?php endforeach; ?>
 				</ol>
 				<div class="actions">
-					<a class="btn btn-orange" href="#prijs"><?php ace360_e( ace360_pair( 'What would mine cost?', 'Wat kost de mijne?' ) ); ?> <span aria-hidden="true">→</span></a>
+					<a class="btn btn-orange" href="#prijs"><?php ace360_e( ace360_pair( 'What could mine cost?', 'Wat kan de mijne kosten?' ) ); ?> <span aria-hidden="true">→</span></a>
 				</div>
 			</div>
 		</div>
@@ -131,7 +131,7 @@ $ace360_screens = array( 'call', 'quote', 'design', 'build', 'live' );
 			<div class="copy" data-try>
 				<p class="kicker"><?php ace360_e( ace360_pair( 'Try it now', 'Probeer het nu' ) ); ?></p>
 				<h2><?php echo ace360_hl( ace360_pair( 'Build a homepage in *one* tap', 'Bouw een homepage in *één* tik' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></h2>
-				<p class="lede"><?php ace360_e( ace360_pair( 'Pick a business and a mood. Watch the site on the laptop take itself apart and rebuild, then see what a site like that costs.', 'Kies een bedrijf en een sfeer. Zie de site op de laptop uit elkaar vallen en opnieuw opbouwen, en zie wat zo’n site kost.' ) ); ?></p>
+				<p class="lede"><?php ace360_e( ace360_pair( 'Pick a business and a mood. Watch the site on the laptop take itself apart and rebuild, then see an estimate of what a site like that could cost.', 'Kies een bedrijf en een sfeer. Zie de site op de laptop uit elkaar vallen en opnieuw opbouwen, en zie wat zo’n site ongeveer kost.' ) ); ?></p>
 				<fieldset class="try-set">
 					<legend class="mono"><?php ace360_e( ace360_pair( 'Which business?', 'Welk bedrijf?' ) ); ?></legend>
 					<div class="chips">
@@ -150,12 +150,12 @@ $ace360_screens = array( 'call', 'quote', 'design', 'build', 'live' );
 					</div>
 				</fieldset>
 				<div class="try-out" aria-live="polite">
-					<p class="try-price"><span class="mono"><?php ace360_e( ace360_pair( 'A site like this', 'Zo’n site' ) ); ?></span> <b data-try-price>—</b></p>
+					<p class="try-price"><span class="mono"><?php ace360_e( ace360_pair( 'Estimate for a site like this', 'Indicatie voor zo’n site' ) ); ?></span> <b data-try-price>—</b></p>
 					<p class="try-date mono" data-try-date></p>
 				</div>
 				<div class="actions">
 					<button type="button" class="btn btn-orange" data-try-build><?php ace360_e( ace360_pair( 'Build it again', 'Bouw opnieuw' ) ); ?> <span aria-hidden="true">↻</span></button>
-					<a class="btn btn-line" href="#prijs" data-try-use><?php ace360_e( ace360_pair( 'Price mine like this', 'Bereken de mijne zo' ) ); ?></a>
+					<a class="btn btn-line" href="#prijs" data-try-use><?php ace360_e( ace360_pair( 'Estimate mine like this', 'Bereken de mijne zo' ) ); ?></a>
 				</div>
 			</div>
 		</div>
@@ -186,9 +186,9 @@ $ace360_screens = array( 'call', 'quote', 'design', 'build', 'live' );
 	<section class="ch quote-ch" id="prijs" data-k="quote" data-screen="quote">
 		<div class="wrap">
 			<div class="copy copy-quote">
-				<p class="kicker"><?php ace360_e( ace360_pair( 'Self-quote', 'Zelf berekenen' ) ); ?></p>
-				<h2><?php echo ace360_hl( ace360_pair( 'What will *your* website cost?', 'Wat kost *jouw* website?' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></h2>
-				<p class="lede"><?php ace360_e( ace360_pair( 'Pick what you need and watch the quote on the desk change. The same range I would give you on the phone.', 'Kies wat je nodig hebt en zie de offerte op het bureau meteen veranderen. Dezelfde bandbreedte die ik je aan de telefoon zou geven.' ) ); ?></p>
+				<p class="kicker"><?php ace360_e( ace360_pair( 'Estimate', 'Prijsindicatie' ) ); ?></p>
+				<h2><?php echo ace360_hl( ace360_pair( 'What could *your* website cost?', 'Wat kan *jouw* website kosten?' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></h2>
+				<p class="lede"><?php ace360_e( ace360_pair( 'Pick what you need and watch the estimate on the desk change. A realistic range to start from; the final price follows after our call.', 'Kies wat je nodig hebt en zie de indicatie op het bureau meteen veranderen. Een realistische bandbreedte om mee te beginnen; de definitieve prijs volgt na ons gesprek.' ) ); ?></p>
 				<?php get_template_part( 'template-parts/estimator' ); ?>
 			</div>
 		</div>
@@ -339,7 +339,7 @@ $ace360_screens = array( 'call', 'quote', 'design', 'build', 'live' );
 					</li>
 				<?php endforeach; ?>
 			</ul>
-			<p class="all-work-cta"><?php ace360_e( ace360_pair( 'Your business not in the list?', 'Staat jouw soort bedrijf er niet bij?' ) ); ?> <a class="arrow-link" href="#prijs"><?php ace360_e( ace360_pair( 'Price your website', 'Bereken je prijs' ) ); ?> <span aria-hidden="true">→</span></a></p>
+			<p class="all-work-cta"><?php ace360_e( ace360_pair( 'Your business not in the list?', 'Staat jouw soort bedrijf er niet bij?' ) ); ?> <a class="arrow-link" href="#prijs"><?php ace360_e( ace360_pair( 'Estimate your website', 'Bekijk je prijsindicatie' ) ); ?> <span aria-hidden="true">→</span></a></p>
 		</div>
 		<dialog class="work-dialog" aria-labelledby="work-dialog-title">
 			<div class="work-dialog-inner">

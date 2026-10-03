@@ -32,16 +32,16 @@ function ace360_pair( $en, $nl ) {
 function ace360_hero() {
 	return array(
 		'kicker'  => ace360_pair( 'Web design and digital growth · Netherlands & worldwide', 'Webdesign en digitale groei · Nederland & wereldwijd' ),
-		'title'   => ace360_pair( 'You know the *price* before we get on a call.', 'Je weet de *prijs* al voordat we bellen.' ),
+		'title'   => ace360_pair( 'See an *estimate* before we get on a call.', 'Je ziet een *prijsindicatie* al voordat we bellen.' ),
 		'text'    => ace360_pair(
-			'Ace 360 Services builds websites and online stores for businesses in the Netherlands and abroad. Fixed price up front, a launch date that holds, and one person to talk to. No account manager, no surprise invoice at the end.',
-			'Ace 360 Services bouwt websites en webshops voor bedrijven in Nederland en daarbuiten. Vaste prijs vooraf, een lanceerdatum die klopt en één aanspreekpunt. Geen accountmanager, geen verrassingsfactuur achteraf.'
+			'Ace 360 Services builds websites and online stores for businesses in the Netherlands and abroad. An honest estimate up front, a launch date that holds, and one person to talk to. No account manager, no surprise invoice at the end.',
+			'Ace 360 Services bouwt websites en webshops voor bedrijven in Nederland en daarbuiten. Vooraf een eerlijke prijsindicatie, een lanceerdatum die klopt en één aanspreekpunt. Geen accountmanager, geen verrassingsfactuur achteraf.'
 		),
-		'quote'   => ace360_pair( 'Price my website', 'Bereken mijn prijs' ),
+		'quote'   => ace360_pair( 'Get my estimate', 'Bekijk mijn prijsindicatie' ),
 		'call'    => ace360_pair( 'Book a free call', 'Plan een gratis gesprek' ),
 		'bullets' => array(
 			ace360_pair( 'Reply within 1 working day', 'Antwoord binnen 1 werkdag' ),
-			ace360_pair( 'Fixed price, no overruns billed', 'Vaste prijs, geen meerwerk achteraf' ),
+			ace360_pair( 'Estimate online, final price agreed before we start', 'Online indicatie, de prijs staat vast vóór we beginnen' ),
 			ace360_pair( 'Domain and site stay yours', 'Domein en site blijven van jou' ),
 			ace360_pair( 'English or Dutch, wherever you are', 'Nederlands of Engels, waar je ook zit' ),
 		),
@@ -61,7 +61,7 @@ function ace360_services() {
 				'From a one-pager to a site with job listings, forms and a booking page. Built in WordPress, so you can get into it yourself without calling me.',
 				'Van one-pager tot site met vacatures, formulieren en een boekingspagina. Gebouwd in WordPress, zodat je er zelf in kunt zonder mij te bellen.'
 			),
-			'price' => ace360_pair( 'from €550', 'vanaf € 550' ),
+			'price' => ace360_pair( 'est. from €550', 'indicatie vanaf € 550' ),
 		),
 		array(
 			'icon'  => 'store',
@@ -71,7 +71,7 @@ function ace360_services() {
 				'WooCommerce or Shopify, with iDEAL and the rest of Mollie wired up. Stock, shipping rules and VAT set correctly before you go live.',
 				'WooCommerce of Shopify, met iDEAL en de rest van Mollie gekoppeld. Voorraad, verzendregels en btw goed ingesteld voordat je live gaat.'
 			),
-			'price' => ace360_pair( 'from €2,900', 'vanaf € 2.900' ),
+			'price' => ace360_pair( 'est. from €2,900', 'indicatie vanaf € 2.900' ),
 		),
 		array(
 			'icon'  => 'care',
@@ -81,7 +81,7 @@ function ace360_services() {
 				'Updates, backups, security and small changes. Every month you get a short summary of what was done. Cancel any month.',
 				'Updates, back-ups, beveiliging en kleine aanpassingen. Elke maand krijg je een kort overzicht van wat er is gedaan. Maandelijks opzegbaar.'
 			),
-			'price' => ace360_pair( '€95 per month', '€ 95 per maand' ),
+			'price' => ace360_pair( 'est. €95 per month', 'indicatie € 95 per maand' ),
 		),
 		array(
 			'icon'  => 'grow',
@@ -102,7 +102,7 @@ function ace360_services() {
 function ace360_process() {
 	return array(
 		array( ace360_pair( 'First call', 'Kennismaking' ), ace360_pair( 'Day 1', 'Dag 1' ), ace360_pair( 'Twenty minutes. I ask what the site has to bring in, not what colour it should be.', 'Twintig minuten. Ik vraag wat de site moet opleveren, niet welke kleur hij moet hebben.' ) ),
-		array( ace360_pair( 'Fixed quote', 'Vaste offerte' ), ace360_pair( 'Within 2 days', 'Binnen 2 dagen' ), ace360_pair( 'You get a price, a launch date and a list of what is and is not included. On one page.', 'Je krijgt een prijs, een lanceerdatum en een lijst van wat wel en niet is inbegrepen. Op één pagina.' ) ),
+		array( ace360_pair( 'Your quote', 'Jouw offerte' ), ace360_pair( 'Within 2 days', 'Binnen 2 dagen' ), ace360_pair( 'After the call you get the final price, a launch date and a list of what is and is not included. On one page.', 'Na het gesprek krijg je de definitieve prijs, een lanceerdatum en een lijst van wat wel en niet is inbegrepen. Op één pagina.' ) ),
 		array( ace360_pair( 'Design', 'Ontwerp' ), ace360_pair( 'Week 1', 'Week 1' ), ace360_pair( 'You see the layout before anything gets built. Two rounds of feedback are included.', 'Je ziet de opzet voordat er iets gebouwd wordt. Twee feedbackrondes zijn inbegrepen.' ) ),
 		array( ace360_pair( 'Build', 'Bouw' ), ace360_pair( 'Week 2–3', 'Week 2–3' ), ace360_pair( 'I build on a staging site you can watch. Text and images get filled in as we go.', 'Ik bouw op een testomgeving waar je kunt meekijken. Tekst en beeld vullen we gaandeweg in.' ) ),
 		array( ace360_pair( 'Launch and handover', 'Lancering en overdracht' ), ace360_pair( 'Launch', 'Lancering' ), ace360_pair( 'The site goes live, you get the logins and a walkthrough. After that you can run it yourself.', 'De site gaat live, je krijgt de inloggegevens en een rondleiding. Daarna kun je hem zelf beheren.' ) ),
@@ -486,8 +486,8 @@ function ace360_faq() {
 			ace360_pair( 'Yes. I work fully remote and in English with clients across the EU and beyond. Calls are planned around your time zone and quotes are in euros. EU businesses with a VAT number are invoiced with VAT reverse-charged; outside the EU no Dutch VAT is charged.', 'Ja. Ik werk volledig op afstand en in het Engels met klanten in de EU en daarbuiten. Gesprekken plan ik rond jouw tijdzone en offertes zijn in euro’s. EU-bedrijven met een btw-nummer factureer ik met btw verlegd; buiten de EU reken ik geen Nederlandse btw.' ),
 		),
 		array(
-			ace360_pair( 'Why are the prices on the site?', 'Waarom staan de prijzen op de site?' ),
-			ace360_pair( 'Because otherwise you have to request three quotes just to find out whether you are in the right bracket. That costs you a week. The estimator above gives the same range I would give you on the phone.', 'Omdat je anders drie offertes moet aanvragen om te weten of je in de goede prijsklasse zit. Dat kost je een week. De prijsberekening hierboven geeft dezelfde bandbreedte die ik je aan de telefoon zou geven.' ),
+			ace360_pair( 'Are the prices on the site final?', 'Zijn de prijzen op de site definitief?' ),
+			ace360_pair( 'No, they are estimates, based on comparable projects. They show whether you are in the right bracket without requesting three quotes first. What your site really costs depends on the details, so the final price follows after a short call, in writing, before anything gets built.', 'Nee, het zijn prijsindicaties op basis van vergelijkbare projecten. Je ziet zo of je in de goede prijsklasse zit, zonder eerst drie offertes aan te vragen. Wat jouw site echt kost hangt af van de details, dus de definitieve prijs volgt na een kort gesprek, op papier, voordat er iets gebouwd wordt.' ),
 		),
 		array(
 			ace360_pair( 'What happens if it runs late?', 'Wat als het uitloopt?' ),

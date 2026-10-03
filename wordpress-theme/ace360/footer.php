@@ -12,7 +12,7 @@ $ace360_btw = ace360_mod( 'btw' );
 	<div class="footer-inner">
 		<div class="footer-brand">
 			<?php echo ace360_wordmark(); // phpcs:ignore WordPress.Security.EscapeOutput -- static markup. ?>
-			<p><?php ace360_e( ace360_pair( 'Websites, online stores and maintenance for businesses in the Netherlands and abroad. Fixed price, fixed launch date, one person to talk to.', 'Websites, webshops en onderhoud voor bedrijven in Nederland en daarbuiten. Vaste prijs, vaste lanceerdatum, één aanspreekpunt.' ) ); ?></p>
+			<p><?php ace360_e( ace360_pair( 'Websites, online stores and maintenance for businesses in the Netherlands and abroad. A clear estimate up front, a fixed launch date, one person to talk to.', 'Websites, webshops en onderhoud voor bedrijven in Nederland en daarbuiten. Vooraf een duidelijke prijsindicatie, een vaste lanceerdatum, één aanspreekpunt.' ) ); ?></p>
 		</div>
 		<div class="footer-col">
 			<p class="label"><?php ace360_e( ace360_pair( 'Direct', 'Direct' ) ); ?></p>
