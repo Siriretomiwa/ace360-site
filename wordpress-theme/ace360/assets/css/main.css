@@ -801,7 +801,7 @@ html:not(.js) .contact-tabs { display: none; }
 
 /* ---------- Footer ---------- */
 .site-footer { background: var(--grey); border-top: 1px solid var(--line); }
-.footer-inner { max-width: var(--max); margin-inline: auto; padding: clamp(56px, 7vw, 88px) var(--gutter) 36px; display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); gap: 40px; }
+.footer-inner { max-width: var(--max); margin-inline: auto; padding: clamp(56px, 7vw, 88px) var(--gutter) 36px; display: grid; grid-template-columns: minmax(0, 1.3fr) repeat(4, minmax(0, 1fr)); gap: 36px; }
 .footer-brand { display: grid; gap: 16px; align-content: start; max-width: 30rem; }
 .footer-brand p { color: var(--muted); font-size: 0.95rem; }
 .footer-col { display: grid; gap: 12px; align-content: start; min-width: 0; overflow-wrap: anywhere; }
@@ -886,3 +886,38 @@ html:not(.js) .contact-tabs { display: none; }
   .landing-body { grid-template-columns: 1fr; }
   .landing-hero .checks { grid-template-columns: 1fr; }
 }
+.landing-process { padding-bottom: clamp(56px, 7vw, 96px); }
+.process-list { display: grid; border-top: 1px solid var(--line); }
+.process-list li { display: grid; grid-template-columns: 3.2rem minmax(0, 1fr); gap: 16px; padding: 22px 0; border-bottom: 1px solid var(--line); }
+.process-n { color: var(--orange-ink); font-weight: 700; font-size: 1rem; padding-top: 4px; }
+.process-list h2 { font-size: clamp(1.4rem, 2.4vw, 2rem); display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline; }
+.process-list h2 .mono { font-size: 0.8rem; letter-spacing: 0.04em; font-weight: 600; }
+.process-list p { color: var(--ink-2); max-width: 64ch; margin-top: 6px; line-height: 1.6; }
+@media (min-width: 761px) and (max-width: 1100px) { .footer-inner { grid-template-columns: repeat(3, minmax(0, 1fr)); } .footer-brand { grid-column: 1 / -1; } }
+
+/* ---------- Blog (blog.php, single.php) ---------- */
+.blog-index .page-head h1 { max-width: 18ch; }
+.blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: clamp(28px, 3vw, 44px) clamp(16px, 2vw, 28px); }
+.blog-card a { display: grid; gap: 10px; text-decoration: none; }
+.blog-thumb { display: block; aspect-ratio: 1200 / 630; overflow: hidden; border-radius: 12px; border: 1px solid var(--line); background: var(--grey-2); }
+.blog-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--ease); }
+.blog-card a:hover .blog-thumb img { transform: scale(1.03); }
+.blog-meta { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+.blog-title { font-size: 1.2rem; font-weight: 650; letter-spacing: -0.02em; line-height: 1.25; }
+.blog-card a:hover .blog-title { color: var(--orange-ink); }
+.blog-excerpt { color: var(--muted); font-size: 0.95rem; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.entry .page-head { max-width: 50rem; }
+.entry .page-head .lede { max-width: 60ch; }
+.entry-media { max-width: 68ch; }
+.prose { font-size: 1.06rem; line-height: 1.7; color: var(--ink-2); }
+.prose h2, .prose h3 { color: var(--ink); line-height: 1.2; }
+.prose li + li { margin-top: 0.4em; }
+.prose table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+.prose th, .prose td { text-align: left; padding: 10px 12px 10px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+.prose th { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.post-cta { max-width: 68ch; margin-top: clamp(40px, 6vw, 64px); padding: clamp(22px, 3vw, 32px); display: grid; gap: 12px; border: 1px solid var(--line); border-radius: 18px; background: var(--grey); }
+.post-cta-title { font-size: clamp(1.4rem, 2.4vw, 1.8rem); font-weight: 650; letter-spacing: -0.03em; line-height: 1.15; }
+.post-cta p:not(.kicker):not(.post-cta-title) { color: var(--muted); }
+.post-more { max-width: 68ch; margin-top: 36px; display: grid; gap: 10px; }
+.post-more p { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+.post-more ul { display: grid; gap: 8px; }

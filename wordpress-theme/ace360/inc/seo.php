@@ -54,9 +54,18 @@ function ace360_seo_meta() {
 		$m['desc']  = $en
 			? 'Websites, online stores and booking sites for shops, salons, restaurants, charities and platforms. Filter by sector and open any project.'
 			: 'Websites, webshops en boekingssites voor winkels, salons, restaurants, goede doelen en platforms. Filter op sector en bekijk elk project van dichtbij.';
+	} elseif ( ace360_is_blog() ) {
+		$m['title'] = $en ? 'Blog: practical website tips for business owners | Ace 360' : 'Blog: praktische websitetips voor ondernemers | Ace 360';
+		$m['desc']  = $en
+			? 'Short, practical articles about websites, online stores, booking and being found on Google, for businesses in the Netherlands.'
+			: 'Korte, praktische artikelen over websites, webshops, online boeken en gevonden worden in Google. Voor ondernemers, niet voor programmeurs.';
 	} elseif ( is_singular() ) {
 		$post       = get_queried_object();
-		$m['desc']  = $post ? wp_trim_words( wp_strip_all_tags( has_excerpt( $post ) ? get_the_excerpt( $post ) : strip_shortcodes( $post->post_content ) ), 28, '…' ) : '';
+		if ( $post && 'post' === $post->post_type ) {
+			$t          = get_the_title( $post );
+			$m['title'] = mb_strlen( $t ) <= 54 ? $t . ' | Ace 360' : $t;
+		}
+		$m['desc']  = $post ? ace360_trim_chars( wp_strip_all_tags( has_excerpt( $post ) ? get_the_excerpt( $post ) : strip_shortcodes( $post->post_content ) ), 155 ) : '';
 		$m['url']   = wp_get_canonical_url();
 		$m['type']  = 'article';
 		return $m;
@@ -69,6 +78,23 @@ function ace360_seo_meta() {
 		'en' => ace360_alt_url( 'en' ),
 	);
 	return $m;
+}
+
+/**
+ * Shorten text to at most $max characters at a word boundary (search result descriptions).
+ *
+ * @param string $text Text.
+ * @param int    $max  Characters.
+ * @return string
+ */
+function ace360_trim_chars( $text, $max ) {
+	$text = trim( preg_replace( '/\s+/', ' ', $text ) );
+	if ( mb_strlen( $text ) <= $max ) {
+		return $text;
+	}
+	$cut = mb_substr( $text, 0, $max - 1 );
+	$cut = preg_replace( '/[\s,;:.\-–]+\S*$/u', '', $cut );
+	return rtrim( $cut, ' ,;:' ) . '…';
 }
 
 /**
@@ -272,6 +298,36 @@ function ace360_seo_graph( $m ) {
 		'publisher'  => array( '@id' => $biz ),
 	);
 
+	if ( is_singular( 'post' ) ) {
+		$post    = get_queried_object();
+		$url     = get_permalink( $post );
+		$cats    = get_the_category( $post->ID );
+		$graph[] = array(
+			'@type'            => 'BlogPosting',
+			'@id'              => $url . '#article',
+			'mainEntityOfPage' => $url,
+			'headline'         => get_the_title( $post ),
+			'description'      => $m['desc'],
+			'image'            => ace360_seo_image(),
+			'datePublished'    => get_the_date( 'c', $post ),
+			'dateModified'     => get_the_modified_date( 'c', $post ),
+			'inLanguage'       => $en ? 'en' : 'nl-NL',
+			'wordCount'        => str_word_count( wp_strip_all_tags( $post->post_content ) ),
+			'articleSection'   => $cats ? $cats[0]->name : '',
+			'author'           => array( '@id' => $biz ),
+			'publisher'        => array( '@id' => $biz ),
+			'isPartOf'         => array( '@id' => $home . '#website' ),
+		);
+		$graph[] = array(
+			'@type'           => 'BreadcrumbList',
+			'itemListElement' => array(
+				array( '@type' => 'ListItem', 'position' => 1, 'name' => 'Ace 360 Services', 'item' => ace360_url( '/' ) ),
+				array( '@type' => 'ListItem', 'position' => 2, 'name' => 'Blog', 'item' => ace360_blog_url() ),
+				array( '@type' => 'ListItem', 'position' => 3, 'name' => get_the_title( $post ), 'item' => $url ),
+			),
+		);
+		return $graph;
+	}
 	if ( ! $m['url'] || is_singular() ) {
 		return $graph;
 	}
@@ -291,7 +347,8 @@ function ace360_seo_graph( $m ) {
 	$faq = array();
 	if ( $key ) {
 		$l     = ace360_landings()[ $key ];
-		$faq   = $l['faq'];
+		$show  = ace360_landing_blocks( $key );
+		$faq   = in_array( 'allfaq', $show, true ) ? ace360_all_faq() : ( in_array( 'faq', $show, true ) ? $l['faq'] : array() );
 		$page['breadcrumb'] = array( '@id' => $m['url'] . '#breadcrumb' );
 		$graph[] = array(
 			'@type'           => 'BreadcrumbList',

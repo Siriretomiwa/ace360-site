@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="nl-NL" data-lang="nl" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>
+/* Day/night theme before first paint. The language is the page's own (Dutch at /, English at /en/);
+   a visitor who picked English before is taken to the English version of this page. */
+(function (d) {
+	var l = null;
+	try { l = new URLSearchParams(location.search).get('lang'); } catch (e) {}
+	if (l !== 'nl' && l !== 'en') { try { l = localStorage.getItem('ace360-lang'); } catch (e) {} }
+	if (l !== 'nl' && l !== 'en') { l = 'nl'; }
+	d.setAttribute('data-lang', l);
+	d.setAttribute('lang', l);
+	d.className = d.className.replace('no-js', 'js');
+	/* Evening (night) first, like a lamp-lit desk; ?theme=day or the switch for daylight. */
+	var t = null;
+	try { t = new URLSearchParams(location.search).get('theme'); } catch (e) {}
+	if (t !== 'night' && t !== 'day') { try { t = localStorage.getItem('ace360-theme'); } catch (e) {} }
+	d.setAttribute('data-theme', t === 'day' ? 'day' : 'night');
+})(document.documentElement);
+</script>
+<title>iDEAL explained: taking payments from Dutch customers</title>
+<link rel="stylesheet" href="../ace360/assets/css/fonts.css">
+<link rel="stylesheet" href="../ace360/assets/css/main.css">
+<meta name="description" content="Ace 360 Services: websites, online stores and maintenance for businesses in the Netherlands and abroad. See an estimate online, fixed launch date.">
+</head>
+<body class="page">
+<a class="skip-link" href="#main"><span data-l="en" lang="en">Skip to content</span><span data-l="nl" lang="nl">Naar de inhoud</span></a>
+<div class="scroll-progress" aria-hidden="true"><span></span></div>
+
+<header class="site-header" id="top" data-header>
+	<div class="header-inner">
+		<a class="brand" href="index.html" rel="home" aria-label="Ace 360 Services">
+			<span class="wordmark" aria-hidden="true"><svg class="wordmark-ring" viewBox="0 0 32 32" width="26" height="26"><circle cx="16" cy="16" r="12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-dasharray="5.2 2.34"/><rect x="13" y="1.5" width="6" height="6" rx="1" fill="currentColor"/></svg><span class="wordmark-text">Ace 360<span class="wordmark-sub">Services</span></span></span>		</a>
+
+		<nav class="primary-nav" id="primary-nav" aria-label="Primary">
+			<ul class="menu"><li><a href="index.html#diensten"><span data-l="en" lang="en">Services</span><span data-l="nl" lang="nl">Diensten</span></a></li><li><a href="werkwijze.html"><span data-l="en" lang="en">Process</span><span data-l="nl" lang="nl">Werkwijze</span></a></li><li><a href="work.html"><span data-l="en" lang="en">Work</span><span data-l="nl" lang="nl">Werk</span></a></li><li><a href="blog.html">Blog</a></li><li><a href="veelgestelde-vragen.html"><span data-l="en" lang="en">Questions</span><span data-l="nl" lang="nl">Vragen</span></a></li></ul>			<a class="nav-phone" href="tel:+31617858490">+31 6 17 85 84 90</a>
+		</nav>
+
+		<div class="lang-switch" role="group" aria-label="Language / Taal"><button type="button" data-set-lang="nl" aria-pressed="true">NL</button><button type="button" data-set-lang="en" aria-pressed="false">EN</button></div>
+		<button class="theme-switch" type="button" data-theme-toggle aria-pressed="false">
+			<span class="screen-reader-text"><span data-l="en" lang="en">Night mode</span><span data-l="nl" lang="nl">Nachtmodus</span></span>
+			<span class="theme-knob" aria-hidden="true">
+				<svg class="ico-sun" viewBox="0 0 24 24" width="14" height="14"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></g></svg>
+				<svg class="ico-moon" viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M20.2 14.6A8.5 8.5 0 0 1 9.4 3.8a8.5 8.5 0 1 0 10.8 10.8z"/></svg>
+			</span>
+		</button>
+
+		<a class="btn btn-orange btn-small" href="index.html#book"><span data-l="en" lang="en">Book a call</span><span data-l="nl" lang="nl">Plan een gesprek</span></a>
+
+		<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+			<span class="screen-reader-text">Menu</span>
+			<span class="nav-toggle-bars" aria-hidden="true"></span>
+		</button>
+	</div>
+</header>
+<a class="btn btn-orange fab-call" href="index.html#book"><span data-l="en" lang="en">Book a call</span><span data-l="nl" lang="nl">Plan een gesprek</span></a>
+<main id="main" class="site-main page-shell"><article class="wrap entry"><header class="page-head"><nav class="crumbs mono"><a href="index.html">Ace 360</a> <span>/</span> <a href="blog.html">Blog</a></nav><p class="eyebrow">Online stores · 2 min read</p><h1 class="display h1">iDEAL explained: taking payments from Dutch customers</h1><p class="lede">iDEAL is how Dutch customers expect to pay online. What it is, how to add it to WooCommerce or Shopify, what the move to Wero means, and the checkout mistakes that cost international stores Dutch orders.</p></header><figure class="entry-media"><img src="../ace360/assets/img/blog/ideal-explained.jpg" alt=""></figure><div class="entry-content prose"><p>If you sell online to customers in the Netherlands, one payment method matters more than any other: <strong>iDEAL</strong>. Dutch shoppers use it to pay straight from their bank account, confirming the payment in their banking app. A store that only offers cards feels unfamiliar to many of them.</p>
+
+<h2>How iDEAL works for the customer</h2>
+<ol>
+<li>At checkout they choose iDEAL (and, depending on the setup, their bank).</li>
+<li>Their banking app opens, or they scan a QR code.</li>
+<li>They confirm the payment, and they are sent back to your store.</li>
+</ol>
+<p>The money comes from their bank account directly, so there is no card number to type and no credit check.</p>
+
+<h2>How you add it to your store</h2>
+<p>You do not connect to every Dutch bank yourself. You use a <strong>payment provider</strong> (PSP), such as Mollie, Stripe, Adyen or Buckaroo; on Shopify you can use Shopify Payments. The provider:</p>
+<ul>
+<li>checks your business when you sign up (company registration, ID, bank account);</li>
+<li>gives you a plugin or setting for WooCommerce or Shopify;</li>
+<li>pays out to your business bank account, usually within a few working days.</li>
+</ul>
+<p>The technical connection is often quick. The account check can take a few days, so apply well before launch.</p>
+
+<h2>Costs</h2>
+<p>iDEAL is usually charged per successful payment, often a fixed amount and typically lower than card fees. Each provider has its own prices, which change from time to time, so check their current pricing page.</p>
+
+<h2>iDEAL becomes Wero</h2>
+<p>iDEAL is being moved step by step into <strong>Wero</strong>, the payment system of the European Payments Initiative. Since January 2026 checkouts show a combined “iDEAL | Wero” logo, and the full move is planned to run until the end of 2027. For most stores the payment provider handles the change, so choose one that actively supports Wero and follow their updates.</p>
+
+<h2>Checkout mistakes that cost Dutch orders</h2>
+<ul>
+<li><strong>iDEAL hidden below the cards.</strong> For a Dutch audience it should be the first or most visible option.</li>
+<li><strong>Shipping costs shown only at the end.</strong> Show them in the cart.</li>
+<li><strong>Forced account creation.</strong> Let people check out as a guest.</li>
+<li><strong>Prices excluding VAT for consumers.</strong> Dutch consumers expect prices including VAT.</li>
+<li><strong>Never tested on a phone,</strong> including the jump to the banking app and back.</li>
+</ul>
+
+<h2>Rules for selling to consumers</h2>
+<p>Consumers in the EU generally have a 14-day right of withdrawal for online purchases, the total price including VAT and shipping must be clear before they pay, and the order button must make it clear they are committing to pay. <em>General information, not legal advice.</em></p>
+<p>Ace 360 sets up iDEAL, shipping rules and VAT, and tests them, before an <a href="webshop-laten-maken.html">online store</a> goes live, in WooCommerce or Shopify. Selling to consumers in the Netherlands for the first time? Start with our <a href="starting-a-business-netherlands-website.html">website checklist for new businesses</a>.</p></div><aside class="post-cta"><p class="kicker">Ace 360 Services</p><p class="post-cta-title">An online store that is ready to sell</p><p>An online store in WooCommerce or Shopify, with iDEAL, shipping and VAT set up correctly. See an estimate online, live in 3 to 5 weeks.</p><div class="actions"><a class="btn btn-orange" href="webshop-laten-maken.html">See an estimate <span aria-hidden="true">→</span></a></div></aside></article></main><footer class="site-footer">
+	<div class="footer-inner">
+		<div class="footer-brand">
+			<span class="wordmark" aria-hidden="true"><svg class="wordmark-ring" viewBox="0 0 32 32" width="26" height="26"><circle cx="16" cy="16" r="12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-dasharray="5.2 2.34"/><rect x="13" y="1.5" width="6" height="6" rx="1" fill="currentColor"/></svg><span class="wordmark-text">Ace 360<span class="wordmark-sub">Services</span></span></span>			<p><span data-l="en" lang="en">Websites, online stores and maintenance for businesses in the Netherlands and abroad. A clear estimate up front, a fixed launch date, one person to talk to.</span><span data-l="nl" lang="nl">Websites, webshops en onderhoud voor bedrijven in Nederland en daarbuiten. Vooraf een duidelijke prijsindicatie, een vaste lanceerdatum, één aanspreekpunt.</span></p>
+		</div>
+		<div class="footer-col">
+			<p class="label">Direct</p>
+			<ul>
+				<li><a href="tel:+31617858490"><span data-l="en" lang="en">Phone</span><span data-l="nl" lang="nl">Telefoon</span> · +31 6 17 85 84 90</a></li>
+				<li><a href="mailto:hello@ace360services.nl">hello@ace360services.nl</a></li>
+				<li><a href="https://wa.me/31617858490" rel="noopener" target="_blank">WhatsApp</a></li>
+				<li class="muted"><span data-l="en" lang="en">Calls Mon–Fri 15:30–16:30 and 17:30–19:00, Sat 09:00–13:30 (Amsterdam time)</span><span data-l="nl" lang="nl">Bellen ma–vr 15:30–16:30 en 17:30–19:00, za 09:00–13:30</span></li>
+			</ul>
+		</div>
+		<div class="footer-col">
+			<p class="label"><span data-l="en" lang="en">Services</span><span data-l="nl" lang="nl">Diensten</span></p>
+			<ul>
+									<li><a href="website-laten-maken.html"><span data-l="en" lang="en">Website build</span><span data-l="nl" lang="nl">Website laten maken</span></a></li>
+									<li><a href="webshop-laten-maken.html"><span data-l="en" lang="en">Online store</span><span data-l="nl" lang="nl">Webshop</span></a></li>
+									<li><a href="website-onderhoud.html"><span data-l="en" lang="en">Maintenance and care</span><span data-l="nl" lang="nl">Onderhoud</span></a></li>
+									<li><a href="seo-vindbaarheid.html"><span data-l="en" lang="en">Visibility and growth</span><span data-l="nl" lang="nl">Vindbaarheid en groei</span></a></li>
+							</ul>
+		</div>
+		<div class="footer-col">
+			<p class="label"><span data-l="en" lang="en">Popular</span><span data-l="nl" lang="nl">Populair</span></p>
+			<ul>
+									<li><a href="wat-kost-een-website.html"><span data-l="en" lang="en">Guide · website prices</span><span data-l="nl" lang="nl">Gids · website kosten</span></a></li>
+									<li><a href="one-page-website-laten-maken.html"><span data-l="en" lang="en">One-page website</span><span data-l="nl" lang="nl">One page website</span></a></li>
+									<li><a href="website-met-online-boeken.html"><span data-l="en" lang="en">Booking websites</span><span data-l="nl" lang="nl">Online afspraken</span></a></li>
+									<li><a href="werkwijze.html"><span data-l="en" lang="en">Process</span><span data-l="nl" lang="nl">Werkwijze</span></a></li>
+									<li><a href="veelgestelde-vragen.html"><span data-l="en" lang="en">Questions</span><span data-l="nl" lang="nl">Veelgestelde vragen</span></a></li>
+									<li><a href="over-ace-360.html"><span data-l="en" lang="en">About</span><span data-l="nl" lang="nl">Over Ace 360</span></a></li>
+									<li><a href="contact.html">Contact</a></li>
+								<li><a href="work.html"><span data-l="en" lang="en">All work</span><span data-l="nl" lang="nl">Al het werk</span></a></li>
+				<li><a href="blog.html">Blog</a></li>
+			</ul>
+		</div>
+		<div class="footer-col">
+			<p class="label"><span data-l="en" lang="en">For your business</span><span data-l="nl" lang="nl">Voor jouw branche</span></p>
+			<ul>
+									<li><a href="website-kapper-salon.html"><span data-l="en" lang="en">Websites for salons</span><span data-l="nl" lang="nl">Website voor kapper en salon</span></a></li>
+									<li><a href="website-restaurant.html"><span data-l="en" lang="en">Websites for restaurants</span><span data-l="nl" lang="nl">Website voor horeca</span></a></li>
+									<li><a href="website-praktijk-fysiotherapeut.html"><span data-l="en" lang="en">Websites for practices</span><span data-l="nl" lang="nl">Website voor praktijken</span></a></li>
+									<li><a href="website-aannemer-vakman.html"><span data-l="en" lang="en">Websites for trades</span><span data-l="nl" lang="nl">Website voor vakmensen</span></a></li>
+							</ul>
+		</div>
+	</div>
+	<div class="footer-bottom">
+		<p>&copy; 2026 Ace 360 Services · KvK 94618240</p>
+		<p><span data-l="en" lang="en">Based in the Netherlands · working worldwide · no tracking cookies</span><span data-l="nl" lang="nl">Gevestigd in Nederland · werkt wereldwijd · geen trackingcookies</span></p>
+		<a class="to-top" href="#top"><span data-l="en" lang="en">Back to top</span><span data-l="nl" lang="nl">Naar boven</span> &uarr;</a>
+	</div>
+</footer>
+<script src="../ace360/assets/vendor/gsap.min.js"></script>
+<script src="../ace360/assets/vendor/ScrollTrigger.min.js"></script>
+<script src="../ace360/assets/vendor/lenis.min.js"></script>
+<script>window.ACE360_PREVIEW = true;</script>
+<script src="../ace360/assets/js/screens.js"></script>
+<script src="../ace360/assets/js/main.js"></script>
+</body>
+</html>

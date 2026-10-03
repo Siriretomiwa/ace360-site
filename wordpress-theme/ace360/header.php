@@ -22,7 +22,7 @@
 	d.setAttribute('data-lang', l);
 	d.setAttribute('lang', l);
 <?php else : ?>
-	<?php $ace360_en_alt = 'nl' === ace360_lang() ? ace360_alt_url( 'en' ) : ''; ?>
+	<?php $ace360_en_alt = ( 'nl' === ace360_lang() && ! is_singular() ) ? ace360_alt_url( 'en' ) : ''; ?>
 	<?php if ( $ace360_en_alt ) : ?>
 	try { if (localStorage.getItem('ace360-lang') === 'en' && !/bot|crawl|spider/i.test(navigator.userAgent)) { location.replace(<?php echo wp_json_encode( $ace360_en_alt ); ?> + location.hash); } } catch (e) {}
 	<?php endif; ?>

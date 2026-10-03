@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="nl-NL" data-lang="nl" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>
+/* Day/night theme before first paint. The language is the page's own (Dutch at /, English at /en/);
+   a visitor who picked English before is taken to the English version of this page. */
+(function (d) {
+	var l = null;
+	try { l = new URLSearchParams(location.search).get('lang'); } catch (e) {}
+	if (l !== 'nl' && l !== 'en') { try { l = localStorage.getItem('ace360-lang'); } catch (e) {} }
+	if (l !== 'nl' && l !== 'en') { l = 'nl'; }
+	d.setAttribute('data-lang', l);
+	d.setAttribute('lang', l);
+	d.className = d.className.replace('no-js', 'js');
+	/* Evening (night) first, like a lamp-lit desk; ?theme=day or the switch for daylight. */
+	var t = null;
+	try { t = new URLSearchParams(location.search).get('theme'); } catch (e) {}
+	if (t !== 'night' && t !== 'day') { try { t = localStorage.getItem('ace360-theme'); } catch (e) {} }
+	d.setAttribute('data-theme', t === 'day' ? 'day' : 'night');
+})(document.documentElement);
+</script>
+<title>Veelgestelde vragen over websites, prijzen en onderhoud</title>
+<link rel="stylesheet" href="../ace360/assets/css/fonts.css">
+<link rel="stylesheet" href="../ace360/assets/css/main.css">
+<meta name="description" content="Ace 360 Services: websites, online stores and maintenance for businesses in the Netherlands and abroad. See an estimate online, fixed launch date.">
+</head>
+<body class="page">
+<a class="skip-link" href="#main"><span data-l="en" lang="en">Skip to content</span><span data-l="nl" lang="nl">Naar de inhoud</span></a>
+<div class="scroll-progress" aria-hidden="true"><span></span></div>
+
+<header class="site-header" id="top" data-header>
+	<div class="header-inner">
+		<a class="brand" href="index.html" rel="home" aria-label="Ace 360 Services">
+			<span class="wordmark" aria-hidden="true"><svg class="wordmark-ring" viewBox="0 0 32 32" width="26" height="26"><circle cx="16" cy="16" r="12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-dasharray="5.2 2.34"/><rect x="13" y="1.5" width="6" height="6" rx="1" fill="currentColor"/></svg><span class="wordmark-text">Ace 360<span class="wordmark-sub">Services</span></span></span>		</a>
+
+		<nav class="primary-nav" id="primary-nav" aria-label="Primary">
+			<ul class="menu"><li><a href="index.html#diensten"><span data-l="en" lang="en">Services</span><span data-l="nl" lang="nl">Diensten</span></a></li><li><a href="werkwijze.html"><span data-l="en" lang="en">Process</span><span data-l="nl" lang="nl">Werkwijze</span></a></li><li><a href="work.html"><span data-l="en" lang="en">Work</span><span data-l="nl" lang="nl">Werk</span></a></li><li><a href="blog.html">Blog</a></li><li><a href="veelgestelde-vragen.html"><span data-l="en" lang="en">Questions</span><span data-l="nl" lang="nl">Vragen</span></a></li></ul>			<a class="nav-phone" href="tel:+31617858490">+31 6 17 85 84 90</a>
+		</nav>
+
+		<div class="lang-switch" role="group" aria-label="Language / Taal"><button type="button" data-set-lang="nl" aria-pressed="true">NL</button><button type="button" data-set-lang="en" aria-pressed="false">EN</button></div>
+		<button class="theme-switch" type="button" data-theme-toggle aria-pressed="false">
+			<span class="screen-reader-text"><span data-l="en" lang="en">Night mode</span><span data-l="nl" lang="nl">Nachtmodus</span></span>
+			<span class="theme-knob" aria-hidden="true">
+				<svg class="ico-sun" viewBox="0 0 24 24" width="14" height="14"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></g></svg>
+				<svg class="ico-moon" viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M20.2 14.6A8.5 8.5 0 0 1 9.4 3.8a8.5 8.5 0 1 0 10.8 10.8z"/></svg>
+			</span>
+		</button>
+
+		<a class="btn btn-orange btn-small" href="#book"><span data-l="en" lang="en">Book a call</span><span data-l="nl" lang="nl">Plan een gesprek</span></a>
+
+		<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+			<span class="screen-reader-text">Menu</span>
+			<span class="nav-toggle-bars" aria-hidden="true"></span>
+		</button>
+	</div>
+</header>
+<a class="btn btn-orange fab-call" href="#book"><span data-l="en" lang="en">Book a call</span><span data-l="nl" lang="nl">Plan een gesprek</span></a>
+<main id="main" class="site-main landing">
+	<header class="wrap landing-hero">
+		<nav class="crumbs mono" aria-label="Kruimelpad">
+			<a href="index.html">Ace 360</a> <span aria-hidden="true">/</span> <span><span data-l="en" lang="en">Questions</span><span data-l="nl" lang="nl">Veelgestelde vragen</span></span>
+		</nav>
+		<p class="kicker"><span data-l="en" lang="en">Questions</span><span data-l="nl" lang="nl">Veelgestelde vragen</span></p>
+		<h1><span data-l="en" lang="en">What people ask <em class="hl">first</em></span><span data-l="nl" lang="nl">Wat mensen als <em class="hl">eerste</em> vragen</span></h1>
+		<p class="lede"><span data-l="en" lang="en">Every question that comes up on first calls, in one place. Something else? Call or send a WhatsApp, you get a straight answer.</span><span data-l="nl" lang="nl">Alle vragen die in kennismakingsgesprekken terugkomen, op één plek. Iets anders? Bel of stuur een WhatsApp, je krijgt een eerlijk antwoord.</span></p>
+				<div class="actions">
+							<a class="btn btn-orange" href="#book"><span data-l="en" lang="en">Book a free call</span><span data-l="nl" lang="nl">Plan een gratis gesprek</span> <span aria-hidden="true">→</span></a>
+				<a class="btn btn-line" href="wat-kost-een-website.html"><span data-l="en" lang="en">See prices</span><span data-l="nl" lang="nl">Bekijk de prijzen</span></a>
+					</div>
+		<ul class="checks">
+							<li><span data-l="en" lang="en">Reply within 1 working day</span><span data-l="nl" lang="nl">Antwoord binnen 1 werkdag</span></li>
+							<li><span data-l="en" lang="en">Estimate online, final price agreed before we start</span><span data-l="nl" lang="nl">Online indicatie, de prijs staat vast vóór we beginnen</span></li>
+							<li><span data-l="en" lang="en">Domain and site stay yours</span><span data-l="nl" lang="nl">Domein en site blijven van jou</span></li>
+							<li><span data-l="en" lang="en">English or Dutch, wherever you are</span><span data-l="nl" lang="nl">Nederlands of Engels, waar je ook zit</span></li>
+					</ul>
+	</header>
+
+	
+	
+	
+	<section class="wrap landing-faq">
+				<div class="faq-grid">
+			<div class="sec-head">
+				<p class="kicker"><span data-l="en" lang="en">Questions</span><span data-l="nl" lang="nl">Vragen</span></p>
+				<h2><span data-l="en" lang="en">What people <em class="hl">ask</em></span><span data-l="nl" lang="nl">Wat mensen <em class="hl">vragen</em></span></h2>
+			</div>
+			<div class="faq">
+									<details open>
+						<summary><span data-l="en" lang="en">I already have a design. Can you build it?</span><span data-l="nl" lang="nl">Ik heb al een ontwerp. Kun je dat bouwen?</span></summary>
+						<p><span data-l="en" lang="en">Yes, and it is usually the fastest route. Send it as Figma, XD or a PDF with the image files. I convert it to WordPress, sort out the theme, plugins and hosting, and put it live. A finished design normally saves a week.</span><span data-l="nl" lang="nl">Ja, en meestal is dat de snelste route. Stuur het als Figma, XD of pdf met de beeldbestanden. Ik zet het om naar WordPress, regel thema, plug-ins en hosting en zet het live. Een af ontwerp scheelt meestal een week.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">Can I edit the site myself afterwards?</span><span data-l="nl" lang="nl">Kan ik de site daarna zelf aanpassen?</span></summary>
+						<p><span data-l="en" lang="en">Yes. Everything you would normally want to change — text, photos, job listings, products — you can do yourself. At handover you get a half-hour walkthrough and a short guide. Prefer to hand it off? That falls under the maintenance plan.</span><span data-l="nl" lang="nl">Ja. Alles wat je normaal wilt aanpassen — tekst, foto’s, vacatures, producten — doe je zelf. Bij de overdracht krijg je een rondleiding van een half uur en een korte handleiding. Liever uitbesteden? Dat valt onder het onderhoudsplan.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">Who owns the domain, the hosting and the site?</span><span data-l="nl" lang="nl">Van wie zijn het domein, de hosting en de site?</span></summary>
+						<p><span data-l="en" lang="en">You do. Domain and hosting are registered in your name, not mine. You get every login. If you ever want to work with someone else, you take the whole thing with you.</span><span data-l="nl" lang="nl">Van jou. Domein en hosting staan op jouw naam, niet op de mijne. Je krijgt alle inloggegevens. Wil je ooit met iemand anders verder, dan neem je alles mee.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">I’m outside the Netherlands. Can we still work together?</span><span data-l="nl" lang="nl">Ik zit buiten Nederland. Kunnen we toch samenwerken?</span></summary>
+						<p><span data-l="en" lang="en">Yes. I work fully remote and in English with clients across the EU and beyond. Calls are planned around your time zone and quotes are in euros. EU businesses with a VAT number are invoiced with VAT reverse-charged; outside the EU no Dutch VAT is charged.</span><span data-l="nl" lang="nl">Ja. Ik werk volledig op afstand en in het Engels met klanten in de EU en daarbuiten. Gesprekken plan ik rond jouw tijdzone en offertes zijn in euro’s. EU-bedrijven met een btw-nummer factureer ik met btw verlegd; buiten de EU reken ik geen Nederlandse btw.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">Are the prices on the site final?</span><span data-l="nl" lang="nl">Zijn de prijzen op de site definitief?</span></summary>
+						<p><span data-l="en" lang="en">No, they are estimates, based on comparable projects. They show whether you are in the right bracket without requesting three quotes first. What your site really costs depends on the details, so the final price follows after a short call, in writing, before anything gets built.</span><span data-l="nl" lang="nl">Nee, het zijn prijsindicaties op basis van vergelijkbare projecten. Je ziet zo of je in de goede prijsklasse zit, zonder eerst drie offertes aan te vragen. Wat jouw site echt kost hangt af van de details, dus de definitieve prijs volgt na een kort gesprek, op papier, voordat er iets gebouwd wordt.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">What happens if it runs late?</span><span data-l="nl" lang="nl">Wat als het uitloopt?</span></summary>
+						<p><span data-l="en" lang="en">The launch date is in the quote. If it slips because of me, you do not pay extra. If it slips because text or images are not ready, we move the date together — and you hear that straight away, not afterwards.</span><span data-l="nl" lang="nl">De lanceerdatum staat in de offerte. Loopt het uit door mij, dan betaal je niets extra. Loopt het uit omdat tekst of beeld nog niet klaar is, dan verzetten we de datum samen — en dat hoor je meteen, niet achteraf.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">What is in the maintenance plan?</span><span data-l="nl" lang="nl">Wat zit er in het onderhoudsplan?</span></summary>
+						<p><span data-l="en" lang="en">WordPress and plugin updates, daily backups, security checks, monitoring and half an hour of small changes a month. You get a monthly summary. Cancel any month.</span><span data-l="nl" lang="nl">WordPress- en plug-in-updates, dagelijkse back-ups, beveiligingscontroles, monitoring en een half uur kleine aanpassingen per maand. Je krijgt een maandelijks overzicht. Maandelijks opzegbaar.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">How long does it take to build a website?</span><span data-l="nl" lang="nl">Hoe lang duurt het om een website te laten maken?</span></summary>
+						<p><span data-l="en" lang="en">A website of up to five pages usually goes live in 2 to 3 weeks after the design is approved. A one-pager takes 1 to 2 weeks. The launch date is in your quote.</span><span data-l="nl" lang="nl">Een website tot vijf pagina’s staat meestal 2 tot 3 weken na akkoord op het ontwerp live. Een one-pager duurt 1 tot 2 weken. De lanceerdatum staat in je offerte.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">Can I update the website myself?</span><span data-l="nl" lang="nl">Kan ik de website zelf aanpassen?</span></summary>
+						<p><span data-l="en" lang="en">Yes. It is built in WordPress, and you get a walkthrough and a short guide at handover. Text, photos, prices and job listings are yours to change.</span><span data-l="nl" lang="nl">Ja. De site is gebouwd in WordPress en bij de overdracht krijg je een rondleiding en een korte handleiding. Tekst, foto’s, prijzen en vacatures pas je zelf aan.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">Do you work with clients outside the Netherlands?</span><span data-l="nl" lang="nl">Werk je ook voor klanten buiten Nederland?</span></summary>
+						<p><span data-l="en" lang="en">Yes, fully remote. Calls are planned around your time zone and quotes are in euros. EU businesses with a VAT number are invoiced with VAT reverse-charged.</span><span data-l="nl" lang="nl">Ja, volledig op afstand. Gesprekken plan ik rond jouw tijdzone en offertes zijn in euro’s. EU-bedrijven met een btw-nummer factureer ik met btw verlegd.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">Who owns the website?</span><span data-l="nl" lang="nl">Van wie is de website?</span></summary>
+						<p><span data-l="en" lang="en">You do. Domain and hosting are registered in your name and you get every login.</span><span data-l="nl" lang="nl">Van jou. Domein en hosting staan op jouw naam en je krijgt alle inloggegevens.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">Can a one-page website rank on Google?</span><span data-l="nl" lang="nl">Kan een one page website gevonden worden in Google?</span></summary>
+						<p><span data-l="en" lang="en">Yes, for your business name and a few closely related searches, especially combined with a Google Business Profile. To rank for many different services, separate pages per service work better.</span><span data-l="nl" lang="nl">Ja, op je bedrijfsnaam en een paar nauw verwante zoekwoorden, zeker samen met een Google Bedrijfsprofiel. Wil je op veel verschillende diensten gevonden worden, dan werken aparte pagina’s per dienst beter.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">Can it grow into a bigger website later?</span><span data-l="nl" lang="nl">Kan hij later groter worden?</span></summary>
+						<p><span data-l="en" lang="en">Yes. It is built in WordPress, so pages can be added later without starting over.</span><span data-l="nl" lang="nl">Ja. Hij is gebouwd in WordPress, dus pagina’s toevoegen kan later zonder opnieuw te beginnen.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">How fast can it be live?</span><span data-l="nl" lang="nl">Hoe snel staat hij online?</span></summary>
+						<p><span data-l="en" lang="en">Usually 1 to 2 weeks after the design is approved, depending on when text and photos are ready.</span><span data-l="nl" lang="nl">Meestal 1 tot 2 weken na akkoord op het ontwerp, afhankelijk van wanneer tekst en foto’s klaar zijn.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">Can customers pay with iDEAL?</span><span data-l="nl" lang="nl">Kunnen klanten betalen met iDEAL?</span></summary>
+						<p><span data-l="en" lang="en">Yes. iDEAL is set up through Mollie (WooCommerce) or Shopify Payments, along with cards and other methods you choose.</span><span data-l="nl" lang="nl">Ja. iDEAL wordt ingesteld via Mollie (WooCommerce) of Shopify Payments, samen met creditcard en andere methodes die je kiest.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">Can I add products myself?</span><span data-l="nl" lang="nl">Kan ik zelf producten toevoegen?</span></summary>
+						<p><span data-l="en" lang="en">Yes. You get a walkthrough at handover. If you prefer, the first 100 products can be uploaded for you.</span><span data-l="nl" lang="nl">Ja. Je krijgt een rondleiding bij de overdracht. Wil je dat liever niet zelf doen, dan kunnen de eerste 100 producten voor je worden ingevoerd.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">Can you move my existing shop?</span><span data-l="nl" lang="nl">Kun je mijn bestaande webshop overzetten?</span></summary>
+						<p><span data-l="en" lang="en">Usually, yes: products, customers and orders can often be imported. What is possible depends on the current platform, so we check it on the first call.</span><span data-l="nl" lang="nl">Meestal wel: producten, klanten en bestellingen kunnen vaak worden geïmporteerd. Wat mogelijk is hangt af van het huidige platform, dus dat bekijken we in de kennismaking.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">What counts as a small change?</span><span data-l="nl" lang="nl">Wat is een kleine aanpassing?</span></summary>
+						<p><span data-l="en" lang="en">Updating text, prices, photos, opening hours or a job listing; adding a page from an existing layout. Bigger work gets a separate estimate first.</span><span data-l="nl" lang="nl">Tekst, prijzen, foto’s, openingstijden of een vacature aanpassen; een pagina toevoegen op basis van een bestaande opzet. Groter werk krijgt eerst een aparte indicatie.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">Is there a minimum term?</span><span data-l="nl" lang="nl">Is er een minimale looptijd?</span></summary>
+						<p><span data-l="en" lang="en">No. The plan runs month to month and you can cancel any month.</span><span data-l="nl" lang="nl">Nee. Het plan loopt per maand en is maandelijks opzegbaar.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">Do you maintain Shopify stores?</span><span data-l="nl" lang="nl">Onderhoud je ook Shopify-winkels?</span></summary>
+						<p><span data-l="en" lang="en">Shopify handles its own updates and hosting, so a care plan there is about changes and checks. Ask on the call.</span><span data-l="nl" lang="nl">Shopify regelt zelf updates en hosting, dus onderhoud draait daar om aanpassingen en controles. Vraag ernaar in de kennismaking.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">Do I need a separate booking app?</span><span data-l="nl" lang="nl">Heb ik een aparte boekingsapp nodig?</span></summary>
+						<p><span data-l="en" lang="en">Not necessarily. Booking can run inside your own website, so customers stay on your site and you avoid per-booking commission. If you already use a booking app you like, it can usually be connected instead.</span><span data-l="nl" lang="nl">Niet per se. Boeken kan in je eigen website, zodat klanten op jouw site blijven en je geen commissie per boeking betaalt. Gebruik je al een boekingsapp die bevalt, dan kan die meestal worden gekoppeld.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">Can I block out holidays and breaks?</span><span data-l="nl" lang="nl">Kan ik vrije dagen en pauzes blokkeren?</span></summary>
+						<p><span data-l="en" lang="en">Yes. You set your working hours, breaks and days off, and only those times can be booked.</span><span data-l="nl" lang="nl">Ja. Je stelt je werktijden, pauzes en vrije dagen in, en alleen die tijden kunnen geboekt worden.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">Can customers pay a deposit?</span><span data-l="nl" lang="nl">Kunnen klanten een aanbetaling doen?</span></summary>
+						<p><span data-l="en" lang="en">Yes, a deposit or full payment with iDEAL can be added.</span><span data-l="nl" lang="nl">Ja, een aanbetaling of volledige betaling met iDEAL kan worden toegevoegd.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">Are the prices on this page final?</span><span data-l="nl" lang="nl">Zijn de prijzen op deze pagina definitief?</span></summary>
+						<p><span data-l="en" lang="en">No, they are estimates based on comparable projects. The final price is agreed in writing after a short call, before anything gets built.</span><span data-l="nl" lang="nl">Nee, het zijn indicaties op basis van vergelijkbare projecten. De definitieve prijs spreken we op papier af na een kort gesprek, voordat er iets gebouwd wordt.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">Do the prices include VAT?</span><span data-l="nl" lang="nl">Zijn de prijzen inclusief btw?</span></summary>
+						<p><span data-l="en" lang="en">No, all estimates exclude 21% Dutch VAT. Businesses outside the Netherlands may be invoiced without Dutch VAT.</span><span data-l="nl" lang="nl">Nee, alle indicaties zijn exclusief 21% btw. Bedrijven buiten Nederland kunnen zonder Nederlandse btw worden gefactureerd.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">Can I pay in instalments?</span><span data-l="nl" lang="nl">Kan ik in termijnen betalen?</span></summary>
+						<p><span data-l="en" lang="en">Usually the project is split into a deposit at the start and the rest at launch. Ask on the call if you need a different arrangement.</span><span data-l="nl" lang="nl">Meestal wordt het project verdeeld in een aanbetaling bij de start en de rest bij de lancering. Heb je een andere regeling nodig, vraag het in de kennismaking.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">How long until I see results?</span><span data-l="nl" lang="nl">Hoe snel zie ik resultaat?</span></summary>
+						<p><span data-l="en" lang="en">Search engines usually need weeks to months to pick up changes. Searches for your business name and local searches tend to move first.</span><span data-l="nl" lang="nl">Zoekmachines hebben meestal weken tot maanden nodig om veranderingen op te pikken. Zoekopdrachten op je bedrijfsnaam en lokale zoekopdrachten bewegen meestal het eerst.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">Do I need a Google Business Profile?</span><span data-l="nl" lang="nl">Heb ik een Google Bedrijfsprofiel nodig?</span></summary>
+						<p><span data-l="en" lang="en">If customers search for you locally, yes. It is free, it appears in Google Maps and it is one of the strongest local signals.</span><span data-l="nl" lang="nl">Als klanten je lokaal zoeken, ja. Het is gratis, je verschijnt in Google Maps en het is een van de sterkste lokale signalen.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">Do you write blog posts?</span><span data-l="nl" lang="nl">Schrijf je ook blogs?</span></summary>
+						<p><span data-l="en" lang="en">Copywriting is available as an extra. Pages that answer the questions your customers really ask usually do more than frequent blog posts.</span><span data-l="nl" lang="nl">Teksten schrijven is mogelijk als extra. Pagina’s die de vragen beantwoorden die klanten echt stellen, doen meestal meer dan vaak bloggen.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">Can clients choose a specific stylist?</span><span data-l="nl" lang="nl">Kunnen klanten een vaste kapper kiezen?</span></summary>
+						<p><span data-l="en" lang="en">Yes, booking can be set up per staff member, each with their own hours.</span><span data-l="nl" lang="nl">Ja, boeken kan per medewerker worden ingericht, elk met eigen werktijden.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">Can I ask for a deposit to prevent no-shows?</span><span data-l="nl" lang="nl">Kan ik een aanbetaling vragen tegen no-shows?</span></summary>
+						<p><span data-l="en" lang="en">Yes, a deposit with iDEAL can be added to bookings.</span><span data-l="nl" lang="nl">Ja, een aanbetaling via iDEAL kan aan boekingen worden toegevoegd.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">Will it show up in Google Maps?</span><span data-l="nl" lang="nl">Kom ik dan in Google Maps?</span></summary>
+						<p><span data-l="en" lang="en">Google Maps comes from your Google Business Profile, which links to your website. Setting it up is part of the SEO option.</span><span data-l="nl" lang="nl">Google Maps komt uit je Google Bedrijfsprofiel, dat naar je website linkt. Het inrichten daarvan hoort bij de SEO-optie.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">Can I change the menu myself?</span><span data-l="nl" lang="nl">Kan ik de menukaart zelf aanpassen?</span></summary>
+						<p><span data-l="en" lang="en">Yes. Dishes, prices and labels are edited like a simple list in WordPress.</span><span data-l="nl" lang="nl">Ja. Gerechten, prijzen en labels pas je aan als een eenvoudige lijst in WordPress.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">Can it connect to my reservation system?</span><span data-l="nl" lang="nl">Kan het gekoppeld worden aan mijn reserveringssysteem?</span></summary>
+						<p><span data-l="en" lang="en">Most reservation systems offer a widget or link that can be placed on the site. We check yours on the first call.</span><span data-l="nl" lang="nl">De meeste reserveringssystemen bieden een widget of link die op de site kan. We bekijken het jouwe in de kennismaking.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">Do you take the photos?</span><span data-l="nl" lang="nl">Maak je ook de foto’s?</span></summary>
+						<p><span data-l="en" lang="en">Photography can be arranged as an extra. Your own recent photos also work well.</span><span data-l="nl" lang="nl">Fotografie kan als extra worden geregeld. Je eigen recente foto’s werken ook goed.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">Can it link to my practice software?</span><span data-l="nl" lang="nl">Kan het gekoppeld worden aan mijn praktijksoftware?</span></summary>
+						<p><span data-l="en" lang="en">Many practice systems offer an online booking module or link that can be placed on the site. We check yours on the first call.</span><span data-l="nl" lang="nl">Veel praktijksystemen bieden een online boekingsmodule of link die op de site kan. We bekijken het jouwe in de kennismaking.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">Do I need a page for every treatment?</span><span data-l="nl" lang="nl">Heb ik een pagina per behandeling nodig?</span></summary>
+						<p><span data-l="en" lang="en">For being found on Google, yes: people search for their complaint, not for your practice name.</span><span data-l="nl" lang="nl">Om gevonden te worden in Google wel: mensen zoeken op hun klacht, niet op de naam van je praktijk.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">I don’t have time to write texts. Can you?</span><span data-l="nl" lang="nl">Ik heb geen tijd voor teksten. Kun jij dat?</span></summary>
+						<p><span data-l="en" lang="en">Yes, copywriting is an option. A twenty-minute call about your work is usually enough to write from.</span><span data-l="nl" lang="nl">Ja, teksten schrijven is een optie. Een gesprek van twintig minuten over je werk is meestal genoeg om uit te schrijven.</span></p>
+					</details>
+									<details>
+						<summary><span data-l="en" lang="en">Can customers send photos with their request?</span><span data-l="nl" lang="nl">Kunnen klanten foto’s meesturen met hun aanvraag?</span></summary>
+						<p><span data-l="en" lang="en">Yes, the quote form can accept photos, so you can estimate before you drive out.</span><span data-l="nl" lang="nl">Ja, het offerteformulier kan foto’s ontvangen, zodat je een inschatting maakt voordat je langsrijdt.</span></p>
+					</details>
+							</div>
+		</div>
+				<nav class="landing-related" aria-label="Gerelateerd">
+			<p class="mono"><span data-l="en" lang="en">Also useful</span><span data-l="nl" lang="nl">Ook handig</span></p>
+			<ul>
+									<li><a class="arrow-link" href="wat-kost-een-website.html">Wat kost een website laten maken? <span aria-hidden="true">→</span></a></li>
+									<li><a class="arrow-link" href="werkwijze.html">Vijf stappen, en je weet altijd waar je staat <span aria-hidden="true">→</span></a></li>
+									<li><a class="arrow-link" href="contact.html">Laten we het over je website hebben <span aria-hidden="true">→</span></a></li>
+								<li><a class="arrow-link" href="work.html"><span data-l="en" lang="en">See the work</span><span data-l="nl" lang="nl">Bekijk het werk</span> <span aria-hidden="true">→</span></a></li>
+			</ul>
+		</nav>
+	</section>
+
+			<section class="ch contact-ch" id="contact" data-k="contact" data-screen="live" data-tabs="book">
+	<div class="wrap">
+		<div class="copy copy-contact">
+		<div class="sec-head">
+			<p class="kicker">Contact</p>
+			<h2><span data-l="en" lang="en">Book a <em class="hl">free call</em></span><span data-l="nl" lang="nl">Plan een <em class="hl">gratis gesprek</em></span></h2>
+			<p class="lede"><span data-l="en" lang="en">Pick a time that suits you: 20 minutes by phone, WhatsApp or video, no strings attached. Rather write? Send a message and you get an answer within one working day.</span><span data-l="nl" lang="nl">Kies een tijd die jou uitkomt: 20 minuten via telefoon, WhatsApp of video, zonder verplichtingen. Liever schrijven? Stuur een bericht en je krijgt binnen één werkdag antwoord.</span></p>
+		</div>
+		<div class="contact-tabs" role="tablist" aria-label="Contact">
+			<button type="button" role="tab" id="tab-book" aria-controls="book" data-tab="book"><span data-l="en" lang="en">Book a call</span><span data-l="nl" lang="nl">Plan een gesprek</span></button>
+			<button type="button" role="tab" id="tab-write" aria-controls="write" data-tab="write"><span data-l="en" lang="en">Send a message</span><span data-l="nl" lang="nl">Stuur een bericht</span></button>
+		</div>
+		<div class="contact-grid">
+			<div class="card book" id="book" role="tabpanel" aria-labelledby="tab-book" data-panel="book" data-book
+				data-rules="{&quot;tz&quot;:&quot;Europe\/Amsterdam&quot;,&quot;week&quot;:[[],[[930,990],[1050,1140]],[[930,990],[1050,1140]],[[930,990],[1050,1140]],[[930,990],[1050,1140]],[[930,990],[1050,1140]],[[540,810]]],&quot;len&quot;:20,&quot;step&quot;:30,&quot;notice&quot;:12,&quot;days&quot;:21,&quot;off&quot;:[]}"
+				data-api=""
+				data-mail="hello@ace360services.nl">
+				
+				<div class="book-head">
+					<p class="mono book-meta"><span class="book-dot" aria-hidden="true"></span><span data-l="en" lang="en">Free · 20 min · no strings attached</span><span data-l="nl" lang="nl">Gratis · 20 min · vrijblijvend</span></p>
+					<p class="mono muted book-tz" data-book-tz></p>
+				</div>
+				<div class="book-days" data-book-days role="group" aria-label="Day"></div>
+				<div class="book-times" data-book-times role="group" aria-label="Time"></div>
+				<p class="book-msg muted" data-book-msg hidden></p>
+				<noscript><p class="book-msg"><span data-l="en" lang="en">The calendar needs JavaScript. Email hello@ace360services.nl and we plan a call by email.</span><span data-l="nl" lang="nl">De agenda heeft JavaScript nodig. Mail hello@ace360services.nl en we plannen het gesprek per mail.</span></p></noscript>
+
+				<form class="book-form" data-book-form hidden>
+					<p class="book-picked"><span class="mono muted"><span data-l="en" lang="en">Your call</span><span data-l="nl" lang="nl">Jouw gesprek</span></span><b data-book-picked></b></p>
+					<p class="hp" aria-hidden="true"><label for="book_website">Website</label><input type="text" id="book_website" name="website" tabindex="-1" autocomplete="off"></p>
+					<div class="field-row">
+						<p class="field">
+							<label for="book_name"><span data-l="en" lang="en">Name</span><span data-l="nl" lang="nl">Naam</span></label>
+							<input type="text" id="book_name" name="name" autocomplete="name" required>
+						</p>
+						<p class="field">
+							<label for="book_email"><span data-l="en" lang="en">Email</span><span data-l="nl" lang="nl">E-mail</span></label>
+							<input type="email" id="book_email" name="email" autocomplete="email" required>
+						</p>
+					</div>
+					<fieldset class="field">
+						<legend><span data-l="en" lang="en">How do we talk?</span><span data-l="nl" lang="nl">Hoe spreken we?</span></legend>
+						<div class="pills">
+															<label class="pill">
+									<input type="radio" name="via" value="phone" checked>
+									<span><span data-l="en" lang="en">Phone</span><span data-l="nl" lang="nl">Telefoon</span></span>
+								</label>
+															<label class="pill">
+									<input type="radio" name="via" value="whatsapp">
+									<span>WhatsApp</span>
+								</label>
+															<label class="pill">
+									<input type="radio" name="via" value="video">
+									<span><span data-l="en" lang="en">Video call</span><span data-l="nl" lang="nl">Videogesprek</span></span>
+								</label>
+													</div>
+					</fieldset>
+					<div class="field-row">
+						<p class="field" data-book-phone>
+							<label for="book_phone"><span data-l="en" lang="en">Phone number</span><span data-l="nl" lang="nl">Telefoonnummer</span></label>
+							<input type="tel" id="book_phone" name="phone" autocomplete="tel" placeholder="+31 6 …" required>
+						</p>
+						<p class="field">
+							<label for="book_company"><span data-l="en" lang="en">Company (optional)</span><span data-l="nl" lang="nl">Bedrijf (optioneel)</span></label>
+							<input type="text" id="book_company" name="company" autocomplete="organization">
+						</p>
+					</div>
+					<p class="field">
+						<label for="book_note"><span data-l="en" lang="en">What would you like to talk about? (optional)</span><span data-l="nl" lang="nl">Waar wil je het over hebben? (optioneel)</span></label>
+						<textarea id="book_note" name="note" rows="3"></textarea>
+					</p>
+					<label class="consent">
+						<input type="checkbox" name="consent" value="1" required>
+						<span><span data-l="en" lang="en">I agree to my details being used to plan and hold this call.</span><span data-l="nl" lang="nl">Ik ga akkoord dat mijn gegevens worden gebruikt om dit gesprek te plannen en te voeren.</span></span>
+					</label>
+					<p class="form-status is-error" role="alert" data-book-error hidden></p>
+					<button class="btn btn-orange" type="submit" data-book-submit><span data-l="en" lang="en">Confirm my call</span><span data-l="nl" lang="nl">Bevestig mijn gesprek</span> <span aria-hidden="true">→</span></button>
+				</form>
+
+				<div class="book-done" data-book-done hidden tabindex="-1">
+					<span class="book-check" aria-hidden="true">✓</span>
+					<p class="book-done-title" data-book-done-title></p>
+					<p class="muted" data-book-done-text></p>
+					<p class="book-done-actions"><a class="btn btn-line btn-small" href="#" data-book-ics download="ace360-call.ics"><span data-l="en" lang="en">Add to calendar</span><span data-l="nl" lang="nl">Zet in agenda</span></a></p>
+				</div>
+			</div>
+
+			<form class="card contact-form" id="write" role="tabpanel" aria-labelledby="tab-write" data-panel="write" method="post" action="#" data-contact-form>
+				<input type="hidden" name="action" value="ace360_contact">
+				<input type="hidden" name="ace360_estimate" value="" data-estimate-field>
+				<input type="hidden" name="ace360_lang" value="en" data-lang-field>
+								<p class="hp" aria-hidden="true">
+					<label for="ace360_website">Website</label>
+					<input type="text" id="ace360_website" name="ace360_website" tabindex="-1" autocomplete="off">
+				</p>
+
+								<p class="form-status is-ok" role="status" data-form-preview hidden></p>
+
+				<div class="est-chip" data-estimate-chip hidden>
+					<span class="mono"><span data-l="en" lang="en">Your estimate</span><span data-l="nl" lang="nl">Jouw indicatie</span></span>
+					<b data-estimate-chip-text></b>
+					<a href="#prijs" class="arrow-link"><span data-l="en" lang="en">Change</span><span data-l="nl" lang="nl">Wijzig</span></a>
+				</div>
+
+				<div class="field-row">
+					<p class="field">
+						<label for="ace360_name"><span data-l="en" lang="en">Name</span><span data-l="nl" lang="nl">Naam</span></label>
+						<input type="text" id="ace360_name" name="ace360_name" autocomplete="name" required>
+					</p>
+					<p class="field">
+						<label for="ace360_company"><span data-l="en" lang="en">Company</span><span data-l="nl" lang="nl">Bedrijf</span></label>
+						<input type="text" id="ace360_company" name="ace360_company" autocomplete="organization">
+					</p>
+				</div>
+				<div class="field-row">
+					<p class="field">
+						<label for="ace360_email"><span data-l="en" lang="en">Email</span><span data-l="nl" lang="nl">E-mail</span></label>
+						<input type="email" id="ace360_email" name="ace360_email" autocomplete="email" required>
+					</p>
+					<p class="field">
+						<label for="ace360_phone"><span data-l="en" lang="en">Phone (optional)</span><span data-l="nl" lang="nl">Telefoon (optioneel)</span></label>
+						<input type="tel" id="ace360_phone" name="ace360_phone" autocomplete="tel">
+					</p>
+				</div>
+				<fieldset class="field">
+					<legend><span data-l="en" lang="en">What is it about?</span><span data-l="nl" lang="nl">Waar gaat het over?</span></legend>
+					<div class="pills">
+													<label class="pill">
+								<input type="radio" id="ace360_need_0" name="ace360_need" value="Website" checked>
+								<span>Website</span>
+							</label>
+													<label class="pill">
+								<input type="radio" id="ace360_need_1" name="ace360_need" value="Online store">
+								<span><span data-l="en" lang="en">Online store</span><span data-l="nl" lang="nl">Webshop</span></span>
+							</label>
+													<label class="pill">
+								<input type="radio" id="ace360_need_2" name="ace360_need" value="Maintenance">
+								<span><span data-l="en" lang="en">Maintenance</span><span data-l="nl" lang="nl">Onderhoud</span></span>
+							</label>
+													<label class="pill">
+								<input type="radio" id="ace360_need_3" name="ace360_need" value="Growth">
+								<span><span data-l="en" lang="en">Growth</span><span data-l="nl" lang="nl">Groei</span></span>
+							</label>
+													<label class="pill">
+								<input type="radio" id="ace360_need_4" name="ace360_need" value="Not sure yet">
+								<span><span data-l="en" lang="en">Not sure yet</span><span data-l="nl" lang="nl">Weet ik nog niet</span></span>
+							</label>
+											</div>
+				</fieldset>
+				<p class="field">
+					<label for="ace360_message"><span data-l="en" lang="en">What kind of site do you need, and when do you want to be live?</span><span data-l="nl" lang="nl">Wat voor site heb je nodig, en wanneer wil je live?</span></label>
+					<textarea id="ace360_message" name="ace360_message" rows="4" required></textarea>
+				</p>
+				<label class="consent">
+					<input type="checkbox" id="ace360_consent" name="ace360_consent" value="1" required>
+					<span><span data-l="en" lang="en">I agree to my details being used to respond to this enquiry.</span><span data-l="nl" lang="nl">Ik ga akkoord dat mijn gegevens worden gebruikt om op deze aanvraag te reageren.</span></span>
+				</label>
+				<button class="btn btn-orange" type="submit"><span data-l="en" lang="en">Send enquiry</span><span data-l="nl" lang="nl">Verstuur aanvraag</span> <span aria-hidden="true">→</span></button>
+			</form>
+
+			<aside class="card direct">
+				<p class="mono muted"><span data-l="en" lang="en">Prefer direct</span><span data-l="nl" lang="nl">Liever direct</span></p>
+				<dl>
+					<div><dt class="mono"><span data-l="en" lang="en">Call</span><span data-l="nl" lang="nl">Bellen</span></dt><dd><a href="tel:+31617858490">+31 6 17 85 84 90</a></dd></div>
+					<div><dt class="mono">WhatsApp</dt><dd><a href="https://wa.me/31617858490" target="_blank" rel="noopener"><span data-l="en" lang="en">Send a message</span><span data-l="nl" lang="nl">Stuur een bericht</span> ↗</a></dd></div>
+					<div><dt class="mono">Email</dt><dd><a href="mailto:hello@ace360services.nl">hello@ace360services.nl</a></dd></div>
+					<div><dt class="mono"><span data-l="en" lang="en">Available</span><span data-l="nl" lang="nl">Bereikbaar</span></dt><dd><span data-l="en" lang="en">Calls Mon–Fri 15:30–16:30 and 17:30–19:00, Sat 09:00–13:30 (Amsterdam time)</span><span data-l="nl" lang="nl">Bellen ma–vr 15:30–16:30 en 17:30–19:00, za 09:00–13:30</span></dd></div>
+					<div><dt class="mono"><span data-l="en" lang="en">Coverage</span><span data-l="nl" lang="nl">Werkgebied</span></dt><dd><span data-l="en" lang="en">All of the Netherlands, and remote worldwide</span><span data-l="nl" lang="nl">Heel Nederland, en op afstand wereldwijd</span></dd></div>
+				</dl>
+			</aside>
+		</div>
+		</div>
+	</div>
+</section>
+	</main>
+<footer class="site-footer">
+	<div class="footer-inner">
+		<div class="footer-brand">
+			<span class="wordmark" aria-hidden="true"><svg class="wordmark-ring" viewBox="0 0 32 32" width="26" height="26"><circle cx="16" cy="16" r="12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-dasharray="5.2 2.34"/><rect x="13" y="1.5" width="6" height="6" rx="1" fill="currentColor"/></svg><span class="wordmark-text">Ace 360<span class="wordmark-sub">Services</span></span></span>			<p><span data-l="en" lang="en">Websites, online stores and maintenance for businesses in the Netherlands and abroad. A clear estimate up front, a fixed launch date, one person to talk to.</span><span data-l="nl" lang="nl">Websites, webshops en onderhoud voor bedrijven in Nederland en daarbuiten. Vooraf een duidelijke prijsindicatie, een vaste lanceerdatum, één aanspreekpunt.</span></p>
+		</div>
+		<div class="footer-col">
+			<p class="label">Direct</p>
+			<ul>
+				<li><a href="tel:+31617858490"><span data-l="en" lang="en">Phone</span><span data-l="nl" lang="nl">Telefoon</span> · +31 6 17 85 84 90</a></li>
+				<li><a href="mailto:hello@ace360services.nl">hello@ace360services.nl</a></li>
+				<li><a href="https://wa.me/31617858490" rel="noopener" target="_blank">WhatsApp</a></li>
+				<li class="muted"><span data-l="en" lang="en">Calls Mon–Fri 15:30–16:30 and 17:30–19:00, Sat 09:00–13:30 (Amsterdam time)</span><span data-l="nl" lang="nl">Bellen ma–vr 15:30–16:30 en 17:30–19:00, za 09:00–13:30</span></li>
+			</ul>
+		</div>
+		<div class="footer-col">
+			<p class="label"><span data-l="en" lang="en">Services</span><span data-l="nl" lang="nl">Diensten</span></p>
+			<ul>
+									<li><a href="website-laten-maken.html"><span data-l="en" lang="en">Website build</span><span data-l="nl" lang="nl">Website laten maken</span></a></li>
+									<li><a href="webshop-laten-maken.html"><span data-l="en" lang="en">Online store</span><span data-l="nl" lang="nl">Webshop</span></a></li>
+									<li><a href="website-onderhoud.html"><span data-l="en" lang="en">Maintenance and care</span><span data-l="nl" lang="nl">Onderhoud</span></a></li>
+									<li><a href="seo-vindbaarheid.html"><span data-l="en" lang="en">Visibility and growth</span><span data-l="nl" lang="nl">Vindbaarheid en groei</span></a></li>
+							</ul>
+		</div>
+		<div class="footer-col">
+			<p class="label"><span data-l="en" lang="en">Popular</span><span data-l="nl" lang="nl">Populair</span></p>
+			<ul>
+									<li><a href="wat-kost-een-website.html"><span data-l="en" lang="en">Guide · website prices</span><span data-l="nl" lang="nl">Gids · website kosten</span></a></li>
+									<li><a href="one-page-website-laten-maken.html"><span data-l="en" lang="en">One-page website</span><span data-l="nl" lang="nl">One page website</span></a></li>
+									<li><a href="website-met-online-boeken.html"><span data-l="en" lang="en">Booking websites</span><span data-l="nl" lang="nl">Online afspraken</span></a></li>
+									<li><a href="werkwijze.html"><span data-l="en" lang="en">Process</span><span data-l="nl" lang="nl">Werkwijze</span></a></li>
+									<li><a href="veelgestelde-vragen.html" aria-current="page"><span data-l="en" lang="en">Questions</span><span data-l="nl" lang="nl">Veelgestelde vragen</span></a></li>
+									<li><a href="over-ace-360.html"><span data-l="en" lang="en">About</span><span data-l="nl" lang="nl">Over Ace 360</span></a></li>
+									<li><a href="contact.html">Contact</a></li>
+								<li><a href="work.html"><span data-l="en" lang="en">All work</span><span data-l="nl" lang="nl">Al het werk</span></a></li>
+				<li><a href="blog.html">Blog</a></li>
+			</ul>
+		</div>
+		<div class="footer-col">
+			<p class="label"><span data-l="en" lang="en">For your business</span><span data-l="nl" lang="nl">Voor jouw branche</span></p>
+			<ul>
+									<li><a href="website-kapper-salon.html"><span data-l="en" lang="en">Websites for salons</span><span data-l="nl" lang="nl">Website voor kapper en salon</span></a></li>
+									<li><a href="website-restaurant.html"><span data-l="en" lang="en">Websites for restaurants</span><span data-l="nl" lang="nl">Website voor horeca</span></a></li>
+									<li><a href="website-praktijk-fysiotherapeut.html"><span data-l="en" lang="en">Websites for practices</span><span data-l="nl" lang="nl">Website voor praktijken</span></a></li>
+									<li><a href="website-aannemer-vakman.html"><span data-l="en" lang="en">Websites for trades</span><span data-l="nl" lang="nl">Website voor vakmensen</span></a></li>
+							</ul>
+		</div>
+	</div>
+	<div class="footer-bottom">
+		<p>&copy; 2026 Ace 360 Services · KvK 94618240</p>
+		<p><span data-l="en" lang="en">Based in the Netherlands · working worldwide · no tracking cookies</span><span data-l="nl" lang="nl">Gevestigd in Nederland · werkt wereldwijd · geen trackingcookies</span></p>
+		<a class="to-top" href="#top"><span data-l="en" lang="en">Back to top</span><span data-l="nl" lang="nl">Naar boven</span> &uarr;</a>
+	</div>
+</footer>
+<script src="../ace360/assets/vendor/gsap.min.js"></script>
+<script src="../ace360/assets/vendor/ScrollTrigger.min.js"></script>
+<script src="../ace360/assets/vendor/lenis.min.js"></script>
+<script>window.ACE360_PREVIEW = true;</script>
+<script src="../ace360/assets/js/screens.js"></script>
+<script src="../ace360/assets/js/main.js"></script>
+</body>
+</html>

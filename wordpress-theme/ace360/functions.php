@@ -9,11 +9,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'ACE360_VERSION', '5.11.0' );
+define( 'ACE360_VERSION', '5.12.0' );
 
 require get_template_directory() . '/inc/template-helpers.php';
 require get_template_directory() . '/inc/lang.php';
 require get_template_directory() . '/inc/landings.php';
+require get_template_directory() . '/inc/blog.php';
+require get_template_directory() . '/inc/blog-seed.php';
 require get_template_directory() . '/inc/seo.php';
 require get_template_directory() . '/inc/content.php';
 require get_template_directory() . '/inc/customizer.php';
@@ -311,19 +313,13 @@ add_action( 'admin_post_nopriv_ace360_contact', 'ace360_handle_contact' );
 add_action( 'admin_post_ace360_contact', 'ace360_handle_contact' );
 
 /**
- * Fallback menu used before a Primary menu is assigned: links to front-page sections.
+ * Fallback menu used before a Primary menu is assigned: links to the site's own pages.
  */
 function ace360_fallback_menu() {
-	$base  = is_front_page() ? '' : ace360_url( '/' );
-	$items = array(
-		'#diensten'  => ace360_pair( 'Services', 'Diensten' ),
-		'#werkwijze' => ace360_pair( 'Process', 'Werkwijze' ),
-		'#werk'      => ace360_pair( 'Work', 'Werk' ),
-		'#vragen'    => ace360_pair( 'Questions', 'Vragen' ),
-	);
+	$items = ace360_nav_items();
 	echo '<ul class="menu">';
-	foreach ( $items as $hash => $label ) {
-		printf( '<li><a href="%s">%s</a></li>', esc_url( $base . $hash ), ace360_t( $label ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped in ace360_t().
+	foreach ( $items as $item ) {
+		printf( '<li><a href="%s">%s</a></li>', esc_url( $item[0] ), ace360_t( $item[1] ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped in ace360_t().
 	}
 	echo '</ul>';
 }

@@ -35,6 +35,7 @@ class Ace360_Sitemap_Provider extends WP_Sitemaps_Provider {
 		foreach ( array( 'nl', 'en' ) as $lang ) {
 			$urls[] = array( 'loc' => ace360_url( '/', $lang ) );
 			$urls[] = array( 'loc' => ace360_url( '/work/', $lang ) );
+			$urls[] = array( 'loc' => ace360_blog_url( $lang ) );
 			foreach ( array_keys( ace360_landings() ) as $key ) {
 				$urls[] = array( 'loc' => ace360_landing_url( $key, $lang ) );
 			}

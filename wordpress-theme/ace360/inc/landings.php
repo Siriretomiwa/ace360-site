@@ -17,6 +17,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * All landing pages.
  *
  * Each: slug (nl/en), service (schema serviceType, '' for a guide), est (estimator type to preselect),
+ * extras (estimator extras to tick), show (blocks below the copy: process, estimator, faq, allfaq, contact;
+ * default estimator + faq + contact),
  * price (from/to in euros ex VAT, null for none), title + desc (search result), kicker, h1, lede,
  * sections (h, p[], list[]), faq ([q, a]), related (keys).
  *
@@ -348,8 +350,337 @@ function ace360_landings() {
 				),
 				'related'  => array( 'website', 'onderhoud', 'kosten' ),
 			),
+
+			/* ---------- Pages split out of the front page ---------- */
+
+			'werkwijze' => array(
+				'slug'     => array( 'nl' => 'werkwijze', 'en' => 'process' ),
+				'service'  => '',
+				'est'      => 'website',
+				'price'    => null,
+				'show'     => array( 'process', 'estimator', 'contact' ),
+				'title'    => $p( 'How it works: from first call to launch in 5 steps', 'Werkwijze: van kennismaking tot lancering in 5 stappen' ),
+				'desc'     => $p( 'How a website gets built at Ace 360: a free call, a written quote within two days, design first, a test site you can watch, launch and handover.', 'Zo wordt je website gebouwd: gratis kennismaking, offerte binnen twee dagen, eerst het ontwerp, meekijken op een testsite, lancering en overdracht.' ),
+				'kicker'   => $p( 'Process', 'Werkwijze' ),
+				'h1'       => $p( 'Five steps, and you always know which one you are *on*', 'Vijf stappen, en je weet altijd waar je *staat*' ),
+				'lede'     => $p( 'Most website projects run late because nobody agreed what “finished” means. Here the scope, the price and the launch date are written down before anything gets built, and you can watch the site come together.', 'De meeste websiteprojecten lopen uit omdat niemand heeft afgesproken wat ‘af’ betekent. Hier staan de inhoud, de prijs en de lanceerdatum op papier voordat er iets gebouwd wordt, en je kijkt mee terwijl de site ontstaat.' ),
+				'sections' => array(
+					array(
+						'h' => $p( 'What you need to bring', 'Wat jij aanlevert' ),
+						'list' => array(
+							$p( 'Your logo and colours, if you have them (no logo yet? that can be designed too)', 'Je logo en kleuren, als je die hebt (nog geen logo? dat kan ook ontworpen worden)' ),
+							$p( 'Text per page, or the key points so the copy can be written for you', 'Tekst per pagina, of de kernpunten zodat de tekst voor je geschreven kan worden' ),
+							$p( 'Photos of your work, team or products', 'Foto’s van je werk, team of producten' ),
+							$p( 'Access to your current domain and hosting, if you already have them', 'Toegang tot je huidige domein en hosting, als je die al hebt' ),
+						),
+					),
+					array(
+						'h' => $p( 'How we stay in touch', 'Hoe we contact houden' ),
+						'p' => array(
+							$p( 'You have one person to talk to, from first call to launch. Questions get an answer within one working day, by email, phone or WhatsApp, in English or Dutch. Every step ends with something you can see: a quote, a design, a test site, a live site.', 'Je hebt één aanspreekpunt, van kennismaking tot lancering. Vragen krijgen binnen één werkdag antwoord, per mail, telefoon of WhatsApp, in het Nederlands of Engels. Elke stap eindigt met iets wat je kunt zien: een offerte, een ontwerp, een testsite, een live site.' ),
+						),
+					),
+				),
+				'faq'      => array(),
+				'related'  => array( 'kosten', 'website', 'vragen' ),
+			),
+
+			'vragen'    => array(
+				'slug'     => array( 'nl' => 'veelgestelde-vragen', 'en' => 'faq' ),
+				'service'  => '',
+				'est'      => 'website',
+				'price'    => null,
+				'show'     => array( 'allfaq', 'contact' ),
+				'title'    => $p( 'Questions about websites, prices and maintenance', 'Veelgestelde vragen over websites, prijzen en onderhoud' ),
+				'desc'     => $p( 'Answers to what people ask first: prices, timelines, who owns the site, editing it yourself, maintenance, online stores, booking and working in English.', 'Antwoorden op wat mensen als eerste vragen: prijzen, doorlooptijd, van wie de site is, zelf aanpassen, onderhoud, webshops, online boeken en SEO.' ),
+				'kicker'   => $p( 'Questions', 'Veelgestelde vragen' ),
+				'h1'       => $p( 'What people ask *first*', 'Wat mensen als *eerste* vragen' ),
+				'lede'     => $p( 'Every question that comes up on first calls, in one place. Something else? Call or send a WhatsApp, you get a straight answer.', 'Alle vragen die in kennismakingsgesprekken terugkomen, op één plek. Iets anders? Bel of stuur een WhatsApp, je krijgt een eerlijk antwoord.' ),
+				'sections' => array(),
+				'faq'      => array(),
+				'related'  => array( 'kosten', 'werkwijze', 'contact' ),
+			),
+
+			'over'      => array(
+				'slug'     => array( 'nl' => 'over-ace-360', 'en' => 'about' ),
+				'service'  => '',
+				'est'      => 'website',
+				'price'    => null,
+				'show'     => array( 'contact' ),
+				'title'    => $p( 'About Ace 360: one person, start to finish', 'Over Ace 360: één aanspreekpunt van start tot finish' ),
+				'desc'     => $p( 'Ace 360 Services builds websites, online stores and booking sites from the Netherlands, in English or Dutch. One person, and the site stays yours.', 'Ace 360 Services bouwt websites, webshops en boekingssites vanuit Nederland, in het Nederlands of Engels. Eén aanspreekpunt en de site blijft van jou.' ),
+				'kicker'   => $p( 'About', 'Over Ace 360' ),
+				'h1'       => $p( 'A website that *works*, built by one person you can call', 'Een website die *werkt*, gebouwd door één persoon die je kunt bellen' ),
+				'lede'     => $p( 'Ace 360 Services is a web design studio in the Netherlands. No account managers and no hand-offs: the person you talk to on the first call designs, builds and looks after your site.', 'Ace 360 Services is een webdesignstudio in Nederland. Geen accountmanagers en geen overdrachten: degene die je in de kennismaking spreekt, ontwerpt, bouwt en onderhoudt je site.' ),
+				'sections' => array(
+					array(
+						'h' => $p( 'What Ace 360 believes', 'Waar Ace 360 voor staat' ),
+						'list' => array(
+							$p( 'You see an estimate before the first call, and the final price before anything is built', 'Je ziet een prijsindicatie vóór het eerste gesprek, en de definitieve prijs voordat er iets gebouwd wordt' ),
+							$p( 'A website is judged by what it brings in, not by how it looks in a portfolio', 'Een website beoordeel je op wat hij oplevert, niet op hoe hij eruitziet in een portfolio' ),
+							$p( 'Domain, hosting and every login are in your name', 'Domein, hosting en alle inloggegevens staan op jouw naam' ),
+							$p( 'Plain language: no jargon in the quote, no surprises on the invoice', 'Gewone taal: geen jargon in de offerte, geen verrassingen op de factuur' ),
+							$p( 'No tracking cookies on this site, and none on yours unless you want them', 'Geen trackingcookies op deze site, en op de jouwe alleen als je dat wilt' ),
+						),
+					),
+					array(
+						'h' => $p( 'What gets built', 'Wat er gebouwd wordt' ),
+						'p' => array(
+							$p( 'Websites and one-pagers in WordPress, online stores in WooCommerce or Shopify with iDEAL through Mollie, booking systems, and the maintenance that keeps them running. Clients include shops, salons, restaurants, practices, charities and platforms, in the Netherlands and abroad.', 'Websites en one-pagers in WordPress, webshops in WooCommerce of Shopify met iDEAL via Mollie, boekingssystemen, en het onderhoud dat alles draaiende houdt. Voor winkels, salons, restaurants, praktijken, goede doelen en platforms, in Nederland en daarbuiten.' ),
+						),
+					),
+					array(
+						'h' => $p( 'Where and how', 'Waar en hoe' ),
+						'p' => array(
+							$p( 'Based in the Netherlands and working remotely for clients anywhere. Calls by phone, WhatsApp or video, in English or Dutch, planned around your time zone. Ace 360 Services is registered with the Dutch Chamber of Commerce (KvK).', 'Gevestigd in Nederland en op afstand werkend voor klanten overal. Gesprekken via telefoon, WhatsApp of video, in het Nederlands of Engels, gepland rond jouw tijdzone. Ace 360 Services staat ingeschreven bij de Kamer van Koophandel (KvK).' ),
+						),
+					),
+				),
+				'faq'      => array(),
+				'related'  => array( 'werkwijze', 'website', 'kosten' ),
+			),
+
+			'contact'   => array(
+				'slug'     => array( 'nl' => 'contact', 'en' => 'contact' ),
+				'service'  => '',
+				'est'      => 'website',
+				'price'    => null,
+				'show'     => array( 'contact' ),
+				'title'    => $p( 'Contact: book a free 20-minute call', 'Contact: plan een gratis gesprek van 20 minuten' ),
+				'desc'     => $p( 'Book a free 20-minute call by phone, WhatsApp or video, or send a message and get an answer within one working day. In English or Dutch.', 'Plan een gratis gesprek van 20 minuten via telefoon, WhatsApp of video, of stuur een bericht en krijg binnen één werkdag antwoord.' ),
+				'kicker'   => $p( 'Contact', 'Contact' ),
+				'h1'       => $p( 'Let’s *talk* about your website', 'Laten we het over je website *hebben*' ),
+				'lede'     => $p( 'Pick a time in the calendar below, call, or send a WhatsApp. The first call is free and takes about twenty minutes.', 'Kies hieronder een tijd in de agenda, bel, of stuur een WhatsApp. Het eerste gesprek is gratis en duurt ongeveer twintig minuten.' ),
+				'sections' => array(),
+				'faq'      => array(),
+				'related'  => array( 'kosten', 'werkwijze', 'vragen' ),
+			),
+
+			/* ---------- Industry pages ---------- */
+
+			'kapper'    => array(
+				'slug'     => array( 'nl' => 'website-kapper-salon', 'en' => 'salon-website' ),
+				'service'  => 'Web design for hair and beauty salons',
+				'est'      => 'website',
+				'extras'   => array( 'booking' ),
+				'price'    => array( 1250, 1650 ),
+				'title'    => $p( 'Salon website with online booking · est. from €1,250', 'Website voor kapper of salon met online boeken' ),
+				'desc'     => $p( 'A website for hair and beauty salons: treatments and prices, online booking in your real free times, reminders and your work in photos. See an estimate online.', 'Website voor kappers, barbers en schoonheidssalons: behandelingen en prijzen, online boeken in je echte vrije tijden, herinneringen en je werk in beeld.' ),
+				'kicker'   => $p( 'Websites for salons', 'Website voor kapper en salon' ),
+				'h1'       => $p( 'A salon website that books while you *cut*', 'Een salonwebsite die boekt terwijl jij *knipt*' ),
+				'lede'     => $p( 'Your clients want three things from your website: what you do, what it costs and when they can come. Answer those, let them book themselves, and your phone stops interrupting appointments.', 'Klanten willen drie dingen van je website: wat je doet, wat het kost en wanneer ze kunnen komen. Beantwoord die, laat ze zelf boeken, en je telefoon onderbreekt geen afspraken meer.' ),
+				'sections' => array(
+					array(
+						'h' => $p( 'What a salon website needs', 'Wat een salonwebsite nodig heeft' ),
+						'list' => array(
+							$p( 'Treatments with prices or “from” prices, grouped the way clients think (cut, colour, treatments)', 'Behandelingen met prijzen of vanaf-prijzen, ingedeeld zoals klanten denken (knippen, kleuren, behandelingen)' ),
+							$p( 'Online booking per treatment, with the right length and your real free times', 'Online boeken per behandeling, met de juiste duur en je echte vrije tijden' ),
+							$p( 'Reminder emails and a simple way to move an appointment', 'Herinneringsmails en een eenvoudige manier om te verzetten' ),
+							$p( 'A gallery of your own work (not stock photos) and your team', 'Een galerij met je eigen werk (geen stockfoto’s) en je team' ),
+							$p( 'Address, map, parking and opening hours on every phone', 'Adres, kaart, parkeren en openingstijden, goed leesbaar op elke telefoon' ),
+							$p( 'Gift cards or products, if you sell them', 'Cadeaubonnen of producten, als je die verkoopt' ),
+						),
+					),
+					array(
+						'h' => $p( 'Booking: your own site or an app?', 'Boeken: via je eigen site of een app?' ),
+						'p' => array(
+							$p( 'Booking platforms bring visibility but often charge per booking and keep the client relationship. Booking on your own website keeps clients on your site and avoids commission. Already happy with a booking app? It can usually be connected to the new site instead.', 'Boekingsplatforms geven zichtbaarheid, maar rekenen vaak per boeking en houden de klantrelatie zelf. Boeken op je eigen website houdt klanten bij jou en scheelt commissie. Ben je tevreden over je boekingsapp? Die kan meestal aan de nieuwe site worden gekoppeld.' ),
+						),
+					),
+					array(
+						'h' => $p( 'Cost and timeline', 'Kosten en doorlooptijd' ),
+						'p' => array(
+							$p( 'A salon website of up to five pages with online booking is estimated at €1,250 to €1,650 excluding VAT, live in about 2 to 3 weeks after the design is approved. Maintenance is optional at €67.50 a month.', 'Een salonwebsite tot vijf pagina’s met online boeken heeft een indicatie van € 1.250 tot € 1.650 exclusief btw en staat ongeveer 2 tot 3 weken na akkoord op het ontwerp live. Onderhoud is optioneel voor € 67,50 per maand.' ),
+						),
+					),
+				),
+				'faq'      => array(
+					array( $p( 'Can clients choose a specific stylist?', 'Kunnen klanten een vaste kapper kiezen?' ), $p( 'Yes, booking can be set up per staff member, each with their own hours.', 'Ja, boeken kan per medewerker worden ingericht, elk met eigen werktijden.' ) ),
+					array( $p( 'Can I ask for a deposit to prevent no-shows?', 'Kan ik een aanbetaling vragen tegen no-shows?' ), $p( 'Yes, a deposit with iDEAL can be added to bookings.', 'Ja, een aanbetaling via iDEAL kan aan boekingen worden toegevoegd.' ) ),
+					array( $p( 'Will it show up in Google Maps?', 'Kom ik dan in Google Maps?' ), $p( 'Google Maps comes from your Google Business Profile, which links to your website. Setting it up is part of the SEO option.', 'Google Maps komt uit je Google Bedrijfsprofiel, dat naar je website linkt. Het inrichten daarvan hoort bij de SEO-optie.' ) ),
+				),
+				'related'  => array( 'boeken', 'seo', 'onderhoud' ),
+			),
+
+			'restaurant' => array(
+				'slug'     => array( 'nl' => 'website-restaurant', 'en' => 'restaurant-website' ),
+				'service'  => 'Web design for restaurants',
+				'est'      => 'website',
+				'price'    => array( 1000, 1300 ),
+				'title'    => $p( 'Restaurant website with menu and reservations', 'Website voor je restaurant met menukaart en reserveren' ),
+				'desc'     => $p( 'A restaurant website with a menu that is easy to update, reservations or online orders, opening hours and directions that work on every phone.', 'Een restaurantwebsite met een menukaart die je zelf bijwerkt, reserveren of online bestellen, openingstijden en route, goed leesbaar op elke telefoon.' ),
+				'kicker'   => $p( 'Websites for restaurants', 'Website voor horeca' ),
+				'h1'       => $p( 'A restaurant website people *open* before they book', 'Een restaurantwebsite die gasten *openen* voordat ze boeken' ),
+				'lede'     => $p( 'Guests check the menu, the prices and the opening hours on their phone before they choose where to eat. A fast site with a readable menu and a reservation button answers that in seconds.', 'Gasten bekijken op hun telefoon de menukaart, de prijzen en de openingstijden voordat ze kiezen waar ze eten. Een snelle site met een leesbare kaart en een reserveerknop beantwoordt dat in seconden.' ),
+				'sections' => array(
+					array(
+						'h' => $p( 'What a restaurant website needs', 'Wat een restaurantwebsite nodig heeft' ),
+						'list' => array(
+							$p( 'A menu as real text, not a PDF, so it reads on phones and shows in Google', 'Een menukaart als echte tekst, geen pdf, zodat hij leesbaar is op mobiel en in Google verschijnt' ),
+							$p( 'Prices, allergens and dietary labels you update yourself', 'Prijzen, allergenen en dieetlabels die je zelf bijwerkt' ),
+							$p( 'Reservations: your own form, or a connection to your reservation system', 'Reserveren: een eigen formulier, of een koppeling met je reserveringssysteem' ),
+							$p( 'Online orders for takeaway or catering, with iDEAL, if you offer them', 'Online bestellen voor afhaal of catering, met iDEAL, als je dat aanbiedt' ),
+							$p( 'Opening hours, holidays, address, parking and a map', 'Openingstijden, vakanties, adres, parkeren en een kaart' ),
+							$p( 'Photos of your own dishes and room', 'Foto’s van je eigen gerechten en zaak' ),
+						),
+					),
+					array(
+						'h' => $p( 'Menu as text, not a PDF', 'Menukaart als tekst, niet als pdf' ),
+						'p' => array(
+							$p( 'A PDF menu is hard to read on a phone, slow to load and invisible to search engines. A menu built as a page can be updated in a minute, shows dish names in Google results and works with screen readers.', 'Een pdf-menukaart is lastig te lezen op een telefoon, laadt traag en is onzichtbaar voor zoekmachines. Een menukaart als pagina pas je in een minuut aan, laat gerechten zien in Google en werkt met schermlezers.' ),
+						),
+					),
+					array(
+						'h' => $p( 'Cost and timeline', 'Kosten en doorlooptijd' ),
+						'p' => array(
+							$p( 'A restaurant website of up to five pages is estimated at €1,000 to €1,300 excluding VAT. Online ordering with payments is priced like a small online store; the calculator below shows both. Plan 2 to 3 weeks after the design is approved.', 'Een restaurantwebsite tot vijf pagina’s heeft een indicatie van € 1.000 tot € 1.300 exclusief btw. Online bestellen met betalen wordt geprijsd als een kleine webshop; de calculator hieronder laat beide zien. Reken op 2 tot 3 weken na akkoord op het ontwerp.' ),
+						),
+					),
+				),
+				'faq'      => array(
+					array( $p( 'Can I change the menu myself?', 'Kan ik de menukaart zelf aanpassen?' ), $p( 'Yes. Dishes, prices and labels are edited like a simple list in WordPress.', 'Ja. Gerechten, prijzen en labels pas je aan als een eenvoudige lijst in WordPress.' ) ),
+					array( $p( 'Can it connect to my reservation system?', 'Kan het gekoppeld worden aan mijn reserveringssysteem?' ), $p( 'Most reservation systems offer a widget or link that can be placed on the site. We check yours on the first call.', 'De meeste reserveringssystemen bieden een widget of link die op de site kan. We bekijken het jouwe in de kennismaking.' ) ),
+					array( $p( 'Do you take the photos?', 'Maak je ook de foto’s?' ), $p( 'Photography can be arranged as an extra. Your own recent photos also work well.', 'Fotografie kan als extra worden geregeld. Je eigen recente foto’s werken ook goed.' ) ),
+				),
+				'related'  => array( 'webshop', 'seo', 'website' ),
+			),
+
+			'praktijk'  => array(
+				'slug'     => array( 'nl' => 'website-praktijk-fysiotherapeut', 'en' => 'practice-website' ),
+				'service'  => 'Web design for therapy and health practices',
+				'est'      => 'website',
+				'extras'   => array( 'booking' ),
+				'price'    => array( 1250, 1650 ),
+				'title'    => $p( 'Website for physiotherapists, therapists and practices', 'Website voor fysiotherapeut, therapeut of praktijk' ),
+				'desc'     => $p( 'A practice website that explains treatments in plain words, shows prices and insurance information, and lets patients book an intake online.', 'Een praktijkwebsite die behandelingen helder uitlegt, tarieven en vergoedingen toont en patiënten online een intake laat plannen.' ),
+				'kicker'   => $p( 'Websites for practices', 'Website voor praktijken' ),
+				'h1'       => $p( 'A practice website that answers before patients *call*', 'Een praktijkwebsite die antwoord geeft voordat patiënten *bellen*' ),
+				'lede'     => $p( 'Most calls to a practice ask the same things: do you treat this, is it covered, do I need a referral, when can I come? A clear website answers them, so the phone is free for the patients who really need it.', 'De meeste telefoontjes naar een praktijk gaan over hetzelfde: behandel je dit, wordt het vergoed, heb ik een verwijzing nodig, wanneer kan ik komen? Een duidelijke website beantwoordt dat, zodat de telefoon vrij is voor wie hem echt nodig heeft.' ),
+				'sections' => array(
+					array(
+						'h' => $p( 'What a practice website needs', 'Wat een praktijkwebsite nodig heeft' ),
+						'list' => array(
+							$p( 'A page per complaint or treatment, in plain words', 'Een pagina per klacht of behandeling, in gewone taal' ),
+							$p( 'Rates, insurance information and whether a referral is needed', 'Tarieven, informatie over vergoeding en of een verwijzing nodig is' ),
+							$p( 'Online intake booking, or a clear callback request', 'Online een intake plannen, of een duidelijk terugbelverzoek' ),
+							$p( 'Your therapists, their specialisms and registrations', 'Je therapeuten, hun specialisaties en registraties' ),
+							$p( 'Accessibility: readable text, good contrast, works with screen readers', 'Toegankelijkheid: leesbare tekst, goed contrast, werkt met schermlezers' ),
+							$p( 'A privacy statement that matches how you handle data', 'Een privacyverklaring die past bij hoe je met gegevens omgaat' ),
+						),
+					),
+					array(
+						'h' => $p( 'Privacy first', 'Privacy voorop' ),
+						'p' => array(
+							$p( 'A website form is not the place for medical details. Booking and contact forms ask only for what is needed to make an appointment; anything medical stays in your own patient system. No tracking cookies unless you choose to add them.', 'Een websiteformulier is niet de plek voor medische details. Boekings- en contactformulieren vragen alleen wat nodig is voor een afspraak; alles wat medisch is blijft in je eigen patiëntensysteem. Geen trackingcookies, tenzij je daar zelf voor kiest.' ),
+						),
+					),
+					array(
+						'h' => $p( 'Cost and timeline', 'Kosten en doorlooptijd' ),
+						'p' => array(
+							$p( 'A practice website of up to five pages with online intake booking is estimated at €1,250 to €1,650 excluding VAT; extra treatment pages are about €50 to €65 each. Live in 2 to 3 weeks after the design is approved.', 'Een praktijkwebsite tot vijf pagina’s met online intake plannen heeft een indicatie van € 1.250 tot € 1.650 exclusief btw; extra behandelpagina’s kosten ongeveer € 50 tot € 65 per stuk. Live in 2 tot 3 weken na akkoord op het ontwerp.' ),
+						),
+					),
+				),
+				'faq'      => array(
+					array( $p( 'Can it link to my practice software?', 'Kan het gekoppeld worden aan mijn praktijksoftware?' ), $p( 'Many practice systems offer an online booking module or link that can be placed on the site. We check yours on the first call.', 'Veel praktijksystemen bieden een online boekingsmodule of link die op de site kan. We bekijken het jouwe in de kennismaking.' ) ),
+					array( $p( 'Do I need a page for every treatment?', 'Heb ik een pagina per behandeling nodig?' ), $p( 'For being found on Google, yes: people search for their complaint, not for your practice name.', 'Om gevonden te worden in Google wel: mensen zoeken op hun klacht, niet op de naam van je praktijk.' ) ),
+				),
+				'related'  => array( 'boeken', 'seo', 'onderhoud' ),
+			),
+
+			'vakman'    => array(
+				'slug'     => array( 'nl' => 'website-aannemer-vakman', 'en' => 'tradesperson-website' ),
+				'service'  => 'Web design for contractors and trades',
+				'est'      => 'website',
+				'price'    => array( 1000, 1300 ),
+				'title'    => $p( 'Website for builders, plumbers and other trades', 'Website voor aannemer, loodgieter of vakman' ),
+				'desc'     => $p( 'A website for trades: your services and work area, photos of real jobs, reviews and a quote request that works on a phone. Estimate from €1,000.', 'Website voor aannemers, schilders, loodgieters en installateurs: diensten en werkgebied, foto’s van echte klussen, reviews en een offerteaanvraag op mobiel.' ),
+				'kicker'   => $p( 'Websites for trades', 'Website voor vakmensen' ),
+				'h1'       => $p( 'Get the *job*, not just the visit', 'Krijg de *klus*, niet alleen het bezoek' ),
+				'lede'     => $p( 'People looking for a builder, painter or plumber compare two or three websites on their phone, often in a hurry. The one that shows real work, says where it works and makes calling easy gets the call.', 'Wie een aannemer, schilder of loodgieter zoekt, vergelijkt twee of drie websites op zijn telefoon, vaak met haast. Wie echt werk laat zien, zegt waar hij werkt en bellen makkelijk maakt, krijgt het telefoontje.' ),
+				'sections' => array(
+					array(
+						'h' => $p( 'What a trades website needs', 'Wat een website voor vakmensen nodig heeft' ),
+						'list' => array(
+							$p( 'A big click-to-call and WhatsApp button on every phone screen', 'Een grote bel- en WhatsApp-knop op elk telefoonscherm' ),
+							$p( 'Your services, each with its own page', 'Je diensten, elk met een eigen pagina' ),
+							$p( 'Your work area: the towns and regions you cover', 'Je werkgebied: de plaatsen en regio’s waar je werkt' ),
+							$p( 'Before-and-after photos of real jobs', 'Voor-en-na-foto’s van echte klussen' ),
+							$p( 'Reviews from customers, with permission', 'Reviews van klanten, met toestemming' ),
+							$p( 'A quote request form that accepts photos of the job', 'Een offerteformulier waarbij klanten foto’s van de klus kunnen meesturen' ),
+							$p( 'Certifications and guarantees, if you have them', 'Certificeringen en garanties, als je die hebt' ),
+						),
+					),
+					array(
+						'h' => $p( 'Found in your own area', 'Gevonden in je eigen regio' ),
+						'p' => array(
+							$p( 'Most trade searches are local: “plumber Utrecht”, “roofer near me”. A Google Business Profile with photos and reviews, plus service pages that mention the area you really work in, do more than any trick. Copy-paste pages for fifty towns do not.', 'De meeste zoekopdrachten naar vakmensen zijn lokaal: ‘loodgieter Utrecht’, ‘dakdekker in de buurt’. Een Google Bedrijfsprofiel met foto’s en reviews, plus dienstpagina’s die het gebied noemen waar je echt werkt, doen meer dan welke truc ook. Kopieerpagina’s voor vijftig plaatsen niet.' ),
+						),
+					),
+					array(
+						'h' => $p( 'Cost and timeline', 'Kosten en doorlooptijd' ),
+						'p' => array(
+							$p( 'A trades website of up to five pages is estimated at €1,000 to €1,300 excluding VAT, live in 2 to 3 weeks after the design is approved. A one-page site starts from €500 if you mainly need to be found and called.', 'Een website voor vakmensen tot vijf pagina’s heeft een indicatie van € 1.000 tot € 1.300 exclusief btw en staat 2 tot 3 weken na akkoord op het ontwerp live. Een one-page website begint vanaf € 500 als je vooral gevonden en gebeld wilt worden.' ),
+						),
+					),
+				),
+				'faq'      => array(
+					array( $p( 'I don’t have time to write texts. Can you?', 'Ik heb geen tijd voor teksten. Kun jij dat?' ), $p( 'Yes, copywriting is an option. A twenty-minute call about your work is usually enough to write from.', 'Ja, teksten schrijven is een optie. Een gesprek van twintig minuten over je werk is meestal genoeg om uit te schrijven.' ) ),
+					array( $p( 'Can customers send photos with their request?', 'Kunnen klanten foto’s meesturen met hun aanvraag?' ), $p( 'Yes, the quote form can accept photos, so you can estimate before you drive out.', 'Ja, het offerteformulier kan foto’s ontvangen, zodat je een inschatting maakt voordat je langsrijdt.' ) ),
+				),
+				'related'  => array( 'onepage', 'seo', 'website' ),
+			),
 		)
 	);
+}
+
+/**
+ * Blocks a landing page shows below its copy.
+ *
+ * @param string $key Landing key.
+ * @return array
+ */
+function ace360_landing_blocks( $key ) {
+	$l = ace360_landings()[ $key ];
+	return isset( $l['show'] ) ? $l['show'] : array( 'estimator', 'faq', 'contact' );
+}
+
+/**
+ * Estimator extras a landing page ticks in advance.
+ *
+ * @param string $key Landing key.
+ * @return array
+ */
+function ace360_landing_extras( $key ) {
+	$l = ace360_landings()[ $key ];
+	if ( isset( $l['extras'] ) ) {
+		return $l['extras'];
+	}
+	return 'boeken' === $key ? array( 'booking' ) : ( 'seo' === $key ? array( 'seo' ) : array() );
+}
+
+/**
+ * Every question on the site, once: the front page FAQ plus each landing page's.
+ *
+ * @return array
+ */
+function ace360_all_faq() {
+	$all  = array();
+	$seen = array();
+	$sets = array( ace360_faq() );
+	foreach ( ace360_landings() as $l ) {
+		$sets[] = $l['faq'];
+	}
+	foreach ( $sets as $set ) {
+		foreach ( $set as $q ) {
+			$k = strtolower( $q[0]['en'] );
+			if ( ! isset( $seen[ $k ] ) ) {
+				$seen[ $k ] = true;
+				$all[]      = $q;
+			}
+		}
+	}
+	return $all;
 }
 
 /**

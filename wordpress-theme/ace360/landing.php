@@ -11,6 +11,8 @@ get_header();
 $ace360_key  = ace360_current_landing();
 $ace360_l    = ace360_landings()[ $ace360_key ];
 $ace360_lang = ace360_lang();
+$ace360_show = ace360_landing_blocks( $ace360_key );
+$ace360_faq  = in_array( 'allfaq', $ace360_show, true ) ? ace360_all_faq() : ( in_array( 'faq', $ace360_show, true ) ? $ace360_l['faq'] : array() );
 ?>
 <main id="main" class="site-main landing">
 	<header class="wrap landing-hero">
@@ -33,8 +35,13 @@ $ace360_lang = ace360_lang();
 			</p>
 		<?php endif; ?>
 		<div class="actions">
-			<a class="btn btn-orange" href="#prijs"><?php ace360_e( ace360_pair( 'See my estimate', 'Bekijk mijn prijsindicatie' ) ); ?> <span aria-hidden="true">→</span></a>
-			<a class="btn btn-line" href="#book"><?php ace360_e( ace360_pair( 'Book a free call', 'Plan een gratis gesprek' ) ); ?></a>
+			<?php if ( in_array( 'estimator', $ace360_show, true ) ) : ?>
+				<a class="btn btn-orange" href="#prijs"><?php ace360_e( ace360_pair( 'See my estimate', 'Bekijk mijn prijsindicatie' ) ); ?> <span aria-hidden="true">→</span></a>
+				<a class="btn btn-line" href="#book"><?php ace360_e( ace360_pair( 'Book a free call', 'Plan een gratis gesprek' ) ); ?></a>
+			<?php else : ?>
+				<a class="btn btn-orange" href="#book"><?php ace360_e( ace360_pair( 'Book a free call', 'Plan een gratis gesprek' ) ); ?> <span aria-hidden="true">→</span></a>
+				<a class="btn btn-line" href="<?php echo esc_url( ace360_landing_url( 'kosten' ) ); ?>"><?php ace360_e( ace360_pair( 'See prices', 'Bekijk de prijzen' ) ); ?></a>
+			<?php endif; ?>
 		</div>
 		<ul class="checks">
 			<?php foreach ( ace360_hero()['bullets'] as $ace360_b ) : ?>
@@ -43,6 +50,23 @@ $ace360_lang = ace360_lang();
 		</ul>
 	</header>
 
+	<?php if ( in_array( 'process', $ace360_show, true ) ) : ?>
+		<section class="wrap landing-process" aria-label="<?php echo esc_attr( 'en' === $ace360_lang ? 'The five steps' : 'De vijf stappen' ); ?>">
+			<ol class="process-list">
+				<?php foreach ( ace360_process() as $ace360_i => $ace360_st ) : ?>
+					<li>
+						<span class="mono process-n"><?php echo esc_html( sprintf( '%02d', $ace360_i + 1 ) ); ?></span>
+						<div>
+							<h2><?php ace360_e( $ace360_st[0] ); ?> <span class="mono muted"><?php ace360_e( $ace360_st[1] ); ?></span></h2>
+							<p><?php ace360_e( $ace360_st[2] ); ?></p>
+						</div>
+					</li>
+				<?php endforeach; ?>
+			</ol>
+		</section>
+	<?php endif; ?>
+
+	<?php if ( $ace360_l['sections'] ) : ?>
 	<div class="wrap landing-body">
 		<?php foreach ( $ace360_l['sections'] as $ace360_s ) : ?>
 			<section class="landing-sec">
@@ -70,7 +94,9 @@ $ace360_lang = ace360_lang();
 			</section>
 		<?php endforeach; ?>
 	</div>
+	<?php endif; ?>
 
+	<?php if ( in_array( 'estimator', $ace360_show, true ) ) : ?>
 	<section class="band landing-quote" id="prijs">
 		<div class="wrap">
 			<div class="sec-head">
@@ -78,18 +104,20 @@ $ace360_lang = ace360_lang();
 				<h2><?php echo ace360_hl( ace360_pair( 'What could *yours* cost?', 'Wat kost *de jouwe*?' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></h2>
 				<p class="lede"><?php ace360_e( ace360_pair( 'Pick what you need and see a realistic range straight away. The final price follows after a short call, in writing.', 'Kies wat je nodig hebt en zie meteen een realistische bandbreedte. De definitieve prijs volgt na een kort gesprek, op papier.' ) ); ?></p>
 			</div>
-			<?php get_template_part( 'template-parts/estimator', null, array( 'type' => $ace360_l['est'], 'extras' => 'boeken' === $ace360_key ? array( 'booking' ) : ( 'seo' === $ace360_key ? array( 'seo' ) : array() ) ) ); ?>
+			<?php get_template_part( 'template-parts/estimator', null, array( 'type' => $ace360_l['est'], 'extras' => ace360_landing_extras( $ace360_key ) ) ); ?>
 		</div>
 	</section>
+	<?php endif; ?>
 
 	<section class="wrap landing-faq">
+		<?php if ( $ace360_faq ) : ?>
 		<div class="faq-grid">
 			<div class="sec-head">
 				<p class="kicker"><?php ace360_e( ace360_pair( 'Questions', 'Vragen' ) ); ?></p>
 				<h2><?php echo ace360_hl( ace360_pair( 'What people *ask*', 'Wat mensen *vragen*' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></h2>
 			</div>
 			<div class="faq">
-				<?php foreach ( $ace360_l['faq'] as $ace360_i => $ace360_q ) : ?>
+				<?php foreach ( $ace360_faq as $ace360_i => $ace360_q ) : ?>
 					<details<?php echo 0 === $ace360_i ? ' open' : ''; ?>>
 						<summary><?php ace360_e( $ace360_q[0] ); ?></summary>
 						<p><?php ace360_e( $ace360_q[1] ); ?></p>
@@ -97,6 +125,7 @@ $ace360_lang = ace360_lang();
 				<?php endforeach; ?>
 			</div>
 		</div>
+		<?php endif; ?>
 		<nav class="landing-related" aria-label="<?php echo esc_attr( 'en' === $ace360_lang ? 'Related' : 'Gerelateerd' ); ?>">
 			<p class="mono"><?php ace360_e( ace360_pair( 'Also useful', 'Ook handig' ) ); ?></p>
 			<ul>
@@ -108,7 +137,9 @@ $ace360_lang = ace360_lang();
 		</nav>
 	</section>
 
-	<?php get_template_part( 'template-parts/contact' ); ?>
+	<?php if ( in_array( 'contact', $ace360_show, true ) ) : ?>
+		<?php get_template_part( 'template-parts/contact' ); ?>
+	<?php endif; ?>
 </main>
 <?php
 get_footer();

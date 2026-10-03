@@ -25,6 +25,10 @@ function ace360_lang() {
 	if ( function_exists( 'get_query_var' ) && 'en' === get_query_var( 'ace360_lang' ) ) {
 		return 'en';
 	}
+	// A blog post is in its own language (inc/blog.php).
+	if ( function_exists( 'is_singular' ) && did_action( 'wp' ) && is_singular( 'post' ) ) {
+		return ace360_post_lang( get_queried_object() );
+	}
 	// Old ?lang=en links still work (and are redirected to /en/ where there is a clean URL).
 	// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- language flag only.
 	return ( isset( $_GET['lang'] ) && 'en' === $_GET['lang'] ) ? 'en' : 'nl';
@@ -82,6 +86,13 @@ function ace360_alt_url( $lang ) {
 	}
 	if ( is_post_type_archive( 'ace_project' ) ) {
 		return ace360_url( '/work/', $lang );
+	}
+	if ( ace360_is_blog() ) {
+		return ace360_blog_url( $lang );
+	}
+	// A post exists in one language: the other language goes to that language's blog.
+	if ( is_singular( 'post' ) ) {
+		return ace360_post_lang( get_queried_object() ) === $lang ? get_permalink( get_queried_object() ) : ace360_blog_url( $lang );
 	}
 	return '';
 }
@@ -198,4 +209,19 @@ function ace360_lang_switch() {
 		}
 	}
 	echo '</div>';
+}
+
+/**
+ * Main navigation: real pages, so every page is one click from every other (and crawlable).
+ *
+ * @return array [ url, label pair ]
+ */
+function ace360_nav_items() {
+	return array(
+		array( ace360_home_hash( '#diensten' ), ace360_pair( 'Services', 'Diensten' ) ),
+		array( ace360_landing_url( 'werkwijze' ), ace360_pair( 'Process', 'Werkwijze' ) ),
+		array( ace360_work_url(), ace360_pair( 'Work', 'Werk' ) ),
+		array( ace360_blog_url(), ace360_pair( 'Blog', 'Blog' ) ),
+		array( ace360_landing_url( 'vragen' ), ace360_pair( 'Questions', 'Vragen' ) ),
+	);
 }

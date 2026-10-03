@@ -18,7 +18,7 @@ Nobody can promise a #1 position; this plan does the things that work.
 | **Canonical + hreflang** | Every theme page says which URL is the original and where its other-language version is (`nl`, `en`, `x-default`). |
 | **Structured data** | ProfessionalService (name, phone, email, KvK, languages, area served, service catalogue), WebSite, BreadcrumbList, Service with price range per landing page, FAQ on the home and landing pages. |
 | **Social sharing** | Open Graph + Twitter card with `assets/img/og-image.jpg` (1200 × 630, from `marketing/og/`). |
-| **Sitemap** | `/wp-sitemap.xml` now includes `/wp-sitemap-acepages-1.xml` (all 18 theme URLs). Author sitemap removed; the static front page is not listed twice. |
+| **Sitemap** | `/wp-sitemap.xml` now includes `/wp-sitemap-acepages-1.xml` (every theme page in both languages, plus /blog/ and /en/blog/; posts are in the posts sitemap). Author sitemap removed; the static front page is not listed twice. |
 | **Robots** | Thank-you, cancel and search URLs get `noindex`. |
 | **Internal links** | Services on the home page link to their landing page ("Meer over …"); footer has Services + Popular columns; every landing page links to three related pages and the portfolio. |
 | **Home H1** | Now contains the keyword: "Website laten maken? Zie de *prijs* vooraf." / "Need a website? See the *estimate* first." |
@@ -26,6 +26,51 @@ Nobody can promise a #1 position; this plan does the things that work.
 
 No SEO plugin is needed. If Yoast, Rank Math, AIOSEO or SEOPress is installed, the theme leaves titles, descriptions,
 canonical and social tags to that plugin and only adds hreflang and the business data.
+
+## 1b. Added in v5.12.0: more pages and a blog
+
+| Area | What changed |
+|---|---|
+| **Pages split out of the home page** | `/werkwijze/` (process), `/veelgestelde-vragen/` (every question on the site, with FAQ markup), `/over-ace-360/` (about), `/contact/`, each with an English version (`/en/process/`, `/en/faq/`, `/en/about/`, `/en/contact/`). The menu now links to real pages: Diensten · Werkwijze · Werk · Blog · Vragen. |
+| **Industry pages** | `/website-kapper-salon/`, `/website-restaurant/`, `/website-praktijk-fysiotherapeut/`, `/website-aannemer-vakman/` (+ English). Each is written for that trade (not the same text with a new noun), with the estimator preset (booking ticked for salons and practices). |
+| **Blog** | `/blog/` (Dutch posts) and `/en/blog/` (English posts), 12 per page, with BlogPosting and breadcrumb markup, a call-to-action to the matching service page and three related posts. Each post has a language and a service (editor sidebar → *Language and service*). |
+| **20 starter posts** | In `wordpress-theme/ace360/content/blog/` (14 Dutch, 6 English), each with its own cover image (`assets/img/blog/`, made by `marketing/og/render-blog-covers.js`). They are **published automatically** the first time the site loads after installing the theme, with today's real date (a minute apart, to keep the order). Each is added once; a post you delete or edit is left alone. Comments are closed on them. |
+
+**Dates are real, not backdated.** Search engines judge freshness by when they first find a page, so earlier dates give
+no advantage, and Google's guidelines ask for accurate dates. If you prefer a steadier rhythm, publish the posts
+over a few weeks instead: after installing, set some of them to *Scheduled* in WP Admin → Posts (Quick Edit → date in
+the future), for example two a week.
+
+### The 20 posts → the page each one supports
+
+| # | Post | Lang | Links to |
+|---|---|---|---|
+| 1 | Website laten maken? Stel deze 6 vragen voordat je betaalt | NL | wat kost een website |
+| 2 | One page website of meerdere pagina’s: wat past bij jou? | NL | one page website |
+| 3 | WooCommerce of Shopify: welke webshop past bij jouw bedrijf? | NL | webshop laten maken |
+| 4 | iDEAL op je webshop: zo werkt het en hierop let je | NL | webshop laten maken |
+| 5 | Google Bedrijfsprofiel aanmaken: stap voor stap | NL | SEO en vindbaarheid |
+| 6 | Website niet gevonden in Google? 8 oorzaken en oplossingen | NL | SEO en vindbaarheid |
+| 7 | De 5-secondentest: werkt jouw homepage? (Short S01 as an article) | NL | website laten maken |
+| 8 | Boekingssysteem kiezen voor je salon: 7 aandachtspunten | NL | website voor kapper en salon |
+| 9 | WordPress onderhoud: checklist per week, maand en jaar | NL | website onderhoud |
+| 10 | Domeinnaam en hosting: waarom ze op jouw naam moeten staan | NL | website laten maken |
+| 11 | Websiteteksten schrijven die klanten overtuigen: 7 regels | NL | website laten maken |
+| 12 | Website voor zzp’ers: wat moet erop staan? | NL | one page website |
+| 13 | Hoe snel moet je website zijn? Laadtijd meten en verbeteren | NL | website onderhoud |
+| 14 | Wat moet er wettelijk op je website? KvK, privacy en cookies | NL | website laten maken |
+| 15 | New business in the Netherlands? Your website checklist | EN | web design Netherlands |
+| 16 | Dutch, English or both? Choosing your website language | EN | web design Netherlands |
+| 17 | iDEAL explained: taking payments from Dutch customers | EN | online store |
+| 18 | Hiring a web designer in the Netherlands: 7 questions to ask | EN | web design Netherlands |
+| 19 | Google Business Profile in the Netherlands: step by step | EN | SEO Netherlands |
+| 20 | Booking on your own website or via an app: which is best? | EN | booking website |
+
+Posts 4 and 17 mention the iDEAL → Wero transition (co-branding since January 2026, full move planned to the end of
+2027); check it once a year. Posts 12, 14, 15 and 17 contain general legal information with a "not legal advice" note.
+
+**Before they go live, read them once** (WP Admin → Posts): they are written in the Ace 360 voice ("ik/we"), make no
+claims about results or clients, and are yours to adjust.
 
 ## 2. Keyword map (one main topic per page, no two pages competing)
 
@@ -40,6 +85,12 @@ canonical and social tags to that plugin and only adds hreflang and the business
 | `/wat-kost-een-website/` · `/en/website-cost/` | wat kost een website, website laten maken kosten, webshop kosten | how much does a website cost Netherlands |
 | `/seo-vindbaarheid/` · `/en/seo-netherlands/` | seo, vindbaarheid google, google bedrijfsprofiel | SEO Netherlands, local SEO |
 | `/work/` · `/en/work/` | portfolio webdesign, voorbeelden websites | web design portfolio |
+| `/website-kapper-salon/` · `/en/salon-website/` | website kapper, website kapsalon, website schoonheidssalon | salon website |
+| `/website-restaurant/` · `/en/restaurant-website/` | website restaurant, menukaart website, horeca website | restaurant website Netherlands |
+| `/website-praktijk-fysiotherapeut/` · `/en/practice-website/` | website fysiotherapeut, website praktijk, website therapeut | practice website, therapist website |
+| `/website-aannemer-vakman/` · `/en/tradesperson-website/` | website aannemer, website loodgieter, website schilder | tradesperson website |
+| `/werkwijze/`, `/veelgestelde-vragen/`, `/over-ace-360/`, `/contact/` | supporting pages (process, FAQ, about, contact) | |
+| `/blog/` · `/en/blog/` | informational searches (see the post table) | |
 
 Search volumes were not measured (no keyword tool in this setup). After launch, Search Console shows the real
 searches; use them to adjust titles and add pages (see section 5).

@@ -34,10 +34,19 @@ $ace360_btw = ace360_mod( 'btw' );
 		<div class="footer-col">
 			<p class="label"><?php ace360_e( ace360_pair( 'Popular', 'Populair' ) ); ?></p>
 			<ul>
-				<?php foreach ( array( 'kosten', 'onepage', 'boeken' ) as $ace360_fk ) : ?>
+				<?php foreach ( array( 'kosten', 'onepage', 'boeken', 'werkwijze', 'vragen', 'over', 'contact' ) as $ace360_fk ) : ?>
 					<li><a href="<?php echo esc_url( ace360_landing_url( $ace360_fk ) ); ?>"<?php echo ace360_current_landing() === $ace360_fk ? ' aria-current="page"' : ''; ?>><?php ace360_e( ace360_landings()[ $ace360_fk ]['kicker'] ); ?></a></li>
 				<?php endforeach; ?>
 				<li><a href="<?php echo esc_url( ace360_work_url() ); ?>"><?php ace360_e( ace360_pair( 'All work', 'Al het werk' ) ); ?></a></li>
+				<li><a href="<?php echo esc_url( ace360_blog_url() ); ?>"><?php ace360_e( ace360_pair( 'Blog', 'Blog' ) ); ?></a></li>
+			</ul>
+		</div>
+		<div class="footer-col">
+			<p class="label"><?php ace360_e( ace360_pair( 'For your business', 'Voor jouw branche' ) ); ?></p>
+			<ul>
+				<?php foreach ( array( 'kapper', 'restaurant', 'praktijk', 'vakman' ) as $ace360_fk ) : ?>
+					<li><a href="<?php echo esc_url( ace360_landing_url( $ace360_fk ) ); ?>"<?php echo ace360_current_landing() === $ace360_fk ? ' aria-current="page"' : ''; ?>><?php ace360_e( ace360_landings()[ $ace360_fk ]['kicker'] ); ?></a></li>
+				<?php endforeach; ?>
 			</ul>
 		</div>
 	</div>
