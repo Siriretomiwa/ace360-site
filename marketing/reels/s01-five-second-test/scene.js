@@ -82,7 +82,7 @@
   }
 
   window.REEL_SCENE = {
-    duration: 45,
+    duration: 48,
     cues: { cover: 2.4, low: 98, beat: [9.4, 36.8], rest: [[18.6, 19.6], [27.6, 28.6]], tick: [3.6, 4.6, 5.6, 6.6, 7.6], whoosh: [9.2, 19.0, 28.0, 37.2], click: [14.4, 23.6, 34.6], chime: [15.0, 24.2, 35.2, 39.4], swell: [8.2], hit: [41.6] },
     draw: function (t, K) {
       var g = K.g;

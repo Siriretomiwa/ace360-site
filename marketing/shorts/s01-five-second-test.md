@@ -1,7 +1,8 @@
 # Short 01 · Your homepage has 5 seconds to answer 3 questions
 
 Video: `marketing/reels/s01-five-second-test/out/`
-- `s01-five-second-test-voiceover-bed.mp4`: **use this to record over** (music at background level)
+- `s01-five-second-test-vo.mp4`: final with voice (made by `voiceover.py` once a recording or API key exists)
+- `s01-five-second-test-voiceover-bed.mp4`: music at background level, to record over manually
 - `s01-five-second-test.mp4`: music at full level (if you post without voice)
 - `s01-five-second-test-silent.mp4`: no audio
 - `s01-five-second-test-cover.jpg`: cover frame
@@ -11,20 +12,40 @@ Video: `marketing/reels/s01-five-second-test/out/`
 
 **2. Educational objective:** Teach the 5-second test: a homepage must instantly tell a visitor (1) what the business does, (2) who it is for, and (3) what to do next, and show how to fix each one with copy and layout, not decoration.
 
-**3. Target duration:** 45 seconds (1080 × 1920, 9:16)
+**3. Target duration:** 48 seconds (1080 × 1920, 9:16)
 
 **4. Hook (0–3 s):** "Your homepage has about five seconds to answer three questions."
 
-## 5. Full voiceover (≈120 words, calm and fast, ~2.7 words/s)
-| Time | Voiceover |
-|---|---|
-| 0.0–3.2 | Your homepage has about five seconds to answer three questions. |
-| 3.2–9.2 | This one looks professional. But in five seconds, can you tell what it does, who it's for, or what to do next? Neither can most visitors. |
-| 9.2–19.0 | Question one: what do you do? "Excellence in motion" sounds nice, but it says nothing. Name the service in plain words. Clever can come second. |
-| 19.0–28.0 | Question two: is this for me? Say who you help, and where. A runner in Utrecht with a sore knee should recognise themselves at a glance. |
-| 28.0–37.2 | Question three: what do I do next? A crowded menu and a tiny "learn more" at the bottom aren't a next step. Put one clear button above the fold that says exactly what happens. |
-| 37.2–41.6 | Same design. Now it answers all three. |
-| 41.6–45.0 | Try it: show your homepage to someone for five seconds, then ask those three questions. Follow for more website fixes. |
+## 5. Full voiceover (≈104 words, ~2.8 words/s, checked against every slot)
+**Copy-paste version** (paste as-is into ElevenLabs; also in `reels/s01-five-second-test/voiceover-paste.txt`):
+
+```
+Your homepage has five seconds to answer three questions.
+<break time="1.0s" />
+It looks professional. But what does it do, who is it for, and what's next?
+<break time="1.0s" />
+Question one: what do you do? "Excellence in motion" sounds nice, but it says nothing. Name the service in plain words. Clever can come second.
+<break time="1.0s" />
+Question two: is this for me? Say who you help, and where. A runner in Utrecht with a sore knee should recognise themselves at a glance.
+<break time="1.0s" />
+Question three: what do I do next? A tiny "learn more" at the bottom isn't a next step. Put one clear button above the fold.
+<break time="1.0s" />
+Same design. Now it answers all three.
+<break time="1.0s" />
+Try it: show someone your homepage for five seconds. Then ask the three questions. Follow for more.
+```
+
+**Timed version** (`voiceover.txt`, used to place each line):
+
+```
+[0.0] Your homepage has five seconds to answer three questions.
+[3.2] It looks professional. But what does it do, who is it for, and what's next?
+[9.2] Question one: what do you do? "Excellence in motion" sounds nice, but it says nothing. Name the service in plain words. Clever can come second.
+[19.0] Question two: is this for me? Say who you help, and where. A runner in Utrecht with a sore knee should recognise themselves at a glance.
+[28.0] Question three: what do I do next? A tiny "learn more" at the bottom isn't a next step. Put one clear button above the fold.
+[37.2] Same design. Now it answers all three.
+[41.6] Try it: show someone your homepage for five seconds. Then ask the three questions. Follow for more.
+```
 
 ## 6. Scene-by-scene visual plan
 | Time | Visual |
@@ -35,7 +56,7 @@ Video: `marketing/reels/s01-five-second-test/out/`
 | 19.0–28.0 | Zoom shifts to the kicker and intro text. "WELCOME TO OUR WEBSITE" is struck out; kicker becomes "RUNNERS & ATHLETES · UTRECHT-OOST", intro becomes specific (evening and Saturday appointments). Feature cards change from "Quality · Passion · Care" to "Sports injuries · Running analysis · Rehab plans". FIX: "Say who you help, and where." |
 | 28.0–37.2 | Camera pulls back. A cursor hunts for a next step: red boxes on the 9-item menu and the tiny "Learn more ›" (tags: "9 menu items", "Tiny, at the bottom"). Then the menu shrinks to 4 items with a "Book" button and a hero button "Book an assessment →" appears; the cursor clicks it. FIX: "One clear button, above the fold." |
 | 37.2–41.6 | Full homepage. "Same design. Now it answers." Ring completes green; three chips turn green ✓. |
-| 41.6–45.0 | Takeaway text, small logo ring, "Follow for more website fixes · ace360services.nl". |
+| 41.6–48.0 | Takeaway text, small logo ring, "Follow for more website fixes · ace360services.nl". |
 
 ## 7. On-screen text
 - Your homepage has *5 seconds* to answer *3 questions*.

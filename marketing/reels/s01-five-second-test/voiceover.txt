@@ -1,0 +1,7 @@
+[0.0] Your homepage has five seconds to answer three questions.
+[3.2] It looks professional. But what does it do, who is it for, and what's next?
+[9.2] Question one: what do you do? "Excellence in motion" sounds nice, but it says nothing. Name the service in plain words. Clever can come second.
+[19.0] Question two: is this for me? Say who you help, and where. A runner in Utrecht with a sore knee should recognise themselves at a glance.
+[28.0] Question three: what do I do next? A tiny "learn more" at the bottom isn't a next step. Put one clear button above the fold.
+[37.2] Same design. Now it answers all three.
+[41.6] Try it: show someone your homepage for five seconds. Then ask the three questions. Follow for more.
