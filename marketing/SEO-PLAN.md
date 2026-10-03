@@ -72,6 +72,19 @@ Posts 4 and 17 mention the iDEAL → Wero transition (co-branding since January 
 **Before they go live, read them once** (WP Admin → Posts): they are written in the Ace 360 voice ("ik/we"), make no
 claims about results or clients, and are yours to adjust.
 
+## 1c. Added in v5.13.0: real menu, designed pages, a richer blog
+
+| What | Details |
+|---|---|
+| **Menu** | Home · Diensten · Werk · Prijzen · Over ons · Blog · Contact (EN: Home · Services · Work · Prices · About us · Blog · Contact), with the current page underlined. Set your own in WP Admin → Appearance → Menus if you prefer. |
+| **Slimmer home page** | Keeps the story (hero, problem, fix, try-it, services, process, film, work) and ends with the three newest posts and a call-to-action. The price calculator moved to `/wat-kost-een-website/` (the "use these choices" button carries your picks there), the booking calendar to `/contact/`, the questions to `/veelgestelde-vragen/`. |
+| **New hub page** | `/diensten/` · `/en/services/`: every service with a screenshot and its starting price, the process in short, and the four industry pages. It links down to the service pages; it does not target their searches itself. |
+| **Designed pages** | `/over-ace-360/` (collage, facts, values, process clip) and `/contact/` (call / WhatsApp / mail cards, the booking calendar, what happens next, quick answers). |
+| **Blog index** | Newest article as a feature, topic chips and instant search, a rail of short video tips, then a mixed grid (wide, standard and text cards). |
+| **Articles** | Four layouts (cover, split, poster, guide) set per post, "in short" box, contents list, reading progress, share buttons. Inside the text: muted looping video clips (play when scrolled into view), concept-design screenshots (click to enlarge), checklists that remember ticks, step cards, before/after pairs, tips, tabs and a quiz. Every post has 1–4 media items. |
+| **Media** | `assets/video/blog/` (18 clips cut from our own reels and Shorts, 540×960, no sound) and `assets/img/blog-media/` (23 screenshots of the concept sites). Made with `marketing/blog-media/` (clips.txt, shots.txt, render-shots.js). All screenshots are labelled as concepts or examples. |
+| **Existing installs** | Starter posts that were not edited are refreshed to the new version automatically on the first visit after updating the theme. Posts you edited are left alone. |
+
 ## 2. Keyword map (one main topic per page, no two pages competing)
 
 | Page (NL / EN) | Main search terms (NL) | Main search terms (EN) |
@@ -89,6 +102,7 @@ claims about results or clients, and are yours to adjust.
 | `/website-restaurant/` · `/en/restaurant-website/` | website restaurant, menukaart website, horeca website | restaurant website Netherlands |
 | `/website-praktijk-fysiotherapeut/` · `/en/practice-website/` | website fysiotherapeut, website praktijk, website therapeut | practice website, therapist website |
 | `/website-aannemer-vakman/` · `/en/tradesperson-website/` | website aannemer, website loodgieter, website schilder | tradesperson website |
+| `/diensten/` · `/en/services/` | hub: website laten maken diensten, webdesign diensten (links down to the service pages) | web design services Netherlands |
 | `/werkwijze/`, `/veelgestelde-vragen/`, `/over-ace-360/`, `/contact/` | supporting pages (process, FAQ, about, contact) | |
 | `/blog/` · `/en/blog/` | informational searches (see the post table) | |
 

@@ -484,7 +484,7 @@ function ace360_landings() {
 				'extras'   => array( 'booking' ),
 				'price'    => array( 1250, 1650 ),
 				'title'    => $p( 'Salon website with online booking · est. from €1,250', 'Website voor kapper of salon met online boeken' ),
-				'desc'     => $p( 'A website for hair and beauty salons: treatments and prices, online booking in your real free times, reminders and your work in photos. See an estimate online.', 'Website voor kappers, barbers en schoonheidssalons: behandelingen en prijzen, online boeken in je echte vrije tijden, herinneringen en je werk in beeld.' ),
+				'desc'     => $p( 'Websites for hair and beauty salons: treatments and prices, online booking in your real free times, reminders and your work in photos. See an estimate.', 'Website voor kappers, barbers en schoonheidssalons: behandelingen en prijzen, online boeken in je echte vrije tijden, herinneringen en je werk in beeld.' ),
 				'kicker'   => $p( 'Websites for salons', 'Website voor kapper en salon' ),
 				'h1'       => $p( 'A salon website that books while you *cut*', 'Een salonwebsite die boekt terwijl jij *knipt*' ),
 				'lede'     => $p( 'Your clients want three things from your website: what you do, what it costs and when they can come. Answer those, let them book themselves, and your phone stops interrupting appointments.', 'Klanten willen drie dingen van je website: wat je doet, wat het kost en wanneer ze kunnen komen. Beantwoord die, laat ze zelf boeken, en je telefoon onderbreekt geen afspraken meer.' ),

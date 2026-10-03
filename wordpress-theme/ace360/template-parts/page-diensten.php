@@ -41,7 +41,7 @@ $ace360_inds = array(
 			$ace360_sl = $ace360_ls[ $ace360_s[0] ];
 			$ace360_pr = $ace360_sl['price'];
 			?>
-			<a class="svc-card reveal <?php echo 0 === $ace360_i ? 'is-wide' : ''; ?>" href="<?php echo esc_url( ace360_landing_url( $ace360_s[0] ) ); ?>">
+			<a class="svc-card reveal <?php echo 0 === $ace360_i ? 'is-wide' : ( 5 === $ace360_i ? 'is-wide is-full' : '' ); ?>" href="<?php echo esc_url( ace360_landing_url( $ace360_s[0] ) ); ?>">
 				<span class="svc-card-img"><img src="<?php echo esc_url( ace360_shot_url( $ace360_s[1] ) ); ?>" alt="" loading="lazy"></span>
 				<span class="svc-card-body">
 					<span class="mono svc-card-n"><?php echo esc_html( sprintf( '%02d', $ace360_i + 1 ) ); ?></span>

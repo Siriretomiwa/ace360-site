@@ -67,6 +67,7 @@ function add_action() {}
 function add_filter() {}
 function get_query_var( $k ) { return ''; }
 function wp_strip_all_tags( $s ) { return trim( strip_tags( $s ) ); }
+function sanitize_title( $s ) { $s = strtolower( strtr( $s, array( '’' => '', "'" => '' ) ) ); return trim( preg_replace( '/[^a-z0-9]+/', '-', $s ), '-' ); }
 
 require $theme . '/inc/template-helpers.php';
 require $theme . '/inc/content.php';
@@ -75,35 +76,38 @@ require $theme . '/inc/landings.php';
 require $theme . '/inc/blog.php';
 require $theme . '/inc/blog-seed.php';
 
-if ( 'blog' === $ace360_page || 'post' === $ace360_page ) {
-	// The blog from the starter posts in content/blog/ (in WordPress these are real posts).
-	$ace360_posts = ace360_seed_posts();
-	$ace360_cover = function ( $slug ) { return '__THEME__/assets/img/blog/' . $slug . '.jpg'; };
-	$ace360_words = function ( $p ) { return max( 1, (int) round( str_word_count( strip_tags( $p['body'] ) ) / 220 ) ); };
-	get_header();
-	if ( 'blog' === $ace360_page ) {
-		echo '<main id="main" class="site-main page-shell blog-index"><div class="wrap"><header class="page-head"><p class="kicker">Blog</p><h1>' . ace360_hl( ace360_pair( 'Website tips you can *use*', 'Websitetips die je meteen kunt *gebruiken*' ) ) . '</h1><p class="lede">' . ace360_t( ace360_pair( 'Short, practical articles about websites, online stores, booking and being found on Google. In WordPress, Dutch posts are at /blog/ and English posts at /en/blog/.', 'Korte, praktische artikelen over websites, webshops, online boeken en gevonden worden in Google. In WordPress staan Nederlandse artikelen op /blog/ en Engelse op /en/blog/.' ) ) . '</p></header><ul class="blog-grid">';
-		foreach ( array_reverse( $ace360_posts ) as $p ) {
-			printf( '<li class="blog-card"><a href="%1$s.html"><span class="blog-thumb"><img src="%2$s" alt="" loading="lazy"></span><span class="blog-meta mono">%3$s · %4$s · %5$d min</span><span class="blog-title">%6$s</span><span class="blog-excerpt">%7$s</span></a></li>',
-				esc_attr( $p['slug'] ), esc_attr( $ace360_cover( $p['slug'] ) ), esc_html( strtoupper( $p['lang'] ) ), esc_html( $p['category'] ), $ace360_words( $p ), esc_html( $p['title'] ), esc_html( $p['excerpt'] ) );
+if ( 'blog' === $ace360_page ) {
+	include $theme . '/blog.php'; // the starter posts in content/blog/ (in WordPress these are real posts)
+	return;
+}
+if ( 'post' === $ace360_page ) {
+	foreach ( ace360_seed_posts() as $sp ) {
+		if ( $sp['slug'] !== $ace360_preview_post ) {
+			continue;
 		}
-		echo '</ul></div></main>';
-	} else {
-		foreach ( $ace360_posts as $p ) {
-			if ( $p['slug'] !== $ace360_preview_post ) {
-				continue;
-			}
-			$svc = isset( ace360_landings()[ $p['service'] ] ) ? $p['service'] : 'kosten';
-			$sl  = ace360_landings()[ $svc ];
-			$l   = 'en' === $p['lang'] ? 'en' : 'nl';
-			echo '<main id="main" class="site-main page-shell"><article class="wrap entry"><header class="page-head"><nav class="crumbs mono"><a href="index.html">Ace 360</a> <span>/</span> <a href="blog.html">Blog</a></nav>';
-			echo '<p class="eyebrow">' . esc_html( $p['category'] . ' · ' . $ace360_words( $p ) . ( 'en' === $l ? ' min read' : ' min lezen' ) ) . '</p>';
-			echo '<h1 class="display h1">' . esc_html( $p['title'] ) . '</h1><p class="lede">' . esc_html( $p['excerpt'] ) . '</p></header>';
-			echo '<figure class="entry-media"><img src="' . esc_attr( $ace360_cover( $p['slug'] ) ) . '" alt=""></figure><div class="entry-content prose">' . $p['body'] . '</div>'; // phpcs:ignore -- theme file.
-			echo '<aside class="post-cta"><p class="kicker">Ace 360 Services</p><p class="post-cta-title">' . esc_html( str_replace( '*', '', $sl['h1'][ $l ] ) ) . '</p><p>' . esc_html( $sl['desc'][ $l ] ) . '</p><div class="actions"><a class="btn btn-orange" href="' . esc_attr( ace360_landing_url( $svc ) ) . '">' . ( 'en' === $l ? 'See an estimate' : 'Bekijk een prijsindicatie' ) . ' <span aria-hidden="true">→</span></a></div></aside></article></main>';
-		}
+		$l      = 'en' === $sp['lang'] ? 'en' : 'nl';
+		$months = 'en' === $l ? array( 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ) : array( 'januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december' );
+		$ace360_p = array(
+			'slug'      => $sp['slug'],
+			'title'     => $sp['title'],
+			'excerpt'   => $sp['excerpt'],
+			'cover'     => ace360_asset( 'img/blog/' . $sp['slug'] . '.jpg' ),
+			'cat'       => $sp['category'],
+			'date'      => date( 'j ' ) . $months[ date( 'n' ) - 1 ] . date( ' Y' ),
+			'minutes'   => max( 1, (int) round( str_word_count( strip_tags( $sp['body'] ) ) / 220 ) ),
+			'lang'      => $l,
+			'layout'    => isset( $sp['layout'] ) ? $sp['layout'] : 'cover',
+			'takeaways' => isset( $sp['takeaways'] ) ? array_values( array_filter( array_map( 'trim', explode( '|', $sp['takeaways'] ) ) ) ) : array(),
+			'service'   => isset( $sp['service'] ) ? $sp['service'] : '',
+			'body'      => ace360_post_media( $sp['body'], $l ),
+			'url'       => $sp['slug'] . '.html',
+		);
+		get_header();
+		echo '<main id="main" class="site-main post-main">';
+		get_template_part( 'template-parts/post-article', null, array( 'p' => $ace360_p ) );
+		echo '</main>';
+		get_footer();
 	}
-	get_footer();
 	return;
 }
 include $theme . ( 'work' === $ace360_page ? '/archive-ace_project.php' : ( 'landing' === $ace360_page ? '/landing.php' : '/front-page.php' ) );

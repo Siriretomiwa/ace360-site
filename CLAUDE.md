@@ -13,3 +13,7 @@ The site is built to rank: Dutch at `/`, English at `/en/` (one language per URL
 `wordpress-theme/ace360/inc/landings.php`, head tags/structured data/sitemap in `inc/seo.php`. Plan and keyword map:
 `marketing/SEO-PLAN.md`. New pages: one topic each, no two pages targeting the same search; keep prices in step with
 the estimator; titles ≤ 60 and descriptions ≤ 158 characters; no invented results or reviews.
+Designed pages use `tpl` in the landings registry (`template-parts/page-{tpl}.php`: diensten, over, contact). Blog posts
+(`ace360/content/blog/*.html`) take `layout:` and `takeaways:` headers and media shortcodes `[[clip:name|caption]]`,
+`[[shot:base|caption]]`, `[[photo:work-key|caption]]`; wrap inline labels in `<p>` inside block elements (wpautop).
+Check pages in local WordPress and with `python3 wordpress-theme/tools/build.py` before shipping.

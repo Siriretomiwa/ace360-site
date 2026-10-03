@@ -139,7 +139,8 @@ function ace360_seed_blog() {
 
 /**
  * Has a starter post been left as the theme added it? Compares with the fingerprint saved after adding it
- * (or, for posts added by 5.12, checks that it was never saved again after that first minute).
+ * (or, for posts added by 5.12, checks that it was never saved again after install: 5.12 dated the
+ * posts up to 20 minutes before the install moment, so allow half an hour).
  *
  * @param WP_Post $post Post.
  * @return bool
@@ -149,7 +150,7 @@ function ace360_seed_untouched( $post ) {
 	if ( $saved ) {
 		return md5( $post->post_content ) === $saved;
 	}
-	return abs( strtotime( $post->post_modified_gmt ) - strtotime( $post->post_date_gmt ) ) < 600;
+	return abs( strtotime( $post->post_modified_gmt ) - strtotime( $post->post_date_gmt ) ) < 1800;
 }
 
 /**

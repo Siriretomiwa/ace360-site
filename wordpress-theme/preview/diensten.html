@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="nl-NL" data-lang="nl" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>
+/* Day/night theme before first paint. The language is the page's own (Dutch at /, English at /en/);
+   a visitor who picked English before is taken to the English version of this page. */
+(function (d) {
+	var l = null;
+	try { l = new URLSearchParams(location.search).get('lang'); } catch (e) {}
+	if (l !== 'nl' && l !== 'en') { try { l = localStorage.getItem('ace360-lang'); } catch (e) {} }
+	if (l !== 'nl' && l !== 'en') { l = 'nl'; }
+	d.setAttribute('data-lang', l);
+	d.setAttribute('lang', l);
+	d.className = d.className.replace('no-js', 'js');
+	/* Evening (night) first, like a lamp-lit desk; ?theme=day or the switch for daylight. */
+	var t = null;
+	try { t = new URLSearchParams(location.search).get('theme'); } catch (e) {}
+	if (t !== 'night' && t !== 'day') { try { t = localStorage.getItem('ace360-theme'); } catch (e) {} }
+	d.setAttribute('data-theme', t === 'day' ? 'day' : 'night');
+})(document.documentElement);
+</script>
+<title>Diensten: websites, webshops, online boeken en onderhoud</title>
+<link rel="stylesheet" href="../ace360/assets/css/fonts.css">
+<link rel="stylesheet" href="../ace360/assets/css/main.css">
+<meta name="description" content="Ace 360 Services: websites, online stores and maintenance for businesses in the Netherlands and abroad. See an estimate online, fixed launch date.">
+</head>
+<body class="page">
+<a class="skip-link" href="#main"><span data-l="en" lang="en">Skip to content</span><span data-l="nl" lang="nl">Naar de inhoud</span></a>
+<div class="scroll-progress" aria-hidden="true"><span></span></div>
+
+<header class="site-header" id="top" data-header>
+	<div class="header-inner">
+		<a class="brand" href="index.html" rel="home" aria-label="Ace 360 Services">
+			<span class="wordmark" aria-hidden="true"><svg class="wordmark-ring" viewBox="0 0 32 32" width="26" height="26"><circle cx="16" cy="16" r="12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-dasharray="5.2 2.34"/><rect x="13" y="1.5" width="6" height="6" rx="1" fill="currentColor"/></svg><span class="wordmark-text">Ace 360<span class="wordmark-sub">Services</span></span></span>		</a>
+
+		<nav class="primary-nav" id="primary-nav" aria-label="Primary">
+			<ul class="menu"><li><a href="index.html">Home</a></li><li><a href="diensten.html" aria-current="page"><span data-l="en" lang="en">Services</span><span data-l="nl" lang="nl">Diensten</span></a></li><li><a href="work.html"><span data-l="en" lang="en">Work</span><span data-l="nl" lang="nl">Werk</span></a></li><li><a href="wat-kost-een-website.html"><span data-l="en" lang="en">Prices</span><span data-l="nl" lang="nl">Prijzen</span></a></li><li><a href="over-ace-360.html"><span data-l="en" lang="en">About us</span><span data-l="nl" lang="nl">Over ons</span></a></li><li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li></ul>			<a class="nav-phone" href="tel:+31617858490">+31 6 17 85 84 90</a>
+		</nav>
+
+		<div class="lang-switch" role="group" aria-label="Language / Taal"><button type="button" data-set-lang="nl" aria-pressed="true">NL</button><button type="button" data-set-lang="en" aria-pressed="false">EN</button></div>
+		<button class="theme-switch" type="button" data-theme-toggle aria-pressed="false">
+			<span class="screen-reader-text"><span data-l="en" lang="en">Night mode</span><span data-l="nl" lang="nl">Nachtmodus</span></span>
+			<span class="theme-knob" aria-hidden="true">
+				<svg class="ico-sun" viewBox="0 0 24 24" width="14" height="14"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></g></svg>
+				<svg class="ico-moon" viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M20.2 14.6A8.5 8.5 0 0 1 9.4 3.8a8.5 8.5 0 1 0 10.8 10.8z"/></svg>
+			</span>
+		</button>
+
+		<a class="btn btn-orange btn-small" href="contact.html#book"><span data-l="en" lang="en">Book a call</span><span data-l="nl" lang="nl">Plan een gesprek</span></a>
+
+		<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+			<span class="screen-reader-text">Menu</span>
+			<span class="nav-toggle-bars" aria-hidden="true"></span>
+		</button>
+	</div>
+</header>
+<a class="btn btn-orange fab-call" href="contact.html#book"><span data-l="en" lang="en">Book a call</span><span data-l="nl" lang="nl">Plan een gesprek</span></a>
+<main id="main" class="site-main page-designed svc-page">
+	<header class="wrap pd-hero">
+		<p class="kicker"><span data-l="en" lang="en">Services</span><span data-l="nl" lang="nl">Diensten</span></p>
+		<h1><span data-l="en" lang="en">Everything your business needs <em class="hl">online</em></span><span data-l="nl" lang="nl">Alles wat je bedrijf <em class="hl">online</em> nodig heeft</span></h1>
+		<p class="lede"><span data-l="en" lang="en">Six services, one way of working: you see an estimate first, the design before the build, and the site stays yours.</span><span data-l="nl" lang="nl">Zes diensten, één manier van werken: eerst een prijsindicatie, het ontwerp vóór de bouw, en de site blijft van jou.</span></p>
+		<div class="actions">
+			<a class="btn btn-orange" href="wat-kost-een-website.html#prijs"><span data-l="en" lang="en">See my estimate</span><span data-l="nl" lang="nl">Bekijk mijn prijsindicatie</span> <span aria-hidden="true">→</span></a>
+			<a class="btn btn-line" href="contact.html#book"><span data-l="en" lang="en">Book a free call</span><span data-l="nl" lang="nl">Plan een gratis gesprek</span></a>
+		</div>
+	</header>
+
+	<section class="wrap svc-bento" aria-label="Diensten">
+					<a class="svc-card reveal is-wide" href="website-laten-maken.html">
+				<span class="svc-card-img"><img src="../ace360/assets/img/blog-media/salon-nl.jpg" alt="" loading="lazy"></span>
+				<span class="svc-card-body">
+					<span class="mono svc-card-n">01</span>
+					<b><span data-l="en" lang="en">Web design · Netherlands &amp; worldwide</span><span data-l="nl" lang="nl">Website laten maken · heel Nederland</span></b>
+					<span class="svc-card-text"><span data-l="en" lang="en">Business websites in WordPress, built to bring in calls and bookings.</span><span data-l="nl" lang="nl">Zakelijke websites in WordPress, gebouwd om telefoontjes en boekingen op te leveren.</span></span>
+					<span class="svc-card-foot">
+						<span class="mono svc-card-price">
+							vanaf € 1.000						</span>
+						<span class="svc-card-go" aria-hidden="true">→</span>
+					</span>
+				</span>
+			</a>
+					<a class="svc-card reveal " href="one-page-website-laten-maken.html">
+				<span class="svc-card-img"><img src="../ace360/assets/img/blog-media/bike-nl.jpg" alt="" loading="lazy"></span>
+				<span class="svc-card-body">
+					<span class="mono svc-card-n">02</span>
+					<b><span data-l="en" lang="en">One-page website</span><span data-l="nl" lang="nl">One page website</span></b>
+					<span class="svc-card-text"><span data-l="en" lang="en">Everything on one fast page. The affordable way to get online.</span><span data-l="nl" lang="nl">Alles op één snelle pagina. De betaalbare manier om online te staan.</span></span>
+					<span class="svc-card-foot">
+						<span class="mono svc-card-price">
+							vanaf € 500						</span>
+						<span class="svc-card-go" aria-hidden="true">→</span>
+					</span>
+				</span>
+			</a>
+					<a class="svc-card reveal " href="webshop-laten-maken.html">
+				<span class="svc-card-img"><img src="../ace360/assets/img/blog-media/checkout-nl.jpg" alt="" loading="lazy"></span>
+				<span class="svc-card-body">
+					<span class="mono svc-card-n">03</span>
+					<b><span data-l="en" lang="en">Online stores · WooCommerce &amp; Shopify</span><span data-l="nl" lang="nl">Webshop laten maken · WooCommerce &amp; Shopify</span></b>
+					<span class="svc-card-text"><span data-l="en" lang="en">WooCommerce or Shopify, with iDEAL, shipping and VAT set up right.</span><span data-l="nl" lang="nl">WooCommerce of Shopify, met iDEAL, verzending en btw goed ingesteld.</span></span>
+					<span class="svc-card-foot">
+						<span class="mono svc-card-price">
+							vanaf € 2.150						</span>
+						<span class="svc-card-go" aria-hidden="true">→</span>
+					</span>
+				</span>
+			</a>
+					<a class="svc-card reveal " href="website-met-online-boeken.html">
+				<span class="svc-card-img"><img src="../ace360/assets/img/blog-media/practice-nl.jpg" alt="" loading="lazy"></span>
+				<span class="svc-card-body">
+					<span class="mono svc-card-n">04</span>
+					<b><span data-l="en" lang="en">Booking websites</span><span data-l="nl" lang="nl">Online afspraken</span></b>
+					<span class="svc-card-text"><span data-l="en" lang="en">Customers book themselves in your real free times, day or night.</span><span data-l="nl" lang="nl">Klanten boeken zelf in je echte vrije tijden, dag en nacht.</span></span>
+					<span class="svc-card-foot">
+						<span class="mono svc-card-price">
+							vanaf € 1.250						</span>
+						<span class="svc-card-go" aria-hidden="true">→</span>
+					</span>
+				</span>
+			</a>
+					<a class="svc-card reveal " href="website-onderhoud.html">
+				<span class="svc-card-img"><img src="../ace360/assets/img/blog-media/results-nl.jpg" alt="" loading="lazy"></span>
+				<span class="svc-card-body">
+					<span class="mono svc-card-n">05</span>
+					<b><span data-l="en" lang="en">Website maintenance</span><span data-l="nl" lang="nl">Website onderhoud</span></b>
+					<span class="svc-card-text"><span data-l="en" lang="en">Updates, backups, security and small changes, every month.</span><span data-l="nl" lang="nl">Updates, back-ups, beveiliging en kleine aanpassingen, elke maand.</span></span>
+					<span class="svc-card-foot">
+						<span class="mono svc-card-price">
+							€ 67,50 per maand						</span>
+						<span class="svc-card-go" aria-hidden="true">→</span>
+					</span>
+				</span>
+			</a>
+					<a class="svc-card reveal is-wide is-full" href="seo-vindbaarheid.html">
+				<span class="svc-card-img"><img src="../ace360/assets/img/blog-media/search-nl.jpg" alt="" loading="lazy"></span>
+				<span class="svc-card-body">
+					<span class="mono svc-card-n">06</span>
+					<b><span data-l="en" lang="en">SEO · visibility</span><span data-l="nl" lang="nl">SEO · vindbaarheid</span></b>
+					<span class="svc-card-text"><span data-l="en" lang="en">Technical SEO, local SEO and your Google Business Profile.</span><span data-l="nl" lang="nl">Technische SEO, lokale vindbaarheid en je Google Bedrijfsprofiel.</span></span>
+					<span class="svc-card-foot">
+						<span class="mono svc-card-price">
+							Prijs op aanvraag						</span>
+						<span class="svc-card-go" aria-hidden="true">→</span>
+					</span>
+				</span>
+			</a>
+			</section>
+
+	<section class="pd-split wrap">
+		<figure class="clip "><span class="clip-phone"><video src="../ace360/assets/video/blog/what-we-build.mp4" poster="../ace360/assets/video/blog/what-we-build.jpg" muted loop playsinline preload="none" data-clip aria-label="Wat er gebouwd wordt, in elf seconden"></video><button type="button" class="clip-toggle" data-clip-toggle aria-label="Play / pause"><span></span></button></span><figcaption>Wat er gebouwd wordt, in elf seconden</figcaption></figure>		<div class="pd-split-copy">
+			<p class="kicker"><span data-l="en" lang="en">One way of working</span><span data-l="nl" lang="nl">Eén manier van werken</span></p>
+			<h2><span data-l="en" lang="en">Whatever you need, it starts the <em class="hl">same</em> way</span><span data-l="nl" lang="nl">Wat je ook nodig hebt, het begint <em class="hl">hetzelfde</em></span></h2>
+			<ol class="mini-steps">
+									<li><span class="mono">01</span><b><span data-l="en" lang="en">First call</span><span data-l="nl" lang="nl">Kennismaking</span></b><em class="mono"><span data-l="en" lang="en">Day 1</span><span data-l="nl" lang="nl">Dag 1</span></em></li>
+									<li><span class="mono">02</span><b><span data-l="en" lang="en">Your quote</span><span data-l="nl" lang="nl">Jouw offerte</span></b><em class="mono"><span data-l="en" lang="en">Within 2 days</span><span data-l="nl" lang="nl">Binnen 2 dagen</span></em></li>
+									<li><span class="mono">03</span><b><span data-l="en" lang="en">Design</span><span data-l="nl" lang="nl">Ontwerp</span></b><em class="mono">Week 1</em></li>
+									<li><span class="mono">04</span><b><span data-l="en" lang="en">Build</span><span data-l="nl" lang="nl">Bouw</span></b><em class="mono">Week 2–3</em></li>
+									<li><span class="mono">05</span><b><span data-l="en" lang="en">Launch and handover</span><span data-l="nl" lang="nl">Lancering en overdracht</span></b><em class="mono"><span data-l="en" lang="en">Launch</span><span data-l="nl" lang="nl">Lancering</span></em></li>
+							</ol>
+			<a class="arrow-link" href="werkwijze.html"><span data-l="en" lang="en">How it works, step by step</span><span data-l="nl" lang="nl">De werkwijze, stap voor stap</span> <span aria-hidden="true">→</span></a>
+		</div>
+	</section>
+
+	<section class="wrap pd-section">
+		<div class="sec-head">
+			<p class="kicker"><span data-l="en" lang="en">For your business</span><span data-l="nl" lang="nl">Voor jouw branche</span></p>
+			<h2><span data-l="en" lang="en">Built around how <em class="hl">your</em> customers book and buy</span><span data-l="nl" lang="nl">Gebouwd rond hoe <em class="hl">jouw</em> klanten boeken en kopen</span></h2>
+		</div>
+		<div class="ind-grid">
+							<a class="ind-card reveal" href="website-kapper-salon.html">
+					<img src="../ace360/assets/img/work/noor-hero.jpg" alt="" loading="lazy">
+					<span class="ind-card-label"><b><span data-l="en" lang="en">Websites for salons</span><span data-l="nl" lang="nl">Website voor kapper en salon</span></b><span aria-hidden="true">↗</span></span>
+				</a>
+							<a class="ind-card reveal" href="website-restaurant.html">
+					<img src="../ace360/assets/img/work/zout-hero.jpg" alt="" loading="lazy">
+					<span class="ind-card-label"><b><span data-l="en" lang="en">Websites for restaurants</span><span data-l="nl" lang="nl">Website voor horeca</span></b><span aria-hidden="true">↗</span></span>
+				</a>
+							<a class="ind-card reveal" href="website-praktijk-fysiotherapeut.html">
+					<img src="../ace360/assets/img/work/adem-hero.jpg" alt="" loading="lazy">
+					<span class="ind-card-label"><b><span data-l="en" lang="en">Websites for practices</span><span data-l="nl" lang="nl">Website voor praktijken</span></b><span aria-hidden="true">↗</span></span>
+				</a>
+							<a class="ind-card reveal" href="website-aannemer-vakman.html">
+					<img src="../ace360/assets/img/work/spaak-hero.jpg" alt="" loading="lazy">
+					<span class="ind-card-label"><b><span data-l="en" lang="en">Websites for trades</span><span data-l="nl" lang="nl">Website voor vakmensen</span></b><span aria-hidden="true">↗</span></span>
+				</a>
+					</div>
+	</section>
+
+	<section class="cta-band" data-k="contact">
+	<div class="wrap cta-band-in">
+		<svg class="cta-ring" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="5.2 2.34"/><rect x="13.6" y="2.8" width="4.8" height="4.8" rx="1" fill="currentColor"/></svg>
+		<div>
+			<h2><span data-l="en" lang="en">Ready when you are. The first call is <em class="hl">free</em>.</span><span data-l="nl" lang="nl">Klaar als jij het bent. Het eerste gesprek is <em class="hl">gratis</em>.</span></h2>
+			<p class="lede"><span data-l="en" lang="en">Twenty minutes, by phone, WhatsApp or video, in English or Dutch. You see an estimate before we even talk.</span><span data-l="nl" lang="nl">Twintig minuten, via telefoon, WhatsApp of video, in het Nederlands of Engels. Je ziet een prijsindicatie nog voordat we praten.</span></p>
+		</div>
+		<div class="actions">
+			<a class="btn btn-orange" href="contact.html#book"><span data-l="en" lang="en">Book a free call</span><span data-l="nl" lang="nl">Plan een gratis gesprek</span> <span aria-hidden="true">→</span></a>
+			<a class="btn btn-line" href="wat-kost-een-website.html#prijs"><span data-l="en" lang="en">See my estimate</span><span data-l="nl" lang="nl">Bekijk mijn prijsindicatie</span></a>
+		</div>
+	</div>
+</section>
+</main>
+<footer class="site-footer">
+	<div class="footer-inner">
+		<div class="footer-brand">
+			<span class="wordmark" aria-hidden="true"><svg class="wordmark-ring" viewBox="0 0 32 32" width="26" height="26"><circle cx="16" cy="16" r="12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-dasharray="5.2 2.34"/><rect x="13" y="1.5" width="6" height="6" rx="1" fill="currentColor"/></svg><span class="wordmark-text">Ace 360<span class="wordmark-sub">Services</span></span></span>			<p><span data-l="en" lang="en">Websites, online stores and maintenance for businesses in the Netherlands and abroad. A clear estimate up front, a fixed launch date, one person to talk to.</span><span data-l="nl" lang="nl">Websites, webshops en onderhoud voor bedrijven in Nederland en daarbuiten. Vooraf een duidelijke prijsindicatie, een vaste lanceerdatum, één aanspreekpunt.</span></p>
+		</div>
+		<div class="footer-col">
+			<p class="label">Direct</p>
+			<ul>
+				<li><a href="tel:+31617858490"><span data-l="en" lang="en">Phone</span><span data-l="nl" lang="nl">Telefoon</span> · +31 6 17 85 84 90</a></li>
+				<li><a href="mailto:hello@ace360services.nl">hello@ace360services.nl</a></li>
+				<li><a href="https://wa.me/31617858490" rel="noopener" target="_blank">WhatsApp</a></li>
+				<li class="muted"><span data-l="en" lang="en">Calls Mon–Fri 15:30–16:30 and 17:30–19:00, Sat 09:00–13:30 (Amsterdam time)</span><span data-l="nl" lang="nl">Bellen ma–vr 15:30–16:30 en 17:30–19:00, za 09:00–13:30</span></li>
+			</ul>
+		</div>
+		<div class="footer-col">
+			<p class="label"><span data-l="en" lang="en">Services</span><span data-l="nl" lang="nl">Diensten</span></p>
+			<ul>
+									<li><a href="website-laten-maken.html"><span data-l="en" lang="en">Website build</span><span data-l="nl" lang="nl">Website laten maken</span></a></li>
+									<li><a href="webshop-laten-maken.html"><span data-l="en" lang="en">Online store</span><span data-l="nl" lang="nl">Webshop</span></a></li>
+									<li><a href="website-onderhoud.html"><span data-l="en" lang="en">Maintenance and care</span><span data-l="nl" lang="nl">Onderhoud</span></a></li>
+									<li><a href="seo-vindbaarheid.html"><span data-l="en" lang="en">Visibility and growth</span><span data-l="nl" lang="nl">Vindbaarheid en groei</span></a></li>
+							</ul>
+		</div>
+		<div class="footer-col">
+			<p class="label"><span data-l="en" lang="en">Popular</span><span data-l="nl" lang="nl">Populair</span></p>
+			<ul>
+									<li><a href="wat-kost-een-website.html"><span data-l="en" lang="en">Guide · website prices</span><span data-l="nl" lang="nl">Gids · website kosten</span></a></li>
+									<li><a href="one-page-website-laten-maken.html"><span data-l="en" lang="en">One-page website</span><span data-l="nl" lang="nl">One page website</span></a></li>
+									<li><a href="website-met-online-boeken.html"><span data-l="en" lang="en">Booking websites</span><span data-l="nl" lang="nl">Online afspraken</span></a></li>
+									<li><a href="werkwijze.html"><span data-l="en" lang="en">Process</span><span data-l="nl" lang="nl">Werkwijze</span></a></li>
+									<li><a href="veelgestelde-vragen.html"><span data-l="en" lang="en">Questions</span><span data-l="nl" lang="nl">Veelgestelde vragen</span></a></li>
+									<li><a href="over-ace-360.html"><span data-l="en" lang="en">About</span><span data-l="nl" lang="nl">Over ons</span></a></li>
+									<li><a href="contact.html">Contact</a></li>
+								<li><a href="work.html"><span data-l="en" lang="en">All work</span><span data-l="nl" lang="nl">Al het werk</span></a></li>
+				<li><a href="blog.html">Blog</a></li>
+			</ul>
+		</div>
+		<div class="footer-col">
+			<p class="label"><span data-l="en" lang="en">For your business</span><span data-l="nl" lang="nl">Voor jouw branche</span></p>
+			<ul>
+									<li><a href="website-kapper-salon.html"><span data-l="en" lang="en">Websites for salons</span><span data-l="nl" lang="nl">Website voor kapper en salon</span></a></li>
+									<li><a href="website-restaurant.html"><span data-l="en" lang="en">Websites for restaurants</span><span data-l="nl" lang="nl">Website voor horeca</span></a></li>
+									<li><a href="website-praktijk-fysiotherapeut.html"><span data-l="en" lang="en">Websites for practices</span><span data-l="nl" lang="nl">Website voor praktijken</span></a></li>
+									<li><a href="website-aannemer-vakman.html"><span data-l="en" lang="en">Websites for trades</span><span data-l="nl" lang="nl">Website voor vakmensen</span></a></li>
+							</ul>
+		</div>
+	</div>
+	<div class="footer-bottom">
+		<p>&copy; 2026 Ace 360 Services · KvK 94618240</p>
+		<p><span data-l="en" lang="en">Based in the Netherlands · working worldwide · no tracking cookies</span><span data-l="nl" lang="nl">Gevestigd in Nederland · werkt wereldwijd · geen trackingcookies</span></p>
+		<a class="to-top" href="#top"><span data-l="en" lang="en">Back to top</span><span data-l="nl" lang="nl">Naar boven</span> &uarr;</a>
+	</div>
+</footer>
+<script src="../ace360/assets/vendor/gsap.min.js"></script>
+<script src="../ace360/assets/vendor/ScrollTrigger.min.js"></script>
+<script src="../ace360/assets/vendor/lenis.min.js"></script>
+<script>window.ACE360_PREVIEW = true;</script>
+<script src="../ace360/assets/js/screens.js"></script>
+<script src="../ace360/assets/js/main.js"></script>
+<script src="../ace360/assets/js/ui.js"></script>
+</body>
+</html>

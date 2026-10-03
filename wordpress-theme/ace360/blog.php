@@ -19,7 +19,7 @@ foreach ( array_merge( $ace360_lead ? array( $ace360_lead ) : array(), $ace360_i
 $ace360_rail = $ace360_en
 	? array( array( 'booking-flow', 'Booking in three taps', 'booking-website-vs-booking-app' ), array( 'vague-quote', 'A quote with a total', 'hire-web-designer-netherlands' ), array( 'ownership', 'Who owns your logins?', 'hire-web-designer-netherlands' ), array( 'missed-call', 'The missed call', 'booking-website-vs-booking-app' ), array( 'prices-booking', 'Let your site answer', 'booking-website-vs-booking-app' ), array( 'five-steps', 'Five steps to live', 'starting-a-business-netherlands-website' ) )
 	: array( array( 'five-second-fail', 'De 5-secondentest', 'vijf-secondentest-homepage' ), array( 'vague-quote', 'Een offerte met totaal', 'vragen-voor-webdesigner' ), array( 'ownership', 'Van wie zijn je logins?', 'domein-en-hosting-op-eigen-naam' ), array( 'booking-flow', 'Boeken in drie tikken', 'boekingssysteem-kiezen-salon' ), array( 'after-launch', 'Na de lancering', 'wordpress-onderhoud-checklist' ), array( 'speed-score', 'Snel en vindbaar', 'snelle-website-laadtijd' ) );
-$ace360_bento = array( 'is-wide', '', '', 'is-tall', '', '', '', 'is-wide', '', 'is-tall' );
+$ace360_bento = array( 'is-wide', '', '', 'is-text', '', '', 'is-wide' ); // 3 full rows of 3 columns
 ?>
 <main id="main" class="site-main blog-index" data-blog-index>
 	<header class="wrap blog-hero">
