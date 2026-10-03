@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Culpromark · Food safety & processing</title>
+<meta name="description" content="Culpromark Limited helps food processors build safe lines, pass audits and prove it every day: HACCP plans, audits, lab testing, hygienic line design and training.">
+<meta name="theme-color" content="#0f2620">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2l12 7v14l-12 7-12-7V9z' fill='%23134e3a'/%3E%3Cpath d='M10 16.5l4 4 8-9' fill='none' stroke='%23f4c430' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- Concept by Ace 360 Services. All copy lives in content.js; app.js builds the page from it. -->
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="statusbar" aria-hidden="true">
+  <div class="wrap statusbar-in">
+    <span class="dot"></span><span data-status>All critical control points in limits</span>
+    <span class="statusbar-lot mono">LOT <b data-lot>26-118</b></span>
+    <span class="statusbar-time mono" data-clock>--:--</span>
+  </div>
+</div>
+
+<header class="top" data-top>
+  <div class="wrap top-in">
+    <a class="brand" href="#main" aria-label="Culpromark home">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2l12 7v14l-12 7-12-7V9z" fill="currentColor"/><path d="M10 16.5l4 4 8-9" fill="none" stroke="#f4c430" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="brand-text"><b data-c="company.name"></b><small>Limited</small></span>
+    </a>
+    <nav class="nav" data-nav aria-label="Main"></nav>
+    <a class="btn btn-yellow btn-sm top-cta" href="#contact" data-c="cta"></a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mnav" data-menu><span></span><span class="sr">Menu</span></button>
+  </div>
+  <nav class="mnav" id="mnav" data-mnav aria-label="Mobile" hidden></nav>
+</header>
+
+<main id="main">
+  <!-- Hero -->
+  <section class="hero">
+    <div class="wrap hero-in">
+      <div class="hero-copy">
+        <p class="tape" data-c="hero.kicker"></p>
+        <h1 data-c="hero.title" data-rich></h1>
+        <p class="lede" data-c="hero.lede"></p>
+        <div class="actions">
+          <a class="btn btn-yellow" href="#contact"><span data-c="hero.primary"></span> <i aria-hidden="true">→</i></a>
+          <a class="btn btn-ghost" href="#check" data-c="hero.secondary"></a>
+        </div>
+        <ul class="proof" data-list="hero.proof"></ul>
+      </div>
+      <aside class="monitor" aria-label="Example line monitor">
+        <div class="monitor-head">
+          <span class="mono">LINE A · LIVE</span>
+          <span class="pill-ok"><i></i>IN LIMITS</span>
+        </div>
+        <div class="monitor-rows" data-monitor></div>
+        <ul class="monitor-checks" data-list="hero.checks"></ul>
+        <p class="monitor-foot mono">Example dashboard · what “provable” looks like</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Standards strip -->
+  <section class="strip" aria-label="Standards we prepare you for">
+    <div class="strip-track" data-standards></div>
+  </section>
+
+  <!-- Services -->
+  <section class="sec" id="services">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="tape">What we do</p>
+        <h2>From the hazard analysis to the <em>audit day</em>.</h2>
+      </div>
+      <div class="services" data-services></div>
+    </div>
+  </section>
+
+  <!-- The line -->
+  <section class="sec line-sec" id="line">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="tape">HACCP, made visible</p>
+        <h2 data-c="line.title" data-rich></h2>
+        <p class="lede" data-c="line.lede"></p>
+      </div>
+      <div class="line" data-line>
+        <div class="line-stage">
+          <svg class="line-svg" data-line-svg role="img" aria-label="Processing line with stations"></svg>
+        </div>
+        <div class="line-chips" data-line-chips role="tablist" aria-label="Stations"></div>
+        <div class="line-panel" data-line-panel aria-live="polite"></div>
+        <div class="line-controls">
+          <button type="button" class="line-play" data-line-play aria-pressed="true"><span class="i-pause">❚❚</span><span class="i-play">▶</span> <span data-line-play-label>Pause</span></button>
+          <p class="line-note mono" data-c="line.note"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Readiness check -->
+  <section class="sec check-sec" id="check">
+    <div class="wrap check-in">
+      <div class="sec-head">
+        <p class="tape">Free self-assessment</p>
+        <h2 data-c="check.title" data-rich></h2>
+        <p class="lede" data-c="check.lede"></p>
+      </div>
+      <form class="check" data-check onsubmit="return false">
+        <ol class="check-qs" data-check-qs></ol>
+        <div class="check-result" data-check-result>
+          <div class="ring"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52"/><circle class="ring-arc" cx="60" cy="60" r="52" data-ring/></svg><b data-score>0</b><span>/ 100</span></div>
+          <p class="check-progress mono" data-check-progress></p>
+          <h3 data-tier>Answer the questions</h3>
+          <p data-tier-text>Your score and the three things to fix first appear here as you go.</p>
+          <ol class="check-fixes" data-fixes></ol>
+          <a class="btn btn-yellow" href="#contact" data-check-cta data-c="check.cta"></a>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Sectors -->
+  <section class="sec" id="sectors">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="tape">Sectors</p>
+        <h2>Every product has its own <em>hazards</em>.</h2>
+      </div>
+      <div class="sectors">
+        <div class="sector-tabs" role="tablist" aria-label="Sectors" data-sector-tabs></div>
+        <div class="sector-card" data-sector-card aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How we work + numbers -->
+  <section class="sec how-sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="tape">How we work</p>
+        <h2>Ready for the audit, and <em>every day after</em>.</h2>
+      </div>
+      <ol class="steps" data-steps></ol>
+      <div class="stats" data-stats></div>
+      <p class="stats-note mono" data-c="statsNote"></p>
+    </div>
+  </section>
+
+  <!-- Insights -->
+  <section class="sec" id="insights">
+    <div class="wrap">
+      <div class="sec-head row">
+        <div>
+          <p class="tape">Insights</p>
+          <h2>Short reads for the <em>production floor</em>.</h2>
+        </div>
+      </div>
+      <div class="insights" data-insights></div>
+    </div>
+    <dialog class="reader" data-reader aria-labelledby="reader-title">
+      <article>
+        <button type="button" class="reader-close" data-reader-close aria-label="Close">×</button>
+        <p class="tape" data-reader-tag></p>
+        <h3 id="reader-title" data-reader-title></h3>
+        <div data-reader-body></div>
+        <a class="btn btn-yellow" href="#contact" data-reader-cta>Talk to us about this</a>
+      </article>
+    </dialog>
+  </section>
+
+  <!-- FAQ -->
+  <section class="sec faq-sec">
+    <div class="wrap faq-in">
+      <div class="sec-head">
+        <p class="tape">Questions</p>
+        <h2>Straight <em>answers</em>.</h2>
+      </div>
+      <div class="faq" data-faq></div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="sec contact-sec" id="contact">
+    <div class="wrap contact-in">
+      <div>
+        <p class="tape tape-dark">Contact</p>
+        <h2 data-c="contact.title" data-rich></h2>
+        <p class="lede" data-c="contact.lede"></p>
+        <dl class="contact-dl" data-contact-dl></dl>
+      </div>
+      <form class="contact-form" data-contact novalidate>
+        <div class="row2">
+          <label>Name<input name="name" autocomplete="name" required></label>
+          <label>Company<input name="company" autocomplete="organization"></label>
+        </div>
+        <div class="row2">
+          <label>Email<input name="email" type="email" autocomplete="email" required></label>
+          <label>Phone (optional)<input name="phone" type="tel" autocomplete="tel"></label>
+        </div>
+        <label>What do you produce?<input name="product" placeholder="e.g. chilled ready meals, 2 lines"></label>
+        <fieldset><legend>What do you need?</legend><div class="needs" data-needs></div></fieldset>
+        <label>Anything else?<textarea name="msg" rows="3"></textarea></label>
+        <p class="form-msg" data-form-msg hidden></p>
+        <button class="btn btn-yellow" type="submit"><span data-c="cta"></span> <i aria-hidden="true">→</i></button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <div>
+      <a class="brand brand-foot" href="#main"><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2l12 7v14l-12 7-12-7V9z" fill="currentColor"/><path d="M10 16.5l4 4 8-9" fill="none" stroke="#f4c430" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="brand-text"><b data-c="company.name"></b><small>Limited</small></span></a>
+      <p data-c="footer.blurb"></p>
+    </div>
+    <nav data-foot-nav aria-label="Footer"></nav>
+    <p class="foot-legal">© <span data-year></span> <span data-c="company.legal"></span></p>
+  </div>
+</footer>
+
+<a class="concept" data-concept target="_blank" rel="noopener"><span>Concept</span> <b data-c="footer.concept"></b> ↗</a>
+
+<noscript><p class="noscript">This concept site builds its content with JavaScript. Please enable it to see the page.</p></noscript>
+<script src="content.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

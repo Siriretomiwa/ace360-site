@@ -36,12 +36,12 @@ def local_preview(html, work=False):
         scripts += f'<script>window.ACE360_PREVIEW = true;</script>\n<script src="{a}js/screens.js"></script>\n<script src="{a}js/main.js"></script>'
     else:
         scripts += f'<script>window.ACE360_PREVIEW = true;</script>\n<script src="{a}js/demo.js"></script>\n<script src="{a}js/screens.js"></script>\n<script src="{a}js/film.js"></script>\n<script src="{a}js/main.js"></script>'
-    return html.replace('<!--wp_head-->', head).replace('<!--wp_footer-->', scripts)
+    return html.replace('<!--wp_head-->', head).replace('<!--wp_footer-->', scripts).replace('__THEME__/', '../ace360/')
 
 def artifact(html, work=False):
     body = re.search(r'<body[^>]*>(.*)</body>', html, re.S).group(1)
     head_script = re.search(r'<head>.*?(<script>.*?</script>)', html, re.S).group(1)
-    body = body.replace('<!--wp_footer-->', '')
+    body = body.replace('<!--wp_footer-->', '').replace('__THEME__/', '')
     out = ['<title>Ace 360 Services</title>',
            head_script,
            "<script>document.documentElement.classList.add('js');</script>",
@@ -74,9 +74,10 @@ def pages(html, out):
     if os.path.isdir(out):
         shutil.rmtree(out)
     shutil.copytree(os.path.join(THEME, 'assets'), os.path.join(out, 'assets'))
-    page = local_preview(html).replace('../ace360/assets/', 'assets/')
+    shutil.copytree(os.path.join(THEME, 'demos'), os.path.join(out, 'demos'))
+    page = local_preview(html).replace('../ace360/assets/', 'assets/').replace('../ace360/demos/', 'demos/')
     open(os.path.join(out, 'index.html'), 'w', encoding='utf-8').write(page)
-    page = local_preview(render('work'), True).replace('../ace360/assets/', 'assets/')
+    page = local_preview(render('work'), True).replace('../ace360/assets/', 'assets/').replace('../ace360/demos/', 'demos/')
     open(os.path.join(out, 'work.html'), 'w', encoding='utf-8').write(page)
     open(os.path.join(out, '.nojekyll'), 'w').close()
 

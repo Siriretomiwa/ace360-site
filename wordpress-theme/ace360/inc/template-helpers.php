@@ -265,6 +265,17 @@ function ace360_work_highlights( $work, $max = 8 ) {
 }
 
 /**
+ * Live demo sites bundled with the theme (ace360/demos/<slug>/).
+ *
+ * @param string $slug Folder name.
+ * @return string
+ */
+function ace360_demo_url( $slug ) {
+	$base = function_exists( 'get_template_directory_uri' ) ? get_template_directory_uri() : '';
+	return $base . '/demos/' . rawurlencode( $slug ) . '/index.html';
+}
+
+/**
  * Link to the All work page (the Projects archive, /work/).
  */
 function ace360_work_url() {

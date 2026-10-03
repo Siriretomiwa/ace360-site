@@ -18,6 +18,7 @@ function esc_html( $s ) { return htmlspecialchars( (string) $s, ENT_QUOTES, 'UTF
 function esc_attr( $s ) { return htmlspecialchars( (string) $s, ENT_QUOTES, 'UTF-8' ); }
 function esc_url( $s ) { return htmlspecialchars( (string) $s, ENT_QUOTES, 'UTF-8' ); }
 function get_theme_mod( $k, $d = false ) { return $d; }
+function get_template_directory_uri() { return '__THEME__'; }
 function home_url( $p = '' ) { return ( '' === $p || '/' === $p ) ? 'index.html' : ( '/' === $p[0] ? 'index.html' . substr( $p, 1 ) : $p ); }
 function admin_url( $p = '' ) { return '#'; }
 function get_bloginfo( $k = '' ) { return 'Ace 360 Services'; }

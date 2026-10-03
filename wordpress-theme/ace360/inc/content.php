@@ -163,6 +163,7 @@ function ace360_sectors() {
 		'beauty'   => ace360_pair( 'Beauty & skincare', 'Beauty & huidverzorging' ),
 		'booking'  => ace360_pair( 'Bookings & hospitality', 'Boekingen & horeca' ),
 		'platform' => ace360_pair( 'Platforms & services', 'Platforms & diensten' ),
+		'b2b'      => ace360_pair( 'Industry & B2B', 'Industrie & B2B' ),
 	);
 }
 
@@ -174,6 +175,24 @@ function ace360_sectors() {
  */
 function ace360_work() {
 	return array(
+		array(
+			'title'    => 'Culpromark',
+			'type'     => ace360_pair( 'Food safety consultancy · B2B site', 'Voedselveiligheidsadvies · B2B-site' ),
+			'text'     => ace360_pair( 'Website for a food safety and processing consultancy: an interactive HACCP processing line, a two-minute audit-readiness check that brings in leads, and articles the team adds themselves.', 'Website voor een adviesbureau in voedselveiligheid en -verwerking: een interactieve HACCP-productielijn, een audit-check van twee minuten die leads oplevert, en artikelen die het team zelf toevoegt.' ),
+			'built'    => array(
+				ace360_pair( 'Interactive processing line with critical control points', 'Interactieve productielijn met kritische beheerspunten' ),
+				ace360_pair( 'Audit-readiness check with score and top 3 fixes', 'Audit-check met score en de 3 belangrijkste verbeterpunten' ),
+				ace360_pair( 'Live line monitor, sector guides and an article reader', 'Live lijnmonitor, sectorgidsen en een artikellezer' ),
+				ace360_pair( 'All content editable in one file', 'Alle inhoud aan te passen in één bestand' ),
+			),
+			'stack'    => array( 'HTML', 'CSS', 'Vanilla JS', 'No dependencies' ),
+			'mockup'   => 'culpromark',
+			'sector'   => 'b2b',
+			'featured' => true,
+			'concept'  => true,
+			'demo'     => ace360_demo_url( 'culpromark' ),
+			'url'      => '',
+		),
 		array(
 			'title'  => 'Hesed Impact Ministries',
 			'type'   => ace360_pair( 'WordPress theme', 'WordPress-thema' ),
@@ -600,6 +619,7 @@ function ace360_estimator_js() {
  */
 function ace360_work_quote( $mockup ) {
 	$map = array(
+		'culpromark'  => array( 'website', array( 'seo', 'copy' ) ),
 		'hesed'       => array( 'website', array( 'booking' ) ),
 		'sidwalk'     => array( 'store', array( 'brand', 'images' ) ),
 		'prkiosk'     => array( 'store', array( 'copy' ) ),

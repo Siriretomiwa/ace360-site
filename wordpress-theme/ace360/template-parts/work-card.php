@@ -52,6 +52,9 @@ $ace360_class = 'wcard' . ( $ace360_rich ? ' wcard-rich' : '' ) . ( empty( $args
 		<?php if ( ! empty( $ace360_w['stack'] ) ) : ?>
 			<p class="stack mono"><?php echo esc_html( implode( ' · ', $ace360_w['stack'] ) ); ?></p>
 		<?php endif; ?>
+		<?php if ( ! empty( $ace360_w['demo'] ) ) : ?>
+			<a class="btn btn-orange btn-small" href="<?php echo esc_url( $ace360_w['demo'] ); ?>" target="_blank" rel="noopener"><?php ace360_e( ace360_pair( 'Open the live demo', 'Open de live demo' ) ); ?> <span aria-hidden="true">↗</span></a>
+		<?php endif; ?>
 		<?php if ( ! empty( $ace360_w['url'] ) ) : ?>
 			<a class="arrow-link" href="<?php echo esc_url( $ace360_w['url'] ); ?>" target="_blank" rel="noopener"><?php ace360_e( ace360_pair( 'Visit the live site', 'Bekijk de live site' ) ); ?> <span aria-hidden="true">↗</span></a>
 		<?php elseif ( ! empty( $ace360_w['link'] ) ) : ?>

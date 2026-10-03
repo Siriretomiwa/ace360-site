@@ -256,7 +256,55 @@
   function paintWork(kind, g, w, h, title) {
     {
       var t;
-      if (kind === 'hesed') {
+      if (kind === 'culpromark') {
+        var PINE = '#134e3a', PINE2 = '#0b3628', YEL = '#f4c430', INKC = '#0f2620';
+        g.fillStyle = '#f3f0e8'; g.fillRect(0, 0, w, h); t = chrome(g, w, 'culpromark.com', false);
+        g.strokeStyle = 'rgba(15,38,32,0.07)'; g.lineWidth = 1;
+        for (var gx = 0; gx < w; gx += 28) { g.beginPath(); g.moveTo(gx, t); g.lineTo(gx, 420); g.stroke(); }
+        for (var gy = t; gy < 420; gy += 28) { g.beginPath(); g.moveTo(0, gy); g.lineTo(w, gy); g.stroke(); }
+        g.fillStyle = PINE2; g.fillRect(0, t, w, 24); circle(g, 30, t + 12, 4, '#4ade80');
+        txt(g, 'All critical control points in limits', 42, t + 16, 11, '#cfe3d8', 500); txt(g, 'LOT 26-276', w - 30, t + 16, 11, YEL, 600, MONO, 'right');
+        var hy = t + 24;
+        g.fillStyle = '#f3f0e8'; g.fillRect(0, hy, w, 50);
+        g.beginPath(); [[0, -14], [12, -7], [12, 7], [0, 14], [-12, 7], [-12, -7]].forEach(function (p, i) { var px = 52 + p[0], py = hy + 25 + p[1]; if (i) g.lineTo(px, py); else g.moveTo(px, py); }); g.closePath(); g.fillStyle = PINE; g.fill();
+        g.strokeStyle = YEL; g.lineWidth = 2.6; g.lineCap = 'round'; g.beginPath(); g.moveTo(46, hy + 25); g.lineTo(50, hy + 29); g.lineTo(58, hy + 20); g.stroke();
+        txt(g, 'CULPROMARK', 72, hy + 26, 17, INKC, 800); txt(g, 'L I M I T E D', 72, hy + 39, 8, '#5e6e67', 600, MONO);
+        ['Services', 'The line', 'Readiness check', 'Sectors'].forEach(function (n, i) { txt(g, n, 470 + [0, 76, 146, 266][i], hy + 30, 12.5, '#2c4038', 500); });
+        box(g, w - 168, hy + 11, 136, 28, 14, YEL); txt(g, 'Book a site audit', w - 100, hy + 30, 12.5, INKC, 700, SANS, 'center');
+        var ty = hy + 82;
+        g.fillStyle = YEL; g.beginPath(); g.moveTo(40, ty); g.lineTo(330, ty); g.lineTo(322, ty + 9); g.lineTo(330, ty + 18); g.lineTo(40, ty + 18); g.closePath(); g.fill();
+        txt(g, '◆ FOOD SAFETY & PROCESSING CONSULTANCY', 50, ty + 13, 10, INKC, 600, MONO);
+        txt(g, 'Safe food,', 40, ty + 82, 60, INKC, 800); txt(g, 'made', 40, ty + 144, 60, INKC, 800);
+        g.font = '800 60px ' + SANS; var pw = g.measureText('provable').width;
+        g.fillStyle = 'rgba(244,196,48,0.55)'; g.fillRect(40, ty + 176, pw + 6, 22);
+        txt(g, 'provable', 42, ty + 206, 60, '#2f8f5b', 800); txt(g, '.', 44 + pw, ty + 206, 60, INKC, 800);
+        g.save(); g.translate(640, hy + 70); g.rotate(0.02);
+        var mg = g.createLinearGradient(0, 0, 0, 280); mg.addColorStop(0, '#123b2d'); mg.addColorStop(1, '#0a2a1f'); g.fillStyle = mg; rr(g, 0, 0, 340, 290, 20); g.fill();
+        txt(g, 'LINE A · LIVE', 20, 28, 10, '#8fb3a1', 600, MONO); box(g, 236, 15, 86, 20, 10, 'rgba(74,222,128,0.15)'); txt(g, '● IN LIMITS', 279, 29, 9.5, '#86efac', 600, MONO, 'center');
+        [['Chiller 2', '3.1', '°C', '≤ 5.0 °C'], ['Pasteuriser · hold', '72.6', '°C', '≥ 72 °C / 15 s'], ['Blast chiller core', '4.4', '°C', '< 5 °C in 90 min'], ['Wash water', '78', 'ppm', '50–100 ppm']].forEach(function (r, i) {
+          var ry = 46 + i * 58; box(g, 16, ry, 308, 50, 10, 'rgba(255,255,255,0.06)');
+          txt(g, r[0], 30, ry + 20, 12, '#cfe3d8', 500); txt(g, r[1], 284, ry + 22, 19, '#ffffff', 600, MONO, 'right'); txt(g, r[2], 290, ry + 22, 9, '#8fb3a1', 500, MONO);
+          txt(g, r[3], 310, ry + 40, 9, '#8fb3a1', 500, MONO, 'right');
+          g.strokeStyle = '#4ade80'; g.lineWidth = 1.4; g.beginPath();
+          for (var k = 0; k < 20; k++) { var sx = 30 + k * 9, sy = ry + 38 + Math.sin(k * 1.7 + i) * 3 + ((k * 7 + i) % 3 - 1); if (k) g.lineTo(sx, sy); else g.moveTo(sx, sy); }
+          g.stroke();
+        });
+        g.restore();
+        var ly = 440;
+        g.fillStyle = PINE2; g.fillRect(0, ly, w, h - ly);
+        txt(g, 'Follow the line', 40, ly + 40, 24, '#ffffff', 800); txt(g, 'HACCP, made visible', w - 40, ly + 38, 11, YEL, 600, MONO, 'right');
+        box(g, 40, ly + 140, w - 80, 12, 6, '#31453d');
+        var names = ['Receiving', 'Washing', 'Processing', 'Cooking', 'Cooling', 'Packing', 'Metal', 'Dispatch'], ccp = { 3: 1, 4: 2, 6: 3 };
+        names.forEach(function (n, i) {
+          var sx = 90 + i * ((w - 180) / 7), on = i === 3;
+          g.strokeStyle = '#2f6b55'; g.setLineDash([3, 4]); g.lineWidth = 1.5; g.beginPath(); g.moveTo(sx, ly + 122); g.lineTo(sx, ly + 140); g.stroke(); g.setLineDash([]);
+          box(g, sx - 34, ly + 66, 68, 56, 12, on ? YEL : '#164a37');
+          circle(g, sx, ly + 94, 10, on ? INKC : '#2f6b55');
+          if (ccp[i]) { box(g, sx + 12, ly + 58, 40, 16, 4, YEL); txt(g, 'CCP ' + ccp[i], sx + 32, ly + 70, 8.5, INKC, 700, MONO, 'center'); }
+          txt(g, n, sx, ly + 176, 11, on ? '#ffffff' : '#a9c4b7', 600, SANS, 'center');
+        });
+        box(g, 90 + 3 * ((w - 180) / 7) - 10, ly + 118, 20, 22, 4, '#f3f0e8'); box(g, 90 + 3 * ((w - 180) / 7) - 11, ly + 114, 22, 6, 2, '#2f8f5b');
+      } else if (kind === 'hesed') {
         g.fillStyle = '#f7f1e8'; g.fillRect(0, 0, w, h); t = chrome(g, w, 'hesedimpactministries.com', false);
         txt(g, 'Hesed', 40, t + 44, 24, '#2a1d3a', 700, 'Georgia, serif'); txt(g, 'IMPACT MINISTRIES', 40, t + 62, 10, '#2a1d3a', 600, SANS);
         ['Events', 'Media', 'About'].forEach(function (s, i) { txt(g, s, 640 + i * 80, t + 48, 14, '#2a1d3a', 500); });
@@ -396,7 +444,7 @@
     txt(g, title || '', 24, 200, 34, INK, 750);
   }
 
-  var KINDS = ['hesed', 'sidwalk', 'crea8or', 'prkiosk', 'shop4likes', 'ngo', 'skincare'].concat(Object.keys(TPL)).concat(['generic']);
+  var KINDS = ['culpromark', 'hesed', 'sidwalk', 'crea8or', 'prkiosk', 'shop4likes', 'ngo', 'skincare'].concat(Object.keys(TPL)).concat(['generic']);
 
   window.ACE360_PAINT = {
     SANS: SANS, MONO: MONO,
