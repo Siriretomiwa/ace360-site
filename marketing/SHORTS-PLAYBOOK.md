@@ -52,7 +52,9 @@ Then `python3 marketing/reels/voiceover.py <short>` builds `out/<short>-vo.mp4`:
 - or one file per line (`voiceover/01.mp3`, `02.mp3`, …);
 - or, when `ELEVENLABS_API_KEY` (and optionally `ELEVENLABS_VOICE_ID`) is set and `api.elevenlabs.io` is allowed by the
   environment's network policy, it generates the voice itself, line by line, and caches it.
-Music is ducked under the voice and mastered to -14 LUFS. Scripts are written to ~2.8 words per second and checked against
+Music is ducked under the voice and mastered to -14 LUFS. `render.js` runs this automatically after rendering
+when a script and a key (or recordings) exist. Brand voice, settings and pronunciation: `reels/voice.json`.
+Setup steps: `marketing/VOICEOVER-SETUP.md`. `voiceover.py --check` tests the connection, `--voices` lists voices. Scripts are written to ~2.8 words per second and checked against
 each slot before rendering; a line that runs long is sped up at most 12 % and otherwise reported.
 
 ## Output for every Short request

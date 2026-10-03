@@ -9,8 +9,13 @@ Voice source, in this order:
      after pasting <reel>/voiceover-paste.txt. It is cut at its pauses (one per line break in the
      paste script) and every line is placed at its own time. Set OFFSET to use it as one take.
   2. <reel>/voiceover/01.mp3, 02.mp3 …        one recording per line, placed at that line's time.
-  3. ElevenLabs API, when ELEVENLABS_API_KEY is set (optional ELEVENLABS_VOICE_ID, ELEVENLABS_MODEL).
-     Generated lines are cached in <reel>/voiceover/ so re-runs cost nothing.
+  3. ElevenLabs API, when ELEVENLABS_API_KEY is set. Brand voice, settings and a pronunciation
+     list live in voice.json (env ELEVENLABS_VOICE_ID / ELEVENLABS_MODEL override).
+     Generated lines are cached in <reel>/voiceover/ so re-runs cost nothing; delete a line's
+     file (e.g. voiceover/03.mp3) to regenerate only that line.
+
+  python3 voiceover.py --check    test the connection, show plan and credits left
+  python3 voiceover.py --voices   list the voices on the account (voice_id, name, accent)
 Then the music (out/sound.wav) is ducked under the voice, mixed to -14 LUFS and muxed onto
 out/<reel>-silent.mp4  →  out/<reel>-vo.mp4.  A line longer than its slot is sped up slightly
 (max 12 %); anything beyond that is reported so the script can be trimmed.
@@ -19,6 +24,39 @@ Env OFFSET=<seconds> shifts a full recording (case 1).
 import json, os, re, subprocess, sys, urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+API = 'https://api.elevenlabs.io'
+KEY = os.environ.get('ELEVENLABS_API_KEY', '')
+VOICE = json.load(open(os.path.join(HERE, 'voice.json'), encoding='utf-8'))
+
+def say(text):
+    """Apply the pronunciation list (brand names, URLs) to what the voice reads; on-screen text is unchanged."""
+    for a, b in VOICE.get('pronunciation', {}).items():
+        text = text.replace(a, b)
+    return text
+
+def api(path):
+    req = urllib.request.Request(API + path, headers={'xi-api-key': KEY, 'Accept': 'application/json'})
+    with urllib.request.urlopen(req, timeout=30) as r:
+        return json.load(r)
+
+if len(sys.argv) > 1 and sys.argv[1] in ('--check', '--voices'):
+    if not KEY:
+        sys.exit('ELEVENLABS_API_KEY is not set in this environment.')
+    try:
+        if sys.argv[1] == '--voices':
+            for v in api('/v2/voices?page_size=100').get('voices', []):
+                l = v.get('labels') or {}
+                print('%-24s %-22s %s' % (v['voice_id'], v['name'][:22], ', '.join(x for x in [l.get('gender'), l.get('accent'), l.get('age'), l.get('use_case')] if x)))
+        else:
+            sub = api('/v1/user/subscription')
+            used, limit = sub.get('character_count', 0), sub.get('character_limit', 0)
+            print('ElevenLabs connected · plan: %s · credits used %s of %s (left %s) · resets %s' % (
+                sub.get('tier'), used, limit, limit - used, sub.get('next_character_count_reset_unix')))
+            print('brand voice:', VOICE['voice_id'], '·', VOICE['model_id'])
+    except Exception as e:
+        sys.exit('Could not reach ElevenLabs: %s (is api.elevenlabs.io allowed in the network settings?)' % e)
+    sys.exit(0)
+
 name = os.path.basename(os.path.normpath(sys.argv[1]))
 reel = os.path.join(HERE, name)
 out = os.path.join(reel, 'out')
@@ -46,13 +84,10 @@ def find(stem):
     return None
 
 def eleven(text, prev, nxt, path):
-    key = os.environ['ELEVENLABS_API_KEY']
-    voice = os.environ.get('ELEVENLABS_VOICE_ID', 'JBFqnCBsd6RMkjVDRZzb')
-    body = json.dumps({'text': text, 'model_id': os.environ.get('ELEVENLABS_MODEL', 'eleven_multilingual_v2'),
-                       'previous_text': prev, 'next_text': nxt,
-                       'voice_settings': {'stability': 0.5, 'similarity_boost': 0.75, 'style': 0.15, 'use_speaker_boost': True}}).encode()
-    req = urllib.request.Request('https://api.elevenlabs.io/v1/text-to-speech/%s?output_format=mp3_44100_128' % voice, data=body,
-                                 headers={'xi-api-key': key, 'Content-Type': 'application/json', 'Accept': 'audio/mpeg'})
+    body = json.dumps({'text': say(text), 'model_id': os.environ.get('ELEVENLABS_MODEL', VOICE['model_id']),
+                       'previous_text': say(prev), 'next_text': say(nxt), 'voice_settings': VOICE['voice_settings']}).encode()
+    req = urllib.request.Request(API + '/v1/text-to-speech/%s?output_format=mp3_44100_128' % os.environ.get('ELEVENLABS_VOICE_ID', VOICE['voice_id']),
+                                 data=body, headers={'xi-api-key': KEY, 'Content-Type': 'application/json', 'Accept': 'audio/mpeg'})
     with urllib.request.urlopen(req, timeout=120) as r, open(path, 'wb') as f:
         f.write(r.read())
 
@@ -96,11 +131,13 @@ elif full:
     clips.append((float(os.environ.get('OFFSET', '0')), full, 1.0))
     print('using full recording as one take (could not find %d pauses)' % (len(lines) - 1))
 else:
+    if KEY and not all(find('%02d' % (i + 1)) for i in range(len(lines))):
+        print('ElevenLabs: about %d characters for this Short' % sum(len(say(x)) for _, x in lines))
     for i, (t, text) in enumerate(lines):
         stem = '%02d' % (i + 1)
         p = find(stem)
         if not p:
-            if not os.environ.get('ELEVENLABS_API_KEY'):
+            if not KEY:
                 sys.exit('No recording for line %d and no ELEVENLABS_API_KEY. Add voiceover/full.mp3 or voiceover/%s.mp3.' % (i + 1, stem))
             p = os.path.join(vodir, stem + '.mp3')
             eleven(text, lines[i - 1][1] if i else '', lines[i + 1][1] if i + 1 < len(lines) else '', p)
