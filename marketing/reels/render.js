@@ -1,6 +1,6 @@
 /* Render a reel: node render.js <folder> [--stills 1,2.5,...]
    → <folder>/out/<folder>.mp4 (with sound), <folder>-silent.mp4, <folder>-cover.jpg
-   Needs Playwright (Chromium), ffmpeg and python3. Serves the repo root on :8777. */
+   Needs Playwright (Chromium), ffmpeg and python3. Serves the repo root on a free local port. */
 const { chromium } = require(process.env.PLAYWRIGHT || 'playwright');
 const fs = require('fs'), path = require('path'), http = require('http'), { execFileSync } = require('child_process');
 const HERE = __dirname, ROOT = path.resolve(HERE, '..', '..');
@@ -9,11 +9,11 @@ const TYPES = { '.html': 'text/html', '.js': 'text/javascript', '.woff2': 'font/
   const name = path.basename(path.resolve(process.argv[2])), dir = path.join(HERE, name), out = path.join(dir, 'out');
   const si = process.argv.indexOf('--stills');
   fs.mkdirSync(out, { recursive: true });
-  const server = http.createServer((q, r) => { const f = path.join(ROOT, decodeURIComponent(q.url.split('?')[0])); fs.readFile(f, (e, d) => { if (e) { r.writeHead(404); r.end(); return; } r.writeHead(200, { 'Content-Type': TYPES[path.extname(f)] || 'application/octet-stream' }); r.end(d); }); }).listen(8777);
+  const server = http.createServer((q, r) => { const f = path.join(ROOT, decodeURIComponent(q.url.split('?')[0])); fs.readFile(f, (e, d) => { if (e) { r.writeHead(404); r.end(); return; } r.writeHead(200, { 'Content-Type': TYPES[path.extname(f)] || 'application/octet-stream' }); r.end(d); }); }); await new Promise(res => server.listen(0, res)); const PORT = server.address().port;
   const browser = await chromium.launch({ args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
   const page = await browser.newPage({ viewport: { width: 1080, height: 1920 } });
   page.on('pageerror', e => console.log('pageerror', e.message));
-  await page.goto('http://localhost:8777/marketing/reels/page.html?scene=' + name, { waitUntil: 'load' });
+  await page.goto('http://localhost:' + PORT + '/marketing/reels/page.html?scene=' + name, { waitUntil: 'load' });
   await page.evaluate(() => window.REEL.ready());
   const save = (file, url) => fs.writeFileSync(file, Buffer.from(url.split(',')[1], 'base64'));
   if (si > 0) {
