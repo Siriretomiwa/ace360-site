@@ -125,7 +125,7 @@ salon website, online booking, hair salon booking, missed calls small business, 
 | Category | Education (or Science & Technology) |
 | Video language / caption language | English |
 | Captions | Auto-generate, then check "Noor" and "Ace 360" |
-| Altered or synthetic content | **Yes**. AI-generated voice (Kokoro). |
+| Altered or synthetic content | **No**: animated graphics with a generic text-to-speech narrator, no realistic people or events (exempt). |
 | Licence | Standard YouTube licence · Allow remixing on |
 | Comments | On · Sort by Top |
 | Related video | Short 02 (4 questions to ask before you pay a web designer) |
@@ -144,4 +144,4 @@ Do you run a salon, barbershop or practice? How many calls do you miss while you
 Teaches something usable without Ace 360 ✓ · hook in the first second (phone ringing) ✓ · 9:16, under 60 s ✓ · new lesson
 and new format (story; not in S01, S02 or the reels) ✓ · not an ad: Ace 360 only in the small sign-off ✓ · CTA is the
 like / share / subscribe ending ✓ · no statistics or results; the business is labelled as made up throughout, prices are
-examples ✓ · every point is shown on screen ✓ · AI voice disclosed ✓
+examples ✓ · every point is shown on screen ✓ · upload label checked (animated, exempt) ✓

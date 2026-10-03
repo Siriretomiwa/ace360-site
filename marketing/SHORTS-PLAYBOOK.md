@@ -61,7 +61,7 @@ Pick one per Short with a first line `# voice: am_michael` in `voiceover.txt`.
 **Delivery: storyteller, not reader.** Speed 0.9 with a 0.35 s breath after every sentence (voice.json). Write in short
 sentences, tell a small story where it fits (a moment, a problem, a turn, an ending), and leave room: ~2.3 words per second.
 Only reels with fixed, tight scene timing keep the brisk pace (`# speed: 1.05` / `# pause: 0` in their script).
-Upload setting: mark the AI voice under *Altered or synthetic content*. `render.js` runs this automatically after rendering
+Upload setting: *Altered or synthetic content*: **No** for these videos. They are animated graphics narrated by a generic text-to-speech voice, which YouTube does not require a label for. It is **Yes** only if a video shows realistic people, places or events, or uses a cloned real person's voice. `render.js` runs this automatically after rendering
 whenever a `voiceover.txt` exists. Brand voice, settings and pronunciation: `reels/voice.json`.
 Setup steps: `marketing/VOICEOVER-SETUP.md`. `voiceover.py --check` tests the connection, `--voices` lists voices. Scripts are written to ~2.3 words per second (storyteller pace; ~2.8 for the brisk reels) and checked against
 each slot before rendering; a line that runs long is sped up at most 12 % and otherwise reported.

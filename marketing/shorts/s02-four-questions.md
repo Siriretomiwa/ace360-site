@@ -116,7 +116,7 @@ web designer, hiring a web designer, website cost, website quote, questions to a
 | Category | Science & Technology (or Education) |
 | Video language / caption language | English |
 | Captions | Let YouTube auto-generate, then check "Ace 360" is spelled right |
-| Altered or synthetic content | **Yes**. The voice is AI-generated (Kokoro). YouTube asks you to disclose realistic synthetic voices. |
+| Altered or synthetic content | **No**: animated graphics with a generic text-to-speech narrator, no realistic people or events (exempt). |
 | Licence | Standard YouTube licence · Allow remixing on |
 | Comments | On · Sort by Top |
 | Related video | Link Short 01 (the 5-second test) |
@@ -134,4 +134,4 @@ Which of the four would you have forgotten to ask? 👇 (If you want to ask us, 
 ## Final check
 Teaches something usable without Ace 360 ✓ · hook in the first second ✓ · 9:16 ✓ · new lesson (not in S01 or the reels) ✓ ·
 not an ad: Ace 360 is mentioned once, as "including ours" ✓ · CTA one line ✓ · no statistics or results; the quote is labelled
-as an example and its figures follow the site's estimator ✓ · every point is shown on screen ✓ · AI voice disclosed ✓
+as an example and its figures follow the site's estimator ✓ · every point is shown on screen ✓ · upload label checked (animated, exempt) ✓

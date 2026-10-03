@@ -5,7 +5,7 @@ Instagram Reels, TikTok and YouTube Shorts. No prices: every reel ends on **Book
 
 Files per reel in `marketing/reels/<reel>/out/`: **`<reel>-vo.mp4` (with voiceover, post this one)**, `<reel>.mp4` (music only),
 `<reel>-silent.mp4` (add a trending sound), `<reel>-cover.jpg`. Voices: af_heart (07, 09, 10), am_michael (08, 11, 12);
-the script of each is in `reels/<reel>/voiceover.txt`. On YouTube, tick *Altered or synthetic content* (AI voice).
+the script of each is in `reels/<reel>/voiceover.txt`. On YouTube, *Altered or synthetic content*: **No** for these videos. They are animated graphics narrated by a generic text-to-speech voice, which YouTube does not require a label for. It is **Yes** only if a video shows realistic people, places or events, or uses a cloned real person's voice.
 
 After the relaunch week, the YouTube launch Short is **S02 · 4 questions to ask before you pay a web designer**
 (`marketing/shorts/s02-four-questions.md`, with all metadata), followed by the first story Short,

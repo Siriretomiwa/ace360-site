@@ -14,7 +14,7 @@ Output: `marketing/reels/<short>/out/<short>-vo.mp4`.
 - **Storyteller delivery:** speed 0.9 and a 0.35 s pause after every sentence (`voice.json` → `kokoro.speed`, `kokoro.pause`).
   Each sentence is generated on its own, so it lands like someone telling a story rather than reading.
   A Short with tight scenes can override it: `# speed: 1.05` and `# pause: 0`.
-- When uploading to YouTube, tick *Altered or synthetic content* (AI voice).
+- YouTube upload: *Altered or synthetic content*: **No** for these videos. They are animated graphics narrated by a generic text-to-speech voice, which YouTube does not require a label for. It is **Yes** only if a video shows realistic people, places or events, or uses a cloned real person's voice.
 
 ## Optional upgrade: ElevenLabs
 More expressive voices and voice cloning (your own voice), paid per character.
