@@ -1,0 +1,8 @@
+# voice: am_michael
+[0.0] Before you pay a web designer, ask these four questions.
+[3.6] Most website problems start before anything is built: a vague quote, a late design, or logins you never get.
+[11.0] Question one: what's included, and what's the total? A quote that just says "website" leaves room for surprises. Ask for every item on its own line.
+[20.8] Question two: will I see the design before you build it? Changing a sketch takes minutes. Changing a finished site can take days.
+[29.2] Question three: who owns the domain, the hosting and the logins? They should be in your name, so you're never locked out.
+[36.6] Question four: what happens after launch? Ask who installs the updates, who makes the backups, and who you call when something breaks.
+[45.0] Get all four answers in writing, before you pay. Ask them on any first call, including ours. Follow for more website tips.

@@ -52,7 +52,10 @@ Then `python3 marketing/reels/voiceover.py <short>` builds `out/<short>-vo.mp4`:
 - or one file per line (`voiceover/01.mp3`, `02.mp3`, …);
 - otherwise it generates the voice itself: the free local **Kokoro** engine by default (`setup-voice.sh`), or ElevenLabs
   when `voice.json` says `"engine": "elevenlabs"` and `ELEVENLABS_API_KEY` is set. Lines are cached per voice.
-Music is ducked under the voice and mastered to -14 LUFS. `render.js` runs this automatically after rendering
+Music is ducked under the voice and mastered to -14 LUFS.
+**Brand voices (locked):** `af_heart` (US female, warm), `am_michael` (US male, calm), `bm_lewis` (UK male, modern).
+Pick one per Short with a first line `# voice: am_michael` in `voiceover.txt`; any other voice is refused.
+Upload setting: mark the AI voice under *Altered or synthetic content*. `render.js` runs this automatically after rendering
 whenever a `voiceover.txt` exists. Brand voice, settings and pronunciation: `reels/voice.json`.
 Setup steps: `marketing/VOICEOVER-SETUP.md`. `voiceover.py --check` tests the connection, `--voices` lists voices. Scripts are written to ~2.8 words per second and checked against
 each slot before rendering; a line that runs long is sped up at most 12 % and otherwise reported.
@@ -72,3 +75,4 @@ Teaches something · hook is immediate · 9:16 · meaningfully different from re
 | — | From a napkin sketch to a live website (reel 05) | Build process | Brief → wireframe → design → live |
 | — | What a premium website is made of (reel 06) | Premium website | Design, speed, SEO, conversion overview |
 | S01 | Your homepage has 5 seconds to answer 3 questions (48 s) | One-minute clinic | 5-second test: what you do, who it's for, what to do next (concept: Loop Fysio) |
+| S02 | 4 questions to ask before you pay a web designer (54.5 s, voice am_michael) | Quick explainers | Scope + total, design before build, ownership of domain/hosting/logins, care after launch (example quote) |

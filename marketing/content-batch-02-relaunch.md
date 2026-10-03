@@ -3,8 +3,12 @@
 Six short vertical reels (1080 × 1920, 16–18 s) that introduce Ace 360 Services to a new audience on
 Instagram Reels, TikTok and YouTube Shorts. No prices: every reel ends on **Book a free call → www.ace360services.nl**.
 
-Files per reel in `marketing/reels/<reel>/out/`: `<reel>.mp4` (with sound), `<reel>-silent.mp4` (add a trending sound),
-`<reel>-cover.jpg`.
+Files per reel in `marketing/reels/<reel>/out/`: **`<reel>-vo.mp4` (with voiceover, post this one)**, `<reel>.mp4` (music only),
+`<reel>-silent.mp4` (add a trending sound), `<reel>-cover.jpg`. Voices: af_heart (07, 10), am_michael (08, 11), bm_lewis (09, 12);
+the script of each is in `reels/<reel>/voiceover.txt`. On YouTube, tick *Altered or synthetic content* (AI voice).
+
+After the relaunch week, the YouTube launch Short is **S02 · 4 questions to ask before you pay a web designer**
+(`marketing/shorts/s02-four-questions.md`, with all metadata).
 
 ## Relaunch week (post in this order)
 
