@@ -614,12 +614,53 @@
     });
   }
 
+  /* ---------- Selected work: a swipeable track with arrows, drag and a progress bar ---------- */
+  document.querySelectorAll('[data-slider]').forEach(function (sl) {
+    var track = sl.querySelector('[data-track]'), bar = sl.querySelector('[data-slider-bar]');
+    var sec = sl.closest('section'), btns = sec ? sec.querySelectorAll('[data-slide]') : [];
+    function stepW() { var s = track.children; return s.length > 1 ? s[1].offsetLeft - s[0].offsetLeft : track.clientWidth * 0.8; }
+    function go(dir) { track.scrollBy({ left: stepW() * dir, behavior: reduced ? 'auto' : 'smooth' }); }
+    function update() {
+      var max = track.scrollWidth - track.clientWidth, p = max > 0 ? track.scrollLeft / max : 0;
+      var f = Math.min(1, track.clientWidth / Math.max(1, track.scrollWidth));
+      if (bar) { bar.style.width = (f * 100) + '%'; bar.style.transform = 'translateX(' + (p * (1 - f) / f * 100) + '%)'; }
+      btns.forEach(function (b) { b.disabled = +b.getAttribute('data-slide') < 0 ? track.scrollLeft < 4 : track.scrollLeft > max - 4; });
+    }
+    btns.forEach(function (b) { b.addEventListener('click', function () { go(+b.getAttribute('data-slide')); }); });
+    track.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+    track.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); go(e.key === 'ArrowRight' ? 1 : -1); }
+    });
+    // drag with a mouse (touch already swipes natively)
+    var down = null, moved = false;
+    track.addEventListener('pointerdown', function (e) {
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      down = { x: e.clientX, left: track.scrollLeft }; moved = false;
+    });
+    window.addEventListener('pointermove', function (e) {
+      if (!down) return;
+      var dx = e.clientX - down.x;
+      if (!moved && Math.abs(dx) > 6) { moved = true; track.classList.add('is-drag'); }
+      if (moved) track.scrollLeft = down.left - dx;
+    });
+    window.addEventListener('pointerup', function () {
+      if (!down) return;
+      down = null;
+      if (moved) { track.classList.remove('is-drag'); go(0); }
+    });
+    // a drag is not a click on the card under the pointer
+    track.addEventListener('click', function (e) { if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; } }, true);
+    track.addEventListener('dragstart', function (e) { e.preventDefault(); });
+  });
+
   /* ---------- All work grid: thumbnails, sector filter, close-up ---------- */
   (function () {
     var grid = document.querySelector('.work-grid');
     if (!grid) return;
     var P = window.ACE360_PAINT;
-    var thumbs = Array.prototype.slice.call(grid.querySelectorAll('canvas[data-paint]'));
+    var thumbs = Array.prototype.slice.call(document.querySelectorAll('.work-grid canvas[data-paint], .work-hero-fan canvas[data-paint]'));
     function paint(c) { if (!P || c.getAttribute('data-done')) return; c.setAttribute('data-done', '1'); P.paint(c, c.getAttribute('data-paint'), c.getAttribute('data-title')); }
     function paintVisible() {
       if (!('IntersectionObserver' in window)) { thumbs.forEach(paint); return; }
@@ -637,15 +678,18 @@
 
     var cards = Array.prototype.slice.call(grid.querySelectorAll('.wcard'));
     var chips = Array.prototype.slice.call(document.querySelectorAll('[data-filter]'));
-    chips.forEach(function (b) {
-      b.addEventListener('click', function () {
-        var f = b.getAttribute('data-filter'), shown = [];
-        chips.forEach(function (x) { var on = x === b; x.classList.toggle('is-on', on); x.setAttribute('aria-pressed', on ? 'true' : 'false'); });
-        cards.forEach(function (c) { var ok = f === 'all' || c.getAttribute('data-sector') === f; c.hidden = !ok; if (ok) shown.push(c); });
-        if (hasGsap && !reduced) gsap.fromTo(shown, { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out', stagger: 0.04, overwrite: true });
-        if (hasGsap) ScrollTrigger.refresh();
-      });
-    });
+    function applyFilter(b, animate) {
+      var f = b.getAttribute('data-filter'), shown = [];
+      chips.forEach(function (x) { var on = x === b; x.classList.toggle('is-on', on); x.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+      cards.forEach(function (c) { var ok = f === 'all' || c.getAttribute('data-sector') === f; c.hidden = !ok; if (ok) shown.push(c); });
+      if (animate && hasGsap && !reduced) gsap.fromTo(shown, { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out', stagger: 0.04, overwrite: true });
+      if (hasGsap) ScrollTrigger.refresh();
+    }
+    chips.forEach(function (b) { b.addEventListener('click', function () { applyFilter(b, true); }); });
+    // ?sector=store (from the "See all" slide) opens the page filtered
+    var wanted = null;
+    try { wanted = new URLSearchParams(window.location.search).get('sector'); } catch (e) {}
+    chips.forEach(function (b) { if (wanted && b.getAttribute('data-filter') === wanted) applyFilter(b, false); });
 
     var dlg = document.querySelector('.work-dialog');
     if (!dlg || typeof dlg.showModal !== 'function') return;

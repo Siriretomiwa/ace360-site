@@ -190,3 +190,103 @@ function ace360_wordmark() {
 		. '<span class="wordmark-text">Ace 360<span class="wordmark-sub">Services</span></span>'
 		. '</span>';
 }
+
+/**
+ * All projects: the Projects posts when there are any, otherwise the sample
+ * work in inc/content.php. Shared by the front page and the All work page.
+ *
+ * @return array
+ */
+function ace360_get_work() {
+	$q = new WP_Query(
+		array(
+			'post_type'      => 'ace_project',
+			'posts_per_page' => 40,
+			'orderby'        => array(
+				'menu_order' => 'ASC',
+				'date'       => 'DESC',
+			),
+			'no_found_rows'  => true,
+		)
+	);
+	$work = array();
+	if ( $q->have_posts() ) {
+		while ( $q->have_posts() ) {
+			$q->the_post();
+			$work[] = array(
+				'title'  => get_the_title(),
+				'type'   => get_post_meta( get_the_ID(), 'ace360_project_type', true ),
+				'text'   => wp_strip_all_tags( get_the_excerpt() ),
+				'built'  => array(),
+				'stack'  => array(),
+				'mockup' => 'generic',
+				'image'  => get_the_post_thumbnail_url( get_the_ID(), 'full' ),
+				'sector'   => get_post_meta( get_the_ID(), 'ace360_project_sector', true ),
+				'featured' => '1' === get_post_meta( get_the_ID(), 'ace360_project_featured', true ),
+				'url'    => get_post_meta( get_the_ID(), 'ace360_project_url', true ),
+				'link'   => get_permalink(),
+			);
+		}
+		wp_reset_postdata();
+	}
+	if ( empty( $work ) ) {
+		$work = ace360_work();
+	}
+	return $work;
+}
+
+/**
+ * Highlights for the front-page slider: one project per sector first, then the rest.
+ *
+ * @param array $work All projects.
+ * @param int   $max  How many.
+ * @return array
+ */
+function ace360_work_highlights( $work, $max = 8 ) {
+	$out  = array();
+	$seen = array();
+	foreach ( $work as $i => $w ) {
+		$s = isset( $w['sector'] ) ? (string) $w['sector'] : '';
+		if ( ! isset( $seen[ $s ] ) ) {
+			$seen[ $s ] = true;
+			$out[ $i ]  = $w;
+		}
+	}
+	foreach ( $work as $i => $w ) {
+		if ( count( $out ) >= $max ) {
+			break;
+		}
+		if ( ! isset( $out[ $i ] ) ) {
+			$out[ $i ] = $w;
+		}
+	}
+	ksort( $out );
+	return array_slice( array_values( $out ), 0, $max );
+}
+
+/**
+ * Link to the All work page (the Projects archive, /work/).
+ */
+function ace360_work_url() {
+	$url = function_exists( 'get_post_type_archive_link' ) ? get_post_type_archive_link( 'ace_project' ) : '';
+	return $url ? $url : home_url( '/work/' );
+}
+
+/**
+ * Projects per sector, for the filter chips.
+ *
+ * @param array $work Projects.
+ * @return array sector => count
+ */
+function ace360_work_counts( $work ) {
+	return array_count_values(
+		array_filter(
+			array_map(
+				function ( $w ) {
+					return isset( $w['sector'] ) ? (string) $w['sector'] : '';
+				},
+				$work
+			)
+		)
+	);
+}

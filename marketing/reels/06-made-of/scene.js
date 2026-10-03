@@ -15,7 +15,7 @@ window.REEL_SCENE = {
     if (a > 0) {
       var src = K.site('molen', 'warm'), w = 940, sh = w * 640 / 1024 / 4, X = 70;
       var spread = K.inOut(K.seg(t, 3.4, 4.4)) * (1 - K.inOut(K.seg(t, 12.6, 13.6)));
-      var cur = Math.floor((t - 4.8) / 1.9); if (t < 4.8 || t > 12.4) cur = -1;
+      var cur = Math.floor((t - 4.8) / 1.9); if (t < 4.8 || t >= 12.4) cur = -1;
       var top = K.lerp(760, 610, spread), gap = K.lerp(0, 205, spread);
       g.save(); g.globalAlpha = a;
       if (spread < 0.05 && t < 5) { K.kicker('Your website', 90, 380, 1); K.rich('One page.', 90, 500, 74); }

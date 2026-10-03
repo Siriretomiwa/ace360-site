@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'ACE360_VERSION', '5.7.0' );
+define( 'ACE360_VERSION', '5.8.0' );
 
 require get_template_directory() . '/inc/template-helpers.php';
 require get_template_directory() . '/inc/content.php';
@@ -70,6 +70,10 @@ function ace360_assets() {
 		$deps[] = 'ace360-demo';
 		$deps[] = 'ace360-screens';
 		$deps[] = 'ace360-film';
+	} elseif ( is_post_type_archive( 'ace_project' ) ) {
+		// The All work page paints the sample-site thumbnails.
+		wp_enqueue_script( 'ace360-screens', $uri . '/js/screens.js', array(), ACE360_VERSION, true );
+		$deps[] = 'ace360-screens';
 	}
 
 	wp_enqueue_script( 'ace360-main', $uri . '/js/main.js', $deps, ACE360_VERSION, true );
@@ -126,6 +130,18 @@ function ace360_register_projects() {
 	);
 }
 add_action( 'init', 'ace360_register_projects' );
+
+/**
+ * Refresh permalinks once per theme version, so /work/ (the All work page)
+ * resolves straight after installing or updating the theme.
+ */
+function ace360_maybe_flush_rewrites() {
+	if ( get_option( 'ace360_rewrite_version' ) !== ACE360_VERSION ) {
+		flush_rewrite_rules( false );
+		update_option( 'ace360_rewrite_version', ACE360_VERSION, true );
+	}
+}
+add_action( 'init', 'ace360_maybe_flush_rewrites', 99 );
 
 /**
  * Project meta: a short "type" label and the live site URL.
