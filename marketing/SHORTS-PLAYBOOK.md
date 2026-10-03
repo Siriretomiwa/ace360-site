@@ -43,7 +43,7 @@ Text readable on a phone; no walls of small text. Keep key text out of the YouTu
 
 ## Voiceover workflow
 Every Short folder (`marketing/reels/<short>/`) gets two script files:
-- **`voiceover-paste.txt`**: the exact text to paste into ElevenLabs (or any voice tool). Lines are separated by
+- **`voiceover-paste.txt`**: the exact text to paste into any voice tool (only needed for a manual recording). Lines are separated by
   `<break time="1.0s" />` tags; nothing else to edit. Export one MP3.
 - **`voiceover.txt`**: the same lines with their start times, `[12.5] text`. Used by the pipeline.
 
@@ -53,7 +53,7 @@ Then `python3 marketing/reels/voiceover.py <short>` builds `out/<short>-vo.mp4`:
 - otherwise it generates the voice itself: the free local **Kokoro** engine by default (`setup-voice.sh`), or ElevenLabs
   when `voice.json` says `"engine": "elevenlabs"` and `ELEVENLABS_API_KEY` is set. Lines are cached per voice.
 Music is ducked under the voice and mastered to -14 LUFS. `render.js` runs this automatically after rendering
-when a script and a key (or recordings) exist. Brand voice, settings and pronunciation: `reels/voice.json`.
+whenever a `voiceover.txt` exists. Brand voice, settings and pronunciation: `reels/voice.json`.
 Setup steps: `marketing/VOICEOVER-SETUP.md`. `voiceover.py --check` tests the connection, `--voices` lists voices. Scripts are written to ~2.8 words per second and checked against
 each slot before rendering; a line that runs long is sped up at most 12 % and otherwise reported.
 

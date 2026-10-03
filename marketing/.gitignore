@@ -9,3 +9,4 @@ journey-film/out/cues-*.json
 ace360-content-batch-01.zip
 reels/*/out/*-voiceover-bed.mp4
 reels/.voice/
+reels/*/voiceover/

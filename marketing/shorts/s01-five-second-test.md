@@ -1,7 +1,7 @@
 # Short 01 · Your homepage has 5 seconds to answer 3 questions
 
 Video: `marketing/reels/s01-five-second-test/out/`
-- `s01-five-second-test-vo.mp4`: final with voice (made by `voiceover.py` once a recording or API key exists)
+- `s01-five-second-test-vo.mp4`: final with voice (Kokoro voice af_heart, made automatically by `voiceover.py`)
 - `s01-five-second-test-voiceover-bed.mp4`: music at background level, to record over manually
 - `s01-five-second-test.mp4`: music at full level (if you post without voice)
 - `s01-five-second-test-silent.mp4`: no audio
@@ -17,7 +17,7 @@ Video: `marketing/reels/s01-five-second-test/out/`
 **4. Hook (0–3 s):** "Your homepage has about five seconds to answer three questions."
 
 ## 5. Full voiceover (≈104 words, ~2.8 words/s, checked against every slot)
-**Copy-paste version** (paste as-is into ElevenLabs; also in `reels/s01-five-second-test/voiceover-paste.txt`):
+**Copy-paste version** (paste as-is into any voice tool; also in `reels/s01-five-second-test/voiceover-paste.txt`):
 
 ```
 Your homepage has five seconds to answer three questions.
