@@ -1,0 +1,32 @@
+<!doctype html>
+<!-- Ace 360 logo sheet: each variant is an element with an id; export.js screenshots them. -->
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:"Inter Variable";font-weight:100 900;src:url(../../wordpress-theme/ace360/assets/fonts/inter-latin-wght-normal.woff2) format("woff2-variations")}
+@font-face{font-family:"JetBrains Mono Variable";font-weight:100 800;src:url(../../wordpress-theme/ace360/assets/fonts/jetbrains-mono-latin-wght-normal.woff2) format("woff2-variations")}
+body{margin:0;background:transparent;font-family:"Inter Variable",sans-serif}
+.v{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box}
+.lock{gap:.42em;font-size:120px;padding:.3em .4em}
+.lock .t{display:grid;line-height:1}
+.lock b{font-weight:700;font-size:1em;letter-spacing:-.03em}
+.lock small{font-family:"JetBrains Mono Variable",monospace;font-weight:600;font-size:.3em;letter-spacing:.32em;margin-top:.18em;opacity:.7}
+.stack{flex-direction:column;gap:.25em;font-size:120px;padding:.4em .6em;text-align:center}
+.stack .t{display:grid;line-height:1}
+.stack b{font-weight:700;letter-spacing:-.03em}
+.stack small{font-family:"JetBrains Mono Variable",monospace;font-weight:600;font-size:.3em;letter-spacing:.32em;margin-top:.22em;opacity:.7}
+.ink{color:#111}.cream{color:#f4efe9}
+.dark{background:#0d0a08}.white{background:#fff}.orange{background:#ff6a00}
+.avatar{width:1080px;height:1080px}
+.mark{width:1024px;height:1024px}
+</style></head><body>
+<template id="ring"><svg viewBox="0 0 32 32" width="1em" height="1em" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="none" stroke="var(--ring,#ff6a00)" stroke-width="2.6" stroke-dasharray="5.2 2.34" stroke-dashoffset="6.37"/><rect x="13" y="1.5" width="6" height="6" rx="1" fill="var(--ring,#ff6a00)"/></svg></template>
+<div class="v lock ink" id="logo-horizontal-black"><span data-ring style="font-size:1.25em"></span><span class="t"><b>Ace 360</b><small>SERVICES</small></span></div><br>
+<div class="v lock cream" id="logo-horizontal-white"><span data-ring style="font-size:1.25em"></span><span class="t"><b>Ace 360</b><small>SERVICES</small></span></div><br>
+<div class="v stack ink" id="logo-stacked-black"><span data-ring style="font-size:2em"></span><span class="t"><b>Ace 360</b><small>SERVICES</small></span></div><br>
+<div class="v stack cream" id="logo-stacked-white"><span data-ring style="font-size:2em"></span><span class="t"><b>Ace 360</b><small>SERVICES</small></span></div><br>
+<div class="v mark" id="icon-orange"><span data-ring style="font-size:880px"></span></div><br>
+<div class="v avatar dark cream stack" id="avatar-dark" style="font-size:150px"><span data-ring style="font-size:2.3em"></span><span class="t"><b>Ace 360</b></span></div><br>
+<div class="v avatar orange" id="avatar-orange" style="--ring:#111"><span data-ring style="font-size:700px"></span></div><br>
+<div class="v avatar white" id="avatar-white"><span data-ring style="font-size:700px"></span></div>
+<script>document.querySelectorAll('[data-ring]').forEach(function (s) { s.appendChild(document.getElementById('ring').content.cloneNode(true)); s.style.display = 'inline-flex'; });</script>
+</body></html>
