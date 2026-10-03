@@ -144,7 +144,7 @@
   var last = null;
 
   function money(n, l) {
-    // whole euros, except small amounts like a €13.50 care plan
+    // whole euros, except small amounts like a €67.50 care plan
     var d = n < 100 && Math.round(n * 100) % 100 !== 0 ? 2 : 0;
     var s = new Intl.NumberFormat(l === 'nl' ? 'nl-NL' : 'en-GB', { minimumFractionDigits: d, maximumFractionDigits: d }).format(d ? n : Math.round(n));
     return l === 'nl' ? '€ ' + s : '€' + s;

@@ -72,10 +72,10 @@ $ace360_c = ace360_estimator();
 
 	<aside class="quote-result" aria-live="polite">
 		<p class="mono q-label"><?php ace360_e( ace360_pair( 'Your estimate', 'Jouw indicatie' ) ); ?></p>
-		<p class="q-range-out" data-q-range>€449 – €549</p>
+		<p class="q-range-out" data-q-range>€2,699 – €3,499</p>
 		<div class="q-meta">
 			<div><span class="mono"><?php ace360_e( ace360_pair( 'Timeline', 'Doorlooptijd' ) ); ?></span><b data-q-weeks>3–4 weeks</b></div>
-			<div><span class="mono"><?php ace360_e( ace360_pair( 'Maintenance', 'Onderhoud' ) ); ?></span><b data-q-care>€13.50 /mo</b></div>
+			<div><span class="mono"><?php ace360_e( ace360_pair( 'Maintenance', 'Onderhoud' ) ); ?></span><b data-q-care>€67.50 /mo</b></div>
 		</div>
 		<ul class="q-lines" data-q-lines></ul>
 		<label class="q-vat"><input type="checkbox" id="q_vat" name="q_vat"> <span><?php ace360_e( ace360_pair( 'Show incl. 21% Dutch VAT', 'Toon incl. 21% btw' ) ); ?></span></label>

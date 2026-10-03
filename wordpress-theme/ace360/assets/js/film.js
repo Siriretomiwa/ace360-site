@@ -55,7 +55,7 @@
     ['€', '#cc0066', 'Payment received', '€64.50 · order #1042 · iDEAL'],
     ['B', '#ff6a00', 'New booking', 'Sat 10:30 · Cut & finish'],
     ['W', '#25d366', 'WhatsApp', '“Is Saturday still free?”'],
-    ['@', '#3b82f6', 'New enquiry', 'Website form · budget €600'],
+    ['@', '#3b82f6', 'New enquiry', 'Website form · budget €4k'],
     ['★', '#f5b400', 'New 5-star review', '“Quick, friendly, great site”'],
     ['↗', '#111111', 'Visitors today', '1,284 · up 38% on last week']
   ];
@@ -155,10 +155,10 @@
       // estimate card
       box(g, 620, t + 120, 340, 300, 16, INK);
       txt(g, 'YOUR ESTIMATE', 648, t + 162, 12, '#9aa0aa', 600, MONO);
-      txt(g, '€449 – €549', 648, t + 214, 34, '#ffffff', 700);
+      txt(g, '€2,699 – €3,499', 648, t + 214, 34, '#ffffff', 700);
       g.fillStyle = OR; g.fillRect(648, t + 230, 52, 4);
       txt(g, 'Timeline', 648, t + 280, 12, '#9aa0aa', 600, MONO); txt(g, '3–4 weeks', 648, t + 304, 18, '#ffffff', 650);
-      txt(g, 'Care', 800, t + 280, 12, '#9aa0aa', 600, MONO); txt(g, '€13.50 /mo', 800, t + 304, 18, '#ffffff', 650);
+      txt(g, 'Care', 800, t + 280, 12, '#9aa0aa', 600, MONO); txt(g, '€67.50 /mo', 800, t + 304, 18, '#ffffff', 650);
       box(g, 648, t + 340, 284, 46, 9, OR); txt(g, 'Send this as an enquiry', 790, t + 369, 15, INK, 650, SANS, 'center');
     },
     call: function (g, w, h) {
@@ -186,7 +186,7 @@
       bars(g, 300, t + 140, [600, 560, 480], 10, 14, '#dfe2e6');
       box(g, 300, t + 230, 360, 120, 12, GREY); stroke(g, 300, t + 230, 360, 120, 12, LINE, 2);
       box(g, 322, t + 254, 56, 72, 6, OR); txt(g, 'PDF', 350, t + 296, 14, INK, 800, SANS, 'center');
-      txt(g, 'Quote Q-2026-041.pdf', 396, t + 284, 17, INK, 650); txt(g, '€797 · live 28 May', 396, t + 310, 14, MUTED, 500, MONO);
+      txt(g, 'Quote Q-2026-041.pdf', 396, t + 284, 17, INK, 650); txt(g, '€4,232 · live 28 May', 396, t + 310, 14, MUTED, 500, MONO);
       box(g, 300, t + 380, 200, 50, 10, OR); txt(g, 'Accept quote', 400, t + 411, 16, INK, 700, SANS, 'center');
     },
     design: function (g, w, h) {
@@ -419,13 +419,13 @@
     circle(g, 34, 80, 9, OR); txt(g, 'Ace 360', 52, 87, 18, fg, 700);
     txt(g, P.L('See an', 'Je ziet een'), 24, 200, 34, fg, 700); txt(g, P.L('estimate', 'prijsindicatie'), 24, 242, 34, ORD, 700); txt(g, 'before we call.', 24, 284, 34, fg, 700);
     box(g, 24, 320, w - 48, 52, 10, OR); txt(g, 'Get my estimate →', w / 2, 352, 17, INK, 700, SANS, 'center');
-    box(g, 24, 400, w - 48, 200, 16, INK); txt(g, '€449 – €549', 44, 460, 26, '#ffffff', 700); g.fillStyle = OR; g.fillRect(44, 474, 40, 4);
+    box(g, 24, 400, w - 48, 200, 16, INK); txt(g, '€2,699 – €3,499', 44, 460, 26, '#ffffff', 700); g.fillStyle = OR; g.fillRect(44, 474, 40, 4);
   }
 
   /* ---------- floating website cards ---------- */
   var CARD_W = 1.0, CARD_H = 0.62;
   var CARDS = [
-    function (g, w, h) { txt(g, 'ESTIMATE', 34, 70, 22, MUTED, 600, MONO); txt(g, '€797', 34, 170, 92, INK, 750); g.fillStyle = OR; g.fillRect(34, 196, 90, 8); txt(g, 'Launch · 28 May', 34, 260, 26, MUTED, 500); },
+    function (g, w, h) { txt(g, 'ESTIMATE', 34, 70, 22, MUTED, 600, MONO); txt(g, '€4,232', 34, 170, 92, INK, 750); g.fillStyle = OR; g.fillRect(34, 196, 90, 8); txt(g, 'Launch · 28 May', 34, 260, 26, MUTED, 500); },
     function (g, w, h) { box(g, 34, 90, w - 68, 120, 18, OR); txt(g, 'Pay with iDEAL', w / 2, 168, 42, INK, 750, SANS, 'center'); txt(g, 'Checkout · Mollie', w / 2, 260, 24, MUTED, 500, SANS, 'center'); },
     function (g, w, h) { txt(g, '★★★★★', 34, 100, 50, OR, 700); txt(g, '“Live in three weeks,', 34, 170, 32, INK, 600); txt(g, 'exactly as quoted.”', 34, 214, 32, INK, 600); },
     function (g, w, h) { circle(g, 58, 90, 18, OR); txt(g, 'yourbrand', 90, 100, 30, INK, 700); bars(g, 34, 160, [300, 380, 240], 16, 18, '#dfe2e6'); },
@@ -570,7 +570,7 @@
   var PAPER_LAY_Q = new THREE.Quaternion().setFromEuler(new THREE.Euler(-Math.PI / 2, 0, 0.22));
   var PAPER_HIDE_P = new THREE.Vector3(2.6, -1.5, 0.7);
 
-  var quoteState = { lang: 'en', lines: [['Website · 5 pages', '€449 – €549']], range: '€449 – €549', weeks: '2–3 weeks', care: '€13.50 /mo', vat: 'excl. VAT' };
+  var quoteState = { lang: 'en', lines: [['Website · 5 pages', '€2,699 – €3,499']], range: '€2,699 – €3,499', weeks: '3–4 weeks', care: '€67.50 /mo', vat: 'excl. VAT' };
   function paintQuote() {
     var g = qg, w = 560, h = 760, nl = quoteState.lang === 'nl';
     g.fillStyle = '#ffffff'; g.fillRect(0, 0, w, h);
@@ -649,7 +649,7 @@
   bk.fillStyle = 'rgba(214,69,69,0.35)'; bk.fillRect(78, 0, 2, 700);
   var grad = bk.createLinearGradient(452, 0, 572, 0); grad.addColorStop(0, 'rgba(0,0,0,0)'); grad.addColorStop(0.5, 'rgba(0,0,0,0.12)'); grad.addColorStop(1, 'rgba(0,0,0,0)'); bk.fillStyle = grad; bk.fillRect(452, 0, 120, 700);
   bk.font = 'italic 700 38px Georgia, serif'; bk.fillStyle = '#1d2b4f'; bk.fillText(P.L('New website!', 'Nieuwe website!'), 96, 76);
-  (P.isNL() ? ['• online boekingen', '• iDEAL-betalingen', '• Nederlands + Engels', '• werkt op mobiel', '• zelf aanpassen', '• budget ± €600?'] : ['• online bookings', '• iDEAL payments', '• Dutch + English', '• works on phones', '• I can edit it myself', '• budget ± €600?']).forEach(function (l, i) { bk.font = HAND; bk.fillStyle = '#24315e'; bk.fillText(l, 96, 128 + i * 44); });
+  (P.isNL() ? ['• online boekingen', '• iDEAL-betalingen', '• Nederlands + Engels', '• werkt op mobiel', '• zelf aanpassen', '• budget ± €4k?'] : ['• online bookings', '• iDEAL payments', '• Dutch + English', '• works on phones', '• I can edit it myself', '• budget ± €4k?']).forEach(function (l, i) { bk.font = HAND; bk.fillStyle = '#24315e'; bk.fillText(l, 96, 128 + i * 44); });
   bk.strokeStyle = OR; bk.lineWidth = 4; bk.beginPath(); bk.ellipse(250, 340, 160, 30, -0.03, 0, Math.PI * 2); bk.stroke();
   bk.strokeStyle = '#24315e'; bk.lineWidth = 3; bk.lineJoin = 'round';
   bk.strokeRect(580, 70, 380, 520); bk.strokeRect(600, 92, 120, 30); bk.strokeRect(840, 92, 100, 30);
