@@ -9,7 +9,7 @@
 
 $ace360_c = ace360_estimator();
 ?>
-<form class="quote" data-quote="<?php echo esc_attr( wp_json_encode( ace360_estimator_js() ) ); ?>" onsubmit="return false">
+<form class="quote" data-estimator="<?php echo esc_attr( wp_json_encode( ace360_estimator_js() ) ); ?>" onsubmit="return false">
 	<div class="quote-opts">
 		<fieldset class="q-step">
 			<legend><span class="q-n">1</span><?php ace360_e( ace360_pair( 'What do you need built?', 'Wat moet er gebouwd worden?' ) ); ?></legend>
@@ -65,17 +65,17 @@ $ace360_c = ace360_estimator();
 			<label class="q-switch">
 				<input type="checkbox" id="q_care" name="q_care" checked>
 				<span class="q-switch-ui" aria-hidden="true"></span>
-				<span><?php ace360_e( ace360_pair( 'Maintenance and care', 'Onderhoud' ) ); ?> <span class="mono muted">€<?php echo (int) $ace360_c['care']; ?>/<?php ace360_e( ace360_pair( 'mo', 'mnd' ) ); ?></span></span>
+				<span><?php ace360_e( ace360_pair( 'Maintenance and care', 'Onderhoud' ) ); ?> <span class="mono muted">€<?php echo esc_html( number_format( $ace360_c['care'], floor( $ace360_c['care'] ) == $ace360_c['care'] ? 0 : 2 ) ); ?>/<?php ace360_e( ace360_pair( 'mo', 'mnd' ) ); ?></span></span>
 			</label>
 		</fieldset>
 	</div>
 
 	<aside class="quote-result" aria-live="polite">
 		<p class="mono q-label"><?php ace360_e( ace360_pair( 'Your estimate', 'Jouw indicatie' ) ); ?></p>
-		<p class="q-range-out" data-q-range>€1,200 – €1,600</p>
+		<p class="q-range-out" data-q-range>€449 – €549</p>
 		<div class="q-meta">
 			<div><span class="mono"><?php ace360_e( ace360_pair( 'Timeline', 'Doorlooptijd' ) ); ?></span><b data-q-weeks>3–4 weeks</b></div>
-			<div><span class="mono"><?php ace360_e( ace360_pair( 'Maintenance', 'Onderhoud' ) ); ?></span><b data-q-care>€95 /mo</b></div>
+			<div><span class="mono"><?php ace360_e( ace360_pair( 'Maintenance', 'Onderhoud' ) ); ?></span><b data-q-care>€13.50 /mo</b></div>
 		</div>
 		<ul class="q-lines" data-q-lines></ul>
 		<label class="q-vat"><input type="checkbox" id="q_vat" name="q_vat"> <span><?php ace360_e( ace360_pair( 'Show incl. 21% Dutch VAT', 'Toon incl. 21% btw' ) ); ?></span></label>

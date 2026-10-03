@@ -137,17 +137,19 @@
   }
 
   /* ---------- Self-quote ---------- */
-  var quote = document.querySelector('[data-quote]');
+  var quote = document.querySelector('[data-estimator]');
   var estField = document.querySelector('[data-estimate-field]');
   var estChip = document.querySelector('[data-estimate-chip]');
   var estChipText = document.querySelector('[data-estimate-chip-text]');
   var last = null;
 
   function money(n, l) {
-    var s = new Intl.NumberFormat(l === 'nl' ? 'nl-NL' : 'en-GB', { maximumFractionDigits: 0 }).format(Math.round(n));
+    // whole euros, except small amounts like a €13.50 care plan
+    var d = n < 100 && Math.round(n * 100) % 100 !== 0 ? 2 : 0;
+    var s = new Intl.NumberFormat(l === 'nl' ? 'nl-NL' : 'en-GB', { minimumFractionDigits: d, maximumFractionDigits: d }).format(d ? n : Math.round(n));
     return l === 'nl' ? '€ ' + s : '€' + s;
   }
-  function round10(n) { return Math.round(n / 10) * 10; }
+  function round10(n) { return Math.round(n); } // whole euros (prices end in 9)
   function weeksText(a, b, l) {
     if (b <= 0) return l === 'nl' ? 'Direct' : 'Right away';
     var r = a === b ? String(a) : a + '–' + b;
@@ -156,7 +158,7 @@
 
   if (quote) {
     var cfg = null;
-    try { cfg = JSON.parse(quote.getAttribute('data-quote')); } catch (e) {}
+    try { cfg = JSON.parse(quote.getAttribute('data-estimator')); } catch (e) {}
     if (cfg && cfg.types) {
       var out = {
         range: quote.querySelector('[data-q-range]'),
@@ -227,7 +229,7 @@
         range.style.setProperty('--p', ((range.value - range.min) / (range.max - range.min) * 100) + '%');
         // numbers
         var set = function () {
-          out.range.textContent = money(shown.lo, l) + ' – ' + money(shown.hi, l);
+          out.range.textContent = money(Math.round(shown.lo), l) + ' – ' + money(Math.round(shown.hi), l);
         };
         if (animate && hasGsap && !reduced) {
           gsap.to(shown, { lo: r.lo, hi: r.hi, duration: 0.6, ease: 'power3.out', onUpdate: set, overwrite: true });
