@@ -72,7 +72,7 @@ $ace360_c = ace360_estimator();
 
 	<aside class="quote-result" aria-live="polite">
 		<p class="mono q-label"><?php ace360_e( ace360_pair( 'Your estimate', 'Jouw indicatie' ) ); ?></p>
-		<p class="q-range-out" data-q-range>€2,699 – €3,499</p>
+		<p class="q-range-out" data-q-range>€1,000 – €1,300</p>
 		<div class="q-meta">
 			<div><span class="mono"><?php ace360_e( ace360_pair( 'Timeline', 'Doorlooptijd' ) ); ?></span><b data-q-weeks>3–4 weeks</b></div>
 			<div><span class="mono"><?php ace360_e( ace360_pair( 'Maintenance', 'Onderhoud' ) ); ?></span><b data-q-care>€67.50 /mo</b></div>

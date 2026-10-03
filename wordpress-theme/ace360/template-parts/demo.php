@@ -85,10 +85,10 @@ $ace360_steps = ace360_journey();
 			<div class="dm-scene" data-scene="3">
 				<div class="dm-quote">
 					<div class="dm-q-head"><b>Your quote</b><span>Q-2026-041 · valid 30 days</span></div>
-					<div class="dm-q-row"><span>Website, 6 pages</span><b>€2,834</b></div>
-					<div class="dm-q-row"><span>Booking system</span><b>€679</b></div>
-					<div class="dm-q-row"><span>Second language (EN)</span><b>€719</b></div>
-					<div class="dm-q-total"><span>Total, excl. VAT</span><b>€4,232</b></div>
+					<div class="dm-q-row"><span>Website, 6 pages</span><b>€1,050</b></div>
+					<div class="dm-q-row"><span>Booking system</span><b>€250</b></div>
+					<div class="dm-q-row"><span>Second language (EN)</span><b>€275</b></div>
+					<div class="dm-q-total"><span>Total, excl. VAT</span><b>€1,575</b></div>
 					<div class="dm-q-date"><span>Launch date</span><b>28 May</b></div>
 					<div class="dm-q-cols">
 						<div><p>Included</p><span>✓ 2 feedback rounds</span><span>✓ Hosting setup</span><span>✓ Walkthrough</span></div>

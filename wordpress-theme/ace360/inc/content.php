@@ -61,7 +61,7 @@ function ace360_services() {
 				'From a one-pager to a site with job listings, forms and a booking page. Built in WordPress, so you can get into it yourself without calling me.',
 				'Van one-pager tot site met vacatures, formulieren en een boekingspagina. Gebouwd in WordPress, zodat je er zelf in kunt zonder mij te bellen.'
 			),
-			'price' => ace360_pair( 'est. from €1,349', 'indicatie vanaf € 1.349' ),
+			'price' => ace360_pair( 'est. from €500', 'indicatie vanaf € 500' ),
 		),
 		array(
 			'icon'  => 'store',
@@ -71,7 +71,7 @@ function ace360_services() {
 				'WooCommerce or Shopify, with iDEAL and the rest of Mollie wired up. Stock, shipping rules and VAT set correctly before you go live.',
 				'WooCommerce of Shopify, met iDEAL en de rest van Mollie gekoppeld. Voorraad, verzendregels en btw goed ingesteld voordat je live gaat.'
 			),
-			'price' => ace360_pair( 'est. from €5,849', 'indicatie vanaf € 5.849' ),
+			'price' => ace360_pair( 'est. from €2,150', 'indicatie vanaf € 2.150' ),
 		),
 		array(
 			'icon'  => 'care',
@@ -549,24 +549,24 @@ function ace360_faq() {
 function ace360_estimator() {
 	$config = array(
 		'types'   => array(
-			array( 'id' => 'onepager', 'label' => ace360_pair( 'One-pager', 'One-pager' ), 'hint' => ace360_pair( '1 page', '1 pagina' ), 'base' => array( 1349, 1799 ), 'incl' => 1, 'perPage' => array( 0, 0 ), 'pages' => false, 'weeks' => array( 1, 2 ) ),
-			array( 'id' => 'website', 'label' => ace360_pair( 'Website', 'Website' ), 'hint' => ace360_pair( 'several pages', 'meerdere pagina’s' ), 'base' => array( 2699, 3499 ), 'incl' => 5, 'perPage' => array( 135, 179 ), 'pages' => true, 'weeks' => array( 3, 4 ) ),
-			array( 'id' => 'store', 'label' => ace360_pair( 'Online store', 'Webshop' ), 'hint' => ace360_pair( 'with payments', 'met betalingen' ), 'base' => array( 5849, 7449 ), 'incl' => 5, 'perPage' => array( 135, 179 ), 'pages' => true, 'weeks' => array( 4, 6 ) ),
-			array( 'id' => 'care', 'label' => ace360_pair( 'Maintenance', 'Onderhoud' ), 'hint' => ace360_pair( 'existing site', 'bestaande site' ), 'base' => array( 229, 399 ), 'incl' => 0, 'perPage' => array( 0, 0 ), 'pages' => false, 'weeks' => array( 0, 1 ) ),
+			array( 'id' => 'onepager', 'label' => ace360_pair( 'One-pager', 'One-pager' ), 'hint' => ace360_pair( '1 page', '1 pagina' ), 'base' => array( 500, 650 ), 'incl' => 1, 'perPage' => array( 0, 0 ), 'pages' => false, 'weeks' => array( 1, 2 ) ),
+			array( 'id' => 'website', 'label' => ace360_pair( 'Website', 'Website' ), 'hint' => ace360_pair( 'several pages', 'meerdere pagina’s' ), 'base' => array( 1000, 1300 ), 'incl' => 5, 'perPage' => array( 50, 65 ), 'pages' => true, 'weeks' => array( 2, 3 ) ),
+			array( 'id' => 'store', 'label' => ace360_pair( 'Online store', 'Webshop' ), 'hint' => ace360_pair( 'with payments', 'met betalingen' ), 'base' => array( 2150, 2750 ), 'incl' => 5, 'perPage' => array( 50, 65 ), 'pages' => true, 'weeks' => array( 3, 5 ) ),
+			array( 'id' => 'care', 'label' => ace360_pair( 'Maintenance', 'Onderhoud' ), 'hint' => ace360_pair( 'existing site', 'bestaande site' ), 'base' => array( 95, 150 ), 'incl' => 0, 'perPage' => array( 0, 0 ), 'pages' => false, 'weeks' => array( 0, 1 ) ),
 		),
 		'design'  => array(
 			array( 'id' => 'tailored', 'label' => ace360_pair( 'Tailored', 'Op maat gestyled' ), 'hint' => ace360_pair( 'proven layout, your brand', 'bewezen opzet, jouw merk' ), 'pct' => 0 ),
 			array( 'id' => 'custom', 'label' => ace360_pair( 'Fully custom', 'Volledig maatwerk' ), 'hint' => ace360_pair( 'designed from scratch', 'vanaf nul ontworpen' ), 'pct' => 40 ),
 		),
 		'extras'  => array(
-			array( 'id' => 'copy', 'label' => ace360_pair( 'Copywriting (5 pages)', 'Teksten schrijven (5 pagina’s)' ), 'price' => array( 849, 1099 ) ),
-			array( 'id' => 'images', 'label' => ace360_pair( 'Images and photography', 'Beeld en fotografie' ), 'price' => array( 679, 899 ) ),
-			array( 'id' => 'seo', 'label' => ace360_pair( 'SEO groundwork', 'SEO-basis' ), 'price' => array( 449, 649 ) ),
-			array( 'id' => 'lang', 'label' => ace360_pair( 'Second language', 'Tweede taal' ), 'price' => array( 719, 949 ) ),
-			array( 'id' => 'booking', 'label' => ace360_pair( 'Booking or sign-up system', 'Boekings- of inschrijfsysteem' ), 'price' => array( 679, 899 ) ),
-			array( 'id' => 'brand', 'label' => ace360_pair( 'Logo and identity', 'Logo en huisstijl' ), 'price' => array( 1579, 2099 ) ),
-			array( 'id' => 'motion', 'label' => ace360_pair( 'Animation and 3D', 'Animatie en 3D' ), 'price' => array( 1349, 2249 ) ),
-			array( 'id' => 'products', 'label' => ace360_pair( 'Product upload (up to 100)', 'Producten invoeren (tot 100)' ), 'price' => array( 449, 629 ), 'only' => array( 'store' ) ),
+			array( 'id' => 'copy', 'label' => ace360_pair( 'Copywriting (5 pages)', 'Teksten schrijven (5 pagina’s)' ), 'price' => array( 300, 400 ) ),
+			array( 'id' => 'images', 'label' => ace360_pair( 'Images and photography', 'Beeld en fotografie' ), 'price' => array( 250, 350 ) ),
+			array( 'id' => 'seo', 'label' => ace360_pair( 'SEO groundwork', 'SEO-basis' ), 'price' => array( 175, 250 ) ),
+			array( 'id' => 'lang', 'label' => ace360_pair( 'Second language', 'Tweede taal' ), 'price' => array( 275, 350 ) ),
+			array( 'id' => 'booking', 'label' => ace360_pair( 'Booking or sign-up system', 'Boekings- of inschrijfsysteem' ), 'price' => array( 250, 350 ) ),
+			array( 'id' => 'brand', 'label' => ace360_pair( 'Logo and identity', 'Logo en huisstijl' ), 'price' => array( 575, 775 ) ),
+			array( 'id' => 'motion', 'label' => ace360_pair( 'Animation and 3D', 'Animatie en 3D' ), 'price' => array( 500, 850 ) ),
+			array( 'id' => 'products', 'label' => ace360_pair( 'Product upload (up to 100)', 'Producten invoeren (tot 100)' ), 'price' => array( 175, 250 ), 'only' => array( 'store' ) ),
 		),
 		'rush'    => array( 'factor' => 1.2, 'weeks' => 1 ),
 		'care'    => 67.5,
