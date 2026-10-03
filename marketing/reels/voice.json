@@ -1,9 +1,9 @@
 {
-  "_comment": "Ace 360 brand voices. Only the three voices in kokoro.voices may be used (locked). A Short picks one with a first line '# voice: am_michael' in its voiceover.txt; otherwise kokoro.voice is used. engine: 'kokoro' (free, local) or 'elevenlabs' (needs ELEVENLABS_API_KEY and api.elevenlabs.io allowed). speed 0.8-1.2. pronunciation applies to both engines.",
+  "_comment": "Ace 360 brand voices. Only the voices in kokoro.voices may be used (locked: af_heart, am_michael). A Short picks one with '# voice: am_michael' in its voiceover.txt (and may override '# speed:' / '# pause:'); otherwise kokoro.voice is used. Storyteller delivery: speed 0.9 plus a pause after every sentence. engine: 'kokoro' (free, local) or 'elevenlabs' (needs ELEVENLABS_API_KEY and api.elevenlabs.io allowed). pronunciation applies to both engines.",
   "engine": "kokoro",
   "kokoro": {
     "voice": "af_heart",
-    "speed": 1.05,
+    "speed": 0.9,
     "voices": {
       "af_heart": {
         "label": "US female, warm",
@@ -12,12 +12,9 @@
       "am_michael": {
         "label": "US male, calm",
         "lang": "en-us"
-      },
-      "bm_lewis": {
-        "label": "UK male, modern",
-        "lang": "en-gb"
       }
-    }
+    },
+    "pause": 0.35
   },
   "elevenlabs": {
     "voice_id": "JBFqnCBsd6RMkjVDRZzb",

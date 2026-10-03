@@ -1,4 +1,6 @@
 # voice: af_heart
+# speed: 1.05
+# pause: 0
 [0.3] Hi, we're Ace 360 Services.
 [3.0] We build websites, online stores and booking systems.
 [8.6] For businesses in the Netherlands and worldwide.

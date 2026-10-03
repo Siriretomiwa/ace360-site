@@ -36,6 +36,9 @@ Branding stays consistent; content must not feel mass-produced. Each Short needs
 Never invent revenue, conversion percentages, traffic, rankings, testimonials or client results. Label concepts ("Concept", "Example redesign", "Here's how I'd approach this…"). Fictional businesses are never presented as clients. No guarantees: prefer "can reduce friction", "makes the next step clearer", "can improve the mobile experience". Any statistic must have a citable source.
 
 ## CTA (short, light)
+**YouTube Shorts end on like / share / subscribe** (from S03): one spoken line, e.g. "If this was useful, give it a like,
+share it with someone who runs a ___, and subscribe for more", with the animated Like, Share and Subscribe buttons
+(cursor taps Subscribe → "Subscribed"). Ace 360 stays in the small sign-off only.
 "Follow for more website tips." · "Check your own site for this." · "If you want Ace 360 to look at yours, visit ace360services.nl." · "If you'd rather have this handled professionally, Ace 360 can help."
 
 ## Mobile & safe areas
@@ -53,11 +56,14 @@ Then `python3 marketing/reels/voiceover.py <short>` builds `out/<short>-vo.mp4`:
 - otherwise it generates the voice itself: the free local **Kokoro** engine by default (`setup-voice.sh`), or ElevenLabs
   when `voice.json` says `"engine": "elevenlabs"` and `ELEVENLABS_API_KEY` is set. Lines are cached per voice.
 Music is ducked under the voice and mastered to -14 LUFS.
-**Brand voices (locked):** `af_heart` (US female, warm), `am_michael` (US male, calm), `bm_lewis` (UK male, modern).
-Pick one per Short with a first line `# voice: am_michael` in `voiceover.txt`; any other voice is refused.
+**Brand voices (locked):** `af_heart` (US female, warm) and `am_michael` (US male, calm). Nothing else; any other voice is refused.
+Pick one per Short with a first line `# voice: am_michael` in `voiceover.txt`.
+**Delivery: storyteller, not reader.** Speed 0.9 with a 0.35 s breath after every sentence (voice.json). Write in short
+sentences, tell a small story where it fits (a moment, a problem, a turn, an ending), and leave room: ~2.3 words per second.
+Only reels with fixed, tight scene timing keep the brisk pace (`# speed: 1.05` / `# pause: 0` in their script).
 Upload setting: mark the AI voice under *Altered or synthetic content*. `render.js` runs this automatically after rendering
 whenever a `voiceover.txt` exists. Brand voice, settings and pronunciation: `reels/voice.json`.
-Setup steps: `marketing/VOICEOVER-SETUP.md`. `voiceover.py --check` tests the connection, `--voices` lists voices. Scripts are written to ~2.8 words per second and checked against
+Setup steps: `marketing/VOICEOVER-SETUP.md`. `voiceover.py --check` tests the connection, `--voices` lists voices. Scripts are written to ~2.3 words per second (storyteller pace; ~2.8 for the brisk reels) and checked against
 each slot before rendering; a line that runs long is sped up at most 12 % and otherwise reported.
 
 ## Output for every Short request
@@ -76,3 +82,4 @@ Teaches something · hook is immediate · 9:16 · meaningfully different from re
 | — | What a premium website is made of (reel 06) | Premium website | Design, speed, SEO, conversion overview |
 | S01 | Your homepage has 5 seconds to answer 3 questions (48 s) | One-minute clinic | 5-second test: what you do, who it's for, what to do next (concept: Loop Fysio) |
 | S02 | 4 questions to ask before you pay a web designer (54.5 s, voice am_michael) | Quick explainers | Scope + total, design before build, ownership of domain/hosting/logins, care after launch (example quote) |
+| S03 | She missed one call. Her website could have answered it (59.5 s, af_heart, storyteller) | Story | Salon (made-up): visible prices, online booking with real free times, automatic reminders; like/share/subscribe ending |

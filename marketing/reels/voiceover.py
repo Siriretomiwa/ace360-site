@@ -4,7 +4,8 @@
   python3 voiceover.py <reel-folder>
 
 Reads <reel>/voiceover.txt, one line per segment:   [12.5] Text spoken from 12.5 seconds.
-An optional line '# voice: bm_lewis' picks one of the three locked brand voices (voice.json kokoro.voices).
+An optional line '# voice: am_michael' picks one of the locked brand voices (voice.json kokoro.voices);
+'# speed: 1.05' and '# pause: 0.2' override the storyteller pace for a Short with tight scenes.
 voiceover-paste.txt (the copy-paste version with break tags) is rewritten from it on every run.
 Voice source, in this order:
   1. <reel>/voiceover/full.mp3 (or .wav/.m4a)  a whole recording, e.g. exported from ElevenLabs
@@ -56,17 +57,32 @@ def kokoro_voice():
         sys.exit('Voice %s is not one of the locked Ace 360 voices: %s (voice.json)' % (v, ', '.join(allowed)))
     return v
 
+SHORT_OPTS = {}  # '# speed: 1.05' / '# pause: 0.2' in a Short's voiceover.txt
+
+def opt(name, default):
+    return float(SHORT_OPTS.get(name, VOICE['kokoro'].get(name, default)))
+
 def kokoro(text, path):
+    """Storyteller delivery: each sentence is spoken on its own, with a short breath (pause) after it."""
     eng = kokoro_engine()
-    import soundfile as sf
+    import soundfile as sf, numpy as np
     k, v = VOICE['kokoro'], kokoro_voice()
     lang = k.get('voices', {}).get(v, {}).get('lang', 'en-gb' if v.startswith('b') else 'en-us')
-    samples, sr = eng.create(say(text), voice=v, speed=k.get('speed', 1.0), lang=lang)
-    sf.write(path, samples, sr)
+    parts, sr = [], 24000
+    sentences = [x for x in re.split(r'(?<=[.!?…])\s+', say(text)) if x.strip()]
+    for i, sentence in enumerate(sentences):
+        samples, sr = eng.create(sentence, voice=v, speed=opt('speed', 1.0), lang=lang)
+        loud = np.nonzero(np.abs(samples) > 0.01)[0]  # cut each sentence's silent head and tail (keep 60 ms)
+        if len(loud):
+            samples = samples[max(0, loud[0] - int(sr * 0.06)):loud[-1] + int(sr * 0.06)]
+        parts.append(samples)
+        if i + 1 < len(sentences):
+            parts.append(np.zeros(int(sr * opt('pause', 0.0)), dtype=samples.dtype))
+    sf.write(path, np.concatenate(parts), sr)
 
 def voice_tag():
     return 'elevenlabs:' + os.environ.get('ELEVENLABS_VOICE_ID', VOICE['elevenlabs']['voice_id']) if ENGINE == 'elevenlabs' else \
-        'kokoro:%s:%s' % (kokoro_voice(), VOICE['kokoro'].get('speed', 1.0))
+        'kokoro:%s:%s:%s' % (kokoro_voice(), opt('speed', 1.0), opt('pause', 0.0))
 
 def say(text):
     """Apply the pronunciation list (brand names, URLs) to what the voice reads; on-screen text is unchanged."""
@@ -127,10 +143,13 @@ for raw in open(os.path.join(reel, 'voiceover.txt'), encoding='utf-8'):
     m = re.match(r'\s*#\s*voice:\s*(\S+)', raw)
     if m:
         SHORT_VOICE = m.group(1)
+    m = re.match(r'\s*#\s*(speed|pause):\s*([\d.]+)', raw)
+    if m:
+        SHORT_OPTS[m.group(1)] = m.group(2)
 # keep the copy-paste version (for a manual recording) in step with the timed script
 open(os.path.join(reel, 'voiceover-paste.txt'), 'w', encoding='utf-8').write('\n<break time="1.0s" />\n'.join(x for _, x in lines) + '\n')
 if ENGINE == 'kokoro':
-    print('voice:', kokoro_voice())
+    print('voice:', kokoro_voice(), '· speed', opt('speed', 1.0), '· pause', opt('pause', 0.0))
 total = dur(os.path.join(out, name + '-silent.mp4'))
 
 def find(stem):

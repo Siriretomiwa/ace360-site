@@ -1,6 +1,8 @@
-# voice: bm_lewis
+# voice: am_michael
+# speed: 1.05
+# pause: 0
 [0.1] Twenty minutes. No strings. Just talk.
-[2.6] Pick a day.
+[2.75] Pick a day.
 [5.0] Pick a time, in your own time zone.
 [7.8] Confirm, and you're booked.
 [10.4] The invite lands in your inbox.

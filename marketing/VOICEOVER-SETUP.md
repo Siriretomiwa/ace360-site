@@ -8,10 +8,12 @@ Output: `marketing/reels/<short>/out/<short>-vo.mp4`.
 - Open-source voice model (Apache 2.0 licence, commercial use allowed) that runs inside Claude's environment.
 - Nothing to set up on your side. `marketing/reels/setup-voice.sh` installs it automatically when needed (~350 MB).
 - Fast: a 48-second Short is voiced in about 20 seconds.
-- **Brand voices (locked to three):** `af_heart` (US female, warm), `am_michael` (US male, calm), `bm_lewis` (UK male, modern).
+- **Brand voices (locked to two):** `af_heart` (US female, warm) and `am_michael` (US male, calm).
   Samples: `marketing/voice-samples/`. Any other voice is refused, so every Short sounds like Ace 360.
-- Each Short picks one with a first line in its `voiceover.txt`: `# voice: bm_lewis` (default `af_heart`).
-  The list lives in `marketing/reels/voice.json` → `kokoro.voices`; `speed` (0.8–1.2) sets the pace.
+- Each Short picks one with a first line in its `voiceover.txt`: `# voice: am_michael` (default `af_heart`).
+- **Storyteller delivery:** speed 0.9 and a 0.35 s pause after every sentence (`voice.json` → `kokoro.speed`, `kokoro.pause`).
+  Each sentence is generated on its own, so it lands like someone telling a story rather than reading.
+  A Short with tight scenes can override it: `# speed: 1.05` and `# pause: 0`.
 - When uploading to YouTube, tick *Altered or synthetic content* (AI voice).
 
 ## Optional upgrade: ElevenLabs

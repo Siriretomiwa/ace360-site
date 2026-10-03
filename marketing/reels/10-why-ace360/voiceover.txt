@@ -1,4 +1,6 @@
 # voice: af_heart
+# speed: 1.05
+# pause: 0
 [0.2] Why Ace 360?
 [2.1] One person, start to finish: design, build and support.
 [5.5] You see it before it's built. Two feedback rounds included.

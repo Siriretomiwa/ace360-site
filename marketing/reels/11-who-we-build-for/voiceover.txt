@@ -1,4 +1,6 @@
 # voice: am_michael
+# speed: 1.05
+# pause: 0
 [0.2] Who do we build for?
 [2.2] Bakeries. Salons. Restaurants. Coffee roasters.
 [7.4] Charities. Fashion stores. Food producers. Creators.

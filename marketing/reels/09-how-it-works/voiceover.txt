@@ -1,4 +1,6 @@
-# voice: bm_lewis
+# voice: af_heart
+# speed: 1.05
+# pause: 0
 [0.2] Five steps. No surprises.
 [2.2] One: book a free call.
 [4.4] Two: a clear plan, in writing.

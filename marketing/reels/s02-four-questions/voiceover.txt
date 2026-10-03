@@ -1,4 +1,6 @@
 # voice: am_michael
+# speed: 1.05
+# pause: 0
 [0.0] Before you pay a web designer, ask these four questions.
 [3.6] Most website problems start before anything is built: a vague quote, a late design, or logins you never get.
 [11.0] Question one: what's included, and what's the total? A quote that just says "website" leaves room for surprises. Ask for every item on its own line.

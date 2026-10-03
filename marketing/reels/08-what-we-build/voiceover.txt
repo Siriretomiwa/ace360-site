@@ -1,4 +1,6 @@
 # voice: am_michael
+# speed: 1.05
+# pause: 0
 [0.2] Here's what we build.
 [2.2] Websites that tell your story.
 [4.3] Stores that sell around the clock.

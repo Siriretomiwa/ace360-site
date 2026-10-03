@@ -1,3 +1,6 @@
+# voice: af_heart
+# speed: 1.05
+# pause: 0
 [0.0] Your homepage has five seconds to answer three questions.
 [3.2] It looks professional. But what does it do, who is it for, and what's next?
 [9.2] Question one: what do you do? "Excellence in motion" sounds nice, but it says nothing. Name the service in plain words. Clever can come second.
