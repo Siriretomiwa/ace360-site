@@ -152,3 +152,35 @@ www.ace360services.nl (or a direct booking link such as Calendly) in the bio of 
 **YouTube Shorts**
 - Title: *What a premium website is made of #shorts*
 - Description: Design, speed, SEO and conversion: the four layers of a website that earns. Book a free call: www.ace360services.nl
+
+---
+
+## Bonus · The whole journey (horizontal, 50 s)
+Files in `marketing/journey-film/out/`: `ace360-journey-en.mp4` and `ace360-journey-nl.mp4` (1920 × 1080, with sound),
+`-silent.mp4` versions and `-cover.jpg`. The same film plays on the website, in the demo section.
+**On screen:** found on Google or a reel → book a call → first call → quote → design → build → launch → hand-over or care plan.
+
+Best for: a pinned post, YouTube (regular video, not Shorts), LinkedIn, Facebook, and your Google Business Profile.
+
+**YouTube**
+- Title: *How we build your website: from first search to launch (and after)*
+- Description: Here is exactly what working with Ace 360 Services looks like. You find us on Google or social media, book a free 20-minute call, get a written quote, see the design, watch the build, go live, and choose: take the keys yourself or let us look after it every month. Book a free call: www.ace360services.nl · hello@ace360services.nl
+
+**LinkedIn / Facebook**
+> What does it actually look like to get a new website built? 🧭
+>
+> 1. You find us (Google, Instagram, TikTok, YouTube)
+> 2. You book a free 20-minute call, in your own time zone
+> 3. A short call about what the site has to bring in
+> 4. A written quote with a launch date
+> 5. Design, with two feedback rounds
+> 6. Build, on a test site you can watch
+> 7. Launch
+> 8. Hand-over, or a monthly care plan
+>
+> No surprises, one person to talk to. Book a free call: www.ace360services.nl
+
+**Instagram (as a post or Story, not a Reel)**
+> From "found you on Google" to "my site is live", in 50 seconds. 🎬 Book a free call: link in bio.
+
+*(Dutch version for Dutch-speaking posts: `ace360-journey-nl.mp4`, caption: "Van ‘gevonden op Google’ tot ‘mijn site staat live’, in 50 seconden. Plan een gratis gesprek: link in bio.")*
