@@ -1,7 +1,7 @@
 # Ace 360 Services: project notes
 
 - `wordpress-theme/`: the Ace 360 WordPress theme (`ace360/`), preview builder (`tools/build.py`) and theme zip (`dist/`).
-- `marketing/`: logo pack, reels and Shorts tooling (`reels/`), journey film, YouTube banner.
+- `marketing/`: logo pack, reels and Shorts tooling (`reels/`), journey film, YouTube banner, `MASTER-WEBSITE-PROMPT.md` (reusable prompt for client sites; keep it in step when the theme gains new features).
 
 ## Video content
 All Ace 360 video requests are **vertical YouTube Shorts** unless the user explicitly says otherwise.
