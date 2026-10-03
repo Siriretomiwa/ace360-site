@@ -108,8 +108,10 @@ More from Ace 360: https://www.ace360services.nl
 #shorts #smallbusiness #salonowner
 ```
 
-**Cover / thumbnail text:** "THE MISSED CALL" (cover frame at 16.6 s: Noor's old website at night with the red marker on
-"call us for prices"; pick it as the Shorts cover in the YouTube app).
+**Thumbnail:** `reels/s03-the-missed-call/out/s03-the-missed-call-thumbnail.jpg` (1080 × 1920, made from `reels/s03-cover/scene.js`):
+"THE *missed* CALL", "…and how her website could have answered it.", a phone showing a missed call at Tuesday 11:00 with a red "1 missed" badge.
+In the YouTube app: upload → tap the cover (pencil) → *Add* / upload image, and choose this file. If your app only lets you pick a
+frame, choose 0:17 (Noor's old website with "call us for prices" circled in red).
 
 **Hashtags:** `#shorts #smallbusiness #salonowner #onlinebooking #websitetips #hairsalon #webdesign #storytime`
 
@@ -126,9 +128,9 @@ salon website, online booking, hair salon booking, missed calls small business, 
 | Video language / caption language | English |
 | Captions | Auto-generate, then check "Noor" and "Ace 360" |
 | Altered or synthetic content | **No**: animated graphics with a generic text-to-speech narrator, no realistic people or events (exempt). |
-| Licence | Standard YouTube licence · Allow remixing on |
+| Licence | Standard YouTube licence · **Allow remixing: off** (stops others reusing clips of the video) |
 | Comments | On · Sort by Top |
-| Related video | Short 02 (4 questions to ask before you pay a web designer) |
+| Related video | None yet (first Short). Add S02 here once it is live. |
 | Playlist | "Website stories" (new) and "Website tips" |
 
 **Pinned comment:**

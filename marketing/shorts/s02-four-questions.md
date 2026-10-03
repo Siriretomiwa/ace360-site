@@ -117,9 +117,9 @@ web designer, hiring a web designer, website cost, website quote, questions to a
 | Video language / caption language | English |
 | Captions | Let YouTube auto-generate, then check "Ace 360" is spelled right |
 | Altered or synthetic content | **No**: animated graphics with a generic text-to-speech narrator, no realistic people or events (exempt). |
-| Licence | Standard YouTube licence · Allow remixing on |
+| Licence | Standard YouTube licence · **Allow remixing: off** (stops others reusing clips of the video) |
 | Comments | On · Sort by Top |
-| Related video | Link Short 01 (the 5-second test) |
+| Related video | S03 (The missed call) |
 | Playlist | "Website tips" |
 
 **Pinned comment:**
