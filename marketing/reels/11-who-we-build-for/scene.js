@@ -13,7 +13,7 @@
       if (t < 2.6) { g.save(); g.globalAlpha = 1 - K.seg(t, 2.2, 2.6); K.kicker('Our clients', 90, 680, K.ease(K.seg(t, 0, 0.3))); K.headline(['Who we', 'build *for*.'], 90, 840, 160, 0.05, t, 172); g.restore(); }
       var end = T0 + LIST.length * D;
       if (t >= T0 - 0.1 && t < end + 0.4) {
-        var i = Math.min(LIST.length - 1, Math.floor((t - T0) / D)), lt = t - T0 - i * D, it = LIST[i];
+        var i = Math.max(0, Math.min(LIST.length - 1, Math.floor((t - T0) / D))), lt = t - T0 - i * D, it = LIST[i];
         var a = K.ease(K.seg(lt, 0, 0.18)) * (i === LIST.length - 1 ? 1 - K.seg(t, end, end + 0.35) : 1);
         var src = it[2] ? K.site(it[1], 'warm') : shot(K, it[1]);
         g.save(); g.globalAlpha = a;
