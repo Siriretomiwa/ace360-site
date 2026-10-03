@@ -5,21 +5,31 @@ lang: nl
 category: Onderhoud
 service: onderhoud
 excerpt: Een WordPress-site moet bijgehouden worden om veilig en snel te blijven. Deze checklist laat zien wat er wekelijks, maandelijks en jaarlijks moet gebeuren, en hoe je updates veilig installeert.
+layout: guide
+takeaways: Eerst een back-up die je ook kunt terugzetten | Beveiligingsupdates meteen, de rest maandelijks | Test formulieren en de afrekenstap na elke update
 -->
 <p>WordPress is populair omdat je er zelf veel mee kunt. De keerzijde: de site moet onderhouden worden. Verouderde plug-ins zijn een veelvoorkomende ingang voor inbraak, en een kapot contactformulier kan weken onopgemerkt blijven. Met deze checklist weet je wat er wanneer moet gebeuren.</p>
 
 <h2>Voordat je begint: een back-up die werkt</h2>
 <p>Alles hieronder begint met een back-up. Niet alleen het maken ervan, ook het terugzetten moet je minstens één keer geprobeerd hebben. Bewaar back-ups buiten je eigen server, zodat ze niet samen met de site verdwijnen als er iets misgaat bij je hosting.</p>
 
+<div class="media-row">
+[[clip:after-launch|Na de lancering: updates, back-ups, wie bel je?]]
+<div class="media-row-text">
+<h3>Interactief</h3>
+<p>Alle lijsten op deze pagina kun je afvinken. Je vinkjes blijven op dit apparaat bewaard, zodat je de lijst elke maand opnieuw kunt doorlopen.</p>
+</div>
+</div>
+
 <h2>Elke week</h2>
-<ul>
+<ul class="checklist">
 <li><strong>Back-up controleren:</strong> is de laatste back-up gelukt?</li>
 <li><strong>Updates bekijken:</strong> staan er beveiligingsupdates voor WordPress, je thema of plug-ins klaar? Beveiligingsupdates installeer je zo snel mogelijk.</li>
 <li><strong>Uptime:</strong> was de site de hele week bereikbaar? Een monitoringdienst mailt je als hij plat ligt.</li>
 </ul>
 
 <h2>Elke maand</h2>
-<ul>
+<ul class="checklist">
 <li><strong>Alle updates installeren,</strong> na een back-up, en daarna de belangrijkste pagina’s nalopen.</li>
 <li><strong>Formulieren testen:</strong> stuur een testbericht via je contact- en boekingsformulier en kijk of het aankomt.</li>
 <li><strong>Webshop testen:</strong> doe een testbestelling tot aan de betaalstap.</li>
@@ -27,8 +37,10 @@ excerpt: Een WordPress-site moet bijgehouden worden om veilig en snel te blijven
 <li><strong>Snelheid meten</strong> met PageSpeed Insights, zodat je ziet of een update de site trager maakte.</li>
 </ul>
 
+[[shot:results|Een overzicht van je site: bezoekers, bestellingen, aanvragen (voorbeelddashboard)]]
+
 <h2>Elk kwartaal</h2>
-<ul>
+<ul class="checklist">
 <li><strong>Plug-ins opruimen:</strong> wat gebruik je niet meer? Verwijder het helemaal, niet alleen uitschakelen.</li>
 <li><strong>Back-up terugzetten oefenen</strong> op een testomgeving.</li>
 <li><strong>Gebruikers en wachtwoorden:</strong> wie heeft toegang, en is tweestapsverificatie aan voor beheerders?</li>
@@ -36,7 +48,7 @@ excerpt: Een WordPress-site moet bijgehouden worden om veilig en snel te blijven
 </ul>
 
 <h2>Elk jaar</h2>
-<ul>
+<ul class="checklist">
 <li><strong>PHP-versie</strong> bij je hosting controleren; oude versies krijgen geen beveiligingsupdates meer.</li>
 <li><strong>Domeinnaam en hosting:</strong> verlenging, contactgegevens en betaalmethode nog actueel?</li>
 <li><strong>Privacyverklaring en cookies</strong> nalopen: kloppen ze nog met wat de site doet?</li>
@@ -44,7 +56,7 @@ excerpt: Een WordPress-site moet bijgehouden worden om veilig en snel te blijven
 </ul>
 
 <h2>Updates veilig installeren</h2>
-<ol>
+<ol class="step-cards">
 <li>Maak eerst een back-up.</li>
 <li>Lees bij grote updates de wijzigingen; sommige plug-ins veranderen flink.</li>
 <li>Update bij voorkeur eerst op een testomgeving (staging), zeker bij een webshop.</li>

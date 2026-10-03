@@ -73,9 +73,9 @@ def local_preview(html, work=False):
     libs = [l for l in LIBS if not (work and l == 'three.min.js')]
     scripts = ''.join(f'<script src="{a}vendor/{l}"></script>\n' for l in libs)
     if work:
-        scripts += f'<script>window.ACE360_PREVIEW = true;</script>\n<script src="{a}js/screens.js"></script>\n<script src="{a}js/main.js"></script>'
+        scripts += f'<script>window.ACE360_PREVIEW = true;</script>\n<script src="{a}js/screens.js"></script>\n<script src="{a}js/main.js"></script>\n<script src="{a}js/ui.js"></script>'
     else:
-        scripts += f'<script>window.ACE360_PREVIEW = true;</script>\n<script src="{a}js/demo.js"></script>\n<script src="{a}js/screens.js"></script>\n<script src="{a}js/film.js"></script>\n<script src="{a}js/main.js"></script>'
+        scripts += f'<script>window.ACE360_PREVIEW = true;</script>\n<script src="{a}js/demo.js"></script>\n<script src="{a}js/screens.js"></script>\n<script src="{a}js/film.js"></script>\n<script src="{a}js/main.js"></script>\n<script src="{a}js/ui.js"></script>'
     return html.replace('<!--wp_head-->', head).replace('<!--wp_footer-->', scripts).replace('__THEME__/', '../ace360/')
 
 def artifact(html, work=False):
@@ -106,6 +106,7 @@ def artifact(html, work=False):
     if not work:
         out.append('<script>\n' + read('assets/js/film.js') + '\n</script>')
     out.append('<script>\n' + read('assets/js/main.js') + '\n</script>')
+    out.append('<script>\n' + read('assets/js/ui.js') + '\n</script>')
     return '\n'.join(out)
 
 def pages(html, out):

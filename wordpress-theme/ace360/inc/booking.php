@@ -373,13 +373,13 @@ function ace360_book_mail( $id, $what ) {
 			'ace360_call' => $id,
 			'key'         => $b['key'],
 		),
-		home_url( '/' )
+		ace360_landing_url( 'contact', $nl ? 'nl' : 'en' )
 	) . '#book';
 	if ( 'cancelled' === $what ) {
 		$subject = $nl ? 'Je gesprek is geannuleerd' : 'Your call is cancelled';
 		$body    = $nl
-			? "Hoi {$b['name']},\n\nJe gesprek op {$there} is geannuleerd. Wil je toch praten? Kies een nieuwe tijd op " . home_url( '/#book' ) . "\n\nAce 360 Services"
-			: "Hi {$b['name']},\n\nYour call on {$there} is cancelled. Still want to talk? Pick a new time at " . home_url( '/#book' ) . "\n\nAce 360 Services";
+			? "Hoi {$b['name']},\n\nJe gesprek op {$there} is geannuleerd. Wil je toch praten? Kies een nieuwe tijd op " . ace360_landing_url( 'contact', 'nl' ) . "#book\n\nAce 360 Services"
+			: "Hi {$b['name']},\n\nYour call on {$there} is cancelled. Still want to talk? Pick a new time at " . ace360_landing_url( 'contact', 'en' ) . "#book\n\nAce 360 Services";
 	} else {
 		if ( 'video' === $b['via'] ) {
 			$how = $nl ? 'We sturen je de Google Meet-link vóór het gesprek.' : 'We send you the Google Meet link before the call.';
@@ -412,7 +412,8 @@ function ace360_book_cancel() {
 		wp_trash_post( $id );
 		ace360_book_mail( $id, 'cancelled' );
 	}
-	wp_safe_redirect( add_query_arg( 'ace360_call', $ok ? 'cancelled' : 'invalid', home_url( '/' ) ) . '#book' );
+	$back = wp_get_referer() ? strtok( wp_get_referer(), '?' ) : ace360_landing_url( 'contact', 'nl' );
+	wp_safe_redirect( add_query_arg( 'ace360_call', $ok ? 'cancelled' : 'invalid', $back ) . '#book' );
 	exit;
 }
 add_action( 'admin_post_nopriv_ace360_cancel_call', 'ace360_book_cancel' );

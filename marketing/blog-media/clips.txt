@@ -1,0 +1,19 @@
+# name            source                  start  end    what it shows
+booking-flow      12-book-a-call          2.3    10.6   pick a day, a time, confirmed (phone)
+five-steps        09-how-it-works         2.2    13.4   the five steps ticking off
+what-we-build     08-what-we-build        2.2    13.4   websites, stores, booking sites, platforms, care
+speed-score       10-why-ace360           8.9    12.6   built to be found: speed score, Google, bookable
+industries        11-who-we-build-for     2.2    12.6   bakeries, salons, restaurants … quick cuts
+see-before-built  10-why-ace360           5.4    9.0    wireframe wiping into the design
+five-second-fail  s01-five-second-test    3.2    9.2    the 5-second test fails
+headline-fix      s01-five-second-test    9.2    19.0   vague headline rewritten in plain words
+next-step         s01-five-second-test    28.0   37.2   9 menu items → one clear button
+vague-quote       s02-four-questions      10.8   20.7   vague quote → itemised quote with a total
+sketch-to-built   s02-four-questions      20.6   29.1   change a sketch in minutes, a build in days
+ownership         s02-four-questions      29.0   36.5   domain, hosting, logins flip to “You”
+after-launch      s02-four-questions      36.4   44.9   updates, backups, who to call
+missed-call       s03-the-missed-call     0.0    11.0   phone rings mid-haircut, missed call
+call-us-prices    s03-the-missed-call     11.3   19.0   the old site: a phone number and “call us for prices”
+prices-booking    s03-the-missed-call     19.2   33.7   prices in the open, booking with real free times
+reminder          s03-the-missed-call     33.8   39.8   automatic reminder text
+quiet-tuesday     s03-the-missed-call     39.9   46.1   bookings came in overnight

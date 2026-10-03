@@ -13,6 +13,13 @@ $ace360_l    = ace360_landings()[ $ace360_key ];
 $ace360_lang = ace360_lang();
 $ace360_show = ace360_landing_blocks( $ace360_key );
 $ace360_faq  = in_array( 'allfaq', $ace360_show, true ) ? ace360_all_faq() : ( in_array( 'faq', $ace360_show, true ) ? $ace360_l['faq'] : array() );
+
+// Pages with their own design (Diensten, Over ons, Contact): template-parts/page-<tpl>.php.
+if ( ! empty( $ace360_l['tpl'] ) && locate_template( 'template-parts/page-' . $ace360_l['tpl'] . '.php' ) ) {
+	get_template_part( 'template-parts/page-' . $ace360_l['tpl'], null, array( 'l' => $ace360_l, 'key' => $ace360_key ) );
+	get_footer();
+	return;
+}
 ?>
 <main id="main" class="site-main landing">
 	<header class="wrap landing-hero">

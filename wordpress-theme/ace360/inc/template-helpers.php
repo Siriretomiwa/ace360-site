@@ -320,3 +320,47 @@ function ace360_work_counts( $work ) {
 		)
 	);
 }
+
+/**
+ * URL of a theme asset: ace360_asset( 'img/blog-media/salon-nl.jpg' ).
+ *
+ * @param string $path Path below assets/.
+ * @return string
+ */
+function ace360_asset( $path ) {
+	return get_template_directory_uri() . '/assets/' . ltrim( $path, '/' );
+}
+
+/**
+ * A screenshot from assets/img/blog-media/ in the page language when there is one (salon → salon-en.jpg / salon-nl.jpg).
+ *
+ * @param string $base File name without language and extension.
+ * @return string URL.
+ */
+function ace360_shot_url( $base ) {
+	$lang = ace360_lang();
+	$file = $base . '-' . $lang . '.jpg';
+	if ( ! file_exists( get_template_directory() . '/assets/img/blog-media/' . $file ) ) {
+		$file = $base . '-nl.jpg';
+	}
+	return ace360_asset( 'img/blog-media/' . $file );
+}
+
+/**
+ * A looping, silent phone clip from assets/video/blog/ (it plays when it scrolls into view, assets/js/blog.js).
+ *
+ * @param string $name    Clip name (see marketing/blog-media/clips.txt).
+ * @param string $caption Caption (plain text).
+ * @param string $class   Extra class.
+ * @return string HTML.
+ */
+function ace360_clip_html( $name, $caption = '', $class = '' ) {
+	return sprintf(
+		'<figure class="clip %1$s"><span class="clip-phone"><video src="%2$s" poster="%3$s" muted loop playsinline preload="none" data-clip aria-label="%4$s"></video><button type="button" class="clip-toggle" data-clip-toggle aria-label="Play / pause"><span></span></button></span>%5$s</figure>',
+		esc_attr( $class ),
+		esc_url( ace360_asset( 'video/blog/' . $name . '.mp4' ) ),
+		esc_url( ace360_asset( 'video/blog/' . $name . '.jpg' ) ),
+		esc_attr( $caption ),
+		$caption ? '<figcaption>' . esc_html( $caption ) . '</figcaption>' : ''
+	);
+}

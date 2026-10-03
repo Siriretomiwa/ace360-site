@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'ACE360_VERSION', '5.12.0' );
+define( 'ACE360_VERSION', '5.13.0' );
 
 require get_template_directory() . '/inc/template-helpers.php';
 require get_template_directory() . '/inc/lang.php';
@@ -82,6 +82,7 @@ function ace360_assets() {
 	}
 
 	wp_enqueue_script( 'ace360-main', $uri . '/js/main.js', $deps, ACE360_VERSION, true );
+	wp_enqueue_script( 'ace360-ui', $uri . '/js/ui.js', array(), ACE360_VERSION, true );
 }
 add_action( 'wp_enqueue_scripts', 'ace360_assets' );
 
@@ -93,7 +94,7 @@ add_action( 'wp_enqueue_scripts', 'ace360_assets' );
  * @return string
  */
 function ace360_defer_scripts( $tag, $handle ) {
-	$handles = array( 'gsap', 'gsap-scrolltrigger', 'lenis', 'ace360-demo', 'three', 'ace360-screens', 'ace360-film', 'ace360-main' );
+	$handles = array( 'gsap', 'gsap-scrolltrigger', 'lenis', 'ace360-demo', 'three', 'ace360-screens', 'ace360-film', 'ace360-main', 'ace360-ui' );
 	if ( in_array( $handle, $handles, true ) && false === strpos( $tag, ' defer' ) ) {
 		$tag = str_replace( ' src=', ' defer src=', $tag );
 	}
@@ -319,7 +320,7 @@ function ace360_fallback_menu() {
 	$items = ace360_nav_items();
 	echo '<ul class="menu">';
 	foreach ( $items as $item ) {
-		printf( '<li><a href="%s">%s</a></li>', esc_url( $item[0] ), ace360_t( $item[1] ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped in ace360_t().
+		printf( '<li><a href="%s"%s>%s</a></li>', esc_url( $item[0] ), ace360_nav_current() === $item[2] ? ' aria-current="page"' : '', ace360_t( $item[1] ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped in ace360_t().
 	}
 	echo '</ul>';
 }

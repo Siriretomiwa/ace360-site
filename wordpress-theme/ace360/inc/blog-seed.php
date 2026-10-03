@@ -6,8 +6,11 @@
  * Each post is added once: a post you delete or edit is left alone. Turn it off with
  * add_filter( 'ace360_seed_blog', '__return_false' ).
  *
- * File format: an HTML comment with "key: value" lines (title, slug, lang, category, service, excerpt),
- * then the post body as HTML.
+ * File format: an HTML comment with "key: value" lines (title, slug, lang, category, service, excerpt,
+ * layout: cover|split|poster|guide, takeaways: point | point | point), then the post body as HTML with the media
+ * shortcuts of ace360_post_media() ([[clip:…]], [[shot:…]], [[photo:…]]) and the blocks styled in main.css
+ * (media-row, duo, callout, checklist, step-cards, tabs, quiz, blockquote.pull).
+ * A theme update refreshes starter posts you have not edited; edited posts are never overwritten.
  *
  * @package ace360
  */
@@ -66,8 +69,32 @@ function ace360_seed_blog() {
 	$now    = current_time( 'timestamp' ); // phpcs:ignore WordPress.DateTime.CurrentTimeTimestamp.Requested -- local time for post_date.
 	$n      = count( $posts );
 
+	$touched = array();
 	foreach ( $posts as $i => $p ) {
+		$meta = array(
+			'ace360_post_lang'      => isset( $p['lang'] ) && 'en' === $p['lang'] ? 'en' : 'nl',
+			'ace360_post_service'   => isset( $p['service'] ) ? sanitize_key( $p['service'] ) : '',
+			'ace360_post_layout'    => isset( $p['layout'] ) ? sanitize_key( $p['layout'] ) : 'cover',
+			'ace360_post_takeaways' => isset( $p['takeaways'] ) ? sanitize_text_field( $p['takeaways'] ) : '',
+			'_ace360_seed_src'      => md5( $p['body'] ),
+		);
 		if ( in_array( $p['slug'], $done, true ) ) {
+			// Added before: refresh it to the new version of the file, but only if nobody edited it since.
+			$old = get_page_by_path( $p['slug'], OBJECT, 'post' );
+			if ( $old && get_post_meta( $old->ID, '_ace360_seed_src', true ) !== $meta['_ace360_seed_src'] && ace360_seed_untouched( $old ) ) {
+				wp_update_post(
+					array(
+						'ID'           => $old->ID,
+						'post_title'   => $p['title'],
+						'post_content' => $p['body'],
+						'post_excerpt' => isset( $p['excerpt'] ) ? $p['excerpt'] : '',
+					)
+				);
+				foreach ( $meta as $k => $v ) {
+					update_post_meta( $old->ID, $k, $v );
+				}
+				$touched[] = $p['slug'];
+			}
 			continue;
 		}
 		$done[] = $p['slug'];
@@ -97,19 +124,32 @@ function ace360_seed_blog() {
 				'post_author'   => $author,
 				'post_date'     => gmdate( 'Y-m-d H:i:s', $when ),
 				'post_category' => $cat ? array( $cat ) : array(),
-				'meta_input'    => array(
-					'ace360_post_lang'    => isset( $p['lang'] ) && 'en' === $p['lang'] ? 'en' : 'nl',
-					'ace360_post_service' => isset( $p['service'] ) ? sanitize_key( $p['service'] ) : '',
-				),
+				'meta_input'    => $meta,
 			),
 			true
 		);
 		if ( ! is_wp_error( $id ) ) {
 			ace360_seed_cover( $id, $p['slug'], $p['title'] );
+			$touched[] = $p['slug'];
 		}
 	}
 	update_option( 'ace360_blog_seeded', $done, false );
-	ace360_seed_fix_links( wp_list_pluck( $posts, 'slug' ) );
+	ace360_seed_fix_links( wp_list_pluck( $posts, 'slug' ), $touched );
+}
+
+/**
+ * Has a starter post been left as the theme added it? Compares with the fingerprint saved after adding it
+ * (or, for posts added by 5.12, checks that it was never saved again after that first minute).
+ *
+ * @param WP_Post $post Post.
+ * @return bool
+ */
+function ace360_seed_untouched( $post ) {
+	$saved = get_post_meta( $post->ID, '_ace360_seed_saved', true );
+	if ( $saved ) {
+		return md5( $post->post_content ) === $saved;
+	}
+	return abs( strtotime( $post->post_modified_gmt ) - strtotime( $post->post_date_gmt ) ) < 600;
 }
 
 /**
@@ -118,7 +158,7 @@ function ace360_seed_blog() {
  *
  * @param array $slugs Starter post slugs.
  */
-function ace360_seed_fix_links( $slugs ) {
+function ace360_seed_fix_links( $slugs, $touched = array() ) {
 	$ids = array();
 	foreach ( $slugs as $slug ) {
 		$p = get_page_by_path( $slug, OBJECT, 'post' );
@@ -137,6 +177,9 @@ function ace360_seed_fix_links( $slugs ) {
 		);
 		if ( $content !== $post->post_content ) {
 			wp_update_post( array( 'ID' => $post->ID, 'post_content' => $content ) );
+		}
+		if ( in_array( $post->post_name, $touched, true ) ) {
+			update_post_meta( $post->ID, '_ace360_seed_saved', md5( $content ) ); // fingerprint of the version the theme left
 		}
 	}
 }

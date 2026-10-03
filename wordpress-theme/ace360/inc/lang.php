@@ -218,10 +218,58 @@ function ace360_lang_switch() {
  */
 function ace360_nav_items() {
 	return array(
-		array( ace360_home_hash( '#diensten' ), ace360_pair( 'Services', 'Diensten' ) ),
-		array( ace360_landing_url( 'werkwijze' ), ace360_pair( 'Process', 'Werkwijze' ) ),
-		array( ace360_work_url(), ace360_pair( 'Work', 'Werk' ) ),
-		array( ace360_blog_url(), ace360_pair( 'Blog', 'Blog' ) ),
-		array( ace360_landing_url( 'vragen' ), ace360_pair( 'Questions', 'Vragen' ) ),
+		array( ace360_url( '/' ), ace360_pair( 'Home', 'Home' ), 'home' ),
+		array( ace360_landing_url( 'diensten' ), ace360_pair( 'Services', 'Diensten' ), 'diensten' ),
+		array( ace360_work_url(), ace360_pair( 'Work', 'Werk' ), 'work' ),
+		array( ace360_landing_url( 'kosten' ), ace360_pair( 'Prices', 'Prijzen' ), 'kosten' ),
+		array( ace360_landing_url( 'over' ), ace360_pair( 'About us', 'Over ons' ), 'over' ),
+		array( ace360_blog_url(), ace360_pair( 'Blog', 'Blog' ), 'blog' ),
+		array( ace360_landing_url( 'contact' ), ace360_pair( 'Contact', 'Contact' ), 'contact' ),
 	);
+}
+
+/**
+ * Which menu item is the current page (for aria-current).
+ *
+ * @return string
+ */
+function ace360_nav_current() {
+	if ( ace360_both_langs() ) {
+		global $ace360_page, $ace360_preview_landing;
+		return 'front' === $ace360_page ? 'home' : ( 'work' === $ace360_page ? 'work' : ( in_array( $ace360_page, array( 'blog', 'post' ), true ) ? 'blog' : (string) $ace360_preview_landing ) );
+	}
+	if ( is_front_page() ) {
+		return 'home';
+	}
+	if ( is_post_type_archive( 'ace_project' ) || is_singular( 'ace_project' ) ) {
+		return 'work';
+	}
+	if ( ace360_is_blog() || is_singular( 'post' ) ) {
+		return 'blog';
+	}
+	return ace360_current_landing();
+}
+
+/**
+ * The contact page, optionally at a section: ace360_contact_url( '#book' ). On a page that has the
+ * booking section itself, just the hash.
+ *
+ * @param string $hash '#book', '#write' or ''.
+ * @return string
+ */
+function ace360_contact_url( $hash = '' ) {
+	$here = ace360_current_landing();
+	if ( $hash && $here && in_array( 'contact', ace360_landing_blocks( $here ), true ) ) {
+		return $hash;
+	}
+	return ace360_landing_url( 'contact' ) . $hash;
+}
+
+/**
+ * The prices page with its estimator.
+ *
+ * @return string
+ */
+function ace360_prices_url() {
+	return 'kosten' === ace360_current_landing() ? '#prijs' : ace360_landing_url( 'kosten' ) . '#prijs';
 }

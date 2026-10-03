@@ -52,11 +52,12 @@ function wp_get_attachment_image() { return ''; }
 function ace360_fallback_menu() {
 	echo '<ul class="menu">';
 	foreach ( ace360_nav_items() as $item ) {
-		printf( '<li><a href="%s">%s</a></li>', esc_url( $item[0] ), ace360_t( $item[1] ) );
+		printf( '<li><a href="%s"%s>%s</a></li>', esc_url( $item[0] ), ace360_nav_current() === $item[2] ? ' aria-current="page"' : '', ace360_t( $item[1] ) );
 	}
 	echo '</ul>';
 }
 function get_template_directory() { global $theme; return $theme; }
+function locate_template( $t ) { global $theme; return file_exists( $theme . '/' . $t ) ? $theme . '/' . $t : ''; }
 class WP_Query {
 	public function __construct( $a ) {}
 	public function have_posts() { return false; }

@@ -1,0 +1,24 @@
+# file                   lang screen          phone       url                    mood
+quote-nl                 nl   quote           -           -                      warm
+quote-en                 en   quote           -           -                      warm
+design-nl                nl   design          -           -                      warm
+search-nl                nl   search          f:old       google.nl              warm
+search-en                en   search          f:old       google.com             warm
+checkout-nl              nl   checkout        korrel      bakkerijkorrel.nl      warm
+checkout-en              en   checkout        korrel      bakkerijkorrel.nl      warm
+old-site-nl              nl   old             f:old       -                      warm
+results-nl               nl   results         -           -                      warm
+build-nl                 nl   build           -           -                      warm
+salon-nl                 nl   work-noor       noor        studionoor.nl          warm
+salon-en                 en   work-noor       noor        studionoor.nl          warm
+bike-nl                  nl   work-spaak      spaak       spaakfiets.nl          warm
+bakery-nl                nl   work-korrel     korrel      bakkerijkorrel.nl      warm
+coffee-nl                nl   work-molen      molen       molenroasters.nl       warm
+coffee-en                en   work-molen      molen       molenroasters.nl       warm
+fashion-nl               nl   work-sidwalk    sidwalk     sidwalk.nl             warm
+restaurant-nl            nl   work-zout       zout        restaurantzout.nl      warm
+practice-nl              nl   work-adem       adem        ademyoga.nl            warm
+photo-en                 en   work-lens       lens        lensandlinen.com       warm
+stay-en                  en   work-gracht     gracht      grachtstays.com        warm
+bakery-calm-nl           nl   work-korrel     -           bakkerijkorrel.nl      calm
+bakery-bold-nl           nl   work-korrel     -           bakkerijkorrel.nl      bold

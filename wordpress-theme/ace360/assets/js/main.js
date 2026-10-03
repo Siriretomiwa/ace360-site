@@ -266,6 +266,12 @@
       quote.addEventListener('input', function () { render(true); });
       quote.addEventListener('change', function () { render(true); });
       document.addEventListener('ace360:lang', function () { render(false); });
+      // arriving from "Estimate mine like this" (front page): ?q_type=website&q_extras=booking,images
+      try {
+        var qp = new URLSearchParams(location.search), qt = qp.get('q_type'), qx = qp.get('q_extras');
+        if (qt) { var ti = quote.querySelector('#q_type_' + qt); if (ti) ti.checked = true; }
+        if (qx !== null) quote.querySelectorAll('input[name="q_extra"]').forEach(function (x) { x.checked = qx.split(',').indexOf(x.value) !== -1; });
+      } catch (e) {}
       render(false);
 
       // service cards preselect a project type
@@ -317,6 +323,12 @@
     document.addEventListener('ace360:lang', tryOut);
     tryOut();
     var use = tryBox.querySelector('[data-try-use]');
+    // the estimator lives on the prices page: carry the choice over in the link
+    if (use && !quote) use.addEventListener('click', function () {
+      var q = tryQuote(); if (!q) return;
+      var h = use.getAttribute('href').split('#'), base = h[0] + (h[0].indexOf('?') === -1 ? '?' : '&');
+      use.setAttribute('href', base + 'q_type=' + encodeURIComponent(q.type) + '&q_extras=' + encodeURIComponent(q.extras.join(',')) + (h[1] ? '#' + h[1] : ''));
+    });
     if (use && quote) use.addEventListener('click', function () {
       var q = tryQuote(); if (!q) return;
       var t = quote.querySelector('#q_type_' + q.type); if (t) t.checked = true;

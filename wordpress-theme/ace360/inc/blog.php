@@ -209,3 +209,130 @@ function ace360_post_date( $post = null, $lang = null ) {
 		: array( 'januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december' );
 	return wp_date( 'j', $t ) . ' ' . $months[ (int) wp_date( 'n', $t ) - 1 ] . ' ' . wp_date( 'Y', $t );
 }
+
+/**
+ * Latest posts in a language, as plain arrays (title, url, cover, category, excerpt, minutes, slug).
+ * Reads real posts in WordPress, and the starter post files in the static previews.
+ *
+ * @param int         $n    How many.
+ * @param string|null $lang 'nl' or 'en'.
+ * @return array
+ */
+function ace360_blog_items( $n = 3, $lang = null ) {
+	$lang = $lang ? $lang : ace360_lang();
+	$out  = array();
+	if ( ace360_both_langs() || ! function_exists( 'get_posts' ) ) {
+		foreach ( array_reverse( ace360_seed_posts() ) as $p ) {
+			if ( ( 'en' === $p['lang'] ) !== ( 'en' === $lang ) ) {
+				continue;
+			}
+			$out[] = array(
+				'title'   => $p['title'],
+				'url'     => $p['slug'] . '.html',
+				'cover'   => ace360_asset( 'img/blog/' . $p['slug'] . '.jpg' ),
+				'cat'     => $p['category'],
+				'excerpt' => $p['excerpt'],
+				'minutes' => max( 1, (int) round( str_word_count( wp_strip_all_tags( $p['body'] ) ) / 220 ) ),
+				'slug'    => $p['slug'],
+			);
+		}
+		return array_slice( $out, 0, $n );
+	}
+	$q = get_posts(
+		array(
+			'post_type'      => 'post',
+			'posts_per_page' => $n,
+			'meta_query'     => 'en' === $lang // phpcs:ignore WordPress.DB.SlowDBQuery
+				? array( array( 'key' => 'ace360_post_lang', 'value' => 'en' ) )
+				: array( 'relation' => 'OR', array( 'key' => 'ace360_post_lang', 'compare' => 'NOT EXISTS' ), array( 'key' => 'ace360_post_lang', 'value' => 'en', 'compare' => '!=' ) ),
+		)
+	);
+	foreach ( $q as $p ) {
+		$cat   = get_the_category( $p->ID );
+		$out[] = array(
+			'title'   => get_the_title( $p ),
+			'url'     => get_permalink( $p ),
+			'cover'   => has_post_thumbnail( $p ) ? get_the_post_thumbnail_url( $p, 'medium_large' ) : '',
+			'cat'     => $cat ? $cat[0]->name : '',
+			'excerpt' => wp_strip_all_tags( get_the_excerpt( $p ) ),
+			'minutes' => ace360_reading_minutes( $p ),
+			'slug'    => $p->post_name,
+		);
+	}
+	return $out;
+}
+
+/**
+ * Turn the media shortcuts in a post into markup (posts stay plain HTML in the editor):
+ *   [[clip:booking-flow|Caption]]  a looping phone clip (assets/video/blog/)
+ *   [[shot:checkout|Caption]]      a framed screenshot in the post language (assets/img/blog-media/)
+ *   [[photo:noor-hero|Caption]]    a product photo (assets/img/work/)
+ *   {{theme}}                      the theme URL
+ *
+ * @param string $html Post content.
+ * @param string $lang 'nl' or 'en'.
+ * @return string
+ */
+function ace360_post_media( $html, $lang ) {
+	$html = str_replace( '{{theme}}', get_template_directory_uri(), $html );
+	return preg_replace_callback(
+		'#(?:<p>\s*)?\[\[(clip|shot|photo):([a-z0-9-]+)(?:\|([^\]]*))?\]\](?:\s*</p>)?#',
+		function ( $m ) use ( $lang ) {
+			$cap = isset( $m[3] ) ? trim( $m[3] ) : '';
+			if ( 'clip' === $m[1] ) {
+				return ace360_clip_html( $m[2], $cap, 'in-post' );
+			}
+			if ( 'shot' === $m[1] ) {
+				$file = $m[2] . '-' . $lang . '.jpg';
+				if ( ! file_exists( get_template_directory() . '/assets/img/blog-media/' . $file ) ) {
+					$file = $m[2] . '-nl.jpg';
+				}
+				$src = ace360_asset( 'img/blog-media/' . $file );
+				return '<figure class="shot"><img src="' . esc_url( $src ) . '" alt="' . esc_attr( $cap ) . '" loading="lazy" width="1600" height="1000">' . ( $cap ? '<figcaption>' . esc_html( $cap ) . '</figcaption>' : '' ) . '</figure>';
+			}
+			return '<figure class="photo"><img src="' . esc_url( ace360_asset( 'img/work/' . $m[2] . '.jpg' ) ) . '" alt="' . esc_attr( $cap ) . '" loading="lazy">' . ( $cap ? '<figcaption>' . esc_html( $cap ) . '</figcaption>' : '' ) . '</figure>';
+		},
+		$html
+	);
+}
+
+/**
+ * Everything the article template needs about a post (WordPress post or starter file in the preview).
+ *
+ * @param WP_Post $post Post.
+ * @return array
+ */
+function ace360_post_data( $post ) {
+	$cat  = get_the_category( $post->ID );
+	$lang = ace360_post_lang( $post );
+	$take = (string) get_post_meta( $post->ID, 'ace360_post_takeaways', true );
+	return array(
+		'slug'      => $post->post_name,
+		'title'     => get_the_title( $post ),
+		'excerpt'   => has_excerpt( $post ) ? get_the_excerpt( $post ) : '',
+		'cover'     => has_post_thumbnail( $post ) ? get_the_post_thumbnail_url( $post, 'full' ) : '',
+		'cat'       => $cat ? $cat[0]->name : '',
+		'date'      => ace360_post_date( $post, $lang ),
+		'minutes'   => ace360_reading_minutes( $post ),
+		'lang'      => $lang,
+		'layout'    => get_post_meta( $post->ID, 'ace360_post_layout', true ) ? get_post_meta( $post->ID, 'ace360_post_layout', true ) : 'cover',
+		'takeaways' => array_values( array_filter( array_map( 'trim', explode( '|', $take ) ) ) ),
+		'service'   => (string) get_post_meta( $post->ID, 'ace360_post_service', true ),
+		'body'      => ace360_post_media( apply_filters( 'the_content', $post->post_content ), $lang ), // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals -- core filter.
+		'url'       => get_permalink( $post ),
+	);
+}
+
+/**
+ * URL of a post by its slug (the .html page in the static previews).
+ *
+ * @param string $slug Post slug.
+ * @return string
+ */
+function ace360_post_url( $slug ) {
+	if ( ace360_both_langs() || ! function_exists( 'get_page_by_path' ) ) {
+		return $slug . '.html';
+	}
+	$p = get_page_by_path( $slug, OBJECT, 'post' );
+	return $p ? get_permalink( $p ) : ace360_blog_url();
+}

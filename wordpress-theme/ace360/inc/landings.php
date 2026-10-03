@@ -353,6 +353,23 @@ function ace360_landings() {
 
 			/* ---------- Pages split out of the front page ---------- */
 
+			'diensten'  => array(
+				'slug'     => array( 'nl' => 'diensten', 'en' => 'services' ),
+				'tpl'      => 'diensten',
+				'service'  => '',
+				'est'      => 'website',
+				'price'    => null,
+				'show'     => array(),
+				'title'    => $p( 'Services: websites, online stores, booking and care', 'Diensten: websites, webshops, online boeken en onderhoud' ),
+				'desc'     => $p( 'Everything Ace 360 builds and looks after: websites, one-pagers, online stores with iDEAL, booking websites, maintenance and SEO. With estimates up front.', 'Alles wat Ace 360 bouwt en onderhoudt: websites, one-pagers, webshops met iDEAL, websites met online boeken, onderhoud en SEO. Met prijsindicaties vooraf.' ),
+				'kicker'   => $p( 'Services', 'Diensten' ),
+				'h1'       => $p( 'Everything your business needs *online*', 'Alles wat je bedrijf *online* nodig heeft' ),
+				'lede'     => $p( 'Six services, one way of working: you see an estimate first, the design before the build, and the site stays yours.', 'Zes diensten, één manier van werken: eerst een prijsindicatie, het ontwerp vóór de bouw, en de site blijft van jou.' ),
+				'sections' => array(),
+				'faq'      => array(),
+				'related'  => array( 'kosten', 'werkwijze', 'over' ),
+			),
+
 			'werkwijze' => array(
 				'slug'     => array( 'nl' => 'werkwijze', 'en' => 'process' ),
 				'service'  => '',
@@ -403,13 +420,14 @@ function ace360_landings() {
 
 			'over'      => array(
 				'slug'     => array( 'nl' => 'over-ace-360', 'en' => 'about' ),
+				'tpl'      => 'over',
 				'service'  => '',
 				'est'      => 'website',
 				'price'    => null,
 				'show'     => array( 'contact' ),
 				'title'    => $p( 'About Ace 360: one person, start to finish', 'Over Ace 360: één aanspreekpunt van start tot finish' ),
 				'desc'     => $p( 'Ace 360 Services builds websites, online stores and booking sites from the Netherlands, in English or Dutch. One person, and the site stays yours.', 'Ace 360 Services bouwt websites, webshops en boekingssites vanuit Nederland, in het Nederlands of Engels. Eén aanspreekpunt en de site blijft van jou.' ),
-				'kicker'   => $p( 'About', 'Over Ace 360' ),
+				'kicker'   => $p( 'About', 'Over ons' ),
 				'h1'       => $p( 'A website that *works*, built by one person you can call', 'Een website die *werkt*, gebouwd door één persoon die je kunt bellen' ),
 				'lede'     => $p( 'Ace 360 Services is a web design studio in the Netherlands. No account managers and no hand-offs: the person you talk to on the first call designs, builds and looks after your site.', 'Ace 360 Services is een webdesignstudio in Nederland. Geen accountmanagers en geen overdrachten: degene die je in de kennismaking spreekt, ontwerpt, bouwt en onderhoudt je site.' ),
 				'sections' => array(
@@ -442,6 +460,7 @@ function ace360_landings() {
 
 			'contact'   => array(
 				'slug'     => array( 'nl' => 'contact', 'en' => 'contact' ),
+				'tpl'      => 'contact',
 				'service'  => '',
 				'est'      => 'website',
 				'price'    => null,
