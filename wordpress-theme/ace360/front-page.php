@@ -78,7 +78,7 @@ $ace360_screens = array( 'call', 'quote', 'design', 'build', 'live' );
 				<p class="lede"><?php ace360_e( $ace360_hero['text'] ); ?></p>
 				<div class="actions">
 					<a class="btn btn-orange" href="#prijs"><?php ace360_e( $ace360_hero['quote'] ); ?> <span aria-hidden="true">→</span></a>
-					<a class="btn btn-line" href="<?php echo esc_url( ace360_tel() ); ?>"><?php ace360_e( $ace360_hero['call'] ); ?></a>
+					<a class="btn btn-line" href="#book"><?php ace360_e( $ace360_hero['call'] ); ?></a>
 				</div>
 				<ul class="checks">
 					<?php foreach ( $ace360_hero['bullets'] as $ace360_b ) : ?>

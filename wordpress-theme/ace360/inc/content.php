@@ -38,7 +38,7 @@ function ace360_hero() {
 			'Ace 360 Services bouwt websites en webshops voor bedrijven in Nederland en daarbuiten. Vaste prijs vooraf, een lanceerdatum die klopt en één aanspreekpunt. Geen accountmanager, geen verrassingsfactuur achteraf.'
 		),
 		'quote'   => ace360_pair( 'Price my website', 'Bereken mijn prijs' ),
-		'call'    => ace360_pair( 'Call now', 'Bel nu' ),
+		'call'    => ace360_pair( 'Book a free call', 'Plan een gratis gesprek' ),
 		'bullets' => array(
 			ace360_pair( 'Reply within 1 working day', 'Antwoord binnen 1 werkdag' ),
 			ace360_pair( 'Fixed price, no overruns billed', 'Vaste prijs, geen meerwerk achteraf' ),

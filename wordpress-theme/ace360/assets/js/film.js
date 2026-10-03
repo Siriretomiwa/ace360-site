@@ -180,7 +180,7 @@
       g.fillStyle = GREY; g.fillRect(0, t, 260, h - t);
       ['Inbox', 'Starred', 'Sent'].forEach(function (s, i) { txt(g, s, 30, t + 50 + i * 40, 16, i ? MUTED : INK, i ? 500 : 700); });
       txt(g, 'Your fixed quote and launch date', 300, t + 70, 26, INK, 700);
-      txt(g, 'Ace 360 Services · info@ace360services.nl', 300, t + 102, 14, MUTED, 500);
+      txt(g, 'Ace 360 Services · hello@ace360services.nl', 300, t + 102, 14, MUTED, 500);
       bars(g, 300, t + 140, [600, 560, 480], 10, 14, '#dfe2e6');
       box(g, 300, t + 230, 360, 120, 12, GREY); stroke(g, 300, t + 230, 360, 120, 12, LINE, 2);
       box(g, 322, t + 254, 56, 72, 6, OR); txt(g, 'PDF', 350, t + 296, 14, INK, 800, SANS, 'center');

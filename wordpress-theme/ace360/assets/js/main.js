@@ -85,7 +85,7 @@
   }
   function headerH() { var h = document.querySelector('[data-header]'); return h ? h.offsetHeight : 0; }
   function scrollToEl(target) {
-    var y = target.id === 'top' ? 0 : target.getBoundingClientRect().top + window.scrollY - headerH() + 1;
+    var y = target.id === 'top' ? 0 : target.getBoundingClientRect().top + window.scrollY - headerH() + 1 - (parseFloat(getComputedStyle(target).scrollMarginTop) || 0);
     if (lenis) lenis.scrollTo(Math.max(0, y), { duration: 1.4 });
     else window.scrollTo({ top: Math.max(0, y), behavior: reduced ? 'auto' : 'smooth' });
   }
@@ -289,7 +289,8 @@
           var needVal = r.type.id === 'store' ? 'Online store' : r.type.id === 'care' ? 'Maintenance' : 'Website';
           var need = document.querySelector('input[name="ace360_need"][value="' + needVal + '"]');
           if (need) need.checked = true;
-          var contact = document.getElementById('contact');
+          showTab('write');
+          var contact = document.getElementById('write');
           if (contact) scrollToEl(contact);
           setTimeout(function () { var n = document.getElementById('ace360_name'); if (n) n.focus({ preventScroll: true }); }, 1400);
         });
@@ -330,13 +331,243 @@
       var note = form.querySelector('[data-form-preview]');
       if (note) {
         note.textContent = lang() === 'nl'
-          ? 'Alleen voorbeeld: in WordPress mailt dit formulier de aanvraag naar ' + 'info@ace360services.nl.'
-          : 'Preview only: in WordPress this form emails the enquiry to info@ace360services.nl.';
+          ? 'Alleen voorbeeld: in WordPress mailt dit formulier de aanvraag naar ' + 'hello@ace360services.nl.'
+          : 'Preview only: in WordPress this form emails the enquiry to hello@ace360services.nl.';
         note.hidden = false;
         note.scrollIntoView({ block: 'nearest' });
       }
     });
   }
+
+  /* ---------- Contact tabs: book a call / send a message ---------- */
+  var tabsSec = document.querySelector('[data-tabs]');
+  var showTab = function () {};
+  if (tabsSec) {
+    var tabBtns = tabsSec.querySelectorAll('[data-tab]');
+    showTab = function (name, focus) {
+      tabBtns.forEach(function (b) {
+        var on = b.getAttribute('data-tab') === name;
+        b.setAttribute('aria-selected', String(on));
+        b.tabIndex = on ? 0 : -1;
+        if (on && focus) b.focus();
+      });
+      tabsSec.querySelectorAll('[data-panel]').forEach(function (p) { p.hidden = p.getAttribute('data-panel') !== name; });
+      if (hasGsap) ScrollTrigger.refresh();
+    };
+    tabBtns.forEach(function (b, i) {
+      b.addEventListener('click', function () { showTab(b.getAttribute('data-tab')); });
+      b.addEventListener('keydown', function (e) {
+        if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+        var n = tabBtns[(i + (e.key === 'ArrowRight' ? 1 : tabBtns.length - 1)) % tabBtns.length];
+        showTab(n.getAttribute('data-tab'), true);
+      });
+    });
+    showTab(window.location.hash === '#write' ? 'write' : tabsSec.getAttribute('data-tabs'));
+    // links to #book or #write open that tab before the page scrolls to it
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest('a[href$="#book"], a[href$="#write"]');
+      if (a) showTab(a.getAttribute('href').split('#')[1]);
+    }, true);
+  }
+
+  /* ---------- Book a call: free times in the visitor's own time zone ---------- */
+  var book = document.querySelector('[data-book]');
+  if (book) (function () {
+    var rules = JSON.parse(book.getAttribute('data-rules') || '{}');
+    var api = (book.getAttribute('data-api') || '').replace(/\/$/, '');
+    var mail = book.getAttribute('data-mail') || '';
+    var demo = !!window.ACE360_PREVIEW || !api;
+    var DEMO_KEY = 'ace360-demo-calls';
+    var vtz = rules.tz;
+    try { vtz = Intl.DateTimeFormat().resolvedOptions().timeZone || rules.tz; } catch (e) {}
+    function $(s) { return book.querySelector(s); }
+    var daysEl = $('[data-book-days]'), timesEl = $('[data-book-times]'), msg = $('[data-book-msg]');
+    var bform = $('[data-book-form]'), done = $('[data-book-done]'), err = $('[data-book-error]'), btn = $('[data-book-submit]');
+    var slots = null, day = null, picked = null, booked = null;
+    var T = {
+      en: {
+        tz: 'Times in your time zone', loading: 'Loading free times…',
+        none: 'No free times in the coming weeks. Email {mail} and we find a moment.',
+        fail: 'The calendar could not load. Email {mail} and we plan the call by email.',
+        taken: 'Someone just took that time. Please pick another one.',
+        busy: 'Too many attempts from this connection. Please email {mail}.',
+        invalid: 'Please fill in your name, email and phone number, and tick the box.',
+        error: 'Something went wrong. Please try again, or email {mail}.',
+        title: 'Your call is booked',
+        text: '{when}, {len} minutes. A confirmation with a calendar invite is on its way to {email}.',
+        demo: 'Preview only: on the live site this books the call and emails you both.',
+        sending: 'Booking…'
+      },
+      nl: {
+        tz: 'Tijden in jouw tijdzone', loading: 'Vrije tijden laden…',
+        none: 'Geen vrije tijden in de komende weken. Mail {mail} en we zoeken een moment.',
+        fail: 'De agenda kon niet laden. Mail {mail} en we plannen het gesprek per mail.',
+        taken: 'Iemand heeft die tijd net geboekt. Kies een andere.',
+        busy: 'Te veel pogingen vanaf deze verbinding. Mail {mail}.',
+        invalid: 'Vul je naam, e-mail en telefoonnummer in en vink het vakje aan.',
+        error: 'Er ging iets mis. Probeer het opnieuw, of mail {mail}.',
+        title: 'Je gesprek staat vast',
+        text: '{when}, {len} minuten. Een bevestiging met agenda-uitnodiging is onderweg naar {email}.',
+        demo: 'Alleen voorbeeld: op de echte site boekt dit het gesprek en krijgen jullie allebei een mail.',
+        sending: 'Bezig…'
+      }
+    };
+    function t(k, v) {
+      v = v || {}; v.mail = v.mail || mail;
+      return T[lang()][k].replace(/\{(\w+)\}/g, function (m, n) { return v[n] !== undefined ? v[n] : m; });
+    }
+    function say(s) { msg.textContent = s; msg.hidden = !s; }
+
+    /* dates, always shown in the visitor's zone */
+    function fmt(ts, o) {
+      var opts = { timeZone: vtz }; for (var k in o) opts[k] = o[k];
+      try { return new Intl.DateTimeFormat(lang() === 'nl' ? 'nl-NL' : 'en-GB', opts).format(new Date(ts * 1000)); }
+      catch (e) { delete opts.timeZone; return new Intl.DateTimeFormat('en-GB', opts).format(new Date(ts * 1000)); }
+    }
+    function dayKey(ts) { return fmt(ts, { year: 'numeric', month: '2-digit', day: '2-digit' }); }
+    function hm(ts) { return fmt(ts, { hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }); }
+    function when(ts) { var s = fmt(ts, { weekday: 'long', day: 'numeric', month: 'long' }) + ' · ' + hm(ts); return s.charAt(0).toUpperCase() + s.slice(1); }
+
+    /* the preview has no server: work the free times out from the same rules */
+    function partsIn(ms, tz) {
+      var p = {};
+      new Intl.DateTimeFormat('en-US', { timeZone: tz, hourCycle: 'h23', year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric' })
+        .formatToParts(new Date(ms)).forEach(function (x) { p[x.type] = +x.value; });
+      return p;
+    }
+    function zoned(y, m, d, mins, tz) { // wall-clock time in tz → epoch ms
+      var want = Date.UTC(y, m - 1, d, 0, mins), ms = want;
+      for (var i = 0; i < 2; i++) { var p = partsIn(ms, tz); ms += want - Date.UTC(p.year, p.month - 1, p.day, p.hour % 24, p.minute); }
+      return ms;
+    }
+    function demoTaken() { try { return JSON.parse(localStorage.getItem(DEMO_KEY)) || []; } catch (e) { return []; } }
+    function localSlots() {
+      var out = [], now = Date.now(), min = now + rules.notice * 3600e3, p = partsIn(now, rules.tz), mine = demoTaken();
+      for (var i = 0; i < rules.days; i++) {
+        var d = new Date(Date.UTC(p.year, p.month - 1, p.day + i));
+        var Y = d.getUTCFullYear(), M = d.getUTCMonth() + 1, D = d.getUTCDate();
+        if (rules.off.indexOf(Y + '-' + ('0' + M).slice(-2) + '-' + ('0' + D).slice(-2)) !== -1) continue;
+        (rules.week[d.getUTCDay()] || []).forEach(function (w) {
+          for (var m = w[0]; m + rules.len <= w[1]; m += rules.step) {
+            var ts = Math.round(zoned(Y, M, D, m, rules.tz) / 1000);
+            if (ts * 1000 >= min && mine.indexOf(ts) === -1) out.push(ts);
+          }
+        });
+      }
+      return out;
+    }
+
+    function load(then) {
+      say(t('loading'));
+      if (demo) { slots = localSlots(); render(); if (then) then(); return; }
+      fetch(api + '/slots', { credentials: 'same-origin', cache: 'no-store' })
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(function (d) { slots = d.slots || []; render(); if (then) then(); })
+        .catch(function () { slots = null; daysEl.innerHTML = ''; timesEl.innerHTML = ''; say(t('fail')); });
+    }
+
+    function render() {
+      $('[data-book-tz]').textContent = t('tz') + ': ' + vtz.replace(/_/g, ' ');
+      if (booked) { doneText(); return; }
+      if (!slots) return;
+      var groups = {}, order = [];
+      slots.forEach(function (s) { var k = dayKey(s); if (!groups[k]) { groups[k] = []; order.push(k); } groups[k].push(s); });
+      var sl = daysEl.scrollLeft;
+      daysEl.innerHTML = ''; timesEl.innerHTML = '';
+      if (!order.length) { say(t('none')); bform.hidden = true; return; }
+      say('');
+      if (!groups[day]) day = order[0];
+      order.forEach(function (k) {
+        var s0 = groups[k][0], b = document.createElement('button');
+        b.type = 'button'; b.className = 'book-day';
+        b.setAttribute('aria-pressed', String(k === day));
+        b.setAttribute('aria-label', fmt(s0, { weekday: 'long', day: 'numeric', month: 'long' }));
+        b.innerHTML = '<span class="mono">' + fmt(s0, { weekday: 'short' }) + '</span><b>' + fmt(s0, { day: 'numeric' }) + '</b><span class="mono">' + fmt(s0, { month: 'short' }) + '</span>';
+        b.addEventListener('click', function () { day = k; picked = null; render(); });
+        daysEl.appendChild(b);
+      });
+      daysEl.scrollLeft = sl;
+      groups[day].forEach(function (s) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'book-time'; b.textContent = hm(s);
+        b.setAttribute('aria-pressed', String(s === picked));
+        b.addEventListener('click', function () { pick(s); });
+        timesEl.appendChild(b);
+      });
+      bform.hidden = !picked;
+      if (picked) $('[data-book-picked]').textContent = when(picked);
+    }
+
+    function pick(s) {
+      picked = s; err.hidden = true; render();
+      if (bform.getBoundingClientRect().top > window.innerHeight * 0.75) scrollToEl(bform);
+      var n = $('#book_name'); if (n && !n.value) setTimeout(function () { n.focus({ preventScroll: true }); }, 50);
+    }
+
+    function syncVia() {
+      var v = bform.querySelector('input[name="via"]:checked'), video = !!v && v.value === 'video';
+      $('#book_phone').required = !video;
+      $('[data-book-phone]').classList.toggle('is-optional', video);
+    }
+    bform.addEventListener('change', syncVia);
+    syncVia();
+
+    function fail(k) { err.textContent = t(k); err.hidden = false; }
+
+    function icsFor(b) {
+      var d = function (s) { return new Date(s * 1000).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, ''); };
+      var esc = function (s) { return String(s).replace(/([\;,])/g, '\\$1').replace(/\n/g, '\\n'); };
+      return ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Ace 360 Services//Call booking//EN', 'CALSCALE:GREGORIAN', 'BEGIN:VEVENT',
+        'UID:' + b.uid, 'DTSTAMP:' + d(Date.now() / 1000), 'DTSTART:' + d(b.start), 'DTEND:' + d(b.start + rules.len * 60),
+        'SUMMARY:' + esc('Ace 360 Services × ' + b.name), 'END:VEVENT', 'END:VCALENDAR'].join('\r\n') + '\r\n';
+    }
+    function doneText() {
+      $('[data-book-done-title]').textContent = t('title');
+      $('[data-book-done-text]').textContent = t('text', { when: when(booked.start), len: rules.len, email: booked.email }) + (booked.demo ? ' ' + t('demo') : '');
+    }
+    function finish(data, uid) {
+      booked = { start: picked, name: data.name, email: data.email, uid: uid, demo: demo };
+      bform.hidden = true; daysEl.hidden = true; timesEl.hidden = true; say('');
+      done.hidden = false;
+      doneText();
+      var a = $('[data-book-ics]');
+      // in the static preview the emailed invite stands in for the download
+      if (demo) a.hidden = true;
+      else try { a.href = URL.createObjectURL(new Blob([icsFor(booked)], { type: 'text/calendar' })); } catch (e) { a.hidden = true; }
+      done.focus({ preventScroll: true });
+      if (hasGsap) ScrollTrigger.refresh();
+    }
+
+    bform.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!picked) return;
+      var data = { start: picked, tz: vtz, lang: lang() };
+      new FormData(bform).forEach(function (v, k) { data[k] = v; });
+      var label = btn.innerHTML;
+      btn.disabled = true; btn.textContent = t('sending'); err.hidden = true;
+      var reset = function () { btn.disabled = false; btn.innerHTML = label; };
+      if (demo) {
+        setTimeout(function () {
+          var mine = demoTaken(); mine.push(picked);
+          try { localStorage.setItem(DEMO_KEY, JSON.stringify(mine)); } catch (x) {}
+          reset(); finish(data, 'ace360-demo-' + picked + '@ace360services.nl');
+        }, 600);
+        return;
+      }
+      fetch(api + '/book', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+        .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { s: r.status, j: j }; }); })
+        .then(function (r) {
+          reset();
+          if (r.s === 200 && r.j.ok) { finish(data, r.j.uid); return; }
+          if (r.s === 409) { picked = null; load(function () { say(t('taken')); }); return; }
+          fail(r.s === 429 ? 'busy' : r.s === 400 ? 'invalid' : 'error');
+        })
+        .catch(function () { reset(); fail('error'); });
+    });
+
+    document.addEventListener('ace360:lang', render);
+    load();
+  })();
 
   /* ---------- Chapters tell the 3D laptop what to show ---------- */
   function film() { return window.ACE360_FILM; }

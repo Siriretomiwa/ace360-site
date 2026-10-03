@@ -77,7 +77,7 @@
 			</span>
 		</button>
 
-		<a class="btn btn-orange btn-small" href="<?php echo esc_url( ace360_tel() ); ?>"><?php ace360_e( ace360_pair( 'Call now', 'Bel nu' ) ); ?></a>
+		<a class="btn btn-orange btn-small" href="<?php echo esc_url( ( is_front_page() ? '' : home_url( '/' ) ) . '#book' ); ?>"><?php ace360_e( ace360_pair( 'Book a call', 'Plan een gesprek' ) ); ?></a>
 
 		<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
 			<span class="screen-reader-text">Menu</span>
@@ -85,4 +85,4 @@
 		</button>
 	</div>
 </header>
-<a class="btn btn-orange fab-call" href="<?php echo esc_url( ace360_tel() ); ?>"><?php ace360_e( ace360_pair( 'Call now', 'Bel nu' ) ); ?></a>
+<a class="btn btn-orange fab-call" href="<?php echo esc_url( ( is_front_page() ? '' : home_url( '/' ) ) . '#book' ); ?>"><?php ace360_e( ace360_pair( 'Book a call', 'Plan een gesprek' ) ); ?></a>

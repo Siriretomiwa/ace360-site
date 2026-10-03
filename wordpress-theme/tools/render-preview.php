@@ -30,6 +30,7 @@ function has_nav_menu( $l ) { return false; }
 function is_front_page() { return true; }
 function wp_nonce_field() {}
 function sanitize_key( $s ) { return $s; }
+function sanitize_text_field( $s ) { return $s; }
 function wp_unslash( $s ) { return $s; }
 function gmdate_stub() {}
 function get_header() { global $theme; include $theme . '/header.php'; }

@@ -16,12 +16,97 @@ function ace360_defaults() {
 	return array(
 		'phone'    => '+31 6 17 85 84 90',
 		'whatsapp' => '31617858490',
-		'email'    => 'info@ace360services.nl',
-		'hours_en' => 'Mon–Fri 09:00–18:00 CET',
-		'hours_nl' => 'Ma–vr 09:00–18:00',
-		'kvk'      => '94618240',
-		'btw'      => '',
+		'email'        => 'hello@ace360services.nl',
+		'hours_en'     => 'Calls Mon–Fri 15:30–16:30 and 17:30–19:00, Sat–Sun 09:00–13:30 (Amsterdam time)',
+		'hours_nl'     => 'Bellen ma–vr 15:30–16:30 en 17:30–19:00, za–zo 09:00–13:30',
+		'kvk'          => '94618240',
+		'btw'          => '',
+		'book_weekday' => '15:30-16:30, 17:30-19:00',
+		'book_weekend' => '09:00-13:30',
+		'book_length'  => '20',
+		'book_step'    => '30',
+		'book_notice'  => '12',
+		'book_days'    => '21',
+		'book_off'     => '',
 	);
+}
+
+/**
+ * Time zone the call calendar runs in (the business is in the Netherlands).
+ */
+function ace360_book_tz() {
+	return apply_filters( 'ace360_book_timezone', 'Europe/Amsterdam' );
+}
+
+/**
+ * Parse "15:30-16:30, 17:30-19:00" into minute ranges: array( array( 930, 990 ), ... ).
+ *
+ * @param string $text Free-time windows.
+ * @return array
+ */
+function ace360_book_windows( $text ) {
+	$out = array();
+	preg_match_all( '/(\d{1,2})[:.](\d{2})\s*[-–]\s*(\d{1,2})[:.](\d{2})/u', (string) $text, $m, PREG_SET_ORDER );
+	foreach ( $m as $w ) {
+		$a = min( 1440, (int) $w[1] * 60 + (int) $w[2] );
+		$b = min( 1440, (int) $w[3] * 60 + (int) $w[4] );
+		if ( $b > $a ) {
+			$out[] = array( $a, $b );
+		}
+	}
+	return $out;
+}
+
+/**
+ * Call-booking rules, shared by the calendar (JS) and the booking endpoint.
+ * 'week' is keyed by day of the week, 0 = Sunday.
+ *
+ * @return array
+ */
+function ace360_book_rules() {
+	$weekday = ace360_book_windows( ace360_mod( 'book_weekday' ) );
+	$weekend = ace360_book_windows( ace360_mod( 'book_weekend' ) );
+	preg_match_all( '/\d{4}-\d{2}-\d{2}/', ace360_mod( 'book_off' ), $off );
+	return array(
+		'tz'     => ace360_book_tz(),
+		'week'   => array( $weekend, $weekday, $weekday, $weekday, $weekday, $weekday, $weekend ),
+		'len'    => max( 5, min( 240, (int) ace360_mod( 'book_length' ) ) ),
+		'step'   => max( 5, min( 240, (int) ace360_mod( 'book_step' ) ) ),
+		'notice' => max( 0, min( 720, (int) ace360_mod( 'book_notice' ) ) ),
+		'days'   => max( 1, min( 90, (int) ace360_mod( 'book_days' ) ) ),
+		'off'    => array_values( array_unique( $off[0] ) ),
+	);
+}
+
+/**
+ * Every bookable start time (Unix seconds) in the booking horizon, before
+ * removing the ones already taken.
+ *
+ * @param int|null $now Current time, for testing.
+ * @return int[]
+ */
+function ace360_book_all_slots( $now = null ) {
+	$r   = ace360_book_rules();
+	$tz  = new DateTimeZone( $r['tz'] );
+	$now = null === $now ? time() : $now;
+	$min = $now + $r['notice'] * 3600;
+	$day = ( new DateTimeImmutable( '@' . $now ) )->setTimezone( $tz )->setTime( 0, 0 );
+	$out = array();
+	for ( $i = 0; $i < $r['days']; $i++ ) {
+		$d = $day->modify( '+' . $i . ' day' );
+		if ( in_array( $d->format( 'Y-m-d' ), $r['off'], true ) ) {
+			continue;
+		}
+		foreach ( $r['week'][ (int) $d->format( 'w' ) ] as $w ) {
+			for ( $m = $w[0]; $m + $r['len'] <= $w[1]; $m += $r['step'] ) {
+				$ts = $d->setTime( intdiv( $m, 60 ), $m % 60 )->getTimestamp();
+				if ( $ts >= $min ) {
+					$out[] = $ts;
+				}
+			}
+		}
+	}
+	return $out;
 }
 
 /**

@@ -9,11 +9,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'ACE360_VERSION', '5.5.0' );
+define( 'ACE360_VERSION', '5.6.0' );
 
 require get_template_directory() . '/inc/template-helpers.php';
 require get_template_directory() . '/inc/content.php';
 require get_template_directory() . '/inc/customizer.php';
+require get_template_directory() . '/inc/booking.php';
 
 /**
  * Theme supports and menus.

@@ -51,7 +51,7 @@
 			</span>
 		</button>
 
-		<a class="btn btn-orange btn-small" href="tel:+31617858490"><span data-l="en" lang="en">Call now</span><span data-l="nl" lang="nl">Bel nu</span></a>
+		<a class="btn btn-orange btn-small" href="#book"><span data-l="en" lang="en">Book a call</span><span data-l="nl" lang="nl">Plan een gesprek</span></a>
 
 		<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
 			<span class="screen-reader-text">Menu</span>
@@ -59,7 +59,7 @@
 		</button>
 	</div>
 </header>
-<a class="btn btn-orange fab-call" href="tel:+31617858490"><span data-l="en" lang="en">Call now</span><span data-l="nl" lang="nl">Bel nu</span></a>
+<a class="btn btn-orange fab-call" href="#book"><span data-l="en" lang="en">Book a call</span><span data-l="nl" lang="nl">Plan een gesprek</span></a>
 <canvas id="stage" aria-hidden="true"></canvas>
 <main id="main" class="site-main film">
 
@@ -72,7 +72,7 @@
 				<p class="lede"><span data-l="en" lang="en">Ace 360 Services builds websites and online stores for businesses in the Netherlands and abroad. Fixed price up front, a launch date that holds, and one person to talk to. No account manager, no surprise invoice at the end.</span><span data-l="nl" lang="nl">Ace 360 Services bouwt websites en webshops voor bedrijven in Nederland en daarbuiten. Vaste prijs vooraf, een lanceerdatum die klopt en één aanspreekpunt. Geen accountmanager, geen verrassingsfactuur achteraf.</span></p>
 				<div class="actions">
 					<a class="btn btn-orange" href="#prijs"><span data-l="en" lang="en">Price my website</span><span data-l="nl" lang="nl">Bereken mijn prijs</span> <span aria-hidden="true">→</span></a>
-					<a class="btn btn-line" href="tel:+31617858490"><span data-l="en" lang="en">Call now</span><span data-l="nl" lang="nl">Bel nu</span></a>
+					<a class="btn btn-line" href="#book"><span data-l="en" lang="en">Book a free call</span><span data-l="nl" lang="nl">Plan een gratis gesprek</span></a>
 				</div>
 				<ul class="checks">
 											<li><span data-l="en" lang="en">Reply within 1 working day</span><span data-l="nl" lang="nl">Antwoord binnen 1 werkdag</span></li>
@@ -1107,16 +1107,94 @@
 	</section>
 
 	<!-- 13 · Contact -->
-	<section class="ch contact-ch" id="contact" data-k="contact" data-screen="live">
+	<section class="ch contact-ch" id="contact" data-k="contact" data-screen="live" data-tabs="book">
 	<div class="wrap">
 		<div class="copy copy-contact">
 		<div class="sec-head">
 			<p class="kicker">Contact</p>
-			<h2><span data-l="en" lang="en">Tell me what you <em class="hl">need</em></span><span data-l="nl" lang="nl">Vertel wat je <em class="hl">nodig</em> hebt</span></h2>
-			<p class="lede"><span data-l="en" lang="en">You get an answer within one working day, with either a concrete price or a concrete question back. No automated confirmation email that says nothing.</span><span data-l="nl" lang="nl">Je krijgt binnen één werkdag antwoord, met een concrete prijs of een concrete vraag terug. Geen automatische bevestigingsmail die niets zegt.</span></p>
+			<h2><span data-l="en" lang="en">Book a <em class="hl">free call</em></span><span data-l="nl" lang="nl">Plan een <em class="hl">gratis gesprek</em></span></h2>
+			<p class="lede"><span data-l="en" lang="en">Pick a time that suits you: 20 minutes by phone, WhatsApp or video, no strings attached. Rather write? Send a message and you get an answer within one working day.</span><span data-l="nl" lang="nl">Kies een tijd die jou uitkomt: 20 minuten via telefoon, WhatsApp of video, zonder verplichtingen. Liever schrijven? Stuur een bericht en je krijgt binnen één werkdag antwoord.</span></p>
+		</div>
+		<div class="contact-tabs" role="tablist" aria-label="Contact">
+			<button type="button" role="tab" id="tab-book" aria-controls="book" data-tab="book"><span data-l="en" lang="en">Book a call</span><span data-l="nl" lang="nl">Plan een gesprek</span></button>
+			<button type="button" role="tab" id="tab-write" aria-controls="write" data-tab="write"><span data-l="en" lang="en">Send a message</span><span data-l="nl" lang="nl">Stuur een bericht</span></button>
 		</div>
 		<div class="contact-grid">
-			<form class="card contact-form" method="post" action="#" data-contact-form>
+			<div class="card book" id="book" role="tabpanel" aria-labelledby="tab-book" data-panel="book" data-book
+				data-rules="{&quot;tz&quot;:&quot;Europe\/Amsterdam&quot;,&quot;week&quot;:[[[540,810]],[[930,990],[1050,1140]],[[930,990],[1050,1140]],[[930,990],[1050,1140]],[[930,990],[1050,1140]],[[930,990],[1050,1140]],[[540,810]]],&quot;len&quot;:20,&quot;step&quot;:30,&quot;notice&quot;:12,&quot;days&quot;:21,&quot;off&quot;:[]}"
+				data-api=""
+				data-mail="hello@ace360services.nl">
+				
+				<div class="book-head">
+					<p class="mono book-meta"><span class="book-dot" aria-hidden="true"></span><span data-l="en" lang="en">Free · 20 min · no strings attached</span><span data-l="nl" lang="nl">Gratis · 20 min · vrijblijvend</span></p>
+					<p class="mono muted book-tz" data-book-tz></p>
+				</div>
+				<div class="book-days" data-book-days role="group" aria-label="Day"></div>
+				<div class="book-times" data-book-times role="group" aria-label="Time"></div>
+				<p class="book-msg muted" data-book-msg hidden></p>
+				<noscript><p class="book-msg"><span data-l="en" lang="en">The calendar needs JavaScript. Email hello@ace360services.nl and we plan a call by email.</span><span data-l="nl" lang="nl">De agenda heeft JavaScript nodig. Mail hello@ace360services.nl en we plannen het gesprek per mail.</span></p></noscript>
+
+				<form class="book-form" data-book-form hidden>
+					<p class="book-picked"><span class="mono muted"><span data-l="en" lang="en">Your call</span><span data-l="nl" lang="nl">Jouw gesprek</span></span><b data-book-picked></b></p>
+					<p class="hp" aria-hidden="true"><label for="book_website">Website</label><input type="text" id="book_website" name="website" tabindex="-1" autocomplete="off"></p>
+					<div class="field-row">
+						<p class="field">
+							<label for="book_name"><span data-l="en" lang="en">Name</span><span data-l="nl" lang="nl">Naam</span></label>
+							<input type="text" id="book_name" name="name" autocomplete="name" required>
+						</p>
+						<p class="field">
+							<label for="book_email"><span data-l="en" lang="en">Email</span><span data-l="nl" lang="nl">E-mail</span></label>
+							<input type="email" id="book_email" name="email" autocomplete="email" required>
+						</p>
+					</div>
+					<fieldset class="field">
+						<legend><span data-l="en" lang="en">How do we talk?</span><span data-l="nl" lang="nl">Hoe spreken we?</span></legend>
+						<div class="pills">
+															<label class="pill">
+									<input type="radio" name="via" value="phone" checked>
+									<span><span data-l="en" lang="en">Phone</span><span data-l="nl" lang="nl">Telefoon</span></span>
+								</label>
+															<label class="pill">
+									<input type="radio" name="via" value="whatsapp">
+									<span>WhatsApp</span>
+								</label>
+															<label class="pill">
+									<input type="radio" name="via" value="video">
+									<span><span data-l="en" lang="en">Video call</span><span data-l="nl" lang="nl">Videogesprek</span></span>
+								</label>
+													</div>
+					</fieldset>
+					<div class="field-row">
+						<p class="field" data-book-phone>
+							<label for="book_phone"><span data-l="en" lang="en">Phone number</span><span data-l="nl" lang="nl">Telefoonnummer</span></label>
+							<input type="tel" id="book_phone" name="phone" autocomplete="tel" placeholder="+31 6 …" required>
+						</p>
+						<p class="field">
+							<label for="book_company"><span data-l="en" lang="en">Company (optional)</span><span data-l="nl" lang="nl">Bedrijf (optioneel)</span></label>
+							<input type="text" id="book_company" name="company" autocomplete="organization">
+						</p>
+					</div>
+					<p class="field">
+						<label for="book_note"><span data-l="en" lang="en">What would you like to talk about? (optional)</span><span data-l="nl" lang="nl">Waar wil je het over hebben? (optioneel)</span></label>
+						<textarea id="book_note" name="note" rows="3"></textarea>
+					</p>
+					<label class="consent">
+						<input type="checkbox" name="consent" value="1" required>
+						<span><span data-l="en" lang="en">I agree to my details being used to plan and hold this call.</span><span data-l="nl" lang="nl">Ik ga akkoord dat mijn gegevens worden gebruikt om dit gesprek te plannen en te voeren.</span></span>
+					</label>
+					<p class="form-status is-error" role="alert" data-book-error hidden></p>
+					<button class="btn btn-orange" type="submit" data-book-submit><span data-l="en" lang="en">Confirm my call</span><span data-l="nl" lang="nl">Bevestig mijn gesprek</span> <span aria-hidden="true">→</span></button>
+				</form>
+
+				<div class="book-done" data-book-done hidden tabindex="-1">
+					<span class="book-check" aria-hidden="true">✓</span>
+					<p class="book-done-title" data-book-done-title></p>
+					<p class="muted" data-book-done-text></p>
+					<p class="book-done-actions"><a class="btn btn-line btn-small" href="#" data-book-ics download="ace360-call.ics"><span data-l="en" lang="en">Add to calendar</span><span data-l="nl" lang="nl">Zet in agenda</span></a></p>
+				</div>
+			</div>
+
+			<form class="card contact-form" id="write" role="tabpanel" aria-labelledby="tab-write" data-panel="write" method="post" action="#" data-contact-form>
 				<input type="hidden" name="action" value="ace360_contact">
 				<input type="hidden" name="ace360_estimate" value="" data-estimate-field>
 				<input type="hidden" name="ace360_lang" value="en" data-lang-field>
@@ -1194,8 +1272,8 @@
 				<dl>
 					<div><dt class="mono"><span data-l="en" lang="en">Call</span><span data-l="nl" lang="nl">Bellen</span></dt><dd><a href="tel:+31617858490">+31 6 17 85 84 90</a></dd></div>
 					<div><dt class="mono">WhatsApp</dt><dd><a href="https://wa.me/31617858490" target="_blank" rel="noopener"><span data-l="en" lang="en">Send a message</span><span data-l="nl" lang="nl">Stuur een bericht</span> ↗</a></dd></div>
-					<div><dt class="mono">Email</dt><dd><a href="mailto:info@ace360services.nl">info@ace360services.nl</a></dd></div>
-					<div><dt class="mono"><span data-l="en" lang="en">Available</span><span data-l="nl" lang="nl">Bereikbaar</span></dt><dd><span data-l="en" lang="en">Mon–Fri 09:00–18:00 CET</span><span data-l="nl" lang="nl">Ma–vr 09:00–18:00</span></dd></div>
+					<div><dt class="mono">Email</dt><dd><a href="mailto:hello@ace360services.nl">hello@ace360services.nl</a></dd></div>
+					<div><dt class="mono"><span data-l="en" lang="en">Available</span><span data-l="nl" lang="nl">Bereikbaar</span></dt><dd><span data-l="en" lang="en">Calls Mon–Fri 15:30–16:30 and 17:30–19:00, Sat–Sun 09:00–13:30 (Amsterdam time)</span><span data-l="nl" lang="nl">Bellen ma–vr 15:30–16:30 en 17:30–19:00, za–zo 09:00–13:30</span></dd></div>
 					<div><dt class="mono"><span data-l="en" lang="en">Coverage</span><span data-l="nl" lang="nl">Werkgebied</span></dt><dd><span data-l="en" lang="en">All of the Netherlands, and remote worldwide</span><span data-l="nl" lang="nl">Heel Nederland, en op afstand wereldwijd</span></dd></div>
 				</dl>
 			</aside>
@@ -1214,9 +1292,9 @@
 			<p class="label">Direct</p>
 			<ul>
 				<li><a href="tel:+31617858490"><span data-l="en" lang="en">Phone</span><span data-l="nl" lang="nl">Telefoon</span> · +31 6 17 85 84 90</a></li>
-				<li><a href="mailto:info@ace360services.nl">info@ace360services.nl</a></li>
+				<li><a href="mailto:hello@ace360services.nl">hello@ace360services.nl</a></li>
 				<li><a href="https://wa.me/31617858490" rel="noopener" target="_blank">WhatsApp</a></li>
-				<li class="muted"><span data-l="en" lang="en">Mon–Fri 09:00–18:00 CET</span><span data-l="nl" lang="nl">Ma–vr 09:00–18:00</span></li>
+				<li class="muted"><span data-l="en" lang="en">Calls Mon–Fri 15:30–16:30 and 17:30–19:00, Sat–Sun 09:00–13:30 (Amsterdam time)</span><span data-l="nl" lang="nl">Bellen ma–vr 15:30–16:30 en 17:30–19:00, za–zo 09:00–13:30</span></li>
 			</ul>
 		</div>
 		<div class="footer-col">
