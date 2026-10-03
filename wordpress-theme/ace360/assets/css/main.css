@@ -174,8 +174,12 @@ h1, h2, h3 { font-weight: 650; letter-spacing: -0.035em; line-height: 1.05; text
   .header-inner > .btn-small { display: none; }
   .primary-nav { position: fixed; inset: 0; z-index: -1; flex-direction: column; align-items: flex-start; gap: 28px; padding: calc(env(safe-area-inset-top, 0px) + 90px) var(--gutter) 40px; background: var(--white); clip-path: inset(0 0 100% 0); transition: clip-path 0.55s var(--ease); }
   .nav-open .primary-nav { clip-path: inset(0 0 0 0); }
+  /* a backdrop-filter or transform on the header would make it the containing block of the fixed menu panel
+     (the panel would then be only as tall as the header), so drop both while the menu is open */
+  .nav-open .site-header { -webkit-backdrop-filter: none; backdrop-filter: none; transform: none; background: var(--white); }
+  .primary-nav { height: 100vh; height: 100dvh; overflow-y: auto; overscroll-behavior: contain; }
   .primary-nav .menu { flex-direction: column; gap: 6px; }
-  .primary-nav .menu a { font-size: clamp(2rem, 9vw, 2.6rem); font-weight: 650; letter-spacing: -0.035em; color: var(--ink); }
+  .primary-nav .menu a { display: inline-block; font-size: clamp(2rem, 9vw, 2.6rem); font-weight: 650; letter-spacing: -0.035em; color: var(--ink); }
   .nav-phone { font-size: 1.05rem !important; }
   .fab-call { display: inline-flex; position: fixed; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 90; box-shadow: var(--shadow-lg); }
   .nav-open .fab-call { display: none; }
