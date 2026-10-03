@@ -4,6 +4,8 @@
   python3 voiceover.py <reel-folder>
 
 Reads <reel>/voiceover.txt, one line per segment:   [12.5] Text spoken from 12.5 seconds.
+An optional line '# voice: bm_lewis' picks one of the three locked brand voices (voice.json kokoro.voices).
+voiceover-paste.txt (the copy-paste version with break tags) is rewritten from it on every run.
 Voice source, in this order:
   1. <reel>/voiceover/full.mp3 (or .wav/.m4a)  a whole recording, e.g. exported from ElevenLabs
      after pasting <reel>/voiceover-paste.txt. It is cut at its pauses (one per line break in the
@@ -45,16 +47,26 @@ def kokoro_engine():
         _kokoro = Kokoro(os.path.join(VDIR, 'kokoro-v1.0.onnx'), os.path.join(VDIR, 'voices-v1.0.bin'))
     return _kokoro
 
+SHORT_VOICE = None  # set from '# voice: …' in the Short's voiceover.txt
+
+def kokoro_voice():
+    v = os.environ.get('KOKORO_VOICE') or SHORT_VOICE or VOICE['kokoro']['voice']
+    allowed = VOICE['kokoro'].get('voices', {})
+    if allowed and v not in allowed:
+        sys.exit('Voice %s is not one of the locked Ace 360 voices: %s (voice.json)' % (v, ', '.join(allowed)))
+    return v
+
 def kokoro(text, path):
     eng = kokoro_engine()
     import soundfile as sf
-    k = VOICE['kokoro']
-    samples, sr = eng.create(say(text), voice=os.environ.get('KOKORO_VOICE', k['voice']), speed=k.get('speed', 1.0), lang=k.get('lang', 'en-us'))
+    k, v = VOICE['kokoro'], kokoro_voice()
+    lang = k.get('voices', {}).get(v, {}).get('lang', 'en-gb' if v.startswith('b') else 'en-us')
+    samples, sr = eng.create(say(text), voice=v, speed=k.get('speed', 1.0), lang=lang)
     sf.write(path, samples, sr)
 
 def voice_tag():
     return 'elevenlabs:' + os.environ.get('ELEVENLABS_VOICE_ID', VOICE['elevenlabs']['voice_id']) if ENGINE == 'elevenlabs' else \
-        'kokoro:%s:%s' % (os.environ.get('KOKORO_VOICE', VOICE['kokoro']['voice']), VOICE['kokoro'].get('speed', 1.0))
+        'kokoro:%s:%s' % (kokoro_voice(), VOICE['kokoro'].get('speed', 1.0))
 
 def say(text):
     """Apply the pronunciation list (brand names, URLs) to what the voice reads; on-screen text is unchanged."""
@@ -70,10 +82,11 @@ def api(path):
 if len(sys.argv) > 1 and sys.argv[1] in ('--check', '--voices') and ENGINE == 'kokoro':
     k = kokoro_engine()
     if sys.argv[1] == '--voices':
-        names = sorted(k.get_voices())
-        print('Kokoro voices (a=American, b=British · f=female, m=male):'); print('  ' + '  '.join(n for n in names if n[:2] in ('af', 'am', 'bf', 'bm')))
+        for n, i in VOICE['kokoro'].get('voices', {}).items():
+            print('%-12s %s' % (n, i.get('label', '')))
     else:
-        print('Kokoro ready (free, local) · brand voice:', VOICE['kokoro']['voice'], '· speed', VOICE['kokoro'].get('speed', 1.0))
+        print('Kokoro ready (free, local) · locked voices:', ', '.join('%s (%s)' % (n, i.get('label', '')) for n, i in VOICE['kokoro'].get('voices', {}).items()),
+              '· default', VOICE['kokoro']['voice'], '· speed', VOICE['kokoro'].get('speed', 1.0))
     sys.exit(0)
 
 if len(sys.argv) > 1 and sys.argv[1] in ('--check', '--voices'):
@@ -111,6 +124,13 @@ for raw in open(os.path.join(reel, 'voiceover.txt'), encoding='utf-8'):
     m = re.match(r'\s*\[(\d+(?:\.\d+)?)\]\s*(.+)', raw)
     if m:
         lines.append((float(m.group(1)), m.group(2).strip()))
+    m = re.match(r'\s*#\s*voice:\s*(\S+)', raw)
+    if m:
+        SHORT_VOICE = m.group(1)
+# keep the copy-paste version (for a manual recording) in step with the timed script
+open(os.path.join(reel, 'voiceover-paste.txt'), 'w', encoding='utf-8').write('\n<break time="1.0s" />\n'.join(x for _, x in lines) + '\n')
+if ENGINE == 'kokoro':
+    print('voice:', kokoro_voice())
 total = dur(os.path.join(out, name + '-silent.mp4'))
 
 def find(stem):
@@ -173,13 +193,15 @@ else:
     tagf = os.path.join(vodir, '.generated-by')
     if os.path.exists(tagf) and open(tagf).read().strip() != voice_tag():
         for f in os.listdir(vodir):
-            if re.match(r'\d\d\.(mp3|wav)$', f):
+            if re.match(r'\d\d\.(mp3|wav|txt)$', f):
                 os.remove(os.path.join(vodir, f))
     if ENGINE == 'elevenlabs' and not all(find('%02d' % (i + 1)) for i in range(len(lines))):
         print('ElevenLabs: about %d characters for this Short' % sum(len(say(x)) for _, x in lines))
     for i, (t, text) in enumerate(lines):
         stem = '%02d' % (i + 1)
-        p = find(stem)
+        p, said = find(stem), os.path.join(vodir, stem + '.txt')
+        if p and os.path.exists(said) and open(said, encoding='utf-8').read() != text:
+            os.remove(p); p = None  # the line was reworded: generate it again
         if not p:
             if ENGINE == 'elevenlabs':
                 p = os.path.join(vodir, stem + '.mp3')
@@ -188,6 +210,7 @@ else:
                 p = os.path.join(vodir, stem + '.wav')
                 kokoro(text, p)
             open(tagf, 'w').write(voice_tag())
+            open(said, 'w', encoding='utf-8').write(text)
             print('generated line %d (%s)' % (i + 1, voice_tag()))
         place(i, t, p)
 

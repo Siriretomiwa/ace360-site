@@ -1,0 +1,11 @@
+Twenty minutes. No strings. Just talk.
+<break time="1.0s" />
+Pick a day.
+<break time="1.0s" />
+Pick a time, in your own time zone.
+<break time="1.0s" />
+Confirm, and you're booked.
+<break time="1.0s" />
+The invite lands in your inbox.
+<break time="1.0s" />
+Let's talk. Link in bio.

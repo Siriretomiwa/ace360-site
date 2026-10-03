@@ -1,10 +1,23 @@
 {
-  "_comment": "Ace 360 brand voice. engine: 'kokoro' (free, runs locally, setup-voice.sh) or 'elevenlabs' (needs ELEVENLABS_API_KEY and api.elevenlabs.io allowed). kokoro.voice: af_heart, af_bella, am_michael, am_fenrir, bf_emma, bm_george, bm_fable … (python3 voiceover.py --voices). speed 0.8-1.2. elevenlabs: voice_id + voice_settings. pronunciation applies to both.",
+  "_comment": "Ace 360 brand voices. Only the three voices in kokoro.voices may be used (locked). A Short picks one with a first line '# voice: am_michael' in its voiceover.txt; otherwise kokoro.voice is used. engine: 'kokoro' (free, local) or 'elevenlabs' (needs ELEVENLABS_API_KEY and api.elevenlabs.io allowed). speed 0.8-1.2. pronunciation applies to both engines.",
   "engine": "kokoro",
   "kokoro": {
     "voice": "af_heart",
-    "lang": "en-us",
-    "speed": 1.05
+    "speed": 1.05,
+    "voices": {
+      "af_heart": {
+        "label": "US female, warm",
+        "lang": "en-us"
+      },
+      "am_michael": {
+        "label": "US male, calm",
+        "lang": "en-us"
+      },
+      "bm_lewis": {
+        "label": "UK male, modern",
+        "lang": "en-gb"
+      }
+    }
   },
   "elevenlabs": {
     "voice_id": "JBFqnCBsd6RMkjVDRZzb",
