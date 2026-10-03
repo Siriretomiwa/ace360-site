@@ -11,7 +11,7 @@ get_header();
 $ace360_work    = ace360_get_work();
 $ace360_counts  = ace360_work_counts( $ace360_work );
 $ace360_sectors = ace360_sectors();
-$ace360_home    = home_url( '/' );
+$ace360_home    = ace360_url( '/' );
 ?>
 <main id="main" class="site-main work-page">
 	<header class="wrap work-hero">

@@ -36,6 +36,47 @@ function ace360_customize_register( $wp_customize ) {
 		'btw'      => array( __( 'BTW-id', 'ace360' ), 'text', '' ),
 	);
 
+	// Search engines: the address (optional) and profiles go into the structured data, the codes verify the site.
+	$wp_customize->add_section(
+		'ace360_seo',
+		array(
+			'title'       => __( 'ace360 search engines (SEO)', 'ace360' ),
+			'description' => __( 'Used in the structured data search engines read. Leave the address empty if you work from home and do not want it shown; the country (Netherlands) is always included.', 'ace360' ),
+			'priority'    => 32,
+		)
+	);
+	$seo = array(
+		'street'    => array( __( 'Street and number (optional)', 'ace360' ), 'text', '' ),
+		'postcode'  => array( __( 'Postcode (optional)', 'ace360' ), 'text', '' ),
+		'city'      => array( __( 'City', 'ace360' ), 'text', __( 'Helps local searches, e.g. “website laten maken Rotterdam”.', 'ace360' ) ),
+		'instagram' => array( __( 'Instagram URL', 'ace360' ), 'url', '' ),
+		'youtube'   => array( __( 'YouTube channel URL', 'ace360' ), 'url', '' ),
+		'tiktok'    => array( __( 'TikTok URL', 'ace360' ), 'url', '' ),
+		'linkedin'  => array( __( 'LinkedIn URL', 'ace360' ), 'url', '' ),
+		'facebook'  => array( __( 'Facebook URL', 'ace360' ), 'url', '' ),
+		'gsc'       => array( __( 'Google Search Console verification code', 'ace360' ), 'text', __( 'Only the code from content="…" of the HTML-tag method.', 'ace360' ) ),
+		'bing'      => array( __( 'Bing Webmaster Tools verification code', 'ace360' ), 'text', __( 'Only the code from content="…" of the meta-tag method.', 'ace360' ) ),
+	);
+	foreach ( $seo as $key => $field ) {
+		list( $label, $type, $description ) = $field;
+		$wp_customize->add_setting(
+			'ace360_' . $key,
+			array(
+				'default'           => $defaults[ $key ],
+				'sanitize_callback' => 'url' === $type ? 'esc_url_raw' : 'sanitize_text_field',
+			)
+		);
+		$wp_customize->add_control(
+			'ace360_' . $key,
+			array(
+				'label'       => $label,
+				'description' => $description,
+				'section'     => 'ace360_seo',
+				'type'        => $type,
+			)
+		);
+	}
+
 	$wp_customize->add_section(
 		'ace360_booking',
 		array(

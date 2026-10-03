@@ -6,19 +6,27 @@
  */
 
 ?><!doctype html>
-<html <?php language_attributes(); ?> class="no-js">
+<html lang="<?php echo esc_attr( ace360_html_lang() ); ?>" data-lang="<?php echo esc_attr( ace360_lang() ); ?>" class="no-js">
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <script>
-/* Pick the language and day/night theme before first paint. Language: ?lang= → saved choice → Dutch. */
+/* Day/night theme before first paint. The language is the page's own (Dutch at /, English at /en/);
+   a visitor who picked English before is taken to the English version of this page. */
 (function (d) {
+<?php if ( ace360_both_langs() ) : ?>
 	var l = null;
 	try { l = new URLSearchParams(location.search).get('lang'); } catch (e) {}
 	if (l !== 'nl' && l !== 'en') { try { l = localStorage.getItem('ace360-lang'); } catch (e) {} }
 	if (l !== 'nl' && l !== 'en') { l = 'nl'; }
 	d.setAttribute('data-lang', l);
 	d.setAttribute('lang', l);
+<?php else : ?>
+	<?php $ace360_en_alt = 'nl' === ace360_lang() ? ace360_alt_url( 'en' ) : ''; ?>
+	<?php if ( $ace360_en_alt ) : ?>
+	try { if (localStorage.getItem('ace360-lang') === 'en' && !/bot|crawl|spider/i.test(navigator.userAgent)) { location.replace(<?php echo wp_json_encode( $ace360_en_alt ); ?> + location.hash); } } catch (e) {}
+	<?php endif; ?>
+<?php endif; ?>
 	d.className = d.className.replace('no-js', 'js');
 	/* Evening (night) first, like a lamp-lit desk; ?theme=day or the switch for daylight. */
 	var t = null;
@@ -36,7 +44,7 @@
 
 <header class="site-header" id="top" data-header>
 	<div class="header-inner">
-		<a class="brand" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home" aria-label="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+		<a class="brand" href="<?php echo esc_url( ace360_url( '/' ) ); ?>" rel="home" aria-label="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
 			<?php
 			if ( has_custom_logo() ) {
 				echo wp_get_attachment_image( get_theme_mod( 'custom_logo' ), 'full', false, array( 'class' => 'custom-logo', 'alt' => get_bloginfo( 'name' ) ) );
@@ -64,10 +72,7 @@
 			<a class="nav-phone" href="<?php echo esc_url( ace360_tel() ); ?>"><?php echo esc_html( ace360_mod( 'phone' ) ); ?></a>
 		</nav>
 
-		<div class="lang-switch" role="group" aria-label="Language / Taal">
-			<button type="button" data-set-lang="nl" aria-pressed="true">NL</button>
-			<button type="button" data-set-lang="en" aria-pressed="false">EN</button>
-		</div>
+		<?php ace360_lang_switch(); ?>
 
 		<button class="theme-switch" type="button" data-theme-toggle aria-pressed="false">
 			<span class="screen-reader-text"><?php ace360_e( ace360_pair( 'Night mode', 'Nachtmodus' ) ); ?></span>
@@ -77,7 +82,7 @@
 			</span>
 		</button>
 
-		<a class="btn btn-orange btn-small" href="<?php echo esc_url( ( is_front_page() ? '' : home_url( '/' ) ) . '#book' ); ?>"><?php ace360_e( ace360_pair( 'Book a call', 'Plan een gesprek' ) ); ?></a>
+		<a class="btn btn-orange btn-small" href="<?php echo esc_url( ace360_home_hash( '#book' ) ); ?>"><?php ace360_e( ace360_pair( 'Book a call', 'Plan een gesprek' ) ); ?></a>
 
 		<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
 			<span class="screen-reader-text">Menu</span>
@@ -85,4 +90,4 @@
 		</button>
 	</div>
 </header>
-<a class="btn btn-orange fab-call" href="<?php echo esc_url( ( is_front_page() ? '' : home_url( '/' ) ) . '#book' ); ?>"><?php ace360_e( ace360_pair( 'Book a call', 'Plan een gesprek' ) ); ?></a>
+<a class="btn btn-orange fab-call" href="<?php echo esc_url( ace360_home_hash( '#book' ) ); ?>"><?php ace360_e( ace360_pair( 'Book a call', 'Plan een gesprek' ) ); ?></a>

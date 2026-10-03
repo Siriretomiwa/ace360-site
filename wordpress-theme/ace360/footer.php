@@ -27,8 +27,17 @@ $ace360_btw = ace360_mod( 'btw' );
 			<p class="label"><?php ace360_e( ace360_pair( 'Services', 'Diensten' ) ); ?></p>
 			<ul>
 				<?php foreach ( ace360_services() as $ace360_service ) : ?>
-					<li><a href="<?php echo esc_url( ( is_front_page() ? '' : home_url( '/' ) ) . '#diensten' ); ?>"><?php ace360_e( $ace360_service['title'] ); ?></a></li>
+					<li><a href="<?php echo esc_url( ace360_service_url( $ace360_service ) ); ?>"><?php ace360_e( $ace360_service['title'] ); ?></a></li>
 				<?php endforeach; ?>
+			</ul>
+		</div>
+		<div class="footer-col">
+			<p class="label"><?php ace360_e( ace360_pair( 'Popular', 'Populair' ) ); ?></p>
+			<ul>
+				<?php foreach ( array( 'kosten', 'onepage', 'boeken' ) as $ace360_fk ) : ?>
+					<li><a href="<?php echo esc_url( ace360_landing_url( $ace360_fk ) ); ?>"<?php echo ace360_current_landing() === $ace360_fk ? ' aria-current="page"' : ''; ?>><?php ace360_e( ace360_landings()[ $ace360_fk ]['kicker'] ); ?></a></li>
+				<?php endforeach; ?>
+				<li><a href="<?php echo esc_url( ace360_work_url() ); ?>"><?php ace360_e( ace360_pair( 'All work', 'Al het werk' ) ); ?></a></li>
 			</ul>
 		</div>
 	</div>

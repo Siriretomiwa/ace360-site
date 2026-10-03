@@ -6,8 +6,10 @@
  */
 
 define( 'ABSPATH', __DIR__ );
+define( 'ACE360_BOTH_LANGS', true ); // the preview keeps both languages and switches in the browser
 $theme = dirname( __DIR__ ) . '/ace360';
-$ace360_page = isset( $argv[1] ) && 'work' === $argv[1] ? 'work' : 'front';
+$ace360_page = isset( $argv[1] ) && in_array( $argv[1], array( 'work', 'landing' ), true ) ? $argv[1] : 'front';
+$ace360_preview_landing = 'landing' === $ace360_page && isset( $argv[2] ) ? $argv[2] : '';
 
 function __( $s, $d = null ) { return $s; }
 function esc_html__( $s, $d = null ) { return esc_html( $s ); }
@@ -24,7 +26,7 @@ function admin_url( $p = '' ) { return '#'; }
 function get_bloginfo( $k = '' ) { return 'Ace 360 Services'; }
 function bloginfo( $k = '' ) { echo 'charset' === $k ? 'UTF-8' : 'ace360 services'; }
 function language_attributes() { echo 'lang="en"'; }
-function body_class() { global $ace360_page; echo 'work' === $ace360_page ? 'class="post-type-archive"' : 'class="home"'; }
+function body_class() { global $ace360_page; echo 'work' === $ace360_page ? 'class="post-type-archive"' : ( 'landing' === $ace360_page ? 'class="page"' : 'class="home"' ); }
 function wp_head() { echo "<!--wp_head-->\n"; }
 function wp_footer() { echo "<!--wp_footer-->\n"; }
 function wp_body_open() {}
@@ -59,7 +61,13 @@ class WP_Query {
 	public function have_posts() { return false; }
 }
 function wp_reset_postdata() {}
+function add_action() {}
+function add_filter() {}
+function get_query_var( $k ) { return ''; }
+function wp_strip_all_tags( $s ) { return trim( strip_tags( $s ) ); }
 
 require $theme . '/inc/template-helpers.php';
 require $theme . '/inc/content.php';
-include $theme . ( 'work' === $ace360_page ? '/archive-ace_project.php' : '/front-page.php' );
+require $theme . '/inc/lang.php';
+require $theme . '/inc/landings.php';
+include $theme . ( 'work' === $ace360_page ? '/archive-ace_project.php' : ( 'landing' === $ace360_page ? '/landing.php' : '/front-page.php' ) );

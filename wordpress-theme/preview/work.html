@@ -1,10 +1,11 @@
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="nl-NL" data-lang="nl" class="no-js">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <script>
-/* Pick the language and day/night theme before first paint. Language: ?lang= → saved choice → Dutch. */
+/* Day/night theme before first paint. The language is the page's own (Dutch at /, English at /en/);
+   a visitor who picked English before is taken to the English version of this page. */
 (function (d) {
 	var l = null;
 	try { l = new URLSearchParams(location.search).get('lang'); } catch (e) {}
@@ -38,11 +39,7 @@
 			<ul class="menu"><li><a href="index.html#diensten"><span data-l="en" lang="en">Services</span><span data-l="nl" lang="nl">Diensten</span></a></li><li><a href="index.html#werkwijze"><span data-l="en" lang="en">Process</span><span data-l="nl" lang="nl">Werkwijze</span></a></li><li><a href="index.html#werk"><span data-l="en" lang="en">Work</span><span data-l="nl" lang="nl">Werk</span></a></li><li><a href="index.html#vragen"><span data-l="en" lang="en">Questions</span><span data-l="nl" lang="nl">Vragen</span></a></li></ul>			<a class="nav-phone" href="tel:+31617858490">+31 6 17 85 84 90</a>
 		</nav>
 
-		<div class="lang-switch" role="group" aria-label="Language / Taal">
-			<button type="button" data-set-lang="nl" aria-pressed="true">NL</button>
-			<button type="button" data-set-lang="en" aria-pressed="false">EN</button>
-		</div>
-
+		<div class="lang-switch" role="group" aria-label="Language / Taal"><button type="button" data-set-lang="nl" aria-pressed="true">NL</button><button type="button" data-set-lang="en" aria-pressed="false">EN</button></div>
 		<button class="theme-switch" type="button" data-theme-toggle aria-pressed="false">
 			<span class="screen-reader-text"><span data-l="en" lang="en">Night mode</span><span data-l="nl" lang="nl">Nachtmodus</span></span>
 			<span class="theme-knob" aria-hidden="true">
@@ -652,11 +649,20 @@
 		<div class="footer-col">
 			<p class="label"><span data-l="en" lang="en">Services</span><span data-l="nl" lang="nl">Diensten</span></p>
 			<ul>
-									<li><a href="index.html#diensten"><span data-l="en" lang="en">Website build</span><span data-l="nl" lang="nl">Website laten maken</span></a></li>
-									<li><a href="index.html#diensten"><span data-l="en" lang="en">Online store</span><span data-l="nl" lang="nl">Webshop</span></a></li>
-									<li><a href="index.html#diensten"><span data-l="en" lang="en">Maintenance and care</span><span data-l="nl" lang="nl">Onderhoud</span></a></li>
-									<li><a href="index.html#diensten"><span data-l="en" lang="en">Visibility and growth</span><span data-l="nl" lang="nl">Vindbaarheid en groei</span></a></li>
+									<li><a href="website-laten-maken.html"><span data-l="en" lang="en">Website build</span><span data-l="nl" lang="nl">Website laten maken</span></a></li>
+									<li><a href="webshop-laten-maken.html"><span data-l="en" lang="en">Online store</span><span data-l="nl" lang="nl">Webshop</span></a></li>
+									<li><a href="website-onderhoud.html"><span data-l="en" lang="en">Maintenance and care</span><span data-l="nl" lang="nl">Onderhoud</span></a></li>
+									<li><a href="seo-vindbaarheid.html"><span data-l="en" lang="en">Visibility and growth</span><span data-l="nl" lang="nl">Vindbaarheid en groei</span></a></li>
 							</ul>
+		</div>
+		<div class="footer-col">
+			<p class="label"><span data-l="en" lang="en">Popular</span><span data-l="nl" lang="nl">Populair</span></p>
+			<ul>
+									<li><a href="wat-kost-een-website.html"><span data-l="en" lang="en">Guide · website prices</span><span data-l="nl" lang="nl">Gids · website kosten</span></a></li>
+									<li><a href="one-page-website-laten-maken.html"><span data-l="en" lang="en">One-page website</span><span data-l="nl" lang="nl">One page website</span></a></li>
+									<li><a href="website-met-online-boeken.html"><span data-l="en" lang="en">Booking websites</span><span data-l="nl" lang="nl">Online afspraken</span></a></li>
+								<li><a href="work.html"><span data-l="en" lang="en">All work</span><span data-l="nl" lang="nl">Al het werk</span></a></li>
+			</ul>
 		</div>
 	</div>
 	<div class="footer-bottom">

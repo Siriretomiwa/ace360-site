@@ -7,7 +7,10 @@
  * @package ace360
  */
 
-$ace360_c = ace360_estimator();
+$ace360_c   = ace360_estimator();
+// A landing page can preselect a project type and extras (e.g. the booking page ticks "Booking system").
+$ace360_sel = ! empty( $args['type'] ) ? $args['type'] : 'website';
+$ace360_ext = ! empty( $args['extras'] ) ? (array) $args['extras'] : array();
 ?>
 <form class="quote" data-estimator="<?php echo esc_attr( wp_json_encode( ace360_estimator_js() ) ); ?>" onsubmit="return false">
 	<div class="quote-opts">
@@ -16,7 +19,7 @@ $ace360_c = ace360_estimator();
 			<div class="q-tiles">
 				<?php foreach ( $ace360_c['types'] as $ace360_i => $ace360_t ) : ?>
 					<label class="q-tile">
-						<input type="radio" name="q_type" id="q_type_<?php echo esc_attr( $ace360_t['id'] ); ?>" value="<?php echo esc_attr( $ace360_t['id'] ); ?>"<?php echo 1 === $ace360_i ? ' checked' : ''; ?>>
+						<input type="radio" name="q_type" id="q_type_<?php echo esc_attr( $ace360_t['id'] ); ?>" value="<?php echo esc_attr( $ace360_t['id'] ); ?>"<?php echo $ace360_sel === $ace360_t['id'] ? ' checked' : ''; ?>>
 						<span class="q-tile-ui"><b><?php ace360_e( $ace360_t['label'] ); ?></b><small><?php ace360_e( $ace360_t['hint'] ); ?></small><em class="mono"><?php ace360_e( ace360_pair( 'from €' . number_format( $ace360_t['base'][0] ), 'vanaf € ' . number_format( $ace360_t['base'][0], 0, ',', '.' ) ) ); ?></em></span>
 					</label>
 				<?php endforeach; ?>
@@ -46,7 +49,7 @@ $ace360_c = ace360_estimator();
 			<div class="q-checks">
 				<?php foreach ( $ace360_c['extras'] as $ace360_x ) : ?>
 					<label class="q-check"<?php echo ! empty( $ace360_x['only'] ) ? ' data-only="' . esc_attr( implode( ' ', $ace360_x['only'] ) ) . '"' : ''; ?>>
-						<input type="checkbox" name="q_extra" id="q_extra_<?php echo esc_attr( $ace360_x['id'] ); ?>" value="<?php echo esc_attr( $ace360_x['id'] ); ?>">
+						<input type="checkbox" name="q_extra" id="q_extra_<?php echo esc_attr( $ace360_x['id'] ); ?>" value="<?php echo esc_attr( $ace360_x['id'] ); ?>"<?php echo in_array( $ace360_x['id'], $ace360_ext, true ) ? ' checked' : ''; ?>>
 						<span class="q-box" aria-hidden="true"></span>
 						<span class="q-check-label"><?php ace360_e( $ace360_x['label'] ); ?></span>
 						<span class="mono q-price">+€<?php echo esc_html( number_format( $ace360_x['price'][0] ) ); ?></span>

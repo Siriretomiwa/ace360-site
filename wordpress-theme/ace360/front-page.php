@@ -142,6 +142,7 @@ $ace360_screens = array( 'call', 'quote', 'design', 'build', 'live' );
 								<span class="svc-top"><b><?php ace360_e( $ace360_s['title'] ); ?></b><span class="price mono"><?php ace360_e( $ace360_s['price'] ); ?></span></span>
 								<span class="svc-text"><?php ace360_e( $ace360_s['text'] ); ?></span>
 							</a>
+							<a class="svc-more" href="<?php echo esc_url( ace360_service_url( $ace360_s ) ); ?>"><?php ace360_e( ace360_pair( 'More about ', 'Meer over ' ) ); ?><?php ace360_e( $ace360_s['more'] ); ?> <span aria-hidden="true">→</span></a>
 						</li>
 					<?php endforeach; ?>
 				</ol>

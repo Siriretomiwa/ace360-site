@@ -32,7 +32,7 @@ function ace360_pair( $en, $nl ) {
 function ace360_hero() {
 	return array(
 		'kicker'  => ace360_pair( 'Web design and digital growth · Netherlands & worldwide', 'Webdesign en digitale groei · Nederland & wereldwijd' ),
-		'title'   => ace360_pair( 'See an *estimate* before we get on a call.', 'Je ziet een *prijsindicatie* al voordat we bellen.' ),
+		'title'   => ace360_pair( 'Need a website? See the *estimate* first.', 'Website laten maken? Zie de *prijs* vooraf.' ),
 		'text'    => ace360_pair(
 			'Ace 360 Services builds websites and online stores for businesses in the Netherlands and abroad. An honest estimate up front, a launch date that holds, and one person to talk to. No account manager, no surprise invoice at the end.',
 			'Ace 360 Services bouwt websites en webshops voor bedrijven in Nederland en daarbuiten. Vooraf een eerlijke prijsindicatie, een lanceerdatum die klopt en één aanspreekpunt. Geen accountmanager, geen verrassingsfactuur achteraf.'
@@ -57,6 +57,7 @@ function ace360_services() {
 			'icon'  => 'site',
 			'type'  => 'website',
 			'title' => ace360_pair( 'Website build', 'Website laten maken' ),
+			'more'  => ace360_pair( 'web design', 'website laten maken' ),
 			'text'  => ace360_pair(
 				'From a one-pager to a site with job listings, forms and a booking page. Built in WordPress, so you can get into it yourself without calling me.',
 				'Van one-pager tot site met vacatures, formulieren en een boekingspagina. Gebouwd in WordPress, zodat je er zelf in kunt zonder mij te bellen.'
@@ -67,6 +68,7 @@ function ace360_services() {
 			'icon'  => 'store',
 			'type'  => 'store',
 			'title' => ace360_pair( 'Online store', 'Webshop' ),
+			'more'  => ace360_pair( 'online stores', 'webshop laten maken' ),
 			'text'  => ace360_pair(
 				'WooCommerce or Shopify, with iDEAL and the rest of Mollie wired up. Stock, shipping rules and VAT set correctly before you go live.',
 				'WooCommerce of Shopify, met iDEAL en de rest van Mollie gekoppeld. Voorraad, verzendregels en btw goed ingesteld voordat je live gaat.'
@@ -77,6 +79,7 @@ function ace360_services() {
 			'icon'  => 'care',
 			'type'  => 'care',
 			'title' => ace360_pair( 'Maintenance and care', 'Onderhoud' ),
+			'more'  => ace360_pair( 'website maintenance', 'website onderhoud' ),
 			'text'  => ace360_pair(
 				'Updates, backups, security and small changes. Every month you get a short summary of what was done. Cancel any month.',
 				'Updates, back-ups, beveiliging en kleine aanpassingen. Elke maand krijg je een kort overzicht van wat er is gedaan. Maandelijks opzegbaar.'
@@ -87,6 +90,7 @@ function ace360_services() {
 			'icon'  => 'grow',
 			'type'  => '',
 			'title' => ace360_pair( 'Visibility and growth', 'Vindbaarheid en groei' ),
+			'more'  => ace360_pair( 'SEO and visibility', 'SEO en vindbaarheid' ),
 			'text'  => ace360_pair(
 				'Technical SEO, Google Business Profile and ads that chase revenue rather than clicks. Only worth doing once your site is solid.',
 				'Technische SEO, Google Bedrijfsprofiel en advertenties die omzet najagen in plaats van klikken. Pas zinvol als je site goed staat.'

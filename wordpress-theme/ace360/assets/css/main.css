@@ -157,6 +157,8 @@ h1, h2, h3 { font-weight: 650; letter-spacing: -0.035em; line-height: 1.05; text
 .lang-switch { display: inline-flex; padding: 3px; border: 1px solid var(--line); border-radius: 999px; }
 .lang-switch button { border: 0; background: transparent; padding: 4px 9px; border-radius: 999px; cursor: pointer; font-family: var(--mono); font-size: 0.7rem; font-weight: 700; color: var(--muted); }
 .lang-switch button[aria-pressed="true"] { background: var(--ink); color: var(--white); }
+.lang-switch a { padding: 4px 9px; border-radius: 999px; font-family: var(--mono); font-size: 0.7rem; font-weight: 700; color: var(--muted); text-decoration: none; }
+.lang-switch a[aria-current="true"] { background: var(--ink); color: var(--white); }
 .nav-toggle { display: none; width: 42px; height: 42px; border: 1px solid var(--line); border-radius: 10px; background: var(--white); cursor: pointer; position: relative; }
 .nav-toggle-bars, .nav-toggle-bars::before, .nav-toggle-bars::after { position: absolute; left: 50%; width: 16px; height: 1.5px; margin-left: -8px; background: var(--ink); transition: transform 0.35s var(--ease), background-color 0.2s; }
 .nav-toggle-bars { top: 50%; margin-top: -1px; }
@@ -799,7 +801,7 @@ html:not(.js) .contact-tabs { display: none; }
 
 /* ---------- Footer ---------- */
 .site-footer { background: var(--grey); border-top: 1px solid var(--line); }
-.footer-inner { max-width: var(--max); margin-inline: auto; padding: clamp(56px, 7vw, 88px) var(--gutter) 36px; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr); gap: 40px; }
+.footer-inner { max-width: var(--max); margin-inline: auto; padding: clamp(56px, 7vw, 88px) var(--gutter) 36px; display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); gap: 40px; }
 .footer-brand { display: grid; gap: 16px; align-content: start; max-width: 30rem; }
 .footer-brand p { color: var(--muted); font-size: 0.95rem; }
 .footer-col { display: grid; gap: 12px; align-content: start; min-width: 0; overflow-wrap: anywhere; }
@@ -852,4 +854,35 @@ html:not(.js) .contact-tabs { display: none; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
   .autoscroll .mock-page { animation: none; }
+}
+
+/* ---------- Service links + landing pages (inc/landings.php, landing.php) ---------- */
+.svc-more { display: inline-flex; gap: 6px; margin: -6px 0 12px; font-size: 0.82rem; font-weight: 600; color: var(--orange-ink); text-decoration: none; }
+.svc-more:hover { text-decoration: underline; }
+.landing { padding-top: clamp(96px, 12vw, 150px); }
+.landing-hero { display: grid; gap: 18px; max-width: calc(var(--max)); padding-bottom: clamp(48px, 7vw, 90px); }
+.landing-hero h1 { font-size: clamp(2.5rem, 5.6vw, 4.6rem); max-width: 17ch; }
+.landing-hero .lede { max-width: 58ch; }
+.landing-hero .checks { max-width: 40rem; }
+.crumbs { font-size: 0.72rem; color: var(--muted); display: flex; gap: 8px; flex-wrap: wrap; }
+.crumbs a { color: inherit; }
+.landing-price { display: inline-flex; width: fit-content; padding: 8px 14px; border-radius: 999px; background: var(--orange-soft); color: var(--orange-ink); font-weight: 700; font-size: 0.85rem; }
+.landing-body { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(28px, 4vw, 56px) clamp(32px, 6vw, 88px); padding-bottom: clamp(64px, 8vw, 110px); }
+.landing-sec { display: grid; gap: 14px; align-content: start; }
+.landing-sec h2 { font-size: clamp(1.6rem, 2.6vw, 2.2rem); }
+.landing-sec p { color: var(--ink-2); line-height: 1.65; max-width: 62ch; }
+.landing-checks { grid-template-columns: 1fr; }
+.landing-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+.landing-table th { text-align: left; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 600; padding: 0 12px 10px 0; border-bottom: 1px solid var(--line-2); }
+.landing-table td { padding: 12px 12px 12px 0; border-bottom: 1px solid var(--line); }
+.landing-table td.mono { font-weight: 700; white-space: nowrap; }
+.landing-quote .sec-head { margin-bottom: 32px; }
+.landing-faq { padding-block: clamp(72px, 9vw, 130px); display: grid; gap: clamp(40px, 6vw, 72px); }
+.landing-related { display: grid; gap: 12px; border-top: 1px solid var(--line); padding-top: 24px; }
+.landing-related p { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+.landing-related ul { display: flex; flex-wrap: wrap; gap: 10px 28px; }
+.footer-col a[aria-current="page"] { color: var(--orange-ink); }
+@media (max-width: 860px) {
+  .landing-body { grid-template-columns: 1fr; }
+  .landing-hero .checks { grid-template-columns: 1fr; }
 }

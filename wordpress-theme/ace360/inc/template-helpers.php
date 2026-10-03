@@ -29,6 +29,16 @@ function ace360_defaults() {
 		'book_notice'  => '12',
 		'book_days'    => '21',
 		'book_off'     => '',
+		'street'       => '',
+		'postcode'     => '',
+		'city'         => '',
+		'instagram'    => '',
+		'youtube'      => '',
+		'tiktok'       => '',
+		'linkedin'     => '',
+		'facebook'     => '',
+		'gsc'          => '',
+		'bing'         => '',
 	);
 }
 
@@ -125,7 +135,7 @@ function ace360_mod( $key ) {
 }
 
 /**
- * Print-ready bilingual text: both languages, the EN/NL switch shows one.
+ * Print-ready text in the page language (inc/lang.php). The previews print both and switch in the browser.
  *
  * @param array|string $pair array( 'en' => ..., 'nl' => ... ) or a plain string.
  * @return string Safe HTML.
@@ -137,6 +147,9 @@ function ace360_t( $pair ) {
 	if ( $pair['en'] === $pair['nl'] ) {
 		return esc_html( $pair['en'] );
 	}
+	if ( ! ace360_both_langs() ) {
+		return esc_html( $pair[ ace360_lang() ] );
+	}
 	return '<span data-l="en" lang="en">' . esc_html( $pair['en'] ) . '</span><span data-l="nl" lang="nl">' . esc_html( $pair['nl'] ) . '</span>';
 }
 
@@ -147,6 +160,9 @@ function ace360_t( $pair ) {
  * @return string Safe HTML.
  */
 function ace360_hl( $pair ) {
+	if ( ! ace360_both_langs() ) {
+		return preg_replace( '/\*(.+?)\*/', '<em class="hl">$1</em>', esc_html( $pair[ ace360_lang() ] ) );
+	}
 	$out = array();
 	foreach ( array( 'en', 'nl' ) as $l ) {
 		$html      = preg_replace( '/\*(.+?)\*/', '<em class="hl">$1</em>', esc_html( $pair[ $l ] ) );
@@ -279,6 +295,9 @@ function ace360_demo_url( $slug ) {
  * Link to the All work page (the Projects archive, /work/).
  */
 function ace360_work_url() {
+	if ( 'en' === ace360_lang() && ! ace360_both_langs() ) {
+		return ace360_url( '/work/', 'en' );
+	}
 	$url = function_exists( 'get_post_type_archive_link' ) ? get_post_type_archive_link( 'ace_project' ) : '';
 	return $url ? $url : home_url( '/work/' );
 }

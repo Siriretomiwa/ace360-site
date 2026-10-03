@@ -1,10 +1,11 @@
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="nl-NL" data-lang="nl" class="no-js">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <script>
-/* Pick the language and day/night theme before first paint. Language: ?lang= → saved choice → Dutch. */
+/* Day/night theme before first paint. The language is the page's own (Dutch at /, English at /en/);
+   a visitor who picked English before is taken to the English version of this page. */
 (function (d) {
 	var l = null;
 	try { l = new URLSearchParams(location.search).get('lang'); } catch (e) {}
@@ -38,11 +39,7 @@
 			<ul class="menu"><li><a href="#diensten"><span data-l="en" lang="en">Services</span><span data-l="nl" lang="nl">Diensten</span></a></li><li><a href="#werkwijze"><span data-l="en" lang="en">Process</span><span data-l="nl" lang="nl">Werkwijze</span></a></li><li><a href="#werk"><span data-l="en" lang="en">Work</span><span data-l="nl" lang="nl">Werk</span></a></li><li><a href="#vragen"><span data-l="en" lang="en">Questions</span><span data-l="nl" lang="nl">Vragen</span></a></li></ul>			<a class="nav-phone" href="tel:+31617858490">+31 6 17 85 84 90</a>
 		</nav>
 
-		<div class="lang-switch" role="group" aria-label="Language / Taal">
-			<button type="button" data-set-lang="nl" aria-pressed="true">NL</button>
-			<button type="button" data-set-lang="en" aria-pressed="false">EN</button>
-		</div>
-
+		<div class="lang-switch" role="group" aria-label="Language / Taal"><button type="button" data-set-lang="nl" aria-pressed="true">NL</button><button type="button" data-set-lang="en" aria-pressed="false">EN</button></div>
 		<button class="theme-switch" type="button" data-theme-toggle aria-pressed="false">
 			<span class="screen-reader-text"><span data-l="en" lang="en">Night mode</span><span data-l="nl" lang="nl">Nachtmodus</span></span>
 			<span class="theme-knob" aria-hidden="true">
@@ -68,7 +65,7 @@
 		<div class="wrap">
 			<div class="copy">
 				<p class="kicker"><span class="nl-flag" aria-hidden="true"></span><span data-l="en" lang="en">Web design and digital growth · Netherlands &amp; worldwide</span><span data-l="nl" lang="nl">Webdesign en digitale groei · Nederland &amp; wereldwijd</span></p>
-				<h1 class="hero-title"><span data-l="en" lang="en">See an <em class="hl">estimate</em> before we get on a call.</span><span data-l="nl" lang="nl">Je ziet een <em class="hl">prijsindicatie</em> al voordat we bellen.</span></h1>
+				<h1 class="hero-title"><span data-l="en" lang="en">Need a website? See the <em class="hl">estimate</em> first.</span><span data-l="nl" lang="nl">Website laten maken? Zie de <em class="hl">prijs</em> vooraf.</span></h1>
 				<p class="lede"><span data-l="en" lang="en">Ace 360 Services builds websites and online stores for businesses in the Netherlands and abroad. An honest estimate up front, a launch date that holds, and one person to talk to. No account manager, no surprise invoice at the end.</span><span data-l="nl" lang="nl">Ace 360 Services bouwt websites en webshops voor bedrijven in Nederland en daarbuiten. Vooraf een eerlijke prijsindicatie, een lanceerdatum die klopt en één aanspreekpunt. Geen accountmanager, geen verrassingsfactuur achteraf.</span></p>
 				<div class="actions">
 					<a class="btn btn-orange" href="#prijs"><span data-l="en" lang="en">Get my estimate</span><span data-l="nl" lang="nl">Bekijk mijn prijsindicatie</span> <span aria-hidden="true">→</span></a>
@@ -172,24 +169,28 @@
 								<span class="svc-top"><b><span data-l="en" lang="en">Website build</span><span data-l="nl" lang="nl">Website laten maken</span></b><span class="price mono"><span data-l="en" lang="en">est. from €500</span><span data-l="nl" lang="nl">indicatie vanaf € 500</span></span></span>
 								<span class="svc-text"><span data-l="en" lang="en">From a one-pager to a site with job listings, forms and a booking page. Built in WordPress, so you can get into it yourself without calling me.</span><span data-l="nl" lang="nl">Van one-pager tot site met vacatures, formulieren en een boekingspagina. Gebouwd in WordPress, zodat je er zelf in kunt zonder mij te bellen.</span></span>
 							</a>
+							<a class="svc-more" href="website-laten-maken.html"><span data-l="en" lang="en">More about </span><span data-l="nl" lang="nl">Meer over </span><span data-l="en" lang="en">web design</span><span data-l="nl" lang="nl">website laten maken</span> <span aria-hidden="true">→</span></a>
 						</li>
 											<li>
 							<a href="#prijs" data-pick-type="store">
 								<span class="svc-top"><b><span data-l="en" lang="en">Online store</span><span data-l="nl" lang="nl">Webshop</span></b><span class="price mono"><span data-l="en" lang="en">est. from €2,150</span><span data-l="nl" lang="nl">indicatie vanaf € 2.150</span></span></span>
 								<span class="svc-text"><span data-l="en" lang="en">WooCommerce or Shopify, with iDEAL and the rest of Mollie wired up. Stock, shipping rules and VAT set correctly before you go live.</span><span data-l="nl" lang="nl">WooCommerce of Shopify, met iDEAL en de rest van Mollie gekoppeld. Voorraad, verzendregels en btw goed ingesteld voordat je live gaat.</span></span>
 							</a>
+							<a class="svc-more" href="webshop-laten-maken.html"><span data-l="en" lang="en">More about </span><span data-l="nl" lang="nl">Meer over </span><span data-l="en" lang="en">online stores</span><span data-l="nl" lang="nl">webshop laten maken</span> <span aria-hidden="true">→</span></a>
 						</li>
 											<li>
 							<a href="#prijs" data-pick-type="care">
 								<span class="svc-top"><b><span data-l="en" lang="en">Maintenance and care</span><span data-l="nl" lang="nl">Onderhoud</span></b><span class="price mono"><span data-l="en" lang="en">est. €67.50 per month</span><span data-l="nl" lang="nl">indicatie € 67,50 per maand</span></span></span>
 								<span class="svc-text"><span data-l="en" lang="en">Updates, backups, security and small changes. Every month you get a short summary of what was done. Cancel any month.</span><span data-l="nl" lang="nl">Updates, back-ups, beveiliging en kleine aanpassingen. Elke maand krijg je een kort overzicht van wat er is gedaan. Maandelijks opzegbaar.</span></span>
 							</a>
+							<a class="svc-more" href="website-onderhoud.html"><span data-l="en" lang="en">More about </span><span data-l="nl" lang="nl">Meer over </span><span data-l="en" lang="en">website maintenance</span><span data-l="nl" lang="nl">website onderhoud</span> <span aria-hidden="true">→</span></a>
 						</li>
 											<li>
 							<a href="#contact">
 								<span class="svc-top"><b><span data-l="en" lang="en">Visibility and growth</span><span data-l="nl" lang="nl">Vindbaarheid en groei</span></b><span class="price mono"><span data-l="en" lang="en">Price on request</span><span data-l="nl" lang="nl">Prijs op aanvraag</span></span></span>
 								<span class="svc-text"><span data-l="en" lang="en">Technical SEO, Google Business Profile and ads that chase revenue rather than clicks. Only worth doing once your site is solid.</span><span data-l="nl" lang="nl">Technische SEO, Google Bedrijfsprofiel en advertenties die omzet najagen in plaats van klikken. Pas zinvol als je site goed staat.</span></span>
 							</a>
+							<a class="svc-more" href="seo-vindbaarheid.html"><span data-l="en" lang="en">More about </span><span data-l="nl" lang="nl">Meer over </span><span data-l="en" lang="en">SEO and visibility</span><span data-l="nl" lang="nl">SEO en vindbaarheid</span> <span aria-hidden="true">→</span></a>
 						</li>
 									</ol>
 			</div>
@@ -1189,11 +1190,20 @@
 		<div class="footer-col">
 			<p class="label"><span data-l="en" lang="en">Services</span><span data-l="nl" lang="nl">Diensten</span></p>
 			<ul>
-									<li><a href="#diensten"><span data-l="en" lang="en">Website build</span><span data-l="nl" lang="nl">Website laten maken</span></a></li>
-									<li><a href="#diensten"><span data-l="en" lang="en">Online store</span><span data-l="nl" lang="nl">Webshop</span></a></li>
-									<li><a href="#diensten"><span data-l="en" lang="en">Maintenance and care</span><span data-l="nl" lang="nl">Onderhoud</span></a></li>
-									<li><a href="#diensten"><span data-l="en" lang="en">Visibility and growth</span><span data-l="nl" lang="nl">Vindbaarheid en groei</span></a></li>
+									<li><a href="website-laten-maken.html"><span data-l="en" lang="en">Website build</span><span data-l="nl" lang="nl">Website laten maken</span></a></li>
+									<li><a href="webshop-laten-maken.html"><span data-l="en" lang="en">Online store</span><span data-l="nl" lang="nl">Webshop</span></a></li>
+									<li><a href="website-onderhoud.html"><span data-l="en" lang="en">Maintenance and care</span><span data-l="nl" lang="nl">Onderhoud</span></a></li>
+									<li><a href="seo-vindbaarheid.html"><span data-l="en" lang="en">Visibility and growth</span><span data-l="nl" lang="nl">Vindbaarheid en groei</span></a></li>
 							</ul>
+		</div>
+		<div class="footer-col">
+			<p class="label"><span data-l="en" lang="en">Popular</span><span data-l="nl" lang="nl">Populair</span></p>
+			<ul>
+									<li><a href="wat-kost-een-website.html"><span data-l="en" lang="en">Guide · website prices</span><span data-l="nl" lang="nl">Gids · website kosten</span></a></li>
+									<li><a href="one-page-website-laten-maken.html"><span data-l="en" lang="en">One-page website</span><span data-l="nl" lang="nl">One page website</span></a></li>
+									<li><a href="website-met-online-boeken.html"><span data-l="en" lang="en">Booking websites</span><span data-l="nl" lang="nl">Online afspraken</span></a></li>
+								<li><a href="work.html"><span data-l="en" lang="en">All work</span><span data-l="nl" lang="nl">Al het werk</span></a></li>
+			</ul>
 		</div>
 	</div>
 	<div class="footer-bottom">
