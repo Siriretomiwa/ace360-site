@@ -1,0 +1,4 @@
+reels/*/out/frames/
+reels/*/out/still-*.jpg
+reels/*/out/*.wav
+reels/*/out/*-silent.mp4
