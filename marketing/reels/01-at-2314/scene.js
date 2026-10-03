@@ -35,6 +35,6 @@ window.REEL_SCENE = {
       if (local < 0.28 && t > 14) { g.save(); g.globalAlpha = b; g.fillStyle = K.OR; g.fillRect(40 + 1000 * (local / 0.28) - 4, 690, 8, 625); g.restore(); }
       g.save(); g.globalAlpha = b; K.text(s[2], 90, 1440, 54, K.CREAM, 700); g.restore();
     }
-    K.endCard(t, 17.1, 'Your website should work while you *sleep*.');
+    K.endCard(t, 17.1, 'Works while you *sleep*.');
   }
 };
