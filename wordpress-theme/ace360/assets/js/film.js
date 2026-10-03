@@ -979,6 +979,9 @@
   });
   window.ACE360_FILM = { setScreen: setScreen, measure: measure, storyAt: function (canvas, t) { storyCompose(canvas.getContext('2d'), t); },
     // freeze the rebuild at a point (0–1) for checking: ACE360_FILM.tryAt(0.6)
+    // paint any laptop / phone screen into a canvas (used by the marketing reels)
+    screenAt: function (canvas, key) { paintTo(canvas.getContext('2d'), key); },
+    phoneAt: function (canvas, key) { paintPhone(canvas.getContext('2d'), 360, 740, key); },
     tryAt: function (v) { if (window.gsap) window.gsap.killTweensOf(tryFx); sliceInto(screenC); tryFx.v = v; } };
 
   /* ---------- day / night ---------- */

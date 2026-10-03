@@ -1,0 +1,25 @@
+<!doctype html>
+<!-- Ace 360 reel page: page.html?scene=<folder> loads <folder>/scene.js and the shared toolkit. 1080×1920. -->
+<html lang="en" data-lang="en" data-theme="night">
+<head>
+<meta charset="utf-8">
+<title>Ace 360 reel</title>
+<style>
+@font-face{font-family:"Inter Variable";font-weight:100 900;src:url(../../wordpress-theme/ace360/assets/fonts/inter-latin-wght-normal.woff2) format("woff2-variations")}
+@font-face{font-family:"JetBrains Mono Variable";font-weight:100 800;src:url(../../wordpress-theme/ace360/assets/fonts/jetbrains-mono-latin-wght-normal.woff2) format("woff2-variations")}
+@font-face{font-family:"EB Garamond";font-style:italic;font-weight:400;src:url(../../wordpress-theme/ace360/assets/fonts/eb-garamond-latin-400-italic.woff2) format("woff2")}
+html,body{margin:0;background:#000}
+#reel{display:block;width:1080px;height:1920px}
+#stage{position:fixed;left:0;top:0;width:2px;height:2px;opacity:0}
+</style>
+</head>
+<body>
+<canvas id="reel" width="1080" height="1920"></canvas>
+<canvas id="stage"></canvas>
+<script>window.requestAnimationFrame = function () { return 0; };</script>
+<script src="../../wordpress-theme/ace360/assets/vendor/three.min.js"></script>
+<script src="../../wordpress-theme/ace360/assets/js/screens.js"></script>
+<script src="../../wordpress-theme/ace360/assets/js/film.js"></script>
+<script>document.write('<script src="' + new URLSearchParams(location.search).get('scene') + '/scene.js"><\/script><script src="common.js"><\/script>');</script>
+</body>
+</html>
