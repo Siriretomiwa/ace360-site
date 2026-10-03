@@ -1,52 +1,42 @@
-# Connect ElevenLabs so Claude adds the voiceover itself
+# Voiceover for Ace 360 Shorts
 
-Once this is set up, every Short is delivered with the voice already in it: Claude writes the script,
-renders the video, generates each line with your brand voice, places it on the right second, lowers
-the music under it and masters the result (`<short>-vo.mp4`).
+Claude adds the voiceover to every Short by itself: it writes the script, renders the video, generates each line,
+places it on the right second, lowers the music under the voice and masters to YouTube's loudness (-14 LUFS).
+Output: `marketing/reels/<short>/out/<short>-vo.mp4`.
 
-## One-time setup (about 5 minutes)
+## Default engine: Kokoro (free, no account, no key)
+- Open-source voice model (Apache 2.0 licence, commercial use allowed) that runs inside Claude's environment.
+- Nothing to set up on your side. `marketing/reels/setup-voice.sh` installs it automatically when needed (~350 MB).
+- Fast: a 48-second Short is voiced in about 20 seconds.
+- 28 English voices (American and British, female and male). Samples: `marketing/voice-samples/`.
 
-**1 · ElevenLabs account and API key**
-1. Sign in at elevenlabs.io (a paid plan is recommended for commercial use; check your plan's terms).
-2. Profile icon → **API Keys** → **Create API key**. Give it access to **Text to Speech** and **Voices (read)**,
-   plus **User (read)** so Claude can show your remaining credits. Copy the key.
+**Choose the brand voice:** listen to the samples and tell Claude the one you like (e.g. "use bm_george").
+It is saved in `marketing/reels/voice.json` → `kokoro.voice`, so every Short sounds the same.
+`speed` (0.8–1.2) sets the pace; `python3 marketing/reels/voiceover.py --voices` lists all voices.
 
-**2 · Give the key to Claude's cloud environment** (never paste it into the chat)
-1. In Claude Code, open the cloud environment menu in the session's title bar → **Edit**.
-2. Add an environment variable: name `ELEVENLABS_API_KEY`, value = your key.
-3. Optional: `ELEVENLABS_VOICE_ID` to override the voice in `reels/voice.json`.
+## Optional upgrade: ElevenLabs
+More expressive voices and voice cloning (your own voice), paid per character.
+1. **Find the API key:** sign in at elevenlabs.io → left sidebar, bottom: **Developers** (or your profile icon →
+   **API Keys**) → **Create API key**. Direct link: https://elevenlabs.io/app/settings/api-keys.
+   Permissions: Text to Speech, Voices (read), User (read). If the menu is missing, your plan may not include API access.
+2. **Give it to Claude's environment** (never paste it in the chat): cloud environment menu in the session's title bar →
+   **Edit** → environment variable `ELEVENLABS_API_KEY`.
+3. **Allow the domain:** same settings → **Network access** → **Custom** → add `api.elevenlabs.io`
+   (keep the default list). https://code.claude.com/docs/en/cloud-environments#network-access
+4. In `marketing/reels/voice.json` set `"engine": "elevenlabs"` (Claude can do this), start a new session, and ask
+   "Check the ElevenLabs connection" (`voiceover.py --check` shows plan and credits).
+Without a key Claude falls back to Kokoro automatically.
 
-**3 · Allow ElevenLabs on the network**
-In the same environment settings → **Network access** → **Custom** → add `api.elevenlabs.io` under
-Allowed domains (keep the default package-manager list). Docs: https://code.claude.com/docs/en/cloud-environments#network-access
-
-**4 · Start a new session** (settings apply to new sessions) and ask:
-"Check the ElevenLabs connection." Claude runs `python3 marketing/reels/voiceover.py --check`.
-
-## Choose the Ace 360 brand voice
-Ask Claude: "List my ElevenLabs voices and make samples of the best three." It runs `--voices`,
-renders the S01 hook in each, and you pick one. The choice is saved in `marketing/reels/voice.json`
-(`voice_id`, model and settings), so every Short sounds the same.
-
-## How each Short works after setup
-1. Claude writes `voiceover.txt` (timed lines) and `voiceover-paste.txt` (copy-paste version).
+## How each Short works
+1. Claude writes `voiceover.txt` (timed lines) and `voiceover-paste.txt` (copy-paste version with break tags).
 2. Every line is checked against the time its visual is on screen (~2.8 words/s).
-3. `node render.js <short>` renders the video and automatically runs `voiceover.py`.
-4. Lines are generated with the neighbouring sentences as context (smoother delivery) and cached:
-   to redo one line, delete e.g. `voiceover/03.mp3` and run it again; nothing else is paid for twice.
-5. Output: `<short>-vo.mp4` with voice, ducked music, -14 LUFS (YouTube's loudness).
+3. `node marketing/reels/render.js <short>` renders the video and voices it automatically (set `NO_VOICE=1` to skip).
+4. Generated lines are cached per voice; changing the voice regenerates them. To redo one line, delete e.g.
+   `voiceover/03.wav` and run `python3 marketing/reels/voiceover.py <short>`.
 
-**Pronunciation:** `voice.json` → `pronunciation` makes the voice say "Ace three-sixty",
+**Pronunciation** (both engines): `voice.json` → `pronunciation` makes the voice say "Ace three-sixty",
 "ace three-sixty services dot N L", "eye-deal", "S E O". Add words there; on-screen text is unaffected.
 
-**Cost control:** before generating, Claude reports the character count of the Short (S01 ≈ 600 characters).
-Re-runs reuse cached lines.
-
-## Without the API (works today)
-Paste `voiceover-paste.txt` into ElevenLabs (the `<break time="1.0s" />` tags keep the lines apart),
-download one MP3, and send it to Claude or put it in `marketing/reels/<short>/voiceover/full.mp3`.
-Claude cuts it at the pauses, places each line on its second and builds `<short>-vo.mp4`.
-
-## About the ElevenLabs connector in Claude's directory
-That connector manages ElevenLabs *voice agents* (phone and chat bots). It is not built for generating
-voiceover files, so the API route above is the right one for Shorts.
+## Your own recording (still supported)
+Paste `voiceover-paste.txt` into any voice tool or record yourself, then send Claude one MP3 (or put it in
+`marketing/reels/<short>/voiceover/full.mp3`). It is cut at the pauses and each line placed on its second.

@@ -9,8 +9,9 @@ Voice source, in this order:
      after pasting <reel>/voiceover-paste.txt. It is cut at its pauses (one per line break in the
      paste script) and every line is placed at its own time. Set OFFSET to use it as one take.
   2. <reel>/voiceover/01.mp3, 02.mp3 …        one recording per line, placed at that line's time.
-  3. ElevenLabs API, when ELEVENLABS_API_KEY is set. Brand voice, settings and a pronunciation
-     list live in voice.json (env ELEVENLABS_VOICE_ID / ELEVENLABS_MODEL override).
+  3. A generated voice: the free local Kokoro engine (default, setup-voice.sh) or the ElevenLabs API
+     (voice.json "engine": "elevenlabs" + ELEVENLABS_API_KEY). Brand voice, settings and a
+     pronunciation list live in voice.json (env VOICE_ENGINE, KOKORO_VOICE, ELEVENLABS_VOICE_ID override).
      Generated lines are cached in <reel>/voiceover/ so re-runs cost nothing; delete a line's
      file (e.g. voiceover/03.mp3) to regenerate only that line.
 
@@ -27,6 +28,33 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 API = 'https://api.elevenlabs.io'
 KEY = os.environ.get('ELEVENLABS_API_KEY', '')
 VOICE = json.load(open(os.path.join(HERE, 'voice.json'), encoding='utf-8'))
+VDIR = os.path.join(HERE, '.voice')
+ENGINE = os.environ.get('VOICE_ENGINE', VOICE.get('engine', 'kokoro'))
+if ENGINE == 'elevenlabs' and not KEY:
+    print('ElevenLabs selected but no ELEVENLABS_API_KEY: using the free Kokoro voice instead')
+    ENGINE = 'kokoro'
+_kokoro = None
+
+def kokoro_engine():
+    global _kokoro
+    if _kokoro is None:
+        if not os.path.exists(os.path.join(VDIR, 'kokoro-v1.0.onnx')):
+            subprocess.run([os.path.join(HERE, 'setup-voice.sh')], check=True)
+        sys.path.insert(0, os.path.join(VDIR, 'lib'))
+        from kokoro_onnx import Kokoro
+        _kokoro = Kokoro(os.path.join(VDIR, 'kokoro-v1.0.onnx'), os.path.join(VDIR, 'voices-v1.0.bin'))
+    return _kokoro
+
+def kokoro(text, path):
+    eng = kokoro_engine()
+    import soundfile as sf
+    k = VOICE['kokoro']
+    samples, sr = eng.create(say(text), voice=os.environ.get('KOKORO_VOICE', k['voice']), speed=k.get('speed', 1.0), lang=k.get('lang', 'en-us'))
+    sf.write(path, samples, sr)
+
+def voice_tag():
+    return 'elevenlabs:' + os.environ.get('ELEVENLABS_VOICE_ID', VOICE['elevenlabs']['voice_id']) if ENGINE == 'elevenlabs' else \
+        'kokoro:%s:%s' % (os.environ.get('KOKORO_VOICE', VOICE['kokoro']['voice']), VOICE['kokoro'].get('speed', 1.0))
 
 def say(text):
     """Apply the pronunciation list (brand names, URLs) to what the voice reads; on-screen text is unchanged."""
@@ -38,6 +66,15 @@ def api(path):
     req = urllib.request.Request(API + path, headers={'xi-api-key': KEY, 'Accept': 'application/json'})
     with urllib.request.urlopen(req, timeout=30) as r:
         return json.load(r)
+
+if len(sys.argv) > 1 and sys.argv[1] in ('--check', '--voices') and ENGINE == 'kokoro':
+    k = kokoro_engine()
+    if sys.argv[1] == '--voices':
+        names = sorted(k.get_voices())
+        print('Kokoro voices (a=American, b=British · f=female, m=male):'); print('  ' + '  '.join(n for n in names if n[:2] in ('af', 'am', 'bf', 'bm')))
+    else:
+        print('Kokoro ready (free, local) · brand voice:', VOICE['kokoro']['voice'], '· speed', VOICE['kokoro'].get('speed', 1.0))
+    sys.exit(0)
 
 if len(sys.argv) > 1 and sys.argv[1] in ('--check', '--voices'):
     if not KEY:
@@ -52,7 +89,7 @@ if len(sys.argv) > 1 and sys.argv[1] in ('--check', '--voices'):
             used, limit = sub.get('character_count', 0), sub.get('character_limit', 0)
             print('ElevenLabs connected · plan: %s · credits used %s of %s (left %s) · resets %s' % (
                 sub.get('tier'), used, limit, limit - used, sub.get('next_character_count_reset_unix')))
-            print('brand voice:', VOICE['voice_id'], '·', VOICE['model_id'])
+            print('brand voice:', VOICE['elevenlabs']['voice_id'], '·', VOICE['elevenlabs']['model_id'])
     except Exception as e:
         sys.exit('Could not reach ElevenLabs: %s (is api.elevenlabs.io allowed in the network settings?)' % e)
     sys.exit(0)
@@ -84,9 +121,10 @@ def find(stem):
     return None
 
 def eleven(text, prev, nxt, path):
-    body = json.dumps({'text': say(text), 'model_id': os.environ.get('ELEVENLABS_MODEL', VOICE['model_id']),
-                       'previous_text': say(prev), 'next_text': say(nxt), 'voice_settings': VOICE['voice_settings']}).encode()
-    req = urllib.request.Request(API + '/v1/text-to-speech/%s?output_format=mp3_44100_128' % os.environ.get('ELEVENLABS_VOICE_ID', VOICE['voice_id']),
+    E = VOICE['elevenlabs']
+    body = json.dumps({'text': say(text), 'model_id': os.environ.get('ELEVENLABS_MODEL', E['model_id']),
+                       'previous_text': say(prev), 'next_text': say(nxt), 'voice_settings': E['voice_settings']}).encode()
+    req = urllib.request.Request(API + '/v1/text-to-speech/%s?output_format=mp3_44100_128' % os.environ.get('ELEVENLABS_VOICE_ID', E['voice_id']),
                                  data=body, headers={'xi-api-key': KEY, 'Content-Type': 'application/json', 'Accept': 'audio/mpeg'})
     with urllib.request.urlopen(req, timeout=120) as r, open(path, 'wb') as f:
         f.write(r.read())
@@ -131,17 +169,26 @@ elif full:
     clips.append((float(os.environ.get('OFFSET', '0')), full, 1.0))
     print('using full recording as one take (could not find %d pauses)' % (len(lines) - 1))
 else:
-    if KEY and not all(find('%02d' % (i + 1)) for i in range(len(lines))):
+    # generated lines are cached per voice; a different voice regenerates them (your own recordings are kept)
+    tagf = os.path.join(vodir, '.generated-by')
+    if os.path.exists(tagf) and open(tagf).read().strip() != voice_tag():
+        for f in os.listdir(vodir):
+            if re.match(r'\d\d\.(mp3|wav)$', f):
+                os.remove(os.path.join(vodir, f))
+    if ENGINE == 'elevenlabs' and not all(find('%02d' % (i + 1)) for i in range(len(lines))):
         print('ElevenLabs: about %d characters for this Short' % sum(len(say(x)) for _, x in lines))
     for i, (t, text) in enumerate(lines):
         stem = '%02d' % (i + 1)
         p = find(stem)
         if not p:
-            if not KEY:
-                sys.exit('No recording for line %d and no ELEVENLABS_API_KEY. Add voiceover/full.mp3 or voiceover/%s.mp3.' % (i + 1, stem))
-            p = os.path.join(vodir, stem + '.mp3')
-            eleven(text, lines[i - 1][1] if i else '', lines[i + 1][1] if i + 1 < len(lines) else '', p)
-            print('generated line', i + 1)
+            if ENGINE == 'elevenlabs':
+                p = os.path.join(vodir, stem + '.mp3')
+                eleven(text, lines[i - 1][1] if i else '', lines[i + 1][1] if i + 1 < len(lines) else '', p)
+            else:
+                p = os.path.join(vodir, stem + '.wav')
+                kokoro(text, p)
+            open(tagf, 'w').write(voice_tag())
+            print('generated line %d (%s)' % (i + 1, voice_tag()))
         place(i, t, p)
 
 # place every clip on a silent track of the video's length

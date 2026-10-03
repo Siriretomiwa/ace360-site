@@ -50,8 +50,8 @@ Every Short folder (`marketing/reels/<short>/`) gets two script files:
 Then `python3 marketing/reels/voiceover.py <short>` builds `out/<short>-vo.mp4`:
 - a full recording dropped in `<short>/voiceover/full.mp3` is cut at its pauses and each line placed on its timestamp;
 - or one file per line (`voiceover/01.mp3`, `02.mp3`, …);
-- or, when `ELEVENLABS_API_KEY` (and optionally `ELEVENLABS_VOICE_ID`) is set and `api.elevenlabs.io` is allowed by the
-  environment's network policy, it generates the voice itself, line by line, and caches it.
+- otherwise it generates the voice itself: the free local **Kokoro** engine by default (`setup-voice.sh`), or ElevenLabs
+  when `voice.json` says `"engine": "elevenlabs"` and `ELEVENLABS_API_KEY` is set. Lines are cached per voice.
 Music is ducked under the voice and mastered to -14 LUFS. `render.js` runs this automatically after rendering
 when a script and a key (or recordings) exist. Brand voice, settings and pronunciation: `reels/voice.json`.
 Setup steps: `marketing/VOICEOVER-SETUP.md`. `voiceover.py --check` tests the connection, `--voices` lists voices. Scripts are written to ~2.8 words per second and checked against

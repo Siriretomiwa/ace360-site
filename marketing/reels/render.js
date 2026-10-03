@@ -30,9 +30,9 @@ const TYPES = { '.html': 'text/html', '.js': 'text/javascript', '.woff2': 'font/
     const cf = Math.round((cues.cover || 1.5) * fps);
     fs.copyFileSync(path.join(frames, String(cf).padStart(5, '0') + '.jpg'), path.join(out, name + '-cover.jpg'));
     console.log('done', name, dur + 's');
-    // a Short with a voiceover script gets its voice straight away (ElevenLabs key or recordings in <short>/voiceover/)
-    const script = path.join(dir, 'voiceover.txt'), recs = path.join(dir, 'voiceover');
-    if (fs.existsSync(script) && (process.env.ELEVENLABS_API_KEY || (fs.existsSync(recs) && fs.readdirSync(recs).some(f => /\.(mp3|wav|m4a)$/.test(f))))) {
+    // a Short with a voiceover script gets its voice straight away (voice.json: free local Kokoro voice, ElevenLabs, or recordings)
+    const script = path.join(dir, 'voiceover.txt');
+    if (fs.existsSync(script) && !process.env.NO_VOICE) {
       try { execFileSync('python3', [path.join(HERE, 'voiceover.py'), name], { stdio: 'inherit' }); }
       catch (e) { console.log('voiceover skipped:', e.message.split('\n')[0]); }
     }
