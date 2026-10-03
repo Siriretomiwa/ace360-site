@@ -7,3 +7,4 @@ journey-film/out/*.wav
 journey-film/out/*-silent.mp4
 journey-film/out/cues-*.json
 ace360-content-batch-01.zip
+reels/*/out/*-voiceover-bed.mp4

@@ -55,3 +55,4 @@ Teaches something · hook is immediate · 9:16 · meaningfully different from re
 | — | If I built a website for a bakery, Ep. 1 (reel 04) | If I built… | Palette/type, pre-orders, pickup, iDEAL |
 | — | From a napkin sketch to a live website (reel 05) | Build process | Brief → wireframe → design → live |
 | — | What a premium website is made of (reel 06) | Premium website | Design, speed, SEO, conversion overview |
+| S01 | Your homepage has 5 seconds to answer 3 questions | One-minute clinic | 5-second test: what you do, who it's for, what to do next (concept: Loop Fysio) |
