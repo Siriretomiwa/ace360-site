@@ -1,23 +1,70 @@
 <?php
 /**
- * Demo film: a 30-second, chaptered walkthrough of one project from first call to launch.
+ * Demo film: a 47-second, chaptered walkthrough of the whole journey, from finding
+ * Ace 360 on Google or social media to booking a call, the build, launch and care.
  * Drawn in HTML on a 1280×720 canvas and animated by assets/js/demo.js (GSAP timeline),
- * so it is scrubbable, chaptered and sharp at any size. Chapters match ace360_process().
+ * so it is scrubbable, chaptered and sharp at any size. Chapters: ace360_journey().
  *
  * @package ace360
  */
 
-$ace360_steps = ace360_process();
+$ace360_steps = ace360_journey();
 ?>
 <div class="demo" data-demo>
 	<div class="demo-frame">
 		<div class="demo-canvas" data-demo-canvas aria-hidden="true">
 
-			<div class="dm-chapter"><span class="dm-dot"></span><span data-demo-label>01 · First call · Day 1</span></div>
+			<div class="dm-chapter"><span class="dm-dot"></span><span data-demo-label>01 · Found · Google or socials</span></div>
 			<div class="dm-brand">Ace 360 <span>Services</span></div>
 
-			<!-- 1. First call -->
+			<!-- 1. Found: Google and a reel -->
 			<div class="dm-scene" data-scene="0">
+				<div class="dm-win dm-search">
+					<div class="dm-win-bar"><i></i><i></i><i></i><span>google.com</span></div>
+					<div class="s-bar"><svg viewBox="0 0 24 24" width="20" height="20"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M15.5 15.5L21 21" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><span class="s-q"><?php ace360_e( ace360_pair( 'web designer netherlands', 'website laten maken' ) ); ?></span></div>
+					<div class="s-res s-top">
+						<small>ace360services.nl</small>
+						<b>Ace 360 Services · <?php ace360_e( ace360_pair( 'Websites that earn', 'Websites die verdienen' ) ); ?></b>
+						<span class="s-stars">★★★★★ <em>5.0 · Google</em></span>
+						<p><?php ace360_e( ace360_pair( 'Websites, online stores and maintenance for businesses in the Netherlands and abroad.', 'Websites, webshops en onderhoud voor bedrijven in Nederland en daarbuiten.' ) ); ?></p>
+					</div>
+					<div class="s-res s-dim"><small></small><b></b><p></p></div>
+					<div class="s-res s-dim"><small></small><b></b><p></p></div>
+				</div>
+				<div class="dm-phone">
+					<div class="ph-reel">
+						<p class="ph-kicker"><i></i> Reels</p>
+						<p class="ph-big"><?php echo ace360_hl( ace360_pair( 'It’s 23:14. Your website is still *selling*.', 'Het is 23:14. Je website *verkoopt* nog.' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></p>
+						<svg class="ph-ring" viewBox="0 0 32 32"><circle cx="16" cy="16" r="12" fill="none" stroke="#ff6a00" stroke-width="2.6" stroke-dasharray="5.2 2.34" stroke-dashoffset="6.37"/><rect x="13" y="1.5" width="6" height="6" rx="1" fill="#ff6a00"/></svg>
+						<div class="ph-side"><span class="ph-heart">♥<small>2.4k</small></span><span>●●●<small>86</small></span><span>↗<small><?php ace360_e( ace360_pair( 'Share', 'Deel' ) ); ?></small></span></div>
+						<div class="ph-foot"><b>@ace360services</b><span class="ph-cta"><?php ace360_e( ace360_pair( 'Book a free call →', 'Plan een gratis gesprek →' ) ); ?></span></div>
+					</div>
+				</div>
+				<p class="dm-caption"><?php ace360_e( ace360_pair( 'Found on Google, Instagram, TikTok or YouTube', 'Gevonden via Google, Instagram, TikTok of YouTube' ) ); ?></p>
+			</div>
+
+			<!-- 2. Book a call -->
+			<div class="dm-scene" data-scene="1">
+				<div class="dm-win dm-book">
+					<div class="dm-win-bar"><i></i><i></i><i></i><span>ace360services.nl/#book</span></div>
+					<div class="bk-in">
+						<p class="bk-meta"><i></i><?php ace360_e( ace360_pair( 'Free · 20 min · no strings attached', 'Gratis · 20 min · vrijblijvend' ) ); ?></p>
+						<p class="bk-title"><?php echo ace360_hl( ace360_pair( 'Book a *free call*', 'Plan een *gratis gesprek*' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></p>
+						<div class="bk-days">
+							<?php foreach ( array( array( 'MON', 'MA', 5 ), array( 'TUE', 'DI', 6 ), array( 'WED', 'WO', 7 ), array( 'THU', 'DO', 8 ), array( 'FRI', 'VR', 9 ), array( 'SAT', 'ZA', 10 ) ) as $ace360_d_i => $ace360_d ) : ?>
+								<span class="bk-day<?php echo 1 === $ace360_d_i ? ' pick' : ''; ?>"><small><?php ace360_e( ace360_pair( $ace360_d[0], $ace360_d[1] ) ); ?></small><b><?php echo (int) $ace360_d[2]; ?></b></span>
+							<?php endforeach; ?>
+						</div>
+						<div class="bk-times"><span>15:30</span><span class="pick">16:00</span><span>17:30</span><span>18:00</span><span>18:30</span></div>
+						<span class="bk-btn"><?php ace360_e( ace360_pair( 'Confirm my call →', 'Bevestig mijn gesprek →' ) ); ?></span>
+					</div>
+					<div class="bk-done"><i>✓</i><b><?php ace360_e( ace360_pair( 'Your call is booked', 'Je gesprek staat vast' ) ); ?></b><span><?php ace360_e( ace360_pair( 'Tuesday 6 October · 16:00', 'Dinsdag 6 oktober · 16:00' ) ); ?></span></div>
+				</div>
+				<div class="dm-toast t3"><i>@</i><p><?php ace360_e( ace360_pair( 'Your call with Ace 360 Services', 'Je gesprek met Ace 360 Services' ) ); ?><small><?php ace360_e( ace360_pair( 'Tue 6 Oct, 16:00 · invite attached', 'di 6 okt, 16:00 · uitnodiging bijgevoegd' ) ); ?></small></p></div>
+			</div>
+
+			<!-- 3. First call -->
+			<div class="dm-scene" data-scene="2">
 				<div class="dm-call">
 					<div class="dm-av">A</div>
 					<p class="dm-call-name">Ace 360 Services</p>
@@ -34,8 +81,8 @@ $ace360_steps = ace360_process();
 				</div>
 			</div>
 
-			<!-- 2. Quote -->
-			<div class="dm-scene" data-scene="1">
+			<!-- 4. Quote -->
+			<div class="dm-scene" data-scene="3">
 				<div class="dm-quote">
 					<div class="dm-q-head"><b>Your quote</b><span>Q-2026-041 · valid 30 days</span></div>
 					<div class="dm-q-row"><span>Website, 6 pages</span><b>€1,290</b></div>
@@ -51,8 +98,8 @@ $ace360_steps = ace360_process();
 				</div>
 			</div>
 
-			<!-- 3. Design -->
-			<div class="dm-scene" data-scene="2">
+			<!-- 5. Design -->
+			<div class="dm-scene" data-scene="4">
 				<div class="dm-win dm-design">
 					<div class="dm-win-bar"><i></i><i></i><i></i><span>figma · homepage v2</span></div>
 					<div class="dm-wire">
@@ -71,8 +118,8 @@ $ace360_steps = ace360_process();
 				<div class="dm-rounds"><span>Round 1 ✓</span><span>Round 2 ✓</span></div>
 			</div>
 
-			<!-- 4. Build -->
-			<div class="dm-scene" data-scene="3">
+			<!-- 6. Build -->
+			<div class="dm-scene" data-scene="5">
 				<div class="dm-code">
 					<div class="dm-win-bar"><i></i><i></i><i></i><span>front-page.php</span></div>
 					<pre><span class="c1">&lt;section class="hero"&gt;</span>
@@ -97,8 +144,8 @@ $ace360_steps = ace360_process();
 				</div>
 			</div>
 
-			<!-- 5. Launch -->
-			<div class="dm-scene" data-scene="4">
+			<!-- 7. Launch -->
+			<div class="dm-scene" data-scene="6">
 				<div class="dm-win dm-live">
 					<div class="dm-win-bar"><i></i><i></i><i></i><span class="dm-url"><b class="lock">●</b> <span data-demo-url>staging.yourbrand.nl</span></span><em class="dm-live-pill">Live</em></div>
 					<div class="dm-build done">
@@ -119,6 +166,29 @@ $ace360_steps = ace360_process();
 				<div class="dm-toast t2"><i>✓</i><p>Handover done<small>Logins sent · walkthrough recorded</small></p></div>
 			</div>
 
+			<!-- 8. Care: hand-over or care plan -->
+			<div class="dm-scene" data-scene="7">
+				<p class="care-q"><?php ace360_e( ace360_pair( 'After launch, you choose', 'Na de lancering kies jij' ) ); ?></p>
+				<div class="care-opt o1">
+					<span><?php ace360_e( ace360_pair( 'Option A', 'Optie A' ) ); ?></span>
+					<b><?php ace360_e( ace360_pair( 'Hand-over', 'Overdracht' ) ); ?></b>
+					<p><?php ace360_e( ace360_pair( 'Logins, a recorded walkthrough and the domain in your name. You run it yourself.', 'Inloggegevens, een opgenomen rondleiding en het domein op jouw naam. Je beheert hem zelf.' ) ); ?></p>
+				</div>
+				<div class="care-opt o2">
+					<span><?php ace360_e( ace360_pair( 'Option B', 'Optie B' ) ); ?></span>
+					<b><?php ace360_e( ace360_pair( 'Care plan', 'Onderhoudsplan' ) ); ?></b>
+					<p><?php ace360_e( ace360_pair( 'Updates, daily backups, uptime watch and small changes, every month.', 'Updates, dagelijkse back-ups, uptime-bewaking en kleine aanpassingen, elke maand.' ) ); ?></p>
+				</div>
+				<div class="care-report">
+					<div class="cr-head"><b><?php ace360_e( ace360_pair( 'October care report', 'Onderhoudsrapport oktober' ) ); ?></b><span>yourbrand.nl</span></div>
+					<div class="cr-row"><span><?php ace360_e( ace360_pair( 'Updates installed', 'Updates geïnstalleerd' ) ); ?></span><b>14 ✓</b></div>
+					<div class="cr-row"><span><?php ace360_e( ace360_pair( 'Backups', 'Back-ups' ) ); ?></span><b><?php ace360_e( ace360_pair( 'Daily ✓', 'Dagelijks ✓' ) ); ?></b></div>
+					<div class="cr-row"><span>Uptime</span><b>99.98%</b></div>
+					<div class="cr-row"><span><?php ace360_e( ace360_pair( 'Speed score', 'Snelheidsscore' ) ); ?></span><b>98</b></div>
+					<div class="cr-req"><i>✓</i><p><?php ace360_e( ace360_pair( '“New menu prices”', '“Nieuwe menuprijzen”' ) ); ?><small><?php ace360_e( ace360_pair( 'Change request · done in 2 hours', 'Wijzigingsverzoek · klaar in 2 uur' ) ); ?></small></p></div>
+				</div>
+			</div>
+
 		</div>
 		<button class="demo-big-play" type="button" data-demo-bigplay><span class="screen-reader-text">Play</span><svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></button>
 	</div>
@@ -136,7 +206,7 @@ $ace360_steps = ace360_process();
 				</button>
 			<?php endforeach; ?>
 		</div>
-		<span class="demo-time tabular" data-demo-time>0:00 / 0:30</span>
+		<span class="demo-time tabular" data-demo-time>0:00 / 0:47</span>
 		<button class="demo-btn" type="button" data-demo-full aria-label="<?php esc_attr_e( 'Full screen', 'ace360' ); ?>"><svg viewBox="0 0 24 24" width="17" height="17"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
 	</div>
 	<noscript><p class="small"><?php ace360_e( ace360_pair( 'Turn on JavaScript to play the demo.', 'Zet JavaScript aan om de demo af te spelen.' ) ); ?></p></noscript>

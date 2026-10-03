@@ -109,6 +109,23 @@ function ace360_process() {
 	);
 }
 
+/**
+ * Chapters of the demo film: the whole journey, from finding Ace 360 to care
+ * after launch. The middle five are the process steps (ace360_process()).
+ * Each: short name for the chapter bar, when, and the process step it shows (or -1).
+ */
+function ace360_journey() {
+	return array(
+		array( ace360_pair( 'Found', 'Gevonden' ), ace360_pair( 'Google or socials', 'Google of socials' ) ),
+		array( ace360_pair( 'Book a call', 'Gesprek plannen' ), ace360_pair( 'One minute', 'Eén minuut' ) ),
+		array( ace360_pair( 'First call', 'Kennismaking' ), ace360_pair( 'Day 1', 'Dag 1' ) ),
+		array( ace360_pair( 'Quote', 'Offerte' ), ace360_pair( 'Within 2 days', 'Binnen 2 dagen' ) ),
+		array( ace360_pair( 'Design', 'Ontwerp' ), ace360_pair( 'Week 1', 'Week 1' ) ),
+		array( ace360_pair( 'Build', 'Bouw' ), ace360_pair( 'Week 2–3', 'Week 2–3' ) ),
+		array( ace360_pair( 'Launch', 'Lancering' ), ace360_pair( 'Launch day', 'Lanceerdag' ) ),
+		array( ace360_pair( 'Care', 'Onderhoud' ), ace360_pair( 'Every month', 'Elke maand' ) ),
+	);
+}
 
 /**
  * "Sound familiar?": what a business owner says about their current website.

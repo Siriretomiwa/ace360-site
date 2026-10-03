@@ -228,8 +228,8 @@ $ace360_screens = array( 'call', 'quote', 'design', 'build', 'live' );
 	<section class="ch demo-ch" id="demo" data-k="demo" data-screen="live">
 		<div class="wrap">
 			<div class="copy copy-demo">
-				<p class="kicker"><?php ace360_e( ace360_pair( 'The 30-second version', 'De versie van 30 seconden' ) ); ?></p>
-				<h2><?php echo ace360_hl( ace360_pair( 'From first call to *live*, start to finish', 'Van eerste gesprek tot *live*, van begin tot eind' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></h2>
+				<p class="kicker"><?php ace360_e( ace360_pair( 'The whole journey in under a minute', 'De hele route in minder dan een minuut' ) ); ?></p>
+				<h2><?php echo ace360_hl( ace360_pair( 'From finding us to *live*, and after', 'Van ons vinden tot *live*, en daarna' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></h2>
 				<?php get_template_part( 'template-parts/demo' ); ?>
 			</div>
 		</div>
