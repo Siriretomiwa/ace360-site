@@ -253,5 +253,5 @@ run('ffmpeg', '-v', 'error', '-y', '-i', music, '-i', vo, '-i', os.path.join(out
     '[1:a]aformat=channel_layouts=stereo,loudnorm=I=-16:TP=-2[v];[v]asplit[v1][v2];'
     '[0:a]aformat=channel_layouts=stereo,volume=0.32[m];[m][v1]sidechaincompress=threshold=0.02:ratio=10:attack=15:release=350[duck];'
     '[duck][v2]amix=inputs=2:normalize=0,loudnorm=I=-14:TP=-1.5:LRA=11[a]',
-    '-map', '2:v', '-map', '[a]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-shortest', final)
+    '-map', '2:v', '-map', '[a]', '-map_metadata', '2', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-shortest', final)
 print('done', os.path.relpath(final, HERE))

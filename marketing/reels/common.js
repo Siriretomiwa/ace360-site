@@ -127,7 +127,27 @@
     var photos = new Promise(function (res) { P.onPhotos(res); });
     return Promise.all([fonts, photos]).then(function () { return new Promise(function (r) { setTimeout(r, 300); }); });
   }
+  /* signature on every frame, so a reused clip still carries the brand:
+     a large faint ring turning behind the content (can't be cropped out) and a small ring + name in the top-right corner
+     (clear of the Shorts UI). A scene can switch the corner mark off for a moment with REEL_SCENE.markOff = [[from, to], …]. */
+  function signatureBack(t) {
+    g.save(); g.globalAlpha = 0.06; g.translate(W / 2, H * 0.47); g.rotate(t * 0.05);
+    g.strokeStyle = OR; g.lineWidth = 46; g.setLineDash([186, 84]);
+    g.beginPath(); g.arc(0, 0, 430, 0, Math.PI * 2); g.stroke(); g.setLineDash([]);
+    g.fillStyle = OR; rr(-34, -430 - 34, 68, 68, 10); g.fill();
+    g.restore();
+  }
+  function signatureCorner(t) {
+    var off = (S.markOff || []).some(function (r) { return t >= r[0] && t < r[1]; });
+    if (off) return;
+    g.save(); g.globalAlpha = 0.85;
+    var x = 1010, y = 172;
+    font(800, 28); g.textAlign = 'right'; g.textBaseline = 'alphabetic'; g.fillStyle = CREAM; g.fillText('ACE 360', x, y + 10);
+    var w = g.measureText('ACE 360').width;
+    g.restore();
+    g.save(); g.globalAlpha = 0.85; logoRing(x - w - 30, y, 17, 1, 5); g.restore();
+  }
   var S = window.REEL_SCENE;
-  window.REEL = { duration: S.duration, cues: S.cues, ready: ready, draw: function (t) { background(t); S.draw(t, K); g.globalAlpha = 1; },
+  window.REEL = { duration: S.duration, cues: S.cues, ready: ready, draw: function (t) { background(t); signatureBack(t); S.draw(t, K); g.globalAlpha = 1; signatureCorner(t); },
     frame: function (t, q) { this.draw(t); return cv.toDataURL('image/jpeg', q || 0.92); } };
 })();

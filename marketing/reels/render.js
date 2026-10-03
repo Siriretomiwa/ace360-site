@@ -4,6 +4,9 @@
 const { chromium } = require(process.env.PLAYWRIGHT || 'playwright');
 const fs = require('fs'), path = require('path'), http = require('http'), { execFileSync } = require('child_process');
 const HERE = __dirname, ROOT = path.resolve(HERE, '..', '..');
+// ownership written into every file (artist, copyright, comment)
+const SIGN = name => ['-metadata', 'title=' + name, '-metadata', 'artist=Ace 360 Services', '-metadata', 'copyright=© ' + new Date().getFullYear() + ' Ace 360 Services · ace360services.nl',
+  '-metadata', 'comment=Original video by Ace 360 Services (ace360services.nl). Reuse or re-upload without permission is not allowed.'];
 const TYPES = { '.html': 'text/html', '.js': 'text/javascript', '.woff2': 'font/woff2', '.jpg': 'image/jpeg', '.webp': 'image/webp', '.png': 'image/png' };
 (async () => {
   const name = path.basename(path.resolve(process.argv[2])), dir = path.join(HERE, name), out = path.join(dir, 'out');
@@ -24,7 +27,7 @@ const TYPES = { '.html': 'text/html', '.js': 'text/javascript', '.woff2': 'font/
     for (let i = 0; i < Math.round(dur * fps); i++) save(path.join(frames, String(i).padStart(5, '0') + '.jpg'), await page.evaluate(t => window.REEL.frame(t, 0.93), i / fps));
     cues.duration = dur; fs.writeFileSync(path.join(out, 'cues.json'), JSON.stringify(cues));
     execFileSync('python3', [path.join(HERE, 'sound.py'), path.join(out, 'cues.json'), path.join(out, 'sound.wav')]);
-    const v = ['-framerate', '30', '-i', path.join(frames, '%05d.jpg')], enc = ['-c:v', 'libx264', '-preset', 'slow', '-crf', '19', '-pix_fmt', 'yuv420p', '-profile:v', 'high', '-movflags', '+faststart'];
+    const v = ['-framerate', '30', '-i', path.join(frames, '%05d.jpg')], enc = [...SIGN(name), '-c:v', 'libx264', '-preset', 'slow', '-crf', '19', '-pix_fmt', 'yuv420p', '-profile:v', 'high', '-movflags', '+faststart'];
     execFileSync('ffmpeg', ['-v', 'error', '-y', ...v, '-i', path.join(out, 'sound.wav'), ...enc, '-c:a', 'aac', '-b:a', '192k', '-af', 'loudnorm=I=-14:TP=-1.5:LRA=11', '-shortest', path.join(out, name + '.mp4')]);
     execFileSync('ffmpeg', ['-v', 'error', '-y', ...v, ...enc, path.join(out, name + '-silent.mp4')]);
     const cf = Math.round((cues.cover || 1.5) * fps);

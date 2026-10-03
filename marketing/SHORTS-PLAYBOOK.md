@@ -10,6 +10,13 @@ Same look and quality as Before/After, Three Reasons, Bakery Ep. 1, Sketch to Li
 dark/black backgrounds · orange accent (#ff6a00 / #ff8a3d) · white type (Inter, EB Garamond italic accent word, JetBrains Mono labels) · smooth motion graphics · professional website mockups · modern UI animation · fast pacing · strong hooks · polished transitions.
 Production tooling: `marketing/reels/` (`common.js` toolkit, `render.js`, `sound.py`).
 
+## Signature (on every video, automatic)
+Added by `reels/common.js` to every frame, so a clip reused without its ending still carries the brand:
+- **Background ring:** the Ace 360 ring, large and faint (6 %), slowly turning behind the content in the middle of the frame. It can't be cropped out without losing the video.
+- **Corner mark:** small ring + "ACE 360" top-right (y ≈ 172), clear of the Shorts UI. Switch it off for a moment with `markOff: [[from, to]]` in a scene.
+- **File metadata:** artist "Ace 360 Services", copyright "© year Ace 360 Services · ace360services.nl", and a no-reuse comment (`render.js`, kept by `voiceover.py`).
+Keep it on. To claim a re-upload on YouTube, use Studio → Copyright → *Remove video* (or the Copyright Match Tool if the channel has it).
+
 ## Structure (default)
 | Time | Part | Rule |
 |---|---|---|
