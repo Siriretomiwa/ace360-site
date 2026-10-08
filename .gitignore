@@ -3,3 +3,5 @@ night-routine/build/
 blocky-ella/build/
 node_modules/
 __pycache__/
+roblox-channel/dist/*/*.wav
+roblox-channel/dist/*/*.mp4

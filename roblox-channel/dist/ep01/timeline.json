@@ -1,0 +1,1311 @@
+{
+ "title": "Maple Lane Stories, Ep. 1: The New Girl Who Never Talked",
+ "lead_in": 5.0,
+ "end": 153.04,
+ "steps": [
+  {
+   "t": 5.0,
+   "step": "card",
+   "args": [
+    "MAPLE LANE STORIES",
+    "Episode 1",
+    2.6
+   ]
+  },
+  {
+   "t": 7.6,
+   "step": "card",
+   "args": [
+    "The New Girl Who Never Talked",
+    "",
+    2.8
+   ]
+  },
+  {
+   "t": 10.4,
+   "step": "shot",
+   "args": [
+    [
+     0,
+     22,
+     50
+    ],
+    [
+     0,
+     5,
+     -8
+    ],
+    0
+   ]
+  },
+  {
+   "t": 10.4,
+   "step": "anim",
+   "args": [
+    "Sam",
+    "dance",
+    true
+   ]
+  },
+  {
+   "t": 10.4,
+   "step": "fade",
+   "args": [
+    "in",
+    1.2
+   ]
+  },
+  {
+   "t": 11.6,
+   "step": "wait",
+   "args": [
+    2.4
+   ]
+  },
+  {
+   "t": 14.0,
+   "step": "shot",
+   "args": [
+    [
+     38,
+     7,
+     33
+    ],
+    [
+     44,
+     4.5,
+     21
+    ],
+    0
+   ]
+  },
+  {
+   "t": 14.0,
+   "step": "walk",
+   "args": [
+    "Mia",
+    [
+     [
+      17.5,
+      0.4
+     ]
+    ],
+    6.4
+   ]
+  },
+  {
+   "t": 14.0,
+   "step": "shot",
+   "args": [
+    [
+     27,
+     7.5,
+     15
+    ],
+    [
+     18,
+     4,
+     1
+    ],
+    6.4
+   ]
+  },
+  {
+   "t": 14.0,
+   "step": "wait",
+   "args": [
+    3.0
+   ]
+  },
+  {
+   "t": 17.0,
+   "step": "shot",
+   "args": [
+    [
+     -14,
+     6,
+     15
+    ],
+    [
+     -14,
+     4.3,
+     3.6
+    ],
+    0
+   ]
+  },
+  {
+   "t": 17.0,
+   "step": "face",
+   "args": [
+    "Zoe",
+    25,
+    10
+   ]
+  },
+  {
+   "t": 17.0,
+   "step": "face",
+   "args": [
+    "Kai",
+    25,
+    10
+   ]
+  },
+  {
+   "t": 17.0,
+   "step": "say",
+   "args": [
+    "Zoe",
+    "Who's the new girl?",
+    2.54
+   ]
+  },
+  {
+   "t": 19.54,
+   "step": "say",
+   "args": [
+    "Kai",
+    "That's Mia. She hasn't said ONE word all day.",
+    3.98
+   ]
+  },
+  {
+   "t": 23.52,
+   "step": "say",
+   "args": [
+    "Zoe",
+    "Wow. Rude much?",
+    2.33
+   ]
+  },
+  {
+   "t": 25.85,
+   "step": "sit",
+   "args": [
+    "Mia",
+    "SeatMia"
+   ]
+  },
+  {
+   "t": 25.85,
+   "step": "prop",
+   "args": [
+    "Sketchbook",
+    true
+   ]
+  },
+  {
+   "t": 25.85,
+   "step": "shot",
+   "args": [
+    [
+     16,
+     6,
+     16
+    ],
+    [
+     16,
+     4.2,
+     2.6
+    ],
+    0
+   ]
+  },
+  {
+   "t": 25.85,
+   "step": "face",
+   "args": [
+    "Zoe",
+    -14,
+    4.8
+   ]
+  },
+  {
+   "t": 25.85,
+   "step": "face",
+   "args": [
+    "Kai",
+    -14,
+    4.8
+   ]
+  },
+  {
+   "t": 25.85,
+   "step": "wait",
+   "args": [
+    2.6
+   ]
+  },
+  {
+   "t": 28.45,
+   "step": "shot",
+   "args": [
+    [
+     -14,
+     6,
+     15
+    ],
+    [
+     -14,
+     4.3,
+     3.6
+    ],
+    0
+   ]
+  },
+  {
+   "t": 28.45,
+   "step": "say",
+   "args": [
+    "Jay",
+    "Rude? Or maybe she's just new.",
+    3.15
+   ]
+  },
+  {
+   "t": 31.6,
+   "step": "say",
+   "args": [
+    "Zoe",
+    "Whatever, Jay.",
+    2.27
+   ]
+  },
+  {
+   "t": 33.87,
+   "step": "shot",
+   "args": [
+    [
+     -6,
+     6.5,
+     17
+    ],
+    [
+     -12,
+     4,
+     4
+    ],
+    0
+   ]
+  },
+  {
+   "t": 33.87,
+   "step": "walk",
+   "args": [
+    "Jay",
+    [
+     [
+      16.8,
+      12.8
+     ]
+    ],
+    6.0
+   ]
+  },
+  {
+   "t": 33.87,
+   "step": "shot",
+   "args": [
+    [
+     8,
+     7,
+     21
+    ],
+    [
+     16,
+     4,
+     9
+    ],
+    5.6
+   ]
+  },
+  {
+   "t": 33.87,
+   "step": "wait",
+   "args": [
+    6.2
+   ]
+  },
+  {
+   "t": 40.07,
+   "step": "face",
+   "args": [
+    "Jay",
+    16,
+    2.4
+   ]
+  },
+  {
+   "t": 40.07,
+   "step": "shot",
+   "args": [
+    [
+     15,
+     6.2,
+     -1.2
+    ],
+    [
+     16.6,
+     4.8,
+     11.5
+    ],
+    0
+   ]
+  },
+  {
+   "t": 40.07,
+   "step": "say",
+   "args": [
+    "Jay",
+    "Hey... is this seat taken?",
+    2.93
+   ]
+  },
+  {
+   "t": 43.0,
+   "step": "say",
+   "args": [
+    "Mia",
+    "(shakes her head)",
+    2.44
+   ]
+  },
+  {
+   "t": 45.44,
+   "step": "sit",
+   "args": [
+    "Jay",
+    "SeatJay"
+   ]
+  },
+  {
+   "t": 45.44,
+   "step": "shot",
+   "args": [
+    [
+     17.4,
+     6.6,
+     13.2
+    ],
+    [
+     16,
+     4.6,
+     2.4
+    ],
+    0
+   ]
+  },
+  {
+   "t": 45.44,
+   "step": "say",
+   "args": [
+    "Jay",
+    "I'm Jay. Is that... a drawing?",
+    3.15
+   ]
+  },
+  {
+   "t": 48.59,
+   "step": "say",
+   "args": [
+    "Mia",
+    "(slides the sketchbook over)",
+    3.04
+   ]
+  },
+  {
+   "t": 51.63,
+   "step": "shot",
+   "args": [
+    [
+     16,
+     8.6,
+     5.6
+    ],
+    [
+     16,
+     3.6,
+     4.4
+    ],
+    1.2
+   ]
+  },
+  {
+   "t": 51.63,
+   "step": "wait",
+   "args": [
+    2.6
+   ]
+  },
+  {
+   "t": 54.23,
+   "step": "shot",
+   "args": [
+    [
+     17.4,
+     6.6,
+     13.2
+    ],
+    [
+     16,
+     4.6,
+     2.4
+    ],
+    0
+   ]
+  },
+  {
+   "t": 54.23,
+   "step": "say",
+   "args": [
+    "Jay",
+    "Whoa. You drew THIS? It's our school!",
+    3.54
+   ]
+  },
+  {
+   "t": 57.77,
+   "step": "walk",
+   "args": [
+    "Zoe",
+    [
+     [
+      22.6,
+      0.0
+     ],
+     [
+      22.6,
+      4.8
+     ]
+    ],
+    6.0
+   ]
+  },
+  {
+   "t": 57.77,
+   "step": "walk",
+   "args": [
+    "Kai",
+    [
+     [
+      23.8,
+      -0.8
+     ],
+     [
+      23.0,
+      7.8
+     ]
+    ],
+    6.4
+   ]
+  },
+  {
+   "t": 57.77,
+   "step": "shot",
+   "args": [
+    [
+     16.4,
+     5.3,
+     6.6
+    ],
+    [
+     16,
+     4.7,
+     2.4
+    ],
+    0
+   ]
+  },
+  {
+   "t": 57.77,
+   "step": "say",
+   "args": [
+    "Mia",
+    "(smiles for the first time today)",
+    3.31
+   ]
+  },
+  {
+   "t": 61.08,
+   "step": "wait",
+   "args": [
+    1.6
+   ]
+  },
+  {
+   "t": 62.68,
+   "step": "shot",
+   "args": [
+    [
+     8.4,
+     7.4,
+     6
+    ],
+    [
+     19.5,
+     4.4,
+     6
+    ],
+    0
+   ]
+  },
+  {
+   "t": 62.68,
+   "step": "wait",
+   "args": [
+    1.4
+   ]
+  },
+  {
+   "t": 64.08,
+   "step": "face",
+   "args": [
+    "Zoe",
+    16,
+    4
+   ]
+  },
+  {
+   "t": 64.08,
+   "step": "face",
+   "args": [
+    "Kai",
+    16,
+    7
+   ]
+  },
+  {
+   "t": 64.08,
+   "step": "say",
+   "args": [
+    "Zoe",
+    "Jay, why are you sitting with HER? She doesn't even talk.",
+    4.63
+   ]
+  },
+  {
+   "t": 68.71,
+   "step": "say",
+   "args": [
+    "Kai",
+    "Yeah... it's kinda weird.",
+    2.88
+   ]
+  },
+  {
+   "t": 71.59,
+   "step": "shot",
+   "args": [
+    [
+     17.4,
+     6.6,
+     13.2
+    ],
+    [
+     16,
+     4.6,
+     2.4
+    ],
+    0
+   ]
+  },
+  {
+   "t": 71.59,
+   "step": "say",
+   "args": [
+    "Jay",
+    "Maybe nobody ever gave her a reason to.",
+    3.65
+   ]
+  },
+  {
+   "t": 75.24,
+   "step": "shot",
+   "args": [
+    [
+     16.4,
+     5.3,
+     6.6
+    ],
+    [
+     16,
+     4.7,
+     2.4
+    ],
+    0
+   ]
+  },
+  {
+   "t": 75.24,
+   "step": "wait",
+   "args": [
+    1.4
+   ]
+  },
+  {
+   "t": 76.64,
+   "step": "shot",
+   "args": [
+    [
+     0,
+     10,
+     17
+    ],
+    [
+     0,
+     9.5,
+     -29
+    ],
+    6.0
+   ]
+  },
+  {
+   "t": 76.64,
+   "step": "announce",
+   "args": [
+    "PRINCIPAL GRANT",
+    "Reminder! The school mural contest closes TODAY. The winning design gets painted on the courtyard wall!",
+    6.0
+   ]
+  },
+  {
+   "t": 82.64,
+   "step": "shot",
+   "args": [
+    [
+     8.4,
+     7.4,
+     6
+    ],
+    [
+     19.5,
+     4.4,
+     6
+    ],
+    0
+   ]
+  },
+  {
+   "t": 82.64,
+   "step": "say",
+   "args": [
+    "Kai",
+    "Ha. Nobody ever enters that thing.",
+    3.37
+   ]
+  },
+  {
+   "t": 86.01,
+   "step": "shot",
+   "args": [
+    [
+     17.4,
+     6.6,
+     13.2
+    ],
+    [
+     16,
+     4.6,
+     2.4
+    ],
+    0
+   ]
+  },
+  {
+   "t": 86.01,
+   "step": "say",
+   "args": [
+    "Jay",
+    "Mia... you should enter.",
+    2.82
+   ]
+  },
+  {
+   "t": 88.83,
+   "step": "say",
+   "args": [
+    "Mia",
+    "(shakes her head)",
+    2.44
+   ]
+  },
+  {
+   "t": 91.27,
+   "step": "say",
+   "args": [
+    "Jay",
+    "Come on. What's the worst that could happen?",
+    3.92
+   ]
+  },
+  {
+   "t": 95.19,
+   "step": "shot",
+   "args": [
+    [
+     16,
+     8.6,
+     5.6
+    ],
+    [
+     16,
+     3.6,
+     4.4
+    ],
+    1.0
+   ]
+  },
+  {
+   "t": 95.19,
+   "step": "wait",
+   "args": [
+    2.2
+   ]
+  },
+  {
+   "t": 97.39,
+   "step": "fade",
+   "args": [
+    "out",
+    1.0
+   ]
+  },
+  {
+   "t": 98.39,
+   "step": "card",
+   "args": [
+    "LATER THAT DAY...",
+    "",
+    2.2
+   ]
+  },
+  {
+   "t": 100.59,
+   "step": "prop",
+   "args": [
+    "Sketchbook",
+    false
+   ]
+  },
+  {
+   "t": 100.59,
+   "step": "place",
+   "args": [
+    "Mia",
+    2,
+    -22,
+    0
+   ]
+  },
+  {
+   "t": 100.59,
+   "step": "place",
+   "args": [
+    "Jay",
+    5,
+    -21.5,
+    0
+   ]
+  },
+  {
+   "t": 100.59,
+   "step": "place",
+   "args": [
+    "Zoe",
+    -3,
+    -21,
+    0
+   ]
+  },
+  {
+   "t": 100.59,
+   "step": "place",
+   "args": [
+    "Kai",
+    -6,
+    -21.5,
+    0
+   ]
+  },
+  {
+   "t": 100.59,
+   "step": "place",
+   "args": [
+    "Sam",
+    9,
+    -20.5,
+    0
+   ]
+  },
+  {
+   "t": 100.59,
+   "step": "place",
+   "args": [
+    "Lily",
+    -10,
+    -20.5,
+    0
+   ]
+  },
+  {
+   "t": 100.59,
+   "step": "place",
+   "args": [
+    "Principal",
+    -11.5,
+    -26,
+    3.141592653589793
+   ]
+  },
+  {
+   "t": 100.59,
+   "step": "shot",
+   "args": [
+    [
+     0,
+     8.5,
+     -5
+    ],
+    [
+     0,
+     8.5,
+     -29
+    ],
+    0
+   ]
+  },
+  {
+   "t": 100.59,
+   "step": "fade",
+   "args": [
+    "in",
+    1.0
+   ]
+  },
+  {
+   "t": 101.59,
+   "step": "wait",
+   "args": [
+    1.0
+   ]
+  },
+  {
+   "t": 102.59,
+   "step": "shot",
+   "args": [
+    [
+     -7.5,
+     5.8,
+     -18
+    ],
+    [
+     -11,
+     4.6,
+     -26
+    ],
+    0
+   ]
+  },
+  {
+   "t": 102.59,
+   "step": "say",
+   "args": [
+    "Principal",
+    "Thank you all for waiting! This year we had exactly ONE entry...",
+    5.02
+   ]
+  },
+  {
+   "t": 107.61,
+   "step": "shot",
+   "args": [
+    [
+     0,
+     8.5,
+     -5
+    ],
+    [
+     0,
+     8.5,
+     -29
+    ],
+    0
+   ]
+  },
+  {
+   "t": 107.61,
+   "step": "say",
+   "args": [
+    "Kai",
+    "Told you. Nobody enters.",
+    2.82
+   ]
+  },
+  {
+   "t": 110.43,
+   "step": "shot",
+   "args": [
+    [
+     -7.5,
+     5.8,
+     -18
+    ],
+    [
+     -11,
+     4.6,
+     -26
+    ],
+    0
+   ]
+  },
+  {
+   "t": 110.43,
+   "step": "say",
+   "args": [
+    "Principal",
+    "...and it is INCREDIBLE. Please welcome our new mural artist... MIA!",
+    5.24
+   ]
+  },
+  {
+   "t": 115.67,
+   "step": "shot",
+   "args": [
+    [
+     0,
+     10,
+     17
+    ],
+    [
+     0,
+     9.5,
+     -29
+    ],
+    5.0
+   ]
+  },
+  {
+   "t": 115.67,
+   "step": "mural",
+   "args": []
+  },
+  {
+   "t": 115.67,
+   "step": "anim",
+   "args": [
+    "Jay",
+    "cheer",
+    true
+   ]
+  },
+  {
+   "t": 115.67,
+   "step": "anim",
+   "args": [
+    "Sam",
+    "cheer",
+    true
+   ]
+  },
+  {
+   "t": 115.67,
+   "step": "anim",
+   "args": [
+    "Lily",
+    "cheer",
+    true
+   ]
+  },
+  {
+   "t": 115.67,
+   "step": "wait",
+   "args": [
+    5.0
+   ]
+  },
+  {
+   "t": 120.67,
+   "step": "shot",
+   "args": [
+    [
+     1,
+     5.8,
+     -28
+    ],
+    [
+     0,
+     4.4,
+     -20.5
+    ],
+    0
+   ]
+  },
+  {
+   "t": 120.67,
+   "step": "say",
+   "args": [
+    "Jay",
+    "MIA! That's YOUR drawing!",
+    2.88
+   ]
+  },
+  {
+   "t": 123.55,
+   "step": "stop",
+   "args": [
+    "Jay"
+   ]
+  },
+  {
+   "t": 123.55,
+   "step": "walk",
+   "args": [
+    "Zoe",
+    [
+     [
+      0.4,
+      -22.4
+     ]
+    ],
+    1.4
+   ]
+  },
+  {
+   "t": 123.55,
+   "step": "wait",
+   "args": [
+    1.6
+   ]
+  },
+  {
+   "t": 125.15,
+   "step": "face",
+   "args": [
+    "Zoe",
+    2,
+    -22
+   ]
+  },
+  {
+   "t": 125.15,
+   "step": "face",
+   "args": [
+    "Mia",
+    0.4,
+    -22.4
+   ]
+  },
+  {
+   "t": 125.15,
+   "step": "say",
+   "args": [
+    "Zoe",
+    "Okay... that's actually amazing. Sorry I called you rude.",
+    4.63
+   ]
+  },
+  {
+   "t": 129.78,
+   "step": "shot",
+   "args": [
+    [
+     -0.8,
+     5.3,
+     -24.8
+    ],
+    [
+     2,
+     4.7,
+     -22
+    ],
+    0
+   ]
+  },
+  {
+   "t": 129.78,
+   "step": "wait",
+   "args": [
+    0.8
+   ]
+  },
+  {
+   "t": 130.58,
+   "step": "say",
+   "args": [
+    "Mia",
+    "Thanks. I'm not rude... I'm just really shy.",
+    3.92
+   ]
+  },
+  {
+   "t": 134.5,
+   "step": "shot",
+   "args": [
+    [
+     1,
+     5.8,
+     -28
+    ],
+    [
+     0,
+     4.4,
+     -20.5
+    ],
+    0
+   ]
+  },
+  {
+   "t": 134.5,
+   "step": "anim",
+   "args": [
+    "Kai",
+    "laugh",
+    false
+   ]
+  },
+  {
+   "t": 134.5,
+   "step": "say",
+   "args": [
+    "Kai",
+    "WAIT. SHE TALKS?!",
+    2.44
+   ]
+  },
+  {
+   "t": 136.94,
+   "step": "anim",
+   "args": [
+    "Sam",
+    "laugh",
+    false
+   ]
+  },
+  {
+   "t": 136.94,
+   "step": "anim",
+   "args": [
+    "Lily",
+    "laugh",
+    false
+   ]
+  },
+  {
+   "t": 136.94,
+   "step": "anim",
+   "args": [
+    "Jay",
+    "laugh",
+    false
+   ]
+  },
+  {
+   "t": 136.94,
+   "step": "wait",
+   "args": [
+    1.4
+   ]
+  },
+  {
+   "t": 138.34,
+   "step": "face",
+   "args": [
+    "Mia",
+    5,
+    -21.5
+   ]
+  },
+  {
+   "t": 138.34,
+   "step": "face",
+   "args": [
+    "Jay",
+    2,
+    -22
+   ]
+  },
+  {
+   "t": 138.34,
+   "step": "shot",
+   "args": [
+    [
+     3.5,
+     5.4,
+     -26.8
+    ],
+    [
+     3.5,
+     4.5,
+     -21.8
+    ],
+    0
+   ]
+  },
+  {
+   "t": 138.34,
+   "step": "say",
+   "args": [
+    "Jay",
+    "Same table tomorrow?",
+    2.6
+   ]
+  },
+  {
+   "t": 140.94,
+   "step": "say",
+   "args": [
+    "Mia",
+    "Same table tomorrow.",
+    2.6
+   ]
+  },
+  {
+   "t": 143.54,
+   "step": "anim",
+   "args": [
+    "Mia",
+    "wave",
+    false
+   ]
+  },
+  {
+   "t": 143.54,
+   "step": "wait",
+   "args": [
+    2.0
+   ]
+  },
+  {
+   "t": 145.54,
+   "step": "fade",
+   "args": [
+    "out",
+    1.5
+   ]
+  },
+  {
+   "t": 147.04,
+   "step": "card",
+   "args": [
+    "NEXT TIME",
+    "Mia's First Sleepover",
+    3.0
+   ]
+  },
+  {
+   "t": 150.04,
+   "step": "card",
+   "args": [
+    "SUBSCRIBE",
+    "for Episode 2 of Maple Lane Stories!",
+    3.0
+   ]
+  },
+  {
+   "t": 153.04,
+   "step": "end",
+   "args": []
+  }
+ ]
+}
